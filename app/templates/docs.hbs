@@ -1,0 +1,49 @@
+<h4>Terminology</h4>
+<p>To avoid confusion when reading the documentation, there is a short overview
+of the term used.</p>
+<dl class="dl-horizontal">
+  <dt>Content</dt>
+  <dd>Array of elements that have to be supplied and will be displayed in the dropdown list</dd>
+  <dt>Selection</dt>
+  <dd>Subset of Content containing the elements that were selected by the user</dd>
+</dl>
+
+<h3>Content</h3>
+<h4>Flat Content</h4>
+<p>The component's <code>content</code> property has to be set or bound to an Array (or subclass of Ember.Enumerable).<br/>Its elements are expected to have a specific set of properties each:</p>
+<dl class="dl-horizontal">
+  <dt>id</dt>
+  <dd>Mixed<br/>Used to internally identify an object and should be unique when coerced to a String</dd>
+  <dt>text</dt>
+  <dd>String | SafeString<br/>Can be a computed property. Text to be displayed in the dropdown menu. Escapes html entities by default except when already a Handlebars.SafeString.</dd>
+  <dt>description</dt>
+  <dd>String | SafeString<br/>Can be a computed property. Additional text to be displayed in the dropdown menu, visually less important. Will be omitted in the non-expanded view. Escapes html entities by default except when already a Handlebars.SafeString.</dd>
+  <dt>locked</dt>
+  <dd>Boolean<br/>Can be set to indicate that this item can not be removed from the selection once selected. <b>Note:</b> make sure to add the object to the <code>value</code> when setting this to true.</dd>
+</dl>
+<p>Additionally, content objects may contain any other properties, functions etc., they will be preserved in full object binding mode.</p>
+
+<h4>Nested Content</h4>
+<p>Simulating the <code>select > optgroup</code> behaviour, it is possible to supply a nested datasource containing category headers.<br/>For first level items in <code>content</code>:</p>
+<dl class="dl-horizontal">
+  <dt>id</dt>
+  <dd>Not necessary, header elements cannot be selected</dd>
+  <dt>children<dt>
+  <dd>Array<br/>Containing elements that conform to the <i>Flat Content</i> specification</dd>
+  <dt>description</dt>
+  <dd>Not displayed, instead, the text will be printed in bold.</dd>
+</dl>
+
+<h3>Selection</h3>
+<p>Selecting an option from the dropdown will update the component's <code>value</code> binding.</p>
+<h4>Full Object Binding</h4>
+<p>Full Object Binding is the default way of binding the component's selection and will be used, when <code>optionValuePath</code> is not set. It ensures strict equality between the object selected and the object from the provided content.</p>
+<p>Also, setting the external end of the binding will update the displayed selection of the component.</p>
+
+<h4>Value Binding</h4>
+<p>There are situations where it's more convenient to only bind one property of the whole content objects. This can be accieved by setting the <code>optionValuePath</code>, this path will then be used to <code>Ember.get()</code> the desired value which then is the selected value.</p>
+<p>This path will also be used to collect the complete objects when syncing the component with the external value, so it better be unique.</p>
+<p>In value binding mode, there is a special feature important when lazy-loading data:<br/>Imagine there is already a selection <code>value</code>, but the <code>content</code> array does not yet contain all selected elements. As long as the selection can not be fullfilled, user interaction on the component is disabled in order to prevent the user from accidentally destroying the selection.</p>
+
+<h3>Styling</h3>
+<p>select-2 does not interfere with the default styling of the Select2 Component and depends on the original stylesheet. It adds support for <a href="http://fk.github.io/select2-bootstrap-css/master.html">Twitter Bootstrap styling</a> by adding the class <code>.form-control</code> when the corresponding stylesheets are loaded.</p>

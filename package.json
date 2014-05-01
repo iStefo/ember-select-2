@@ -1,0 +1,27 @@
+{
+  "name": "select-2",
+  "APIMethod": "stub",
+  "version": "0.0.0",
+  "private": true,
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "start": "ember server",
+    "build": "ember build",
+    "test": "ember test"
+  },
+  "repository": "https://github.com/stefanpenner/ember-cli",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "ember-cli" : "0.0.25",
+    "originate": "0.1.5",
+    "broccoli-template": "0.1.1",
+    "loom-generators-ember-appkit": "^1.1.0"
+  }
+}

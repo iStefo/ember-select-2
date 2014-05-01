@@ -1,0 +1,16 @@
+<div class="jumbotron">
+	<h1 id='title'>select2 for ember.js</h1>
+	<p>The go-to component for rich dropdown menus that integrate nicely with Ember.js.</p>
+	{{#link-to "examples" class="btn btn-primary btn-lg"}}View the examples »{{/link-to}}
+</div>
+<h3>What is this?</h3>
+<p>This component wraps the wildly used <a href="http://ivaynberg.github.io/select2/" target="blank">Select2 jQuery Plugin</a> in an Ember.Component making it easy to use in your ember application.</p>
+
+<h3>Why is it good?</h3>
+<ul>
+	<li>It does not reinvent the wheel but leverages the power of the <a href="http://ivaynberg.github.io/select2/" target="blank">Select2 jQuery Plugin</a></li>
+	<li>It is a nice citizen in the Ember.js Town, supporting value bindings on <code>content</code> and <code>value</code> properties</li>
+	<li>It supports computed <code>text</code> and <code>description</code> properties on its option elements</li>
+	<li>It prevents XSS attacks in case the options contain user-supplied values, but enables html content when fed <code>Handlebars.SafeString</code>s</li>
+	<li>Source code is documented and extensively tested</li>
+</ul>

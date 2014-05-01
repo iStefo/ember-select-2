@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Select2</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{BASE_TAG}}
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.6/select2.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/default.min.css">
+    <link rel="stylesheet" href="assets/app.css">
+    <script src="assets/app.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+    <script src="//cdn.jsdelivr.net/select2/3.4.6/select2.js"></script>
+  </head>
+  <body>
+    <script>
+      window.ENV = {{ENV}};
+      window.App = require('select-2/app')['default'].create(ENV.APP);
+    </script>
+  </body>
+</html>

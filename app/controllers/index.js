@@ -1,0 +1,35 @@
+var IndexController = Ember.ArrayController.extend({
+  selectedItem: null,
+  selectedItems: null,
+  selectedItemId: "ho",
+  selectedItemIds: ["bla", "foo", "ho"],
+
+  contentChanged: function() {
+    console.log("Controller: selectedItemId changed");
+  }.observes("selectedItemId"),
+
+  actions: {
+    changeModel: function() {
+      this.pushObjects([{
+        id: "ho",
+        text: "Ho ho Item",
+        description: "I was added asynchronous"
+      }, {
+        id: "hey",
+        text: "Hey hey Item",
+        description: "I was added asynchronous, too"
+      }]);
+    },
+
+    selectItem: function(item) {
+      this.set("selectedItem", item);
+      this.set("selectedItemId", Ember.get(item, "id"));
+    },
+
+    setToNonexistingID: function() {
+      this.set("selectedItemId", "nonexisting");
+    }
+  }
+});
+
+export default IndexController;
