@@ -14,7 +14,7 @@ Packaging components for Ember.js is not a clearly solved task, so you may be be
 Using the `github` environment will set the correct rootUrl and basePath settings.
 
 ```
-ember-cli build --environment github
+ember build --environment github
 mv dist/tests dist/test
 cp -rf dist/* .
 rm -rf dist
