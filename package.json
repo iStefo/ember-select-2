@@ -1,7 +1,7 @@
 {
   "name": "select-2",
   "APIMethod": "stub",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "directories": {
     "doc": "doc",

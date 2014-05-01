@@ -25,5 +25,9 @@ module.exports = function(environment) {
 
   }
 
+  if (environment === 'github') {
+    ENV.baseURL = '/ember-select-2/';
+  }
+
   return ENV;
 };
