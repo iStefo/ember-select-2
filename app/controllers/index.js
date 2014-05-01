@@ -4,10 +4,6 @@ var IndexController = Ember.ArrayController.extend({
   selectedItemId: "ho",
   selectedItemIds: ["bla", "foo", "ho"],
 
-  contentChanged: function() {
-    console.log("Controller: selectedItemId changed");
-  }.observes("selectedItemId"),
-
   actions: {
     changeModel: function() {
       this.pushObjects([{
