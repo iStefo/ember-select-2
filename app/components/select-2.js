@@ -145,7 +145,7 @@ var Select2Component = Ember.Component.extend({
           var item = content[i];
           var matchIndex = values.indexOf("" + get(item, optionValuePath));
           if (matchIndex !== -1) {
-            filteredContent[matchIndex] = item;
+            filteredContent.push(item);
             // remove the found key from values array
             values.removeAt(matchIndex);
             unmatchedValues--;
