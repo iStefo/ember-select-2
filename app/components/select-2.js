@@ -21,10 +21,12 @@ var get = Ember.get;
 var Select2Component = Ember.Component.extend({
   tagName: "input",
   classNames: ["form-control"],
+  classNameBindings: ["inputSize"],
   attributeBindings: ["style"],
   style: "display: hidden;",
 
   // Bindings that may be overwritten in the template
+  inputSize: "input-md",
   optionValuePath: null,
   placeholder: null,
   multiple: false,
@@ -88,8 +90,26 @@ var Select2Component = Ember.Component.extend({
       var select2 = this;
 
       var filteredContent = self.get("content").reduce(function(results, item) {
+        // items may contain children, so filter them, too
+        var filteredChildren = [];
+
+        if (item.children) {
+          filteredChildren = item.children.reduce(function(children, child) {
+            if (select2.matcher(query.term, get(child, "text"))) {
+              children.push(child);
+            }
+            return children;
+          }, []);
+        }
+
+        // apply the regular matcher
         if (select2.matcher(query.term, get(item, "text"))) {
+          // keep this item either if itself matches
           results.push(item);
+        } else if (filteredChildren.length) {
+          // or it has children that matched the term
+          var result = $.extend({}, item, { children: filteredChildren });
+          results.push(result);
         }
         return results;
       }, []);
@@ -123,7 +143,6 @@ var Select2Component = Ember.Component.extend({
           optionValuePath = self.get("optionValuePath");
 
       if (!value || !value.length) {
-        //self._select.select2("readonly", false);
         return callback([]);
       }
 
@@ -132,22 +151,39 @@ var Select2Component = Ember.Component.extend({
       Ember.assert("select2#initSelection has been called without an \"" +
         "optionValuePath\" set.", optionValuePath);
 
-      if (multiple) {
-        var values = value.split(",");
+      var values = value.split(","),
+          filteredContent = [];
 
-        var filteredContent = [];
+      // for every object, check if its optionValuePath is in the selected
+      // values array and save it to the right position in filteredContent
+      var contentLength = content.length,
+          unmatchedValues = values.length,
+          matchIndex;
 
-        // for every object, check if its optionValuePath is in the selected
-        // values array and save it to the right position in filteredContent
-        var contentLength = content.length,
-            unmatchedValues = values.length;
-        for (var i = 0; i < contentLength; i++) {
-          var item = content[i];
-          var matchIndex = values.indexOf("" + get(item, optionValuePath));
+      // START loop over content
+      for (var i = 0; i < contentLength; i++) {
+        var item = content[i];
+        matchIndex = -1;
+
+        if (item.children && item.children.length) {
+          // take care of either nested data...
+          for (var c = 0; c < item.children.length; c++) {
+            var child = item.children[c];
+            matchIndex = values.indexOf("" + get(child, optionValuePath));
+            if (matchIndex !== -1) {
+              filteredContent[matchIndex] = child;
+              unmatchedValues--;
+            }
+            // break loop if all values are found
+            if (unmatchedValues === 0) {
+              break;
+            }
+          }
+        } else {
+          // ...or flat data structure: try to match simple item
+          matchIndex = values.indexOf("" + get(item, optionValuePath));
           if (matchIndex !== -1) {
             filteredContent[matchIndex] = item;
-            // remove the found key from values array
-            values.removeAt(matchIndex);
             unmatchedValues--;
           }
           // break loop if all values are found
@@ -155,44 +191,29 @@ var Select2Component = Ember.Component.extend({
             break;
           }
         }
+      }
+      // END loop over content
 
-        if (unmatchedValues === 0) {
-          self._select.select2('readonly', false);
+      if (unmatchedValues === 0) {
+        self._select.select2("readonly", false);
+      } else {
+        // disable the select2 element if there are keys left in the values
+        // array that were not matched to an object
+        self._select.select2("readonly", true);
 
-        } else {
-          // disable the select2 element if there are keys left in the values
-          // array that were not matched to an object
-          self._select.select2("readonly", true);
+        Ember.warn("select2#initSelection was not able to map each \"" +
+          optionValuePath +"\" to an object from \"content\". The remaining " +
+          "keys are: " + values + ". The input will be disabled until a) the " +
+          "desired objects is added to the \"content\" array or b) the " +
+          "\"value\" is changed.", !values.length);
+      }
 
-          // also, remove the holes that exist because there were values that
-          // could not have been matched
-          filteredContent.filter(function(item) { return item === undefined; });
-
-          Ember.warn("select2#initSelection was not able to map each \"" +
-            optionValuePath +"\" to an object from \"content\". The remaining " +
-            "keys are: " + values + ". The input will be disabled until a) the " +
-            "desired objects is added to the \"content\" array or b) the " +
-            "\"value\" is changed.", !values.length);
-        }        
-
+      if (multiple) {
+        // return all matched objects
         return callback(filteredContent);
       } else {
-        var selectedObject = content.find(function(item) {
-              // use getter and convert value to String because the object's
-              // value may be an Integer etc but the select2 value is a String
-              return ("" + get(item, optionValuePath) === value);
-            });
-
-        // disable the select2 element until it is possible to find an object for
-        // the requested optionValuePath value.
-        self._select.select2("readonly", !selectedObject);
-
-        Ember.warn("select2#initSelection has to find an object with value \"" +
-          value + "\" at path \"" + optionValuePath + "\", but did not! " +
-          "The input will be disabled until a) the desired objects is added to " +
-          "the \"content\" array or b) the \"value\" is changed.", selectedObject);
-
-        return callback(selectedObject);
+        // only care about the first match in single selection mode
+        return callback(filteredContent.get('firstObject'));
       }
     };
 
