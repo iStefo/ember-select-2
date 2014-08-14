@@ -298,7 +298,7 @@ var Select2Component = Ember.Component.extend({
    */
   contentChanged: Ember.observer(function() {
     this.valueChanged();
-  }, "content.@each")
+  }, "content.@each", "content.@each.text")
 });
 
 export default Select2Component;
