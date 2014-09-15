@@ -51,7 +51,9 @@ var Select2Component = Ember.Component.extend({
       include the description html if available).
      */
     options.formatResult = function(item) {
-      if (!item) return;
+      if (!item) {
+        return;
+      }
 
       var id = get(item, "id"),
           text = get(item, "text"),
@@ -73,7 +75,9 @@ var Select2Component = Ember.Component.extend({
       produces shorter output by leaving out the description.
      */
     options.formatSelection = function(item) {
-      if (!item) return;
+      if (!item) {
+        return;
+      }
 
       var text = get(item, "text");
 
@@ -108,7 +112,7 @@ var Select2Component = Ember.Component.extend({
           results.push(item);
         } else if (filteredChildren.length) {
           // or it has children that matched the term
-          var result = $.extend({}, item, { children: filteredChildren });
+          var result = Ember.$.extend({}, item, { children: filteredChildren });
           results.push(result);
         }
         return results;
