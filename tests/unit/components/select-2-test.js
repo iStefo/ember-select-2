@@ -150,6 +150,33 @@ test("it sets value to selected object in single selection mode", function() {
   });
 });
 
+test("it supports the allowClear option", function() {
+  expect(3);
+
+  component.set('placeholder', 'Select a value'); // placeholder is required for allowClear
+  component.set('allowClear', true);
+
+  this.append();
+
+  component.set('content', simpleContent);
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(3)', 'body');
+
+  andThen(function() {
+    strictEqual(component.get('value'), simpleContent[2], "selects correct item");
+    equal($('.select2-chosen').text(), simpleContent[2].text, "has correct text");
+
+    // Click the remove option x
+    click('.select2-search-choice-close:visible');
+
+    andThen(function() {
+      strictEqual(component.get('value'), null, "unselects the selected item");
+    });
+  });
+});
 
 test("it sets value to selected object's optionValuePath in single selection mode", function() {
   expect(4);

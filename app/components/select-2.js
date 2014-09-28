@@ -30,6 +30,7 @@ var Select2Component = Ember.Component.extend({
   optionValuePath: null,
   placeholder: null,
   multiple: false,
+  allowClear: false,
 
   didInsertElement: function() {
     var self = this,
@@ -41,6 +42,7 @@ var Select2Component = Ember.Component.extend({
     // setup
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
+    options.allowClear = this.get('allowClear');
 
     /*
       Formatting functions that ensure that the passed content is escaped in
