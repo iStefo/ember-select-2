@@ -44,6 +44,9 @@ var Select2Component = Ember.Component.extend({
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
 
+    // allowClear is only allowed with placeholder
+    Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
+
     /*
       Formatting functions that ensure that the passed content is escaped in
       order to prevent XSS vulnerabilities. Escaping can be avoided by passing
@@ -240,8 +243,11 @@ var Select2Component = Ember.Component.extend({
    * Teardown to prevent memory leaks
    */
   willDestroyElement: function() {
-    this._select.off("change");
-    this._select.select2("destroy");
+    // If an assertion caused the component not to render, we can't remove it from the dom.
+    if(this._select) {
+      this._select.off("change");
+      this._select.select2("destroy");
+    }
   },
 
   /**

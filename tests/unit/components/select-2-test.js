@@ -178,6 +178,19 @@ test("it supports the allowClear option", function() {
   });
 });
 
+test("it alerts if allowClear is set without a placeholder", function() {
+  expect(1);
+
+  component.set('placeholder', undefined);
+  component.set('allowClear', true);
+
+  try {
+    this.append();
+  } catch (e) {
+    equal(e.message, 'Assertion Failed: To use allowClear, you have to specify a placeholder', 'throws and error');
+  }
+});
+
 test("it sets value to selected object's optionValuePath in single selection mode", function() {
   expect(4);
 
