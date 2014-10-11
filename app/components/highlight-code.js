@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 var HighlightCodeComponent = Ember.Component.extend({
   tagName: "pre",
 

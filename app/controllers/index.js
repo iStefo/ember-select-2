@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 var IndexController = Ember.ArrayController.extend({
   selectedItem: null,
   selectedItems: null,

@@ -1,9 +1,17 @@
+/* jshint node: true */
+
 module.exports = function(environment) {
   var ENV = {
+    modulePrefix: 'select-2',
+    environment: environment,
     baseURL: '/',
-    FEATURES: {
-      // Here you can enable experimental features on an ember canary build
-      // e.g. 'with-controller': true
+    locationType: 'auto',
+    contentSecurityPolicyHeader: 'Disabled-Content-Security-Policy',
+    EmberENV: {
+      FEATURES: {
+        // Here you can enable experimental features on an ember canary build
+        // e.g. 'with-controller': true
+      }
     },
 
     APP: {
@@ -13,20 +21,32 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_RESOLVER = true;
     ENV.APP.LOG_ACTIVE_GENERATION = true;
-    ENV.APP.LOG_MODULE_RESOLVER = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
-  if (environment === 'production') {
+  if (environment === 'test') {
+    // Testem prefers this...
+    ENV.baseURL = '/';
+    ENV.locationType = 'auto';
 
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = '#ember-testing';
   }
 
   if (environment === 'github') {
     ENV.baseURL = '/ember-select-2/';
+    ENV.locationType = 'auto';
+  }
+
+  if (environment === 'production') {
+
   }
 
   return ENV;

@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 var ExamplesController = Ember.Controller.extend({
   favouritePizza: null,
   favouritePizzaId: Ember.computed.defaultTo('ham'),

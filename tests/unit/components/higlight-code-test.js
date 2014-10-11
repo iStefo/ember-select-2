@@ -1,3 +1,4 @@
+import Ember from "ember";
 import { test, moduleFor, moduleForComponent } from 'ember-qunit';
 
 moduleForComponent('highlight-code', 'HighlightCodeComponent', {

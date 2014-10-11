@@ -1,4 +1,5 @@
 /* globals andThen */
+import Ember from "ember";
 import { test, moduleFor, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 
@@ -91,7 +92,7 @@ test("it initializes select2 plugin", function() {
 
   ok(component.$().data('select2'), "has select2 data attribute");
 
-  ok(exists(".select2-container"), "inserts container into dom");
+  ok($(".select2-container").length, "inserts container into dom");
 });
 
 

@@ -7,21 +7,19 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{BASE_TAG}}
+    {{content-for 'head'}}
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.6/select2.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/default.min.css">
-    <link rel="stylesheet" href="assets/app.css">
-    <link rel="stylesheet" href="assets/qunit.css">
-
-    <script src="assets/qunit.js"></script>
-    <script src="assets/app.js"></script>
+    
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
-    <script src="//cdn.jsdelivr.net/select2/3.4.6/select2.js"></script>
     <!--script src="testem.js"></script-->
 
+    <link rel="stylesheet" href="assets/vendor.css">
+    <link rel="stylesheet" href="assets/select-2.css">
+    <link rel="stylesheet" href="assets/test-support.css">
     <style>
       body {
         padding: 20px;
@@ -45,10 +43,12 @@
   <body>
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
-    <script>
-      window.ENV = {{ENV}};
-      require('select-2/tests/test-helper');
-      require('select-2/tests/test-loader');
-    </script>
+
+    <script src="assets/vendor.js"></script>
+    <script src="assets/test-support.js"></script>
+    <script src="//cdn.jsdelivr.net/select2/3.5.1/select2.js"></script>
+    <script src="assets/select-2.js"></script>
+    <script src="testem.js"></script>
+    <script src="assets/test-loader.js"></script>
   </body>
 </html>

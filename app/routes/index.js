@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 var MyModel = Ember.Object.extend({
   name: null,
   id: null,
