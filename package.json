@@ -1,7 +1,6 @@
 {
-  "name": "select-2",
-  "version": "0.0.0",
-  "private": true,
+  "name": "ember-select-2",
+  "version": "1.0.0",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -29,5 +28,11 @@
     "ember-data": "1.0.0-beta.10",
     "express": "^4.8.5",
     "glob": "^4.0.5"
+  },
+  "keywords": [
+    "ember-addon"
+  ],
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
   }
 }

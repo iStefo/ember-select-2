@@ -1,5 +1,5 @@
 {
-  "name": "select-2",
+  "name": "ember-select-2",
   "dependencies": {
     "handlebars": "~1.3.0",
     "jquery": "^1.11.1",
@@ -13,5 +13,11 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.4",
     "qunit": "~1.15.0"
+  },
+  "devDependencies": {
+    "select2": "~3.5.1",
+    "bootstrap": "~3.2.0",
+    "select2-bootstrap": "~1.3.0",
+    "highlightjs": "~8.0.0"
   }
 }

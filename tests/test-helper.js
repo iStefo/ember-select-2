@@ -5,10 +5,6 @@ import {
 
 setResolver(resolver);
 
-function exists(selector) {
-  return !!document.getElementById("ember-testing").querySelector(selector);
-}
-
 document.write('<div id="ember-testing-container"><div id="ember-testing"></div></div>');
 
 QUnit.config.urlConfig.push({ id: 'nocontainer', label: 'Hide container'});
