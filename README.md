@@ -10,7 +10,7 @@ Since ember-cli 0.0.44 (or so...), there is a default way of installing addons. 
 
 ```sh
 # install addon from npm repository
-$ npm install ember-select-2
+$ npm install ember-select-2 --save
 # install dependencies
 $ ember g ember-select-2
 ```
