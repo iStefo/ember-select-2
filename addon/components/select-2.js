@@ -14,11 +14,12 @@ var get = Ember.get;
  *    - Mixed: when using select-2 with "optionValuePath=..."
  *    - Array of Mixed: when using select-2 with "multiple=true" and
  *      "optionValuePath=..."
- *      
+ *
  *  - Content: Array of Objects used to present to the user for choosing the
  *    selected values. "content" cannot be an Array of Strings, the Objects are
- *    expected to have an "id" and a "text" property, which can be computed
- *    properties or just plain JavaScript Objects.
+ *    expected to have an "id" and property to use as label by default
+ *    it is text or you can override it via optionLabelPath, the
+ *    previous properties can  be computed properties or just plain JavaScript Objects.
  */
 var Select2Component = Ember.Component.extend({
   tagName: "input",
@@ -30,13 +31,16 @@ var Select2Component = Ember.Component.extend({
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
   optionValuePath: null,
+  optionLabelPath: 'text',
   placeholder: null,
   multiple: false,
   allowClear: false,
 
   didInsertElement: function() {
     var self = this,
-        options = {};
+        options = {},
+        optionLabelPath = this.get('optionLabelPath');
+
 
     // ensure select2 is loaded
     Ember.assert("select2 has to exist on Ember.$.fn.select2", Ember.$.fn.select2);
@@ -48,6 +52,7 @@ var Select2Component = Ember.Component.extend({
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
+
 
     /*
       Formatting functions that ensure that the passed content is escaped in
@@ -63,13 +68,13 @@ var Select2Component = Ember.Component.extend({
       }
 
       var id = get(item, "id"),
-          text = get(item, "text"),
+          text = get(item, optionLabelPath),
           description = get(item, "description"),
           output = Ember.Handlebars.Utils.escapeExpression(text);
 
       // only for "real items" (no group headers) that have a description
       if (id && description) {
-        output += " <span class=\"text-muted\">" + 
+        output += " <span class=\"text-muted\">" +
           Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
       }
 
@@ -86,7 +91,7 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var text = get(item, "text");
+      var text = get(item, optionLabelPath);
 
       // escape text unless it's passed as a Handlebars.SafeString
       return Ember.Handlebars.Utils.escapeExpression(text);
@@ -95,7 +100,7 @@ var Select2Component = Ember.Component.extend({
     /*
       Provides a list of items that should be displayed for the current query
       term. Uses the default select2 matcher (which handles diacritics) with the
-      Ember compatible getter method for "text".
+      Ember compatible getter method for optionLabelPath.
      */
     options.query = function(query) {
       var select2 = this;
@@ -106,7 +111,7 @@ var Select2Component = Ember.Component.extend({
 
         if (item.children) {
           filteredChildren = item.children.reduce(function(children, child) {
-            if (select2.matcher(query.term, get(child, "text"))) {
+            if (select2.matcher(query.term, get(child, optionLabelPath))) {
               children.push(child);
             }
             return children;
@@ -114,7 +119,7 @@ var Select2Component = Ember.Component.extend({
         }
 
         // apply the regular matcher
-        if (select2.matcher(query.term, get(item, "text"))) {
+        if (select2.matcher(query.term, get(item, optionLabelPath))) {
           // keep this item either if itself matches
           results.push(item);
         } else if (filteredChildren.length) {
@@ -237,6 +242,10 @@ var Select2Component = Ember.Component.extend({
       self.selectionChanged(data);
     });
 
+    this.addObserver('content.[]', this.valueChanged);
+    this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
+    this.addObserver('value', this.valueChanged);
+
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
   },
@@ -250,13 +259,20 @@ var Select2Component = Ember.Component.extend({
       this._select.off("change");
       this._select.select2("destroy");
     }
+
+    this.removeObserver('content.[]', this.valueChanged);
+    this.removeObserver(
+      'content.@each.' + this.get('optionLabelPath'),
+      this.valueChanged
+    );
+    this.removeObserver('value', this.valueChanged);
   },
 
   /**
    * Respond to selection changes originating from the select2 element. If
    * select2 is working with full objects just use them to set the value,
    * use the optionValuePath otherwise.
-   * 
+   *
    * @param  {String|Object} data   Currently selected value
    */
   selectionChanged: function(data) {
@@ -286,7 +302,7 @@ var Select2Component = Ember.Component.extend({
    * use the "data" API, otherwise just set the "val" property and let the
    * "initSelection" figure out which object was meant by that.
    */
-  valueChanged: Ember.observer(function() {
+  valueChanged: function() {
     var value = this.get("value"),
         optionValuePath = this.get("optionValuePath");
 
@@ -298,7 +314,7 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
-  }, "value"),
+  },
 
   /**
    * Respond to changes on the content array and trigger data sync from external
@@ -310,9 +326,9 @@ var Select2Component = Ember.Component.extend({
    * valueChanged method prevents feedback loops by not triggering the select2
    * "change" event.
    */
-  contentChanged: Ember.observer(function() {
+  contentChanged: function() {
     this.valueChanged();
-  }, "content.@each", "content.@each.text")
+  }
 });
 
 export default Select2Component;
