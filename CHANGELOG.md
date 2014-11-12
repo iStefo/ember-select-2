@@ -1,5 +1,10 @@
 # ember-select-2 changelog
 
+### 1.1.0 (TBD)
+
+* #18 Allow to specify optionLabelPath instead of relying on text. (thanks, abuiles!)
+* #6 how do you use it with Ember-data ?. (thanks, Rodrigora!)
+
 ### 1.0.1 (Oktober 11, 2014)
 
 * Published to npm

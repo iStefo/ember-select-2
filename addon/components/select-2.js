@@ -36,10 +36,16 @@ var Select2Component = Ember.Component.extend({
   multiple: false,
   allowClear: false,
 
+  // internal state
+  _hasSelectedMissingItems: false,
+  _hasPendingContentPromise: Ember.computed.alias('content.isPending'),
+  _hasFailedContentPromise: Ember.computed.alias('content.isRejected'),
+
   didInsertElement: function() {
     var self = this,
         options = {},
-        optionLabelPath = this.get('optionLabelPath');
+        optionLabelPath = this.get('optionLabelPath'),
+        content = this.get('content');
 
 
     // ensure select2 is loaded
@@ -155,6 +161,7 @@ var Select2Component = Ember.Component.extend({
     options.initSelection = function(element, callback) {
       var value = element.val(),
           content = self.get("content"),
+          contentIsArrayProxy = Ember.ArrayProxy.detectInstance(content),
           multiple = self.get("multiple"),
           optionValuePath = self.get("optionValuePath");
 
@@ -167,18 +174,19 @@ var Select2Component = Ember.Component.extend({
       Ember.assert("select2#initSelection has been called without an \"" +
         "optionValuePath\" set.", optionValuePath);
 
+
       var values = value.split(","),
           filteredContent = [];
 
       // for every object, check if its optionValuePath is in the selected
       // values array and save it to the right position in filteredContent
-      var contentLength = content.length,
+      var contentLength = get(content, 'length'),
           unmatchedValues = values.length,
           matchIndex;
 
       // START loop over content
       for (var i = 0; i < contentLength; i++) {
-        var item = content[i];
+        var item = contentIsArrayProxy ? content.objectAt(i) : content[i];
         matchIndex = -1;
 
         if (item.children && item.children.length) {
@@ -211,11 +219,11 @@ var Select2Component = Ember.Component.extend({
       // END loop over content
 
       if (unmatchedValues === 0) {
-        self._select.select2("readonly", false);
+        self.set('_hasSelectedMissingItems', false);
       } else {
         // disable the select2 element if there are keys left in the values
         // array that were not matched to an object
-        self._select.select2("readonly", true);
+        self.set('_hasSelectedMissingItems', true);
 
         Ember.warn("select2#initSelection was not able to map each \"" +
           optionValuePath +"\" to an object from \"content\". The remaining " +
@@ -248,6 +256,17 @@ var Select2Component = Ember.Component.extend({
 
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
+
+    // eventually disable input when content is PromiseProxy
+    if (Ember.PromiseProxyMixin.detect(content)) {
+      this.watchDisabled();
+      // enabling/siabling is done via binding to _hasPendingContentPromise
+      // provide error for rejected promise, though.
+      content.then(null, function (reason) {
+        Ember.warn("select2: content promise was reject with reason " + reason +
+          ". Recovering from this is not (yet) implemented.");
+      });
+    }
   },
 
   /**
@@ -314,7 +333,23 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
-  }
+  },
+
+  /**
+   * Watch properties that determine the disabled state of the input.
+   */
+  watchDisabled: Ember.observer('_hasSelectedMissingItems', '_hasPendingContentPromise', '_hasFailedContentPromise', function() {
+    var select = this._select,
+        disabled = this.get('_hasSelectedMissingItems') ||
+          this.get('_hasPendingContentPromise') ||
+          this.get('_hasFailedContentPromise');
+
+    if (select) {
+      Ember.run(function() {
+        select.select2("readonly", disabled);
+      });
+    }
+  }),
 });
 
 export default Select2Component;
