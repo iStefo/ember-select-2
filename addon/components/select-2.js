@@ -17,9 +17,9 @@ var get = Ember.get;
  *
  *  - Content: Array of Objects used to present to the user for choosing the
  *    selected values. "content" cannot be an Array of Strings, the Objects are
- *    expected to have an "id" and property to use as label by default
- *    it is text or you can override it via optionLabelPath, the
- *    previous properties can  be computed properties or just plain JavaScript Objects.
+ *    expected to have an "id" and a property to be used as the label (by default,
+ *    it is "text", but it can be overwritten it via "optionLabelPath"). These 
+ *    properties can be computed properties or just plain JavaScript values.
  */
 var Select2Component = Ember.Component.extend({
   tagName: "input",
@@ -314,20 +314,6 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
-  },
-
-  /**
-   * Respond to changes on the content array and trigger data sync from external
-   * value to select2 value. This is needed when the external value points to an
-   * object which was not present in the content array until now (because of
-   * lazy loading), but which might be there now.
-   *
-   * Don't worry about triggering an update on the external value property, the
-   * valueChanged method prevents feedback loops by not triggering the select2
-   * "change" event.
-   */
-  contentChanged: function() {
-    this.valueChanged();
   }
 });
 
