@@ -35,6 +35,7 @@ var Select2Component = Ember.Component.extend({
   placeholder: null,
   multiple: false,
   allowClear: false,
+  enabled: true,
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -338,11 +339,12 @@ var Select2Component = Ember.Component.extend({
   /**
    * Watch properties that determine the disabled state of the input.
    */
-  watchDisabled: Ember.observer('_hasSelectedMissingItems', '_hasPendingContentPromise', '_hasFailedContentPromise', function() {
+  watchDisabled: Ember.observer('_hasSelectedMissingItems', '_hasPendingContentPromise', '_hasFailedContentPromise', 'enabled', function() {
     var select = this._select,
         disabled = this.get('_hasSelectedMissingItems') ||
           this.get('_hasPendingContentPromise') ||
-          this.get('_hasFailedContentPromise');
+          this.get('_hasFailedContentPromise') ||
+          !this.get('enabled');
 
     if (select) {
       Ember.run(function() {

@@ -4,6 +4,7 @@
 
 * #18 Allow to specify optionLabelPath instead of relying on text. (thanks, abuiles!)
 * #6 how do you use it with Ember-data ?. (thanks, Rodrigora!)
+* Added option to enable/disable input
 
 ### 1.0.1 (Oktober 11, 2014)
 

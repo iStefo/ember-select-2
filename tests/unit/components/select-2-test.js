@@ -560,6 +560,25 @@ test("it uses optionLabelPath", function() {
 });
 
 
+test("it is disabled when `enabled=false`", function() {
+  expect(3);
+
+  this.append();
+
+  component.set('content', simpleContent);
+
+  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+
+  component.set('enabled', false);
+
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  component.set('enabled', true);
+
+  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+});
+
+
 test("(ember-data) - displays items from DS.RecordArray", function() {
   expect(4);
 
