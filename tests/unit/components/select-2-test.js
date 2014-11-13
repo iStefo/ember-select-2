@@ -403,6 +403,46 @@ test("it is disabled when its selection contains values not in the content array
   ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
 });
 
+test("it is disabled when enabled = false is passed", function() {
+  expect(1);
+
+  this.append();
+
+  var content = [];
+
+  component.set('content', content);
+  component.set('enabled', false);
+  component.set('multiple', true);
+  component.set('optionValuePath', 'id');
+  component.set('value', ['bbq']);
+
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+});
+
+
+test("changing enabled state is observed", function() {
+  expect(3);
+
+  this.append();
+
+  var content = [];
+  content.pushObjects(additionalContent);
+
+  component.set('content', content);
+  component.set('enabled', false);
+  component.set('multiple', true);
+  component.set('optionValuePath', 'id');
+  component.set('value', ['bbq']);
+
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  component.set('enabled', true);
+  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+
+  component.set('enabled', false);
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+});
+
 
 /*
  * Nested Content
