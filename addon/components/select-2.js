@@ -245,6 +245,7 @@ var Select2Component = Ember.Component.extend({
     };
 
     this._select = this.$().select2(options);
+    this._select.select2('enable', this.get('enabled'));
 
     this._select.on("change", function() {
       // grab currently selected data from select plugin
@@ -257,6 +258,7 @@ var Select2Component = Ember.Component.extend({
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
+    this.addObserver('enabled', this.enabledChanged);
 
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
@@ -341,6 +343,13 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
+  },
+
+  /**
+   * Respond to external change of enabled state.
+   */
+  enabledChanged: function() {
+    this._select.select2('enable', this.get('enabled'));
   },
 
   /**
