@@ -1,28 +1,12 @@
+import resolver from './helpers/resolver';
+import {
+  setResolver
+} from 'ember-qunit';
+
+setResolver(resolver);
+
 document.write('<div id="ember-testing-container"><div id="ember-testing"></div></div>');
 
-Ember.testing = true;
-
-import resolver from './helpers/resolver';
-require('ember-qunit').setResolver(resolver);
-
-function exists(selector) {
-  return !!document.getElementById("ember-testing").querySelector(selector);
-}
-
-function getAssertionMessage(actual, expected, message) {
-  return message || QUnit.jsDump.parse(expected) + " expected but was " + QUnit.jsDump.parse(actual);
-}
-
-function equal(actual, expected, message) {
-  message = getAssertionMessage(actual, expected, message);
-  QUnit.equal.call(this, actual, expected, message);
-}
-
-function strictEqual(actual, expected, message) {
-  message = getAssertionMessage(actual, expected, message);
-  QUnit.strictEqual.call(this, actual, expected, message);
-}
-
-window.exists = exists;
-window.equal = equal;
-window.strictEqual = strictEqual;
+QUnit.config.urlConfig.push({ id: 'nocontainer', label: 'Hide container'});
+var containerVisibility = QUnit.urlParams.nocontainer ? 'hidden' : 'visible';
+document.getElementById('ember-testing-container').style.visibility = containerVisibility;

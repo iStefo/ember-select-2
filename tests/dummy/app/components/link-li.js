@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 var LinkLiComponent = Ember.Component.extend({
   tagName: 'li',
   classNameBindings: ['active'],

@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 var ExamplesController = Ember.Controller.extend({
   favouritePizza: null,
   favouritePizzaId: Ember.computed.defaultTo('ham'),
@@ -5,6 +7,7 @@ var ExamplesController = Ember.Controller.extend({
   favouritePizzaIds: null,
   preselectedPizzaIds: ["ham", "pep", "tex"],
   chosenIngredients: null,
+  enabled: true,
 
   pizzas: Ember.A([
     {
@@ -92,6 +95,10 @@ var ExamplesController = Ember.Controller.extend({
     loadMorePizzas: function() {
       this.pizzas.pushObjects(this.evenMorePizzas);
       this.evenMorePizzas = [];
+    },
+
+    toggleEnabled: function() {
+      this.toggleProperty('enabled');
     }
   }
 });

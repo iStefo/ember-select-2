@@ -1,0 +1,249 @@
+<h3>Single-Selection Dropdown</h3>
+<p>This mode works mostly like the default <code>\{{select}}</code> component which comes with ember.js right away. However, notice the nice styling and search field making it easy to find the right option.</p>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Selection with Full Object Binding</h4>
+    <p>You may choose your favourite pizza now! It will be remembered as <code>favouritePizza</code> on the controller.</p>
+    <div class="example-box">
+      <p>Your Pizza:<br/><b>Id</b>: {{favouritePizza.id}}<br/><b>Name</b>: {{favouritePizza.text}}<br/><b>Description</b>: {{favouritePizza.description}}</p>
+      {{select-2
+          content=pizzas
+          value=favouritePizza
+          placeholder="Choose your Pizza"
+          allow-clear=true
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    value=favouritePizza
+    placeholder="Choose your pizza"
+    allow-clear=true
+}}{{/highlight-code}}
+    <p>Full Object Binding ensures strict equality between the selected object and the object from the <code>content</code> array.</p>
+    <p>You can specify the <code>placeholder</code> option to display a placeholder.  By specifying the <code>allow-clear</code>
+    option, you determine whether or not a clear button is displayed when the select box has a selection.</p>
+  </div>
+
+  <div class="col-sm-6">
+    <h4>Selection with Value Binding</h4>
+    <p>Again, choose your pizza. This time though, only the ID will be set to the value binding.<p>
+    <div class="example-box">
+      <p>Your Pizza Id: {{favouritePizzaId}}</p>
+      {{select-2
+          content=pizzas
+          value=favouritePizzaId
+          optionValuePath="id"
+          placeholder="Choose your Pizza"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    value=favouritePizza
+    optionValuePath="id"
+    placeholder="Choose your Pizza"
+}}{{/highlight-code}}
+    <p>Using the <code>optionValuePath</code> option, you can set the select-2 component into "value mode".</p>
+    <p>You can specify any path that can be resolved for the input object (<code>"id"</code> is just a simple example) and its data type will be preserved.</p>
+  </div>
+</div>
+<hr/>
+
+<h3>Multiple-Selection Dropdown</h3>
+<p>Multiple Selections behave like tag inputs and provide a high level of comfort for selecting elements.</p>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Multiple Selection w/ Full Object Binding</h4>
+    <p>In case you are really hungry or order pizza for you and your friends (yeah, sure...), you can choose multiple objects which will be stored in the <code>favouritePizzas</code> Array.</p>
+    <div class="example-box">
+      <p>Your Pizzas are: {{favouritePizzas}}</p>
+      {{select-2
+          content=pizzas
+          value=favouritePizzas
+          multiple=true
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    value=favouritePizza
+    multiple=true
+    placeholder="Choose some Pizzas"
+}}{{/highlight-code}}
+    <p>As you can see, the full objects are stored on the controller.</p>
+  </div>
+
+  <div class="col-sm-6">
+    <h4>Multiple Selection w/ Value Binding</h4>
+    <p>Maybe you only need the pizza Ids. Specify a path in <code>optionValuePath</code> and your're good to go.</p>
+    <div class="example-box">
+      <p>Your Pizza Ids: {{favouritePizzaIds}}</p>
+      {{select-2
+          content=pizzas
+          value=favouritePizzaIds
+          multiple=true
+          optionValuePath="id"
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    value=favouritePizza
+    multiple=true
+    optionValuePath="id"
+    placeholder="Choose some Pizzas"
+}}{{/highlight-code}}
+  </div>
+</div>
+<hr/>
+
+<h3>Changing the Selection Value</h3>
+<p>Since Ember has nice two-way data bindings, you can of course change the selected element from outside the select-2 input and it will update accordingly. These examples work with single and multiple selection, but only single selection is shown here for siplicity.</p>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Full Object Binding</h4>
+    <p>Same example as above, but now you can manually set the selected Element from outside the input.</p>
+    <div class="example-box example-box-full">
+      <p>Set Selection to: {{#each pizzas}}<a {{action "selectPizza" this}}>{{text}}</a> {{/each}}</p>
+      {{select-2
+          content=pizzas
+          value=favouritePizza
+          placeholder="Choose your Pizza"
+      }}
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <h4>Value Binding</h4>
+    <p>Naturally, this works as well for the Value Binding method. Try values like "pep", "mar" or "haw"!</p>
+    <div class="example-box example-box-full">
+      {{input type="text" value=favouritePizzaId class="form-control"}}<br/>
+      {{select-2
+          content=pizzas
+          value=favouritePizzaId
+          optionValuePath="id"
+          placeholder="Choose your Pizza"
+      }}
+      </div>
+    <p>You will notice, that the dropdown gets locked when the entered ID does not match any of the objects available. This is a feature intended to prevent the destruction of the currently selected value when the options are yet to be loaded. (See the next example)</p>
+  </div>
+</div>
+<hr />
+
+<h3>Changing the Dropdown Content</h3>
+<p>The way Ember handles data is often asynchronous and the select-2 component can respond to changes in its <code>content</code> Array.</p>
+<p>The following example will simulate lazy-loaded objects that were preselected using the <code>value</code> Binding but not available until the new data is loaded. Because the objects were selected but not available for display, the select-2 input is disabled so one can't change the selection without first knowing what data actually is selected!</p>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Full Object Binding</h4>
+    <p>Changing the dropdown's content simply works as expected.</p>
+    <div class="example-box example-box-full">
+      <p><button class="btn btn-default" {{action "loadPizzas"}}>Load more Pizzas</button></p>
+      {{select-2
+          content=pizzas
+          value=favouritePizzas
+          multiple=true
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <h4>Value Binding</h4>
+    <p>As you can see below, there is an Array of selected pizzas which contains keys that are not yet loaded into the main pizza Array. As soon as you load more pizzas, the input will become editable.<p>
+    <div class="example-box example-box-full">
+      <p>Available: {{#each pizzas}}{{id}} {{/each}}<br/>Selected: {{preselectedPizzaIds}}</p>
+      <p><button class="btn btn-default" {{action "loadMorePizzas"}}>Load even more Pizzas</button></p>
+      {{select-2
+          content=pizzas
+          value=preselectedPizzaIds
+          multiple=true
+          optionValuePath="id"
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+  </div>
+</div>
+<hr/>
+
+<h3>Miscellaneous</h3>
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Hierarchical JSON</h4>
+    <p>select2 works out of the box when given hierarchical JSON as input. Notice the <code>children</code> attribute.</p>
+    <div class="example-box">
+      {{select-2
+          content=ingredients
+          value=selectedIngredients
+          multiple=true
+          placeholder="What would you like on your Pizza?"
+      }}
+    </div>
+    {{#highlight-code lang="json"}}[
+  {
+    text: "Vegetables",
+    children: [
+      {
+        id: "tom",
+        text: "Tomatoes"
+      }, {
+        id: "pin",
+        text: "Pineapples"
+      }
+    ]
+  }, {
+    text: "Meat",
+    children: [
+      {
+        id: "sal",
+        text: "Salami"
+      }, {
+        id: "ham",
+        text: "Ham"
+      }, {
+        id: "bac",
+        text: "Bacon"
+      }
+    ]
+  }
+]{{/highlight-code}}
+  </div>
+  <div class="col-sm-6">
+    <h4>Enabling/Disabling</h4>
+    <p>By binding the component's <code>enabled</code> value, supply a truthy value to enable or a falsy value to disable the input.</p>
+    <div class="example-box">
+      <p><button class="btn btn-default" {{action "toggleEnabled"}}>Toggle enabled</button> Enabled: {{enabled}}</p>
+      {{select-2
+          content=pizzas
+          enabled=enabled
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+        {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    enabled=enabled
+    placeholder="Choose some Pizzas"
+}}{{/highlight-code}}
+  </div>
+  <div class="col-sm-6">
+    <h4>Change Label Path</h4>
+    <p>While by default the items' <code>text</code> attribute is used for the text displayed, it can be customized by setting the components <code>optionLabelPath</code>.</p>
+    <p>The <code>optionDescriptionPath</code> can be changed to something different from the default (<code>description</code>), too.</p>
+    <div class="example-box">
+      {{select-2
+          content=pizzas
+          optionLabelPath="id"
+          optionDescriptionPath="text"
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+        {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    optionLabelPath="id"
+    optionDescriptionPath="text"
+    placeholder="Choose some Pizzas"
+}}{{/highlight-code}}
+  </div>
+</div>

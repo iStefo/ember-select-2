@@ -3,10 +3,17 @@ Ember.js Wrapper for the [jQuery Select2 Plugin](http://ivaynberg.github.io/sele
 
 For Demo & Docs, see the [Github Page](https://istefo.github.io/ember-select-2/) for this project.
 
-**Disclaimer:** This is a pretty early release, I have yet to integrate the component into my real-world projects. Still, there are [several test cases](http://istefo.github.io/ember-select-2/test/?module=Select2Component) using state-of-the art ember unit testing methods ;)
+**Disclaimer:** This is a pretty early release and there may be major bugs. Still, there are [several test cases](http://istefo.github.io/ember-select-2/test/?module=Select2Component) using state-of-the art ember unit testing methods ;)
 
 ## Including Select2 in your Project
-Packaging components for Ember.js is not a clearly solved task, so you may be better off simply copying the file from [`app/components/select-2.js`](https://github.com/iStefo/ember-select-2/blob/master/app/components/select-2.js). It will fit into every ember-cli or Ember App Kit project as-is.
+Since ember-cli 0.0.44 (or so...), there is a default way of installing addons. It's easy:
+
+```sh
+# install addon from npm repository
+$ npm install ember-select-2 --save-dev
+# install dependencies
+$ ember g ember-select-2
+```
 
 ## Contributing
 I would love to see some support when extending or bugfixing this component! Since I am quiet new to maintaining open source software, feel free to contact me so we can organize this better.
@@ -16,7 +23,7 @@ I would love to see some support when extending or bugfixing this component! Sin
 
 Using the `github` environment will set the correct rootUrl and basePath settings.
 
-```
+```sh
 ember build --environment github
 mv dist/tests dist/test
 cp -rf dist/* .

@@ -1,4 +1,6 @@
 /* globals andThen */
+import Ember from "ember";
+import DS from "ember-data";
 import { test, moduleFor, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 
@@ -29,7 +31,7 @@ var additionalContent = [
     text: "Barbecue"
   }
 ];
-var ingredients = [
+var categorizedIngredients = [
   {
     text: "Vegetables",
     children: [
@@ -57,6 +59,26 @@ var ingredients = [
     ]
   }
 ];
+var ingredients = [
+  {
+    id: 1,
+    name: 'Tomato',
+    subtext: 'first'
+  }, {
+    id: 2,
+    name: 'Peperoni',
+    subtext: 'second'
+  }, {
+    id: 3,
+    name: 'Ham',
+    subtext: 'third'
+  }, {
+    id: 4,
+    name: 'Chorizo',
+    subtext: 'fourth'
+  }
+];
+
 
 var App, component;
 moduleForComponent('select-2', 'Select2Component', {
@@ -91,7 +113,7 @@ test("it initializes select2 plugin", function() {
 
   ok(component.$().data('select2'), "has select2 data attribute");
 
-  ok(exists(".select2-container"), "inserts container into dom");
+  ok($(".select2-container").length, "inserts container into dom");
 });
 
 
@@ -150,6 +172,46 @@ test("it sets value to selected object in single selection mode", function() {
   });
 });
 
+test("it supports the allowClear option", function() {
+  expect(3);
+
+  component.set('placeholder', 'Select a value'); // placeholder is required for allowClear
+  component.set('allowClear', true);
+
+  this.append();
+
+  component.set('content', simpleContent);
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(3)', 'body');
+
+  andThen(function() {
+    strictEqual(component.get('value'), simpleContent[2], "selects correct item");
+    equal($('.select2-chosen').text(), simpleContent[2].text, "has correct text");
+
+    // Click the remove option x
+    click('.select2-search-choice-close:visible');
+
+    andThen(function() {
+      strictEqual(component.get('value'), null, "unselects the selected item");
+    });
+  });
+});
+
+test("it alerts if allowClear is set without a placeholder", function() {
+  expect(1);
+
+  component.set('placeholder', undefined);
+  component.set('allowClear', true);
+
+  try {
+    this.append();
+  } catch (e) {
+    equal(e.message, 'Assertion Failed: To use allowClear, you have to specify a placeholder', 'throws and error');
+  }
+});
 
 test("it sets value to selected object's optionValuePath in single selection mode", function() {
   expect(4);
@@ -335,7 +397,7 @@ test("it is disabled when its selection contains values not in the content array
   component.set('value', ['bbq']);
 
   ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
-  
+
   content.pushObjects(additionalContent);
 
   ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
@@ -350,7 +412,7 @@ test("(nested content) - it sets value to selected object in single selection mo
 
   this.append();
 
-  component.set('content', ingredients);
+  component.set('content', categorizedIngredients);
 
   // open options by clicking on the element
   click('.select2-choice');
@@ -358,16 +420,16 @@ test("(nested content) - it sets value to selected object in single selection mo
   click('.select2-results li:nth-child(2) ul li:nth-child(3)', 'body');
 
   andThen(function() {
-    strictEqual(component.get('value'), ingredients[1].children[2], "selects correct item");
-    equal($('.select2-chosen').text(), ingredients[1].children[2].text, "has correct text");
+    strictEqual(component.get('value'), categorizedIngredients[1].children[2], "selects correct item");
+    equal($('.select2-chosen').text(), categorizedIngredients[1].children[2].text, "has correct text");
 
     // select another option just to make sure
     click('.select2-choice');
     click('.select2-results li:nth-child(1) ul li:nth-child(1)', 'body');
 
     andThen(function() {
-      strictEqual(component.get('value'), ingredients[0].children[0], "selects correct item");
-      equal($('.select2-chosen').text(), ingredients[0].children[0].text, "has correct text");
+      strictEqual(component.get('value'), categorizedIngredients[0].children[0], "selects correct item");
+      equal($('.select2-chosen').text(), categorizedIngredients[0].children[0].text, "has correct text");
     });
   });
 });
@@ -378,7 +440,7 @@ test("(nested content) - it sets value to selected object's optionValuePath in s
 
   this.append();
 
-  component.set('content', ingredients);
+  component.set('content', categorizedIngredients);
   component.set('optionValuePath', 'id');
 
   // open options by clicking on the element
@@ -387,16 +449,16 @@ test("(nested content) - it sets value to selected object's optionValuePath in s
   click('.select2-results li:nth-child(2) ul li:nth-child(3)', 'body');
 
   andThen(function() {
-    strictEqual(component.get('value'), ingredients[1].children[2].id, "selects correct item");
-    equal($('.select2-chosen').text(), ingredients[1].children[2].text, "has correct text");
+    strictEqual(component.get('value'), categorizedIngredients[1].children[2].id, "selects correct item");
+    equal($('.select2-chosen').text(), categorizedIngredients[1].children[2].text, "has correct text");
 
     // select another option just to make sure
     click('.select2-choice');
     click('.select2-results li:nth-child(1) ul li:nth-child(1)', 'body');
 
     andThen(function() {
-      strictEqual(component.get('value'), ingredients[0].children[0].id, "selects correct item");
-      equal($('.select2-chosen').text(), ingredients[0].children[0].text, "has correct text");
+      strictEqual(component.get('value'), categorizedIngredients[0].children[0].id, "selects correct item");
+      equal($('.select2-chosen').text(), categorizedIngredients[0].children[0].text, "has correct text");
     });
   });
 });
@@ -409,7 +471,7 @@ test("(nested content) - it sets value to array of selected objects in multiple 
 
   this.append();
 
-  component.set('content', ingredients);
+  component.set('content', categorizedIngredients);
 
   equal($('.select2-choices').text().trim(), '', "has empty selection text on start");
 
@@ -418,23 +480,23 @@ test("(nested content) - it sets value to array of selected objects in multiple 
   click('.select2-results li:nth-child(2) ul li:nth-child(3)', 'body');
 
   andThen(function() {
-    deepEqual(component.get('value'), [ingredients[1].children[2]], "has correct value");
-    equal($('.select2-choices').text().replace(/ /g, ''), ingredients[1].children[2].text, "displays correct text");
+    deepEqual(component.get('value'), [categorizedIngredients[1].children[2]], "has correct value");
+    equal($('.select2-choices').text().replace(/ /g, ''), categorizedIngredients[1].children[2].text, "displays correct text");
 
     // select another item
     click('.select2-choices');
     click('.select2-results li:nth-child(1) ul li:nth-child(1)', 'body');
 
     andThen(function() {
-      deepEqual(component.get('value'), [ingredients[1].children[2], ingredients[0].children[0]], "has correct value");
-      equal($('.select2-choices').text().replace(/ /g, ''), ingredients[1].children[2].text + ingredients[0].children[0].text, "displays correct text");
+      deepEqual(component.get('value'), [categorizedIngredients[1].children[2], categorizedIngredients[0].children[0]], "has correct value");
+      equal($('.select2-choices').text().replace(/ /g, ''), categorizedIngredients[1].children[2].text + categorizedIngredients[0].children[0].text, "displays correct text");
 
       // remove the first item again
       click('.select2-search-choice:nth-child(1) .select2-search-choice-close');
 
       andThen(function() {
-        deepEqual(component.get('value'), [ingredients[0].children[0]], "has correct value");
-        equal($('.select2-choices').text().replace(/ /g, ''), ingredients[0].children[0].text, "displays correct text");
+        deepEqual(component.get('value'), [categorizedIngredients[0].children[0]], "has correct value");
+        equal($('.select2-choices').text().replace(/ /g, ''), categorizedIngredients[0].children[0].text, "displays correct text");
       });
     });
   });
@@ -448,7 +510,7 @@ test("(nested content) - it sets value to array of selected objects' optionValue
 
   this.append();
 
-  component.set('content', ingredients);
+  component.set('content', categorizedIngredients);
   component.set('optionValuePath', 'id');
 
   equal($('.select2-choices').text().trim(), '', "has empty selection text on start");
@@ -458,24 +520,192 @@ test("(nested content) - it sets value to array of selected objects' optionValue
   click('.select2-results li:nth-child(2) ul li:nth-child(3)', 'body');
 
   andThen(function() {
-    deepEqual(component.get('value'), [ingredients[1].children[2].id], "has correct value");
-    equal($('.select2-choices').text().replace(/ /g, ''), ingredients[1].children[2].text, "displays correct text");
+    deepEqual(component.get('value'), [categorizedIngredients[1].children[2].id], "has correct value");
+    equal($('.select2-choices').text().replace(/ /g, ''), categorizedIngredients[1].children[2].text, "displays correct text");
 
     // select another item
     click('.select2-choices');
     click('.select2-results li:nth-child(1) ul li:nth-child(1)', 'body');
 
     andThen(function() {
-      deepEqual(component.get('value'), [ingredients[1].children[2].id, ingredients[0].children[0].id], "has correct value");
-      equal($('.select2-choices').text().replace(/ /g, ''), ingredients[1].children[2].text + ingredients[0].children[0].text, "displays correct text");
+      deepEqual(component.get('value'), [categorizedIngredients[1].children[2].id, categorizedIngredients[0].children[0].id], "has correct value");
+      equal($('.select2-choices').text().replace(/ /g, ''), categorizedIngredients[1].children[2].text + categorizedIngredients[0].children[0].text, "displays correct text");
 
       // remove the first item again
       click('.select2-search-choice:nth-child(1) .select2-search-choice-close');
 
       andThen(function() {
-        deepEqual(component.get('value'), [ingredients[0].children[0].id], "has correct value");
-        equal($('.select2-choices').text().replace(/ /g, ''), ingredients[0].children[0].text, "displays correct text");
+        deepEqual(component.get('value'), [categorizedIngredients[0].children[0].id], "has correct value");
+        equal($('.select2-choices').text().replace(/ /g, ''), categorizedIngredients[0].children[0].text, "displays correct text");
       });
     });
+  });
+});
+
+
+test("it uses optionLabelPath", function() {
+  expect(2);
+  var component = this.subject({});
+
+  component.set('optionLabelPath', 'name');
+  component.set('content', ingredients);
+
+  this.append();
+
+  click('.select2-choice');
+  click('.select2-results li:nth-child(2)', 'body');
+
+  andThen(function() {
+    strictEqual(component.get('value'), ingredients[1], "selects correct item");
+    equal($('.select2-chosen').text(), ingredients[1].name, "has correct text");
+  });
+});
+
+
+test("it uses optionDescriptionPath", function() {
+  expect(1);
+
+  var component = this.subject({});
+
+  component.set('optionLabelPath', 'name');
+  component.set('optionDescriptionPath', 'subtext');
+  component.set('content', ingredients);
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    var expected = ingredients.map(function(ingredient) {
+      // jQuery .text() will have space between name and subtext, but thats ok
+      return ingredient.name + ' ' + ingredient.subtext;
+    }).join('');
+    equal($('.select2-results li').text(), expected, "display correct text");
+  });
+});
+
+test("it is disabled when `enabled=false`", function() {
+  expect(3);
+
+  this.append();
+
+  component.set('content', simpleContent);
+
+  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+
+  component.set('enabled', false);
+
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  component.set('enabled', true);
+
+  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+});
+
+
+test("(ember-data) - displays items from DS.RecordArray", function() {
+  expect(4);
+
+  this.append();
+
+  // warp content in DS.RecordArray
+  var simpleContentRecordArray = DS.RecordArray.create({
+    content: simpleContent
+  });
+
+  component.set('content', simpleContentRecordArray);
+  component.set('optionValuePath', 'id');
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(3)', 'body');
+
+  andThen(function() {
+    strictEqual(component.get('value'), simpleContent[2].id, "selects correct item");
+    equal($('.select2-chosen').text(), simpleContent[2].text, "has correct text");
+
+    // select another option just to make sure
+    click('.select2-choice');
+    click('.select2-results li:nth-child(1)', 'body');
+
+    andThen(function() {
+      strictEqual(component.get('value'), simpleContent[0].id, "selects correct item");
+      equal($('.select2-chosen').text(), simpleContent[0].text, "has correct text");
+    });
+  });
+});
+
+test("(ember-data) - displays items from DS.PromiseArray", function() {
+  expect(2);
+
+  this.append();
+
+  // warp content in DS.RecordArray
+  var simpleContentPromiseArray = DS.PromiseArray.create({
+    promise: Ember.RSVP.resolve(simpleContent)
+  });
+
+  component.set('content', simpleContentPromiseArray);
+
+  // wait until Promise is resolved
+  simpleContentPromiseArray.then(function() {
+    // open options by clicking on the element
+    click('.select2-choice');
+
+    andThen(function() {
+      equal($('.select2-results li').length, simpleContent.length, "has correct options length");
+      equal($('.select2-results li').text(), simpleContent.getEach('text').join(''), "display correct text");
+    });
+  });
+});
+
+test("(ember-data) - is disabled until DS.PromiseArray's promise is resolved", function() {
+  expect(2);
+
+  var deferred = Ember.Deferred.create();
+
+  // warp content in DS.RecordArray
+  var simpleContentPromiseArray = DS.PromiseArray.create({
+    promise: deferred
+  });
+
+  component.set('content', simpleContentPromiseArray);
+  
+  this.append();
+  
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  deferred.resolve(simpleContent);
+
+  // wait until Promise is resolved
+  simpleContentPromiseArray.then(function() {
+    ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+  });
+});
+
+test("(ember-data) - stays disabled after DS.PromiseArray's promise is rejected", function() {
+  expect(2);
+
+  var deferred = Ember.Deferred.create(),
+      errorText = "some error description";
+
+  // warp content in DS.RecordArray
+  var simpleContentPromiseArray = DS.PromiseArray.create({
+    promise: deferred
+  });
+
+  component.set('content', simpleContentPromiseArray);
+  
+  this.append();
+  
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  deferred.reject(new Error(errorText));
+
+  // wait until Promise is rejected
+  simpleContentPromiseArray.then(null, function() {
+    ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
   });
 });
