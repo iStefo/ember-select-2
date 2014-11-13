@@ -3,6 +3,7 @@
 ### 1.1.0 (TBD)
 
 * #18 Allow to specify optionLabelPath instead of relying on text. (thanks, abuiles!)
+* Added option to set custom optionDescriptionPath
 * #6 how do you use it with Ember-data ?. (thanks, Rodrigora!)
 * Added option to enable/disable input
 

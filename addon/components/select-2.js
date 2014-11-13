@@ -32,6 +32,7 @@ var Select2Component = Ember.Component.extend({
   inputSize: "input-md",
   optionValuePath: null,
   optionLabelPath: 'text',
+  optionDescriptionPath: 'description',
   placeholder: null,
   multiple: false,
   allowClear: false,
@@ -46,6 +47,7 @@ var Select2Component = Ember.Component.extend({
     var self = this,
         options = {},
         optionLabelPath = this.get('optionLabelPath'),
+        optionDescriptionPath = this.get('optionDescriptionPath'),
         content = this.get('content');
 
 
@@ -76,7 +78,7 @@ var Select2Component = Ember.Component.extend({
 
       var id = get(item, "id"),
           text = get(item, optionLabelPath),
-          description = get(item, "description"),
+          description = get(item, optionDescriptionPath),
           output = Ember.Handlebars.Utils.escapeExpression(text);
 
       // only for "real items" (no group headers) that have a description
@@ -253,6 +255,7 @@ var Select2Component = Ember.Component.extend({
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
+    this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
 
     // trigger initial data sync to set select2 to the external "value"
@@ -283,6 +286,10 @@ var Select2Component = Ember.Component.extend({
     this.removeObserver('content.[]', this.valueChanged);
     this.removeObserver(
       'content.@each.' + this.get('optionLabelPath'),
+      this.valueChanged
+    );
+    this.removeObserver(
+      'content.@each.' + this.get('optionDescriptionPath'),
       this.valueChanged
     );
     this.removeObserver('value', this.valueChanged);
