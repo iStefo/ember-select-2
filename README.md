@@ -1,4 +1,4 @@
-# ember-select-2
+# ember-select-2 [![Build Status](https://travis-ci.org/iStefo/ember-select-2.svg)](https://travis-ci.org/iStefo/ember-select-2)
 Ember.js Wrapper for the [jQuery Select2 Plugin](http://ivaynberg.github.io/select2/).
 
 For Demo & Docs, see the [Github Page](https://istefo.github.io/ember-select-2/) for this project.
