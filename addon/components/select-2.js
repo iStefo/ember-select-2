@@ -263,7 +263,6 @@ var Select2Component = Ember.Component.extend({
 
     // eventually disable input when content is PromiseProxy
     if (Ember.PromiseProxyMixin.detect(content)) {
-      this.watchDisabled();
       // enabling/siabling is done via binding to _hasPendingContentPromise
       // provide error for rejected promise, though.
       content.then(null, function (reason) {
@@ -271,6 +270,8 @@ var Select2Component = Ember.Component.extend({
           ". Recovering from this is not (yet) implemented.");
       });
     }
+    
+    this.watchDisabled();
   },
 
   /**
@@ -358,7 +359,7 @@ var Select2Component = Ember.Component.extend({
         select.select2("readonly", disabled);
       });
     }
-  }),
+  })
 });
 
 export default Select2Component;

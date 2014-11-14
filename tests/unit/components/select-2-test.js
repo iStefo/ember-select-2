@@ -585,6 +585,17 @@ test("it uses optionDescriptionPath", function() {
   });
 });
 
+test("it is disabled when `enabled=false` on creation", function() {
+  expect(1);
+
+  component.set('content', simpleContent);
+  component.set('enabled', false);
+
+  this.append();
+  
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+});
+
 test("it is disabled when `enabled=false`", function() {
   expect(3);
 
