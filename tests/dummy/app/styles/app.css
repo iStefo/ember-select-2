@@ -50,3 +50,12 @@ div.example-box + pre {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
+
+/* custom class example */
+.select2-container.custom-class .select2-choice {
+	background: lightcyan;
+}
+
+.select2-drop.custom-class {
+	background: lightcyan;
+}

@@ -44,6 +44,7 @@ moduleForComponent('select-2', 'Select2Component (customize)', {
   }
 });
 
+
 test("it uses optionLabelPath", function() {
   expect(2);
   var component = this.subject({});
@@ -84,4 +85,35 @@ test("it uses optionDescriptionPath", function() {
     }).join('');
     equal($('.select2-results li').text(), expected, "display correct text");
   });
+});
+
+
+test("it uses custom `cssClass` for container", function() {
+	expect(1);
+
+	var component = this.subject();
+
+	component.set('cssClass', 'customClass');
+
+	this.append();
+
+	ok($('.select2-container').hasClass('customClass'), "has class");
+});
+
+
+test("it uses custom `cssClass` for dropdown", function() {
+	expect(1);
+
+	var component = this.subject();
+
+	component.set('cssClass', 'customClass');
+	component.set('content', ingredients);
+
+	this.append();
+
+	click('.select2-choice');
+
+	andThen(function() {
+	  ok($('.select2-drop').hasClass('customClass'), "has class");
+	});
 });

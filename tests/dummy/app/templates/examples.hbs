@@ -168,6 +168,47 @@
 </div>
 <hr/>
 
+<h3>Customizing</h3>
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Change Label Value Path</h4>
+    <p>While by default the items' <code>text</code> attribute is used for the text displayed, it can be customized by setting the components <code>optionLabelPath</code>.</p>
+    <p>The <code>optionDescriptionPath</code> can be changed to something different from the default (<code>description</code>), too.</p>
+    <div class="example-box">
+      {{select-2
+          content=pizzas
+          optionLabelPath="id"
+          optionDescriptionPath="text"
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    optionLabelPath="id"
+    optionDescriptionPath="text"
+    placeholder="Choose some Pizzas"
+}}{{/highlight-code}}
+  </div>
+  <div class="col-sm-6">
+    <h4>Add Custom CSS Class</h4>
+    <p>When one select2 components needs special styles, set the <code>cssClass</code> binding to a string containing a single css class. It will be assigned to the <code>.select2-container</code>, which is the input in closed state, as well as to the <code>.select2-drop</code>, which is the dropdown menu.</p>
+    <p><b>Warning:</b> Don't get to fancy! These classes will not update when the binding updates, they have to be computable at the point of time the component is inserted.</p>
+    <div class="example-box">
+      {{select-2
+          content=pizzas
+          placeholder="Choose some Pizzas"
+          cssClass="custom-class"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    placeholder="Choose some Pizzas"
+    cssClass="custom-class"
+}}{{/highlight-code}}
+  </div>
+</div>
+<hr/>
+
 <h3>Miscellaneous</h3>
 <div class="row">
   <div class="col-sm-6">
@@ -193,21 +234,7 @@
         text: "Pineapples"
       }
     ]
-  }, {
-    text: "Meat",
-    children: [
-      {
-        id: "sal",
-        text: "Salami"
-      }, {
-        id: "ham",
-        text: "Ham"
-      }, {
-        id: "bac",
-        text: "Bacon"
-      }
-    ]
-  }
+  }, { ... }
 ]{{/highlight-code}}
   </div>
   <div class="col-sm-6">
@@ -224,25 +251,6 @@
         {{#highlight-code lang=".hbs"}}\{{select-2
     content=pizzas
     enabled=enabled
-    placeholder="Choose some Pizzas"
-}}{{/highlight-code}}
-  </div>
-  <div class="col-sm-6">
-    <h4>Change Label Path</h4>
-    <p>While by default the items' <code>text</code> attribute is used for the text displayed, it can be customized by setting the components <code>optionLabelPath</code>.</p>
-    <p>The <code>optionDescriptionPath</code> can be changed to something different from the default (<code>description</code>), too.</p>
-    <div class="example-box">
-      {{select-2
-          content=pizzas
-          optionLabelPath="id"
-          optionDescriptionPath="text"
-          placeholder="Choose some Pizzas"
-      }}
-    </div>
-        {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    optionLabelPath="id"
-    optionDescriptionPath="text"
     placeholder="Choose some Pizzas"
 }}{{/highlight-code}}
   </div>

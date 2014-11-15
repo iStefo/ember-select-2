@@ -30,6 +30,7 @@ var Select2Component = Ember.Component.extend({
 
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
+  cssClass: null,
   optionValuePath: null,
   optionLabelPath: 'text',
   optionDescriptionPath: 'description',
@@ -242,6 +243,14 @@ var Select2Component = Ember.Component.extend({
         // only care about the first match in single selection mode
         return callback(filteredContent.get('firstObject'));
       }
+    };
+
+    /*
+      Forward a custom css class to the components container and dropdown.
+      The value will be read from the `cssClass` binding
+     */
+    options.containerCssClass = options.dropdownCssClass = function() {
+      return self.get('cssClass') || '';
     };
 
     this._select = this.$().select2(options);
