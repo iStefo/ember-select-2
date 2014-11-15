@@ -19,6 +19,7 @@ var app = new EmberAddon();
 
 // dependency for the highlight-code component
 app.import('bower_components/highlightjs/highlight.pack.js');
+app.import('bower_components/boxuk/index.css');
 
 // this is just to override the default select2 css to look better with bootstrap
 app.import('bower_components/bootstrap/dist/css/bootstrap.css');

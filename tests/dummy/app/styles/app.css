@@ -59,3 +59,11 @@ div.example-box + pre {
 .select2-drop.custom-class {
 	background: lightcyan;
 }
+
+.hljs {
+	background-color: #f5f5f5;
+}
+
+code {
+	color: #017c9d;
+}
