@@ -209,6 +209,47 @@
 </div>
 <hr/>
 
+<h3>Typeahead & Ajax Queries</h3>
+<p>Image you sell so many pizzas that you don't want to send all of them to the client. Instead, there is a protocoll that lets the neares controller figure out which options to show for a given search term, asynchronously.</p>
+<p>Typeahead is currently only possible for Full Object Binding, because when using an <code>optionValuePath</code>, there is no API to retrieve the full object from the controller.</p>
+<div class="row">
+  <div class="col-sm-6">
+    <h4>The Component</h4>
+    <div class="example-box">
+      <p>Specify the name of your controller's callback in the <code>query</code> option.</p>
+      <p>You can use single or multiple selection.</p>
+      <p>Type in "empty" to see the result for an empty query or "error" for a rejected query.</p>
+      {{select-2
+          placeholder="Choose from our many pizzas"
+          value=chosenTypeaheadPizza
+          multiple=true
+          query="queryPizzas"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    placeholder="Choose from our many pizzas"
+    value=chosenTypeaheadPizza
+    mutliple=true
+    query="queryPizzas"
+}}{{/highlight-code}}
+  </div>
+  <div class="col-sm-6">
+    <h4>The Controller</h4>
+    <div class="example-box">
+      <p>The action specified in the component will be called every time the query changes.</p>
+      <p>Make sure to not call <code>query.callback</code> directly but always use the provided deferred!</p>
+    </div>
+    {{#highlight-code lang=".js"}}Ember.Controller.extend({
+  actions: {
+    queryPizzas: function(query, deferred) {
+      this.store.find('myModel', { name: query.term })
+        .then(deferred.resolve, deferred.reject);
+    }
+  }
+});{{/highlight-code}}
+  </div>
+</div>
+
 <h3>Miscellaneous</h3>
 <div class="row">
   <div class="col-sm-6">

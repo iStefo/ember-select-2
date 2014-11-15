@@ -7,6 +7,7 @@ var ExamplesController = Ember.Controller.extend({
   favouritePizzaIds: null,
   preselectedPizzaIds: ["ham", "pep", "tex"],
   chosenIngredients: null,
+  chosenTypeaheadPizza: null,
   enabled: true,
 
   pizzas: Ember.A([
@@ -99,6 +100,29 @@ var ExamplesController = Ember.Controller.extend({
 
     toggleEnabled: function() {
       this.toggleProperty('enabled');
+    },
+
+    queryPizzas: function(query, deferred) {
+      setTimeout(function() {
+        var data = [];
+        switch(query.term) {
+          case 'error':
+            deferred.reject();
+            break;
+          case 'empty':
+            deferred.resolve(data);
+            break;
+          default:
+            for (var i = 0; i < 10; i++) {
+              data.push({
+                id: query.term + '_' + i,
+                text: 'Pizza ' + query.term + ' ' + i
+              });
+            }
+            deferred.resolve(data);
+            break;
+        }
+      }, 300);
     }
   }
 });
