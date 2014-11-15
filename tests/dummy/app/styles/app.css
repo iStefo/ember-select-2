@@ -60,6 +60,11 @@ div.example-box + pre {
 	background: lightcyan;
 }
 
+.version-number {
+	font-weight: 100;
+	color: #017c9d;
+}
+
 .hljs {
 	background-color: #f5f5f5;
 }
