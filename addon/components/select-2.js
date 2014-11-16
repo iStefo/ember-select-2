@@ -30,6 +30,7 @@ var Select2Component = Ember.Component.extend({
 
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
+  /** @deprecated */
   cssClass: null,
   optionValuePath: null,
   optionLabelPath: 'text',
@@ -51,16 +52,34 @@ var Select2Component = Ember.Component.extend({
         options = {},
         optionLabelPath = this.get('optionLabelPath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
-        content = this.get('content');
+        content = this.get('content'),
+        allowedOptions;
 
 
     // ensure select2 is loaded
     Ember.assert("select2 has to exist on Ember.$.fn.select2", Ember.$.fn.select2);
 
+    allowedOptions = [
+      'width', 'minimumInputLength', 'maximumInputLength',
+      'minimumResultsForSearch', 'maximumSelectionSize',
+      'placeholder', 'placeholderOption', 'separator',
+      'allowClear', 'multiple', 'closeOnSelect',
+      'openOnEnter', 'id', 'matcher', 'sortResults',
+      'formatSelection', 'formatResult', 'formatResultCssClass',
+      'formatNoMatches', 'formatSearching', 'formatAjaxError',
+      'formatInputTooShort', 'formatInputTooLong', 'formatSelectionTooBig',
+      'formatLoadMore', 'createSearchChoice', 'createSearchChoicePosition',
+      'initSelection', 'tokenizer', 'tokenSeparators', 'query', 'ajax',
+      'data', 'tags', 'containerCss', 'containerCssClass', 'dropdownCss',
+      'dropdownCssClass', 'dropdownAutoWidth', 'adaptContainerCssClass',
+      'adaptDropdownCssClass', 'escapeMarkup', 'selectOnBlur',
+      'loadMorePadding', 'nextSearchTerm'
+    ];
+
     // setup
-    options.placeholder = this.get('placeholder');
-    options.multiple = this.get('multiple');
-    options.allowClear = this.get('allowClear');
+    allowedOptions.forEach(function(option) {
+      options[option] = self.get(option);
+    });
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
@@ -73,96 +92,102 @@ var Select2Component = Ember.Component.extend({
       Generates the html used in the dropdown list (and is implemented to
       include the description html if available).
      */
-    options.formatResult = function(item) {
-      if (!item) {
-        return;
-      }
+    if (!options.formatResult) {
+      options.formatResult = function(item) {
+        if (!item) {
+          return;
+        }
 
-      var id = get(item, "id"),
+        var id = get(item, "id"),
           text = get(item, optionLabelPath),
           description = get(item, optionDescriptionPath),
           output = Ember.Handlebars.Utils.escapeExpression(text);
 
-      // only for "real items" (no group headers) that have a description
-      if (id && description) {
-        output += " <span class=\"text-muted\">" +
+        // only for "real items" (no group headers) that have a description
+        if (id && description) {
+          output += " <span class=\"text-muted\">" +
           Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
-      }
+        }
 
-      return output;
-    };
+        return output;
+      };
+    }
 
     /*
       Generates the html used in the closed select input, displaying the
       currently selected element(s). Works like "formatResult" but
       produces shorter output by leaving out the description.
      */
-    options.formatSelection = function(item) {
-      if (!item) {
-        return;
-      }
+    if (options.formatSelection === undefined) {
+      options.formatSelection = function (item) {
+        if (!item) {
+          return;
+        }
 
-      var text = get(item, optionLabelPath);
+        var text = get(item, optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
-    };
+        // escape text unless it's passed as a Handlebars.SafeString
+        return Ember.Handlebars.Utils.escapeExpression(text);
+      };
+    }
 
     /*
       Provides a list of items that should be displayed for the current query
       term. Uses the default select2 matcher (which handles diacritics) with the
       Ember compatible getter method for optionLabelPath.
      */
-    options.query = function(query) {
-      var select2 = this;
+    if (!options.query) {
+      options.query = function (query) {
+        var select2 = this;
 
-      if (self.get('_typeaheadMode')) {
-        var deferred = Ember.RSVP.defer('select2#query: ' + query.term);
+        if (self.get('_typeaheadMode')) {
+          var deferred = Ember.RSVP.defer('select2#query: ' + query.term);
 
-        self.sendAction('query', query, deferred);
+          self.sendAction('query', query, deferred);
 
-        deferred.promise.then(function(data) {
-          query.callback({
-            results: data
+          deferred.promise.then(function (data) {
+            query.callback({
+              results: data
+            });
+          }, function () {
+            query.callback({
+              hasError: true
+            });
           });
-        }, function() {
+        } else {
+          Ember.assert("select2 has no content!", self.get('content'));
+
+          var filteredContent = self.get("content").reduce(function (results, item) {
+            // items may contain children, so filter them, too
+            var filteredChildren = [];
+
+            if (item.children) {
+              filteredChildren = item.children.reduce(function (children, child) {
+                if (select2.matcher(query.term, get(child, optionLabelPath))) {
+                  children.push(child);
+                }
+                return children;
+              }, []);
+            }
+
+            // apply the regular matcher
+            if (select2.matcher(query.term, get(item, optionLabelPath))) {
+              // keep this item either if itself matches
+              results.push(item);
+            } else if (filteredChildren.length) {
+              // or it has children that matched the term
+              var result = Ember.$.extend({}, item, {children: filteredChildren});
+              results.push(result);
+            }
+            return results;
+          }, []);
+
           query.callback({
-            hasError: true
+            results: filteredContent
           });
-        });
-      } else {
-        Ember.assert("select2 has no content!", self.get('content'));
-
-        var filteredContent = self.get("content").reduce(function(results, item) {
-          // items may contain children, so filter them, too
-          var filteredChildren = [];
-
-          if (item.children) {
-            filteredChildren = item.children.reduce(function(children, child) {
-              if (select2.matcher(query.term, get(child, optionLabelPath))) {
-                children.push(child);
-              }
-              return children;
-            }, []);
-          }
-
-          // apply the regular matcher
-          if (select2.matcher(query.term, get(item, optionLabelPath))) {
-            // keep this item either if itself matches
-            results.push(item);
-          } else if (filteredChildren.length) {
-            // or it has children that matched the term
-            var result = Ember.$.extend({}, item, { children: filteredChildren });
-            results.push(result);
-          }
-          return results;
-        }, []);
-
-        query.callback({
-          results: filteredContent
-        });
-      }
-    };
+        }
+      };
+    }
 
     /*
       Maps "value" -> "object" when using select2 with "optionValuePath" set,
@@ -181,48 +206,61 @@ var Select2Component = Ember.Component.extend({
       To disable this behaviour, remove those keys from "value" that can't be
       matched by objects from "content".
      */
-    options.initSelection = function(element, callback) {
-      var value = element.val(),
+    if (!options.initSelection) {
+      options.initSelection = function (element, callback) {
+        var value = element.val(),
           content = self.get("content"),
           contentIsArrayProxy = Ember.ArrayProxy.detectInstance(content),
           multiple = self.get("multiple"),
           optionValuePath = self.get("optionValuePath");
 
-      if (!value || !value.length) {
-        return callback([]);
-      }
+        if (!value || !value.length) {
+          return callback([]);
+        }
 
-      // this method should not be needed without the optionValuePath option
-      // but make sure there is an appropriate error just in case.
-      Ember.assert("select2#initSelection has been called without an \"" +
+        // this method should not be needed without the optionValuePath option
+        // but make sure there is an appropriate error just in case.
+        Ember.assert("select2#initSelection has been called without an \"" +
         "optionValuePath\" set.", optionValuePath);
 
-      Ember.assert("select2#initSelection can not map string values to full objects " +
-        "in typeahead mode. Please open a github issue if you have questions to this.",
-        !self.get('_typeaheadMode'));
+        Ember.assert("select2#initSelection can not map string values to full objects " +
+          "in typeahead mode. Please open a github issue if you have questions to this.",
+          !self.get('_typeaheadMode'));
 
 
-      var values = value.split(","),
+        var values = value.split(","),
           filteredContent = [];
 
-      // for every object, check if its optionValuePath is in the selected
-      // values array and save it to the right position in filteredContent
-      var contentLength = get(content, 'length'),
+        // for every object, check if its optionValuePath is in the selected
+        // values array and save it to the right position in filteredContent
+        var contentLength = get(content, 'length'),
           unmatchedValues = values.length,
           matchIndex;
 
-      // START loop over content
-      for (var i = 0; i < contentLength; i++) {
-        var item = contentIsArrayProxy ? content.objectAt(i) : content[i];
-        matchIndex = -1;
+        // START loop over content
+        for (var i = 0; i < contentLength; i++) {
+          var item = contentIsArrayProxy ? content.objectAt(i) : content[i];
+          matchIndex = -1;
 
-        if (item.children && item.children.length) {
-          // take care of either nested data...
-          for (var c = 0; c < item.children.length; c++) {
-            var child = item.children[c];
-            matchIndex = values.indexOf("" + get(child, optionValuePath));
+          if (item.children && item.children.length) {
+            // take care of either nested data...
+            for (var c = 0; c < item.children.length; c++) {
+              var child = item.children[c];
+              matchIndex = values.indexOf("" + get(child, optionValuePath));
+              if (matchIndex !== -1) {
+                filteredContent[matchIndex] = child;
+                unmatchedValues--;
+              }
+              // break loop if all values are found
+              if (unmatchedValues === 0) {
+                break;
+              }
+            }
+          } else {
+            // ...or flat data structure: try to match simple item
+            matchIndex = values.indexOf("" + get(item, optionValuePath));
             if (matchIndex !== -1) {
-              filteredContent[matchIndex] = child;
+              filteredContent[matchIndex] = item;
               unmatchedValues--;
             }
             // break loop if all values are found
@@ -230,51 +268,48 @@ var Select2Component = Ember.Component.extend({
               break;
             }
           }
-        } else {
-          // ...or flat data structure: try to match simple item
-          matchIndex = values.indexOf("" + get(item, optionValuePath));
-          if (matchIndex !== -1) {
-            filteredContent[matchIndex] = item;
-            unmatchedValues--;
-          }
-          // break loop if all values are found
-          if (unmatchedValues === 0) {
-            break;
-          }
         }
-      }
-      // END loop over content
+        // END loop over content
 
-      if (unmatchedValues === 0) {
-        self.set('_hasSelectedMissingItems', false);
-      } else {
-        // disable the select2 element if there are keys left in the values
-        // array that were not matched to an object
-        self.set('_hasSelectedMissingItems', true);
+        if (unmatchedValues === 0) {
+          self.set('_hasSelectedMissingItems', false);
+        } else {
+          // disable the select2 element if there are keys left in the values
+          // array that were not matched to an object
+          self.set('_hasSelectedMissingItems', true);
 
-        Ember.warn("select2#initSelection was not able to map each \"" +
-          optionValuePath +"\" to an object from \"content\". The remaining " +
+          Ember.warn("select2#initSelection was not able to map each \"" +
+          optionValuePath + "\" to an object from \"content\". The remaining " +
           "keys are: " + values + ". The input will be disabled until a) the " +
           "desired objects is added to the \"content\" array or b) the " +
           "\"value\" is changed.", !values.length);
-      }
+        }
 
-      if (multiple) {
-        // return all matched objects
-        return callback(filteredContent);
-      } else {
-        // only care about the first match in single selection mode
-        return callback(filteredContent.get('firstObject'));
-      }
-    };
+        if (multiple) {
+          // return all matched objects
+          return callback(filteredContent);
+        } else {
+          // only care about the first match in single selection mode
+          return callback(filteredContent.get('firstObject'));
+        }
+      };
+    }
 
     /*
       Forward a custom css class to the components container and dropdown.
       The value will be read from the `cssClass` binding
      */
-    options.containerCssClass = options.dropdownCssClass = function() {
-      return self.get('cssClass') || '';
-    };
+    if (!options.containerCssClass) {
+      options.containerCssClass = function() {
+        return self.get('cssClass') || '';
+      };
+    }
+
+    if (!options.dropdownCssClass) {
+      options.dropdownCssClass = function() {
+        return self.get('cssClass') || '';
+      };
+    }
 
     this._select = this.$().select2(options);
 
@@ -302,7 +337,7 @@ var Select2Component = Ember.Component.extend({
           ". Recovering from this is not (yet) implemented.");
       });
     }
-    
+
     this.watchDisabled();
   },
 
