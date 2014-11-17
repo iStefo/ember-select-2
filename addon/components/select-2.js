@@ -30,6 +30,7 @@ var Select2Component = Ember.Component.extend({
 
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
+  cssClass: null,
   optionValuePath: null,
   optionLabelPath: 'text',
   optionDescriptionPath: 'description',
@@ -37,11 +38,13 @@ var Select2Component = Ember.Component.extend({
   multiple: false,
   allowClear: false,
   enabled: true,
+  query: null,
 
   // internal state
   _hasSelectedMissingItems: false,
   _hasPendingContentPromise: Ember.computed.alias('content.isPending'),
   _hasFailedContentPromise: Ember.computed.alias('content.isRejected'),
+  _typeaheadMode: Ember.computed.bool('query'),
 
   didInsertElement: function() {
     var self = this,
@@ -61,7 +64,6 @@ var Select2Component = Ember.Component.extend({
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
-
 
     /*
       Formatting functions that ensure that the passed content is escaped in
@@ -114,34 +116,52 @@ var Select2Component = Ember.Component.extend({
     options.query = function(query) {
       var select2 = this;
 
-      var filteredContent = self.get("content").reduce(function(results, item) {
-        // items may contain children, so filter them, too
-        var filteredChildren = [];
+      if (self.get('_typeaheadMode')) {
+        var deferred = Ember.RSVP.defer('select2#query: ' + query.term);
 
-        if (item.children) {
-          filteredChildren = item.children.reduce(function(children, child) {
-            if (select2.matcher(query.term, get(child, optionLabelPath))) {
-              children.push(child);
-            }
-            return children;
-          }, []);
-        }
+        self.sendAction('query', query, deferred);
 
-        // apply the regular matcher
-        if (select2.matcher(query.term, get(item, optionLabelPath))) {
-          // keep this item either if itself matches
-          results.push(item);
-        } else if (filteredChildren.length) {
-          // or it has children that matched the term
-          var result = Ember.$.extend({}, item, { children: filteredChildren });
-          results.push(result);
-        }
-        return results;
-      }, []);
+        deferred.promise.then(function(data) {
+          query.callback({
+            results: data
+          });
+        }, function() {
+          query.callback({
+            hasError: true
+          });
+        });
+      } else {
+        Ember.assert("select2 has no content!", self.get('content'));
 
-      query.callback({
-        results: filteredContent
-      });
+        var filteredContent = self.get("content").reduce(function(results, item) {
+          // items may contain children, so filter them, too
+          var filteredChildren = [];
+
+          if (item.children) {
+            filteredChildren = item.children.reduce(function(children, child) {
+              if (select2.matcher(query.term, get(child, optionLabelPath))) {
+                children.push(child);
+              }
+              return children;
+            }, []);
+          }
+
+          // apply the regular matcher
+          if (select2.matcher(query.term, get(item, optionLabelPath))) {
+            // keep this item either if itself matches
+            results.push(item);
+          } else if (filteredChildren.length) {
+            // or it has children that matched the term
+            var result = Ember.$.extend({}, item, { children: filteredChildren });
+            results.push(result);
+          }
+          return results;
+        }, []);
+
+        query.callback({
+          results: filteredContent
+        });
+      }
     };
 
     /*
@@ -176,6 +196,10 @@ var Select2Component = Ember.Component.extend({
       // but make sure there is an appropriate error just in case.
       Ember.assert("select2#initSelection has been called without an \"" +
         "optionValuePath\" set.", optionValuePath);
+
+      Ember.assert("select2#initSelection can not map string values to full objects " +
+        "in typeahead mode. Please open a github issue if you have questions to this.",
+        !self.get('_typeaheadMode'));
 
 
       var values = value.split(","),
@@ -244,6 +268,14 @@ var Select2Component = Ember.Component.extend({
       }
     };
 
+    /*
+      Forward a custom css class to the components container and dropdown.
+      The value will be read from the `cssClass` binding
+     */
+    options.containerCssClass = options.dropdownCssClass = function() {
+      return self.get('cssClass') || '';
+    };
+
     this._select = this.$().select2(options);
 
     this._select.on("change", function() {
@@ -263,7 +295,6 @@ var Select2Component = Ember.Component.extend({
 
     // eventually disable input when content is PromiseProxy
     if (Ember.PromiseProxyMixin.detect(content)) {
-      this.watchDisabled();
       // enabling/siabling is done via binding to _hasPendingContentPromise
       // provide error for rejected promise, though.
       content.then(null, function (reason) {
@@ -271,6 +302,8 @@ var Select2Component = Ember.Component.extend({
           ". Recovering from this is not (yet) implemented.");
       });
     }
+    
+    this.watchDisabled();
   },
 
   /**
@@ -358,7 +391,7 @@ var Select2Component = Ember.Component.extend({
         select.select2("readonly", disabled);
       });
     }
-  }),
+  })
 });
 
 export default Select2Component;

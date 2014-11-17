@@ -13,6 +13,7 @@ module.exports = function(environment) {
         // e.g. 'with-controller': true
       }
     },
+    version: require('../../../package').version,
 
     APP: {
       // Here you can pass flags/options to your application instance

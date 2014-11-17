@@ -168,6 +168,88 @@
 </div>
 <hr/>
 
+<h3>Customizing</h3>
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Change Label Value Path</h4>
+    <p>While by default the items' <code>text</code> attribute is used for the text displayed, it can be customized by setting the components <code>optionLabelPath</code>.</p>
+    <p>The <code>optionDescriptionPath</code> can be changed to something different from the default (<code>description</code>), too.</p>
+    <div class="example-box">
+      {{select-2
+          content=pizzas
+          optionLabelPath="id"
+          optionDescriptionPath="text"
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    optionLabelPath="id"
+    optionDescriptionPath="text"
+    placeholder="Choose some Pizzas"
+}}{{/highlight-code}}
+  </div>
+  <div class="col-sm-6">
+    <h4>Add Custom CSS Class</h4>
+    <p>When one select2 components needs special styles, set the <code>cssClass</code> binding to a string containing a single css class. It will be assigned to the <code>.select2-container</code>, which is the input in closed state, as well as to the <code>.select2-drop</code>, which is the dropdown menu.</p>
+    <p><b>Warning:</b> Don't get to fancy! These classes will not update when the binding updates, they have to be computable at the point of time the component is inserted.</p>
+    <div class="example-box">
+      {{select-2
+          content=pizzas
+          placeholder="Choose some Pizzas"
+          cssClass="custom-class"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    placeholder="Choose some Pizzas"
+    cssClass="custom-class"
+}}{{/highlight-code}}
+  </div>
+</div>
+<hr/>
+
+<h3>Typeahead & Ajax Queries</h3>
+<p>Image you sell so many pizzas that you don't want to send all of them to the client. Instead, there is a protocoll that lets the neares controller figure out which options to show for a given search term, asynchronously.</p>
+<p>Typeahead is currently only possible for Full Object Binding, because when using an <code>optionValuePath</code>, there is no API to retrieve the full object from the controller.</p>
+<div class="row">
+  <div class="col-sm-6">
+    <h4>The Component</h4>
+    <div class="example-box">
+      <p>Specify the name of your controller's callback in the <code>query</code> option.</p>
+      <p>You can use single or multiple selection.</p>
+      <p>Type in "empty" to see the result for an empty query or "error" for a rejected query.</p>
+      {{select-2
+          placeholder="Choose from our many pizzas"
+          value=chosenTypeaheadPizza
+          multiple=true
+          query="queryPizzas"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    placeholder="Choose from our many pizzas"
+    value=chosenTypeaheadPizza
+    mutliple=true
+    query="queryPizzas"
+}}{{/highlight-code}}
+  </div>
+  <div class="col-sm-6">
+    <h4>The Controller</h4>
+    <div class="example-box">
+      <p>The action specified in the component will be called every time the query changes.</p>
+      <p>Make sure to not call <code>query.callback</code> directly but always use the provided deferred!</p>
+    </div>
+    {{#highlight-code lang=".js"}}Ember.Controller.extend({
+  actions: {
+    queryPizzas: function(query, deferred) {
+      this.store.find('myModel', { name: query.term })
+        .then(deferred.resolve, deferred.reject);
+    }
+  }
+});{{/highlight-code}}
+  </div>
+</div>
+
 <h3>Miscellaneous</h3>
 <div class="row">
   <div class="col-sm-6">
@@ -193,21 +275,7 @@
         text: "Pineapples"
       }
     ]
-  }, {
-    text: "Meat",
-    children: [
-      {
-        id: "sal",
-        text: "Salami"
-      }, {
-        id: "ham",
-        text: "Ham"
-      }, {
-        id: "bac",
-        text: "Bacon"
-      }
-    ]
-  }
+  }, { ... }
 ]{{/highlight-code}}
   </div>
   <div class="col-sm-6">
@@ -224,25 +292,6 @@
         {{#highlight-code lang=".hbs"}}\{{select-2
     content=pizzas
     enabled=enabled
-    placeholder="Choose some Pizzas"
-}}{{/highlight-code}}
-  </div>
-  <div class="col-sm-6">
-    <h4>Change Label Path</h4>
-    <p>While by default the items' <code>text</code> attribute is used for the text displayed, it can be customized by setting the components <code>optionLabelPath</code>.</p>
-    <p>The <code>optionDescriptionPath</code> can be changed to something different from the default (<code>description</code>), too.</p>
-    <div class="example-box">
-      {{select-2
-          content=pizzas
-          optionLabelPath="id"
-          optionDescriptionPath="text"
-          placeholder="Choose some Pizzas"
-      }}
-    </div>
-        {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    optionLabelPath="id"
-    optionDescriptionPath="text"
     placeholder="Choose some Pizzas"
 }}{{/highlight-code}}
   </div>

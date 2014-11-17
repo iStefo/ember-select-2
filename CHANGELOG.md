@@ -6,6 +6,8 @@
 * Added option to set custom optionDescriptionPath
 * #6 how do you use it with Ember-data ?. (thanks, Rodrigora!)
 * Added option to enable/disable input
+* Refactor tests into multiple files
+* #20 Add the custom classes to result box too. (`cssClass` option)
 
 ### 1.0.1 (Oktober 11, 2014)
 

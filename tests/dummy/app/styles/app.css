@@ -50,3 +50,25 @@ div.example-box + pre {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
+
+/* custom class example */
+.select2-container.custom-class .select2-choice {
+	background: lightcyan;
+}
+
+.select2-drop.custom-class {
+	background: lightcyan;
+}
+
+.version-number {
+	font-weight: 100;
+	color: #017c9d;
+}
+
+.hljs {
+	background-color: #f5f5f5;
+}
+
+code {
+	color: #017c9d;
+}
