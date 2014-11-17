@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# make sure we operate on gh-pages branch!
+oldBranch=$(git rev-parse --abbrev-ref HEAD)
+if [ ! $oldBranch = "gh-pages" ]
+	then
+		git checkout gh-pages
+fi
+
+# pull all changes from master
+git merge master -m "Merge branch 'master' into gh-pages"
+
+# build app with github environment
+ember build --environment github
+
+# rename executable tests to avaid conflict with tests source
+mv dist/tests dist/test
+
+# move everything to root for github pages
+cp -rf dist/* .
+rm -rf dist
+
+# fix basepath for tests
+sed "s|<base href=\"/\">|<base href=\"/ember-select-2/\">|g" test/index.html > test/index.tmp.html
+mv test/index.tmp.html test/index.html
+
+# write commit message using current master hash
+git add -A 
+git commit -m "Generated docs for revision $(git rev-parse --short master)"
+
+# publish to gh-pages
+git push origin gh-pages
+
+# switch back to previous branch if there was one
+if [ ! $oldBranch = "gh-pages" ]
+	then
+		git checkout $oldBranch
+fi
+
+echo "Done publishing docs!"
