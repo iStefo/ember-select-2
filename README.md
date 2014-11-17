@@ -1,5 +1,5 @@
 # ember-select-2 [![Build Status](http://img.shields.io/travis/iStefo/ember-select-2.svg?style=flat-square)](https://travis-ci.org/iStefo/ember-select-2) [![NPM Version](http://img.shields.io/npm/v/ember-select-2.svg?style=flat-square)](https://www.npmjs.org/package/ember-select-2) [![NPM Downlaads](http://img.shields.io/npm/dm/ember-select-2.svg?style=flat-square)](https://www.npmjs.org/package/ember-select-2)
-Ember.js Wrapper for the [jQuery Select2 Plugin](http://ivaynberg.github.io/select2/).
+Ember.js Wrapper for the [jQuery Select2 Plugin](http://ivaynberg.github.io/select2/). While not aiming for full API coverage at any cost, the actual focus is on providing a plugin that is easy to drop into an application and that plays nice with the ember specific classes. 
 
 For Demo & Docs, see the [Github Page](https://istefo.github.io/ember-select-2/) for this project.
 
@@ -16,7 +16,7 @@ $ ember g ember-select-2
 ```
 
 ## Contributing
-I would love to see some support when extending or bugfixing this component! Since I am quiet new to maintaining open source software, feel free to contact me so we can organize this better.
+I would love to see some support when extending or bugfixing this component! Please keep in mind the agena on the top of this page and discuss possible conflicts with the ember-way of things (bindings, proxies...).
 
 ### Generating the Docs
 `ember-cli` compiles the project into the `/dist` folder, but Github Pages expects the content to be in the repository's root within the `gh-pages` branch. In order not to overwrite the original `/tests` directory, we rename the compiled tests to `test`.
