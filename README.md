@@ -3,7 +3,7 @@ Ember.js Wrapper for the [jQuery Select2 Plugin](http://ivaynberg.github.io/sele
 
 For Demo & Docs, see the [Github Page](https://istefo.github.io/ember-select-2/) for this project.
 
-**Disclaimer:** This is a pretty early release and there may be major bugs. Still, there are [several test cases](http://istefo.github.io/ember-select-2/test/?module=Select2Component) using state-of-the art ember unit testing methods ;)
+**Disclaimer:** This is a pretty early release and there may be major bugs. Still, there are [several test cases](http://istefo.github.io/ember-select-2/test/?nojshint=true) using state-of-the art ember unit testing methods ;)
 
 ## Including Select2 in your Project
 Since ember-cli 0.0.44 (or so...), there is a default way of installing addons. It's easy:
