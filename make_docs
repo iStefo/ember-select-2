@@ -26,7 +26,7 @@ mv test/index.tmp.html test/index.html
 
 # write commit message using current master hash
 git add -A 
-git commit -m "Generated docs for revision $(git rev-parse --short master)"
+git commit -m "Generated docs for maste@$(git rev-parse --short master)"
 
 # publish to gh-pages
 git push origin gh-pages
