@@ -1,5 +1,3 @@
-/* globals andThen */
-
 /*
   Test usage with Ember Data ArrayProxy and PromiseArray
  */

@@ -1,5 +1,3 @@
-/* globals andThen */
-
 /*
   Test basic functionality with nested input for `content`
  */

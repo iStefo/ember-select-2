@@ -217,19 +217,23 @@
     <h4>The Component</h4>
     <div class="example-box">
       <p>Specify the name of your controller's callback in the <code>query</code> option.</p>
-      <p>You can use single or multiple selection.</p>
+      <p>You can use single or multiple selection. Customizing the displayed messages (with placeholder for search term and error) as seen below is optional.</p>
       <p>Type in "empty" to see the result for an empty query or "error" for a rejected query.</p>
       {{select-2
           placeholder="Choose from our many pizzas"
           value=chosenTypeaheadPizza
-          multiple=true
+          typeaheadSearchingText="Searching pizzas"
+          typeaheadNoMatchesText="No pizzas found for '%@'"
+          typeaheadErrorText="Loading failed: %@"
           query="queryPizzas"
       }}
     </div>
     {{#highlight-code lang=".hbs"}}\{{select-2
     placeholder="Choose from our many pizzas"
     value=chosenTypeaheadPizza
-    mutliple=true
+    typeaheadSearchingText="Searching pizzas"
+    typeaheadNoMatchesText="No pizzas found for '%@'"
+    typeaheadErrorText="Loading failed: %@"
     query="queryPizzas"
 }}{{/highlight-code}}
   </div>

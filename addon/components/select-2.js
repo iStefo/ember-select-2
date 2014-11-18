@@ -39,6 +39,9 @@ var Select2Component = Ember.Component.extend({
   allowClear: false,
   enabled: true,
   query: null,
+  typeaheadSearchingText: 'Searching…',
+  typeaheadNoMatchesText: 'No matches found',
+  typeaheadErrorText: 'Loading failed',
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -125,9 +128,10 @@ var Select2Component = Ember.Component.extend({
           query.callback({
             results: data
           });
-        }, function() {
+        }, function(reason) {
           query.callback({
-            hasError: true
+            hasError: true,
+            errorThrown: reason
           });
         });
       } else {
@@ -162,6 +166,41 @@ var Select2Component = Ember.Component.extend({
           results: filteredContent
         });
       }
+    };
+
+    /* 
+      Supplies the string used when searching for options, can be set via
+      `typeaheadSearchingText`
+     */
+    options.formatSearching = function() {
+      var text = self.get('typeaheadSearchingText');
+
+      return Ember.String.htmlSafe(text);
+    };
+
+    /* 
+      Format the no matches message, substituting the %@ placeholder with the
+      html-escaped user input
+     */
+    options.formatNoMatches = function(term) {
+      var text = self.get('typeaheadNoMatchesText');
+      if (text instanceof Ember.Handlebars.SafeString) {
+        text = text.string;
+      }
+
+      term = Ember.Handlebars.Utils.escapeExpression(term);
+
+      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+    };
+
+    /*
+      Format the error message, substituting the %@ placeholder with the promise
+      rejection reason
+     */
+    options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
+      var text = self.get('typeaheadErrorText');
+
+      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
     };
 
     /*

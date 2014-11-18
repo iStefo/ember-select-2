@@ -107,7 +107,7 @@ var ExamplesController = Ember.Controller.extend({
         var data = [];
         switch(query.term) {
           case 'error':
-            deferred.reject();
+            deferred.reject("sample error");
             break;
           case 'empty':
             deferred.resolve(data);

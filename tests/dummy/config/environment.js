@@ -47,7 +47,7 @@ module.exports = function(environment) {
 
   if (environment === 'github') {
     ENV.baseURL = '/ember-select-2/';
-    ENV.locationType = 'auto';
+    ENV.locationType = 'hash';
   }
 
   return ENV;
