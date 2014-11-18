@@ -10,19 +10,19 @@ import startApp from "../../helpers/start-app";
   Test Fixtures
  */
 var simpleContent = [
- {
-   id: true,
-   text: "Margherita"
- }, {
-   id: "pep",
-   text: "Peperoni"
- }, {
-   id: 42,
-   text: "Ham"
- }, {
-   id: "haw",
-   text: "Hawaii"
- }
+  {
+    id: true,
+    text: "Margherita"
+  }, {
+    id: "pep",
+    text: "Peperoni"
+  }, {
+    id: 42,
+    text: "Ham"
+  }, {
+    id: "haw",
+    text: "Hawaii"
+  }
 ];
 var additionalContent = [
   {
