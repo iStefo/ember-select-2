@@ -79704,6 +79704,5744 @@ return{aliases:["ls","lassoscript"],cI:!0,l:t+"|&[lg]t;",k:a,c:[{cN:"preprocesso
 }),hljs.registerLanguage("parser3",function(e){return{sL:"xml",r:0,c:[{cN:"comment",b:"^#",e:"$"},{cN:"comment",b:"\\^rem{",e:"}",r:10,c:[{b:"{",e:"}",c:["self"]}]},{cN:"preprocessor",b:"^@(?:BASE|USE|CLASS|OPTIONS)$",r:10},{cN:"title",b:"@[\\w\\-]+\\[[\\w^;\\-]*\\](?:\\[[\\w^;\\-]*\\])?(?:.*)$"},{cN:"variable",b:"\\$\\{?[\\w\\-\\.\\:]+\\}?"},{cN:"keyword",b:"\\^[\\w\\-\\.\\:]+"},{cN:"number",b:"\\^#[0-9a-fA-F]+"},e.CNM]}}),hljs.registerLanguage("perl",function(e){var t="getpwent getservent quotemeta msgrcv scalar kill dbmclose undef lc ma syswrite tr send umask sysopen shmwrite vec qx utime local oct semctl localtime readpipe do return format read sprintf dbmopen pop getpgrp not getpwnam rewinddir qqfileno qw endprotoent wait sethostent bless s|0 opendir continue each sleep endgrent shutdown dump chomp connect getsockname die socketpair close flock exists index shmgetsub for endpwent redo lstat msgctl setpgrp abs exit select print ref gethostbyaddr unshift fcntl syscall goto getnetbyaddr join gmtime symlink semget splice x|0 getpeername recv log setsockopt cos last reverse gethostbyname getgrnam study formline endhostent times chop length gethostent getnetent pack getprotoent getservbyname rand mkdir pos chmod y|0 substr endnetent printf next open msgsnd readdir use unlink getsockopt getpriority rindex wantarray hex system getservbyport endservent int chr untie rmdir prototype tell listen fork shmread ucfirst setprotoent else sysseek link getgrgid shmctl waitpid unpack getnetbyname reset chdir grep split require caller lcfirst until warn while values shift telldir getpwuid my getprotobynumber delete and sort uc defined srand accept package seekdir getprotobyname semop our rename seek if q|0 chroot sysread setpwent no crypt getc chown sqrt write setnetent setpriority foreach tie sin msgget map stat getlogin unless elsif truncate exec keys glob tied closedirioctl socket readlink eval xor readline binmode setservent eof ord bind alarm pipe atan2 getgrent exp time push setgrent gt lt or ne m|0 break given say state when",r={cN:"subst",b:"[$@]\\{",e:"\\}",k:t},i={b:"->{",e:"}"},a={cN:"variable",v:[{b:/\$\d/},{b:/[\$\%\@](\^\w\b|#\w+(\:\:\w+)*|{\w+}|\w+(\:\:\w*)*)/},{b:/[\$\%\@][^\s\w{]/,r:0}]},n={cN:"comment",b:"^(__END__|__DATA__)",e:"\\n$",r:5},o=[e.BE,r,a],s=[a,e.HCM,n,{cN:"comment",b:"^\\=\\w",e:"\\=cut",eW:!0},i,{cN:"string",c:o,v:[{b:"q[qwxr]?\\s*\\(",e:"\\)",r:5},{b:"q[qwxr]?\\s*\\[",e:"\\]",r:5},{b:"q[qwxr]?\\s*\\{",e:"\\}",r:5},{b:"q[qwxr]?\\s*\\|",e:"\\|",r:5},{b:"q[qwxr]?\\s*\\<",e:"\\>",r:5},{b:"qw\\s+q",e:"q",r:5},{b:"'",e:"'",c:[e.BE]},{b:'"',e:'"'},{b:"`",e:"`",c:[e.BE]},{b:"{\\w+}",c:[],r:0},{b:"-?\\w+\\s*\\=\\>",c:[],r:0}]},{cN:"number",b:"(\\b0[0-7_]+)|(\\b0x[0-9a-fA-F_]+)|(\\b[1-9][0-9_]*(\\.[0-9_]+)?)|[0_]\\b",r:0},{b:"(\\/\\/|"+e.RSR+"|\\b(split|return|print|reverse|grep)\\b)\\s*",k:"split return print reverse grep",r:0,c:[e.HCM,n,{cN:"regexp",b:"(s|tr|y)/(\\\\.|[^/])*/(\\\\.|[^/])*/[a-z]*",r:10},{cN:"regexp",b:"(m|qr)?/",e:"/[a-z]*",c:[e.BE],r:0}]},{cN:"sub",bK:"sub",e:"(\\s*\\(.*?\\))?[;{]",r:5},{cN:"operator",b:"-\\w\\b",r:0}];return r.c=s,i.c=s,{aliases:["pl"],k:t,c:s}}),hljs.registerLanguage("php",function(e){var t={cN:"variable",b:"\\$+[a-zA-Z_-ÿ][a-zA-Z0-9_-ÿ]*"},r={cN:"preprocessor",b:/<\?(php)?|\?>/},i={cN:"string",c:[e.BE,r],v:[{b:'b"',e:'"'},{b:"b'",e:"'"},e.inherit(e.ASM,{i:null}),e.inherit(e.QSM,{i:null})]},a={v:[e.BNM,e.CNM]};return{aliases:["php3","php4","php5","php6"],cI:!0,k:"and include_once list abstract global private echo interface as static endswitch array null if endwhile or const for endforeach self var while isset public protected exit foreach throw elseif include __FILE__ empty require_once do xor return parent clone use __CLASS__ __LINE__ else break print eval new catch __METHOD__ case exception default die require __FUNCTION__ enddeclare final try switch continue endfor endif declare unset true false trait goto instanceof insteadof __DIR__ __NAMESPACE__ yield finally",c:[e.CLCM,e.HCM,{cN:"comment",b:"/\\*",e:"\\*/",c:[{cN:"phpdoc",b:"\\s@[A-Za-z]+"},r]},{cN:"comment",b:"__halt_compiler.+?;",eW:!0,k:"__halt_compiler",l:e.UIR},{cN:"string",b:"<<<['\"]?\\w+['\"]?$",e:"^\\w+;",c:[e.BE]},r,t,{b:/->+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/},{cN:"function",bK:"function",e:/[;{]/,eE:!0,i:"\\$|\\[|%",c:[e.UTM,{cN:"params",b:"\\(",e:"\\)",c:["self",t,e.CBCM,i,a]}]},{cN:"class",bK:"class interface",e:"{",eE:!0,i:/[:\(\$"]/,c:[{bK:"extends implements"},e.UTM]},{bK:"namespace",e:";",i:/[\.']/,c:[e.UTM]},{bK:"use",e:";",c:[e.UTM]},{b:"=>"},i,a]}}),hljs.registerLanguage("powershell",function(e){var t={b:"`[\\s\\S]",r:0},r={cN:"variable",v:[{b:/\$[\w\d][\w\d_:]*/}]},i={cN:"string",b:/"/,e:/"/,c:[t,r,{cN:"variable",b:/\$[A-z]/,e:/[^A-z]/}]},a={cN:"string",b:/'/,e:/'/};return{aliases:["ps"],l:/-?[A-z\.\-]+/,cI:!0,k:{keyword:"if else foreach return function do while until elseif begin for trap data dynamicparam end break throw param continue finally in switch exit filter try process catch",literal:"$null $true $false",built_in:"Add-Content Add-History Add-Member Add-PSSnapin Clear-Content Clear-Item Clear-Item Property Clear-Variable Compare-Object ConvertFrom-SecureString Convert-Path ConvertTo-Html ConvertTo-SecureString Copy-Item Copy-ItemProperty Export-Alias Export-Clixml Export-Console Export-Csv ForEach-Object Format-Custom Format-List Format-Table Format-Wide Get-Acl Get-Alias Get-AuthenticodeSignature Get-ChildItem Get-Command Get-Content Get-Credential Get-Culture Get-Date Get-EventLog Get-ExecutionPolicy Get-Help Get-History Get-Host Get-Item Get-ItemProperty Get-Location Get-Member Get-PfxCertificate Get-Process Get-PSDrive Get-PSProvider Get-PSSnapin Get-Service Get-TraceSource Get-UICulture Get-Unique Get-Variable Get-WmiObject Group-Object Import-Alias Import-Clixml Import-Csv Invoke-Expression Invoke-History Invoke-Item Join-Path Measure-Command Measure-Object Move-Item Move-ItemProperty New-Alias New-Item New-ItemProperty New-Object New-PSDrive New-Service New-TimeSpan New-Variable Out-Default Out-File Out-Host Out-Null Out-Printer Out-String Pop-Location Push-Location Read-Host Remove-Item Remove-ItemProperty Remove-PSDrive Remove-PSSnapin Remove-Variable Rename-Item Rename-ItemProperty Resolve-Path Restart-Service Resume-Service Select-Object Select-String Set-Acl Set-Alias Set-AuthenticodeSignature Set-Content Set-Date Set-ExecutionPolicy Set-Item Set-ItemProperty Set-Location Set-PSDebug Set-Service Set-TraceSource Set-Variable Sort-Object Split-Path Start-Service Start-Sleep Start-Transcript Stop-Process Stop-Service Stop-Transcript Suspend-Service Tee-Object Test-Path Trace-Command Update-FormatData Update-TypeData Where-Object Write-Debug Write-Error Write-Host Write-Output Write-Progress Write-Verbose Write-Warning",operator:"-ne -eq -lt -gt -ge -le -not -like -notlike -match -notmatch -contains -notcontains -in -notin -replace"},c:[e.HCM,e.NM,i,a,r]}}),hljs.registerLanguage("processing",function(e){return{k:{keyword:"BufferedReader PVector PFont PImage PGraphics HashMap boolean byte char color double float int long String Array FloatDict FloatList IntDict IntList JSONArray JSONObject Object StringDict StringList Table TableRow XML false synchronized int abstract float private char boolean static null if const for true while long throw strictfp finally protected import native final return void enum else break transient new catch instanceof byte super volatile case assert short package default double public try this switch continue throws protected public private",constant:"P2D P3D HALF_PI PI QUARTER_PI TAU TWO_PI",variable:"displayHeight displayWidth mouseY mouseX mousePressed pmouseX pmouseY key keyCode pixels focused frameCount frameRate height width",title:"setup draw",built_in:"size createGraphics beginDraw createShape loadShape PShape arc ellipse line point quad rect triangle bezier bezierDetail bezierPoint bezierTangent curve curveDetail curvePoint curveTangent curveTightness shape shapeMode beginContour beginShape bezierVertex curveVertex endContour endShape quadraticVertex vertex ellipseMode noSmooth rectMode smooth strokeCap strokeJoin strokeWeight mouseClicked mouseDragged mouseMoved mousePressed mouseReleased mouseWheel keyPressed keyPressedkeyReleased keyTyped print println save saveFrame day hour millis minute month second year background clear colorMode fill noFill noStroke stroke alpha blue brightness color green hue lerpColor red saturation modelX modelY modelZ screenX screenY screenZ ambient emissive shininess specular add createImage beginCamera camera endCamera frustum ortho perspective printCamera printProjection cursor frameRate noCursor exit loop noLoop popStyle pushStyle redraw binary boolean byte char float hex int str unbinary unhex join match matchAll nf nfc nfp nfs split splitTokens trim append arrayCopy concat expand reverse shorten sort splice subset box sphere sphereDetail createInput createReader loadBytes loadJSONArray loadJSONObject loadStrings loadTable loadXML open parseXML saveTable selectFolder selectInput beginRaw beginRecord createOutput createWriter endRaw endRecord PrintWritersaveBytes saveJSONArray saveJSONObject saveStream saveStrings saveXML selectOutput popMatrix printMatrix pushMatrix resetMatrix rotate rotateX rotateY rotateZ scale shearX shearY translate ambientLight directionalLight lightFalloff lights lightSpecular noLights normal pointLight spotLight image imageMode loadImage noTint requestImage tint texture textureMode textureWrap blend copy filter get loadPixels set updatePixels blendMode loadShader PShaderresetShader shader createFont loadFont text textFont textAlign textLeading textMode textSize textWidth textAscent textDescent abs ceil constrain dist exp floor lerp log mag map max min norm pow round sq sqrt acos asin atan atan2 cos degrees radians sin tan noise noiseDetail noiseSeed random randomGaussian randomSeed"},c:[e.CLCM,e.CBCM,e.ASM,e.QSM,e.CNM]}}),hljs.registerLanguage("profile",function(e){return{c:[e.CNM,{cN:"built_in",b:"{",e:"}$",eB:!0,eE:!0,c:[e.ASM,e.QSM],r:0},{cN:"filename",b:"[a-zA-Z_][\\da-zA-Z_]+\\.[\\da-zA-Z_]{1,3}",e:":",eE:!0},{cN:"header",b:"(ncalls|tottime|cumtime)",e:"$",k:"ncalls tottime|10 cumtime|10 filename",r:10},{cN:"summary",b:"function calls",e:"$",c:[e.CNM],r:10},e.ASM,e.QSM,{cN:"function",b:"\\(",e:"\\)$",c:[e.UTM],r:0}]}}),hljs.registerLanguage("protobuf",function(e){return{k:{keyword:"package import option optional required repeated group",built_in:"double float int32 int64 uint32 uint64 sint32 sint64 fixed32 fixed64 sfixed32 sfixed64 bool string bytes",literal:"true false"},c:[e.QSM,e.NM,e.CLCM,{cN:"class",bK:"message enum service",e:/\{/,i:/\n/,c:[e.inherit(e.TM,{starts:{eW:!0,eE:!0}})]},{cN:"function",bK:"rpc",e:/;/,eE:!0,k:"rpc returns"},{cN:"constant",b:/^\s*[A-Z_]+/,e:/\s*=/,eE:!0}]}}),hljs.registerLanguage("puppet",function(e){var t="augeas computer cron exec file filebucket host interface k5login macauthorization mailalias maillist mcx mount nagios_command nagios_contact nagios_contactgroup nagios_host nagios_hostdependency nagios_hostescalation nagios_hostextinfo nagios_hostgroup nagios_service firewall nagios_servicedependency nagios_serviceescalation nagios_serviceextinfo nagios_servicegroup nagios_timeperiod notify package resources router schedule scheduled_task selboolean selmodule service ssh_authorized_key sshkey stage tidy user vlan yumrepo zfs zone zpool",r="alias audit before loglevel noop require subscribe tag owner ensure group mode name|0 changes context force incl lens load_path onlyif provider returns root show_diff type_check en_address ip_address realname command environment hour monute month monthday special target weekday creates cwd ogoutput refresh refreshonly tries try_sleep umask backup checksum content ctime force ignore links mtime purge recurse recurselimit replace selinux_ignore_defaults selrange selrole seltype seluser source souirce_permissions sourceselect validate_cmd validate_replacement allowdupe attribute_membership auth_membership forcelocal gid ia_load_module members system host_aliases ip allowed_trunk_vlans description device_url duplex encapsulation etherchannel native_vlan speed principals allow_root auth_class auth_type authenticate_user k_of_n mechanisms rule session_owner shared options device fstype enable hasrestart directory present absent link atboot blockdevice device dump pass remounts poller_tag use message withpath adminfile allow_virtual allowcdrom category configfiles flavor install_options instance package_settings platform responsefile status uninstall_options vendor unless_system_user unless_uid binary control flags hasstatus manifest pattern restart running start stop allowdupe auths expiry gid groups home iterations key_membership keys managehome membership password password_max_age password_min_age profile_membership profiles project purge_ssh_keys role_membership roles salt shell uid baseurl cost descr enabled enablegroups exclude failovermethod gpgcheck gpgkey http_caching include includepkgs keepalive metadata_expire metalink mirrorlist priority protect proxy proxy_password proxy_username repo_gpgcheck s3_enabled skip_if_unavailable sslcacert sslclientcert sslclientkey sslverify mounted",i={keyword:"and case class default define else elsif false if in import enherits node or true undef unless main settings $string "+t,literal:r,built_in:"architecture augeasversion blockdevices boardmanufacturer boardproductname boardserialnumber cfkey dhcp_servers domain ec2_ ec2_userdata facterversion filesystems ldom fqdn gid hardwareisa hardwaremodel hostname id|0 interfaces ipaddress ipaddress_ ipaddress6 ipaddress6_ iphostnumber is_virtual kernel kernelmajversion kernelrelease kernelversion kernelrelease kernelversion lsbdistcodename lsbdistdescription lsbdistid lsbdistrelease lsbmajdistrelease lsbminordistrelease lsbrelease macaddress macaddress_ macosx_buildversion macosx_productname macosx_productversion macosx_productverson_major macosx_productversion_minor manufacturer memoryfree memorysize netmask metmask_ network_ operatingsystem operatingsystemmajrelease operatingsystemrelease osfamily partitions path physicalprocessorcount processor processorcount productname ps puppetversion rubysitedir rubyversion selinux selinux_config_mode selinux_config_policy selinux_current_mode selinux_current_mode selinux_enforced selinux_policyversion serialnumber sp_ sshdsakey sshecdsakey sshrsakey swapencrypted swapfree swapsize timezone type uniqueid uptime uptime_days uptime_hours uptime_seconds uuid virtual vlans xendomains zfs_version zonenae zones zpool_version"},a={cN:"comment",b:"#",e:"$"},n={cN:"string",c:[e.BE],v:[{b:/'/,e:/'/},{b:/"/,e:/"/}]},o=[n,a,{cN:"keyword",bK:"class",e:"$|;",i:/=/,c:[e.inherit(e.TM,{b:"(::)?[A-Za-z_]\\w*(::\\w+)*"}),a,n]},{cN:"keyword",b:"([a-zA-Z_(::)]+ *\\{)",c:[n,a],r:0},{cN:"keyword",b:"(\\}|\\{)",r:0},{cN:"function",b:"[a-zA-Z_]+\\s*=>"},{cN:"constant",b:"(::)?(\\b[A-Z][a-z_]*(::)?)+",r:0},{cN:"number",b:"(\\b0[0-7_]+)|(\\b0x[0-9a-fA-F_]+)|(\\b[1-9][0-9_]*(\\.[0-9_]+)?)|[0_]\\b",r:0}];return{aliases:["pp"],k:i,c:o}}),hljs.registerLanguage("python",function(e){var t={cN:"prompt",b:/^(>>>|\.\.\.) /},r={cN:"string",c:[e.BE],v:[{b:/(u|b)?r?'''/,e:/'''/,c:[t],r:10},{b:/(u|b)?r?"""/,e:/"""/,c:[t],r:10},{b:/(u|r|ur)'/,e:/'/,r:10},{b:/(u|r|ur)"/,e:/"/,r:10},{b:/(b|br)'/,e:/'/},{b:/(b|br)"/,e:/"/},e.ASM,e.QSM]},i={cN:"number",r:0,v:[{b:e.BNR+"[lLjJ]?"},{b:"\\b(0o[0-7]+)[lLjJ]?"},{b:e.CNR+"[lLjJ]?"}]},a={cN:"params",b:/\(/,e:/\)/,c:["self",t,i,r]},n={e:/:/,i:/[${=;\n]/,c:[e.UTM,a]};return{aliases:["py","gyp"],k:{keyword:"and elif is global as in if from raise for except finally print import pass return exec else break not with class assert yield try while continue del or def lambda nonlocal|10 None True False",built_in:"Ellipsis NotImplemented"},i:/(<\/|->|\?)/,c:[t,i,r,e.HCM,e.inherit(n,{cN:"function",bK:"def",r:10}),e.inherit(n,{cN:"class",bK:"class"}),{cN:"decorator",b:/@/,e:/$/},{b:/\b(print|exec)\(/}]}}),hljs.registerLanguage("q",function(e){var t={keyword:"do while select delete by update from",constant:"0b 1b",built_in:"neg not null string reciprocal floor ceiling signum mod xbar xlog and or each scan over prior mmu lsq inv md5 ltime gtime count first var dev med cov cor all any rand sums prds mins maxs fills deltas ratios avgs differ prev next rank reverse iasc idesc asc desc msum mcount mavg mdev xrank mmin mmax xprev rotate distinct group where flip type key til get value attr cut set upsert raze union inter except cross sv vs sublist enlist read0 read1 hopen hclose hdel hsym hcount peach system ltrim rtrim trim lower upper ssr view tables views cols xcols keys xkey xcol xasc xdesc fkeys meta lj aj aj0 ij pj asof uj ww wj wj1 fby xgroup ungroup ej save load rsave rload show csv parse eval min max avg wavg wsum sin cos tan sum",typename:"`float `double int `timestamp `timespan `datetime `time `boolean `symbol `char `byte `short `long `real `month `date `minute `second `guid"};return{aliases:["k","kdb"],k:t,l:/\b(`?)[A-Za-z0-9_]+\b/,c:[e.CLCM,e.QSM,e.CNM]}}),hljs.registerLanguage("r",function(e){var t="([a-zA-Z]|\\.[a-zA-Z.])[a-zA-Z0-9._]*";return{c:[e.HCM,{b:t,l:t,k:{keyword:"function if in break next repeat else for return switch while try tryCatch|10 stop warning require library attach detach source setMethod setGeneric setGroupGeneric setClass ...|10",literal:"NULL NA TRUE FALSE T F Inf NaN NA_integer_|10 NA_real_|10 NA_character_|10 NA_complex_|10"},r:0},{cN:"number",b:"0[xX][0-9a-fA-F]+[Li]?\\b",r:0},{cN:"number",b:"\\d+(?:[eE][+\\-]?\\d*)?L\\b",r:0},{cN:"number",b:"\\d+\\.(?!\\d)(?:i\\b)?",r:0},{cN:"number",b:"\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",r:0},{b:"`",e:"`",r:0},{cN:"string",c:[e.BE],v:[{b:'"',e:'"'},{b:"'",e:"'"}]}]}}),hljs.registerLanguage("rib",function(e){return{k:"ArchiveRecord AreaLightSource Atmosphere Attribute AttributeBegin AttributeEnd Basis Begin Blobby Bound Clipping ClippingPlane Color ColorSamples ConcatTransform Cone CoordinateSystem CoordSysTransform CropWindow Curves Cylinder DepthOfField Detail DetailRange Disk Displacement Display End ErrorHandler Exposure Exterior Format FrameAspectRatio FrameBegin FrameEnd GeneralPolygon GeometricApproximation Geometry Hider Hyperboloid Identity Illuminate Imager Interior LightSource MakeCubeFaceEnvironment MakeLatLongEnvironment MakeShadow MakeTexture Matte MotionBegin MotionEnd NuPatch ObjectBegin ObjectEnd ObjectInstance Opacity Option Orientation Paraboloid Patch PatchMesh Perspective PixelFilter PixelSamples PixelVariance Points PointsGeneralPolygons PointsPolygons Polygon Procedural Projection Quantize ReadArchive RelativeDetail ReverseOrientation Rotate Scale ScreenWindow ShadingInterpolation ShadingRate Shutter Sides Skew SolidBegin SolidEnd Sphere SubdivisionMesh Surface TextureCoordinates Torus Transform TransformBegin TransformEnd TransformPoints Translate TrimCurve WorldBegin WorldEnd",i:"</",c:[e.HCM,e.CNM,e.ASM,e.QSM]}}),hljs.registerLanguage("rsl",function(e){return{k:{keyword:"float color point normal vector matrix while for if do return else break extern continue",built_in:"abs acos ambient area asin atan atmosphere attribute calculatenormal ceil cellnoise clamp comp concat cos degrees depth Deriv diffuse distance Du Dv environment exp faceforward filterstep floor format fresnel incident length lightsource log match max min mod noise normalize ntransform opposite option phong pnoise pow printf ptlined radians random reflect refract renderinfo round setcomp setxcomp setycomp setzcomp shadow sign sin smoothstep specular specularbrdf spline sqrt step tan texture textureinfo trace transform vtransform xcomp ycomp zcomp"},i:"</",c:[e.CLCM,e.CBCM,e.QSM,e.ASM,e.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"shader",bK:"surface displacement light volume imager",e:"\\("},{cN:"shading",bK:"illuminate illuminance gather",e:"\\("}]}}),hljs.registerLanguage("ruleslanguage",function(e){return{k:{keyword:"BILL_PERIOD BILL_START BILL_STOP RS_EFFECTIVE_START RS_EFFECTIVE_STOP RS_JURIS_CODE RS_OPCO_CODE INTDADDATTRIBUTE|5 INTDADDVMSG|5 INTDBLOCKOP|5 INTDBLOCKOPNA|5 INTDCLOSE|5 INTDCOUNT|5 INTDCOUNTSTATUSCODE|5 INTDCREATEMASK|5 INTDCREATEDAYMASK|5 INTDCREATEFACTORMASK|5 INTDCREATEHANDLE|5 INTDCREATEOVERRIDEDAYMASK|5 INTDCREATEOVERRIDEMASK|5 INTDCREATESTATUSCODEMASK|5 INTDCREATETOUPERIOD|5 INTDDELETE|5 INTDDIPTEST|5 INTDEXPORT|5 INTDGETERRORCODE|5 INTDGETERRORMESSAGE|5 INTDISEQUAL|5 INTDJOIN|5 INTDLOAD|5 INTDLOADACTUALCUT|5 INTDLOADDATES|5 INTDLOADHIST|5 INTDLOADLIST|5 INTDLOADLISTDATES|5 INTDLOADLISTENERGY|5 INTDLOADLISTHIST|5 INTDLOADRELATEDCHANNEL|5 INTDLOADSP|5 INTDLOADSTAGING|5 INTDLOADUOM|5 INTDLOADUOMDATES|5 INTDLOADUOMHIST|5 INTDLOADVERSION|5 INTDOPEN|5 INTDREADFIRST|5 INTDREADNEXT|5 INTDRECCOUNT|5 INTDRELEASE|5 INTDREPLACE|5 INTDROLLAVG|5 INTDROLLPEAK|5 INTDSCALAROP|5 INTDSCALE|5 INTDSETATTRIBUTE|5 INTDSETDSTPARTICIPANT|5 INTDSETSTRING|5 INTDSETVALUE|5 INTDSETVALUESTATUS|5 INTDSHIFTSTARTTIME|5 INTDSMOOTH|5 INTDSORT|5 INTDSPIKETEST|5 INTDSUBSET|5 INTDTOU|5 INTDTOURELEASE|5 INTDTOUVALUE|5 INTDUPDATESTATS|5 INTDVALUE|5 STDEV INTDDELETEEX|5 INTDLOADEXACTUAL|5 INTDLOADEXCUT|5 INTDLOADEXDATES|5 INTDLOADEX|5 INTDLOADEXRELATEDCHANNEL|5 INTDSAVEEX|5 MVLOAD|5 MVLOADACCT|5 MVLOADACCTDATES|5 MVLOADACCTHIST|5 MVLOADDATES|5 MVLOADHIST|5 MVLOADLIST|5 MVLOADLISTDATES|5 MVLOADLISTHIST|5 IF FOR NEXT DONE SELECT END CALL ABORT CLEAR CHANNEL FACTOR LIST NUMBER OVERRIDE SET WEEK DISTRIBUTIONNODE ELSE WHEN THEN OTHERWISE IENUM CSV INCLUDE LEAVE RIDER SAVE DELETE NOVALUE SECTION WARN SAVE_UPDATE DETERMINANT LABEL REPORT REVENUE EACH IN FROM TOTAL CHARGE BLOCK AND OR CSV_FILE RATE_CODE AUXILIARY_DEMAND UIDACCOUNT RS BILL_PERIOD_SELECT HOURS_PER_MONTH INTD_ERROR_STOP SEASON_SCHEDULE_NAME ACCOUNTFACTOR ARRAYUPPERBOUND CALLSTOREDPROC GETADOCONNECTION GETCONNECT GETDATASOURCE GETQUALIFIER GETUSERID HASVALUE LISTCOUNT LISTOP LISTUPDATE LISTVALUE PRORATEFACTOR RSPRORATE SETBINPATH SETDBMONITOR WQ_OPEN BILLINGHOURS DATE DATEFROMFLOAT DATETIMEFROMSTRING DATETIMETOSTRING DATETOFLOAT DAY DAYDIFF DAYNAME DBDATETIME HOUR MINUTE MONTH MONTHDIFF MONTHHOURS MONTHNAME ROUNDDATE SAMEWEEKDAYLASTYEAR SECOND WEEKDAY WEEKDIFF YEAR YEARDAY YEARSTR COMPSUM HISTCOUNT HISTMAX HISTMIN HISTMINNZ HISTVALUE MAXNRANGE MAXRANGE MINRANGE COMPIKVA COMPKVA COMPKVARFROMKQKW COMPLF IDATTR FLAG LF2KW LF2KWH MAXKW POWERFACTOR READING2USAGE AVGSEASON MAXSEASON MONTHLYMERGE SEASONVALUE SUMSEASON ACCTREADDATES ACCTTABLELOAD CONFIGADD CONFIGGET CREATEOBJECT CREATEREPORT EMAILCLIENT EXPBLKMDMUSAGE EXPMDMUSAGE EXPORT_USAGE FACTORINEFFECT GETUSERSPECIFIEDSTOP INEFFECT ISHOLIDAY RUNRATE SAVE_PROFILE SETREPORTTITLE USEREXIT WATFORRUNRATE TO TABLE ACOS ASIN ATAN ATAN2 BITAND CEIL COS COSECANT COSH COTANGENT DIVQUOT DIVREM EXP FABS FLOOR FMOD FREPM FREXPN LOG LOG10 MAX MAXN MIN MINNZ MODF POW ROUND ROUND2VALUE ROUNDINT SECANT SIN SINH SQROOT TAN TANH FLOAT2STRING FLOAT2STRINGNC INSTR LEFT LEN LTRIM MID RIGHT RTRIM STRING STRINGNC TOLOWER TOUPPER TRIM NUMDAYS READ_DATE STAGING",built_in:"IDENTIFIER OPTIONS XML_ELEMENT XML_OP XML_ELEMENT_OF DOMDOCCREATE DOMDOCLOADFILE DOMDOCLOADXML DOMDOCSAVEFILE DOMDOCGETROOT DOMDOCADDPI DOMNODEGETNAME DOMNODEGETTYPE DOMNODEGETVALUE DOMNODEGETCHILDCT DOMNODEGETFIRSTCHILD DOMNODEGETSIBLING DOMNODECREATECHILDELEMENT DOMNODESETATTRIBUTE DOMNODEGETCHILDELEMENTCT DOMNODEGETFIRSTCHILDELEMENT DOMNODEGETSIBLINGELEMENT DOMNODEGETATTRIBUTECT DOMNODEGETATTRIBUTEI DOMNODEGETATTRIBUTEBYNAME DOMNODEGETBYNAME"},c:[e.CLCM,e.CBCM,e.ASM,e.QSM,e.CNM,{cN:"array",b:"#[a-zA-Z .]+"}]}}),hljs.registerLanguage("rust",function(e){return{aliases:["rs"],k:{keyword:"alignof as be box break const continue crate do else enum extern false fn for if impl in let loop match mod mut offsetof once priv proc pub pure ref return self sizeof static struct super trait true type typeof unsafe unsized use virtual while yield int i8 i16 i32 i64 uint u8 u32 u64 float f32 f64 str char bool",built_in:"assert! assert_eq! bitflags! bytes! cfg! col! concat! concat_idents! debug_assert! debug_assert_eq! env! fail! file! format! format_args! include_bin! include_str! line! local_data_key! module_path! option_env! print! println! select! stringify! try! unimplemented! unreachable! vec! write! writeln!"},l:e.IR+"!?",i:"</",c:[e.CLCM,e.CBCM,e.inherit(e.QSM,{i:null}),{cN:"string",b:/r(#*)".*?"\1(?!#)/},{cN:"string",b:/'\\?(x\w{2}|u\w{4}|U\w{8}|.)'/},{b:/'[a-zA-Z_][a-zA-Z0-9_]*/},{cN:"number",b:"\\b(0[xb][A-Za-z0-9_]+|[0-9_]+(\\.[0-9_]+)?([uif](8|16|32|64)?)?)",r:0},{cN:"function",bK:"fn",e:"(\\(|<)",eE:!0,c:[e.UTM]},{cN:"preprocessor",b:"#\\[",e:"\\]"},{bK:"type",e:"(=|<)",c:[e.UTM],i:"\\S"},{bK:"trait enum",e:"({|<)",c:[e.UTM],i:"\\S"},{b:e.IR+"::"},{b:"->"}]}}),hljs.registerLanguage("scala",function(e){var t={cN:"annotation",b:"@[A-Za-z]+"},r={cN:"string",b:'u?r?"""',e:'"""',r:10},i={cN:"symbol",b:"'\\w[\\w\\d_]*(?!')"},a={cN:"type",b:"\\b[A-Z][A-Za-z0-9_]*",r:0},n={cN:"title",b:/[^0-9\n\t "'(),.`{}\[\]:;][^\n\t "'(),.`{}\[\]:;]+|[^0-9\n\t "'(),.`{}\[\]:;=]/,r:0},o={cN:"class",bK:"class object trait type",e:/[:={\[(\n;]/,c:[{cN:"keyword",bK:"extends with",r:10},n]},s={cN:"function",bK:"def val",e:/[:={\[(\n;]/,c:[n]};return{k:{literal:"true false null",keyword:"type yield lazy override def with val var sealed abstract private trait object if forSome for while throw finally protected extends import final return else break new catch super class case package default try this match continue throws implicit"},c:[e.CLCM,e.CBCM,r,e.QSM,i,a,s,o,e.CNM,t]}}),hljs.registerLanguage("scheme",function(e){var t="[^\\(\\)\\[\\]\\{\\}\",'`;#|\\\\\\s]+",r="(\\-|\\+)?\\d+([./]\\d+)?",i=r+"[+\\-]"+r+"i",a={built_in:"case-lambda call/cc class define-class exit-handler field import inherit init-field interface let*-values let-values let/ec mixin opt-lambda override protect provide public rename require require-for-syntax syntax syntax-case syntax-error unit/sig unless when with-syntax and begin call-with-current-continuation call-with-input-file call-with-output-file case cond define define-syntax delay do dynamic-wind else for-each if lambda let let* let-syntax letrec letrec-syntax map or syntax-rules ' * + , ,@ - ... / ; < <= = => > >= ` abs acos angle append apply asin assoc assq assv atan boolean? caar cadr call-with-input-file call-with-output-file call-with-values car cdddar cddddr cdr ceiling char->integer char-alphabetic? char-ci<=? char-ci<? char-ci=? char-ci>=? char-ci>? char-downcase char-lower-case? char-numeric? char-ready? char-upcase char-upper-case? char-whitespace? char<=? char<? char=? char>=? char>? char? close-input-port close-output-port complex? cons cos current-input-port current-output-port denominator display eof-object? eq? equal? eqv? eval even? exact->inexact exact? exp expt floor force gcd imag-part inexact->exact inexact? input-port? integer->char integer? interaction-environment lcm length list list->string list->vector list-ref list-tail list? load log magnitude make-polar make-rectangular make-string make-vector max member memq memv min modulo negative? newline not null-environment null? number->string number? numerator odd? open-input-file open-output-file output-port? pair? peek-char port? positive? procedure? quasiquote quote quotient rational? rationalize read read-char real-part real? remainder reverse round scheme-report-environment set! set-car! set-cdr! sin sqrt string string->list string->number string->symbol string-append string-ci<=? string-ci<? string-ci=? string-ci>=? string-ci>? string-copy string-fill! string-length string-ref string-set! string<=? string<? string=? string>=? string>? string? substring symbol->string symbol? tan transcript-off transcript-on truncate values vector vector->list vector-fill! vector-length vector-ref vector-set! with-input-from-file with-output-to-file write write-char zero?"},n={cN:"shebang",b:"^#!",e:"$"},o={cN:"literal",b:"(#t|#f|#\\\\"+t+"|#\\\\.)"},s={cN:"number",v:[{b:r,r:0},{b:i,r:0},{b:"#b[0-1]+(/[0-1]+)?"},{b:"#o[0-7]+(/[0-7]+)?"},{b:"#x[0-9a-f]+(/[0-9a-f]+)?"}]},l=e.QSM,c={cN:"comment",v:[{b:";",e:"$",r:0},{b:"#\\|",e:"\\|#"}]},d={b:t,r:0},p={cN:"variable",b:"'"+t},u={eW:!0,r:0},m={cN:"list",v:[{b:"\\(",e:"\\)"},{b:"\\[",e:"\\]"}],c:[{cN:"keyword",b:t,l:t,k:a},u]};return u.c=[o,s,l,c,d,p,m],{i:/\S/,c:[n,s,l,c,p,m]}}),hljs.registerLanguage("scilab",function(e){var t=[e.CNM,{cN:"string",b:"'|\"",e:"'|\"",c:[e.BE,{b:"''"}]}];return{aliases:["sci"],k:{keyword:"abort break case clear catch continue do elseif else endfunction end for functionglobal if pause return resume select try then while%f %F %t %T %pi %eps %inf %nan %e %i %z %s",built_in:"abs and acos asin atan ceil cd chdir clearglobal cosh cos cumprod deff disp errorexec execstr exists exp eye gettext floor fprintf fread fsolve imag isdef isemptyisinfisnan isvector lasterror length load linspace list listfiles log10 log2 logmax min msprintf mclose mopen ones or pathconvert poly printf prod pwd rand realround sinh sin size gsort sprintf sqrt strcat strcmps tring sum system tanh tantype typename warning zeros matrix"},i:'("|#|/\\*|\\s+/\\w+)',c:[{cN:"function",bK:"function endfunction",e:"$",k:"function endfunction|10",c:[e.UTM,{cN:"params",b:"\\(",e:"\\)"}]},{cN:"transposed_variable",b:"[a-zA-Z_][a-zA-Z_0-9]*('+[\\.']*|[\\.']+)",e:"",r:0},{cN:"matrix",b:"\\[",e:"\\]'*[\\.']*",r:0,c:t},{cN:"comment",b:"//",e:"$"}].concat(t)}}),hljs.registerLanguage("scss",function(e){{var t="[a-zA-Z-][a-zA-Z0-9_-]*",r={cN:"variable",b:"(\\$"+t+")\\b"},i={cN:"function",b:t+"\\(",rB:!0,eE:!0,e:"\\("},a={cN:"hexcolor",b:"#[0-9A-Fa-f]+"};({cN:"attribute",b:"[A-Z\\_\\.\\-]+",e:":",eE:!0,i:"[^\\s]",starts:{cN:"value",eW:!0,eE:!0,c:[i,a,e.CSSNM,e.QSM,e.ASM,e.CBCM,{cN:"important",b:"!important"}]}})}return{cI:!0,i:"[=/|']",c:[e.CLCM,e.CBCM,i,{cN:"id",b:"\\#[A-Za-z0-9_-]+",r:0},{cN:"class",b:"\\.[A-Za-z0-9_-]+",r:0},{cN:"attr_selector",b:"\\[",e:"\\]",i:"$"},{cN:"tag",b:"\\b(a|abbr|acronym|address|area|article|aside|audio|b|base|big|blockquote|body|br|button|canvas|caption|cite|code|col|colgroup|command|datalist|dd|del|details|dfn|div|dl|dt|em|embed|fieldset|figcaption|figure|footer|form|frame|frameset|(h[1-6])|head|header|hgroup|hr|html|i|iframe|img|input|ins|kbd|keygen|label|legend|li|link|map|mark|meta|meter|nav|noframes|noscript|object|ol|optgroup|option|output|p|param|pre|progress|q|rp|rt|ruby|samp|script|section|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|tt|ul|var|video)\\b",r:0},{cN:"pseudo",b:":(visited|valid|root|right|required|read-write|read-only|out-range|optional|only-of-type|only-child|nth-of-type|nth-last-of-type|nth-last-child|nth-child|not|link|left|last-of-type|last-child|lang|invalid|indeterminate|in-range|hover|focus|first-of-type|first-line|first-letter|first-child|first|enabled|empty|disabled|default|checked|before|after|active)"},{cN:"pseudo",b:"::(after|before|choices|first-letter|first-line|repeat-index|repeat-item|selection|value)"},r,{cN:"attribute",b:"\\b(z-index|word-wrap|word-spacing|word-break|width|widows|white-space|visibility|vertical-align|unicode-bidi|transition-timing-function|transition-property|transition-duration|transition-delay|transition|transform-style|transform-origin|transform|top|text-underline-position|text-transform|text-shadow|text-rendering|text-overflow|text-indent|text-decoration-style|text-decoration-line|text-decoration-color|text-decoration|text-align-last|text-align|tab-size|table-layout|right|resize|quotes|position|pointer-events|perspective-origin|perspective|page-break-inside|page-break-before|page-break-after|padding-top|padding-right|padding-left|padding-bottom|padding|overflow-y|overflow-x|overflow-wrap|overflow|outline-width|outline-style|outline-offset|outline-color|outline|orphans|order|opacity|object-position|object-fit|normal|none|nav-up|nav-right|nav-left|nav-index|nav-down|min-width|min-height|max-width|max-height|mask|marks|margin-top|margin-right|margin-left|margin-bottom|margin|list-style-type|list-style-position|list-style-image|list-style|line-height|letter-spacing|left|justify-content|initial|inherit|ime-mode|image-orientation|image-resolution|image-rendering|icon|hyphens|height|font-weight|font-variant-ligatures|font-variant|font-style|font-stretch|font-size-adjust|font-size|font-language-override|font-kerning|font-feature-settings|font-family|font|float|flex-wrap|flex-shrink|flex-grow|flex-flow|flex-direction|flex-basis|flex|filter|empty-cells|display|direction|cursor|counter-reset|counter-increment|content|column-width|column-span|column-rule-width|column-rule-style|column-rule-color|column-rule|column-gap|column-fill|column-count|columns|color|clip-path|clip|clear|caption-side|break-inside|break-before|break-after|box-sizing|box-shadow|box-decoration-break|bottom|border-width|border-top-width|border-top-style|border-top-right-radius|border-top-left-radius|border-top-color|border-top|border-style|border-spacing|border-right-width|border-right-style|border-right-color|border-right|border-radius|border-left-width|border-left-style|border-left-color|border-left|border-image-width|border-image-source|border-image-slice|border-image-repeat|border-image-outset|border-image|border-color|border-collapse|border-bottom-width|border-bottom-style|border-bottom-right-radius|border-bottom-left-radius|border-bottom-color|border-bottom|border|background-size|background-repeat|background-position|background-origin|background-image|background-color|background-clip|background-attachment|background|backface-visibility|auto|animation-timing-function|animation-play-state|animation-name|animation-iteration-count|animation-fill-mode|animation-duration|animation-direction|animation-delay|animation|align-self|align-items|align-content)\\b",i:"[^\\s]"},{cN:"value",b:"\\b(whitespace|wait|w-resize|visible|vertical-text|vertical-ideographic|uppercase|upper-roman|upper-alpha|underline|transparent|top|thin|thick|text|text-top|text-bottom|tb-rl|table-header-group|table-footer-group|sw-resize|super|strict|static|square|solid|small-caps|separate|se-resize|scroll|s-resize|rtl|row-resize|ridge|right|repeat|repeat-y|repeat-x|relative|progress|pointer|overline|outside|outset|oblique|nowrap|not-allowed|normal|none|nw-resize|no-repeat|no-drop|newspaper|ne-resize|n-resize|move|middle|medium|ltr|lr-tb|lowercase|lower-roman|lower-alpha|loose|list-item|line|line-through|line-edge|lighter|left|keep-all|justify|italic|inter-word|inter-ideograph|inside|inset|inline|inline-block|inherit|inactive|ideograph-space|ideograph-parenthesis|ideograph-numeric|ideograph-alpha|horizontal|hidden|help|hand|groove|fixed|ellipsis|e-resize|double|dotted|distribute|distribute-space|distribute-letter|distribute-all-lines|disc|disabled|default|decimal|dashed|crosshair|collapse|col-resize|circle|char|center|capitalize|break-word|break-all|bottom|both|bolder|bold|block|bidi-override|below|baseline|auto|always|all-scroll|absolute|table|table-cell)\\b"},{cN:"value",b:":",e:";",c:[i,r,a,e.CSSNM,e.QSM,e.ASM,{cN:"important",b:"!important"}]},{cN:"at_rule",b:"@",e:"[{;]",k:"mixin include extend for if else each while charset import debug media page content font-face namespace warn",c:[i,r,e.QSM,e.ASM,a,e.CSSNM,{cN:"preprocessor",b:"\\s[A-Za-z0-9_.-]+",r:0}]}]}
 }),hljs.registerLanguage("smalltalk",function(e){var t="[a-z][a-zA-Z0-9_]*",r={cN:"char",b:"\\$.{1}"},i={cN:"symbol",b:"#"+e.UIR};return{aliases:["st"],k:"self super nil true false thisContext",c:[{cN:"comment",b:'"',e:'"'},e.ASM,{cN:"class",b:"\\b[A-Z][A-Za-z0-9_]*",r:0},{cN:"method",b:t+":",r:0},e.CNM,i,r,{cN:"localvars",b:"\\|[ ]*"+t+"([ ]+"+t+")*[ ]*\\|",rB:!0,e:/\|/,i:/\S/,c:[{b:"(\\|[ ]*)?"+t}]},{cN:"array",b:"\\#\\(",e:"\\)",c:[e.ASM,r,e.CNM,i]}]}}),hljs.registerLanguage("sql",function(e){var t={cN:"comment",b:"--",e:"$"};return{cI:!0,i:/[<>]/,c:[{cN:"operator",bK:"begin end start commit rollback savepoint lock alter create drop rename call delete do handler insert load replace select truncate update set show pragma grant merge describe use explain help declare prepare execute deallocate savepoint release unlock purge reset change stop analyze cache flush optimize repair kill install uninstall checksum restore check backup",e:/;/,eW:!0,k:{keyword:"abs absolute acos action add adddate addtime aes_decrypt aes_encrypt after aggregate all allocate alter analyze and any are as asc ascii asin assertion at atan atan2 atn2 authorization authors avg backup before begin benchmark between bin binlog bit_and bit_count bit_length bit_or bit_xor both by cache call cascade cascaded case cast catalog ceil ceiling chain change changed char_length character_length charindex charset check checksum checksum_agg choose close coalesce coercibility collate collation collationproperty column columns columns_updated commit compress concat concat_ws concurrent connect connection connection_id consistent constraint constraints continue contributors conv convert convert_tz corresponding cos cot count count_big crc32 create cross cume_dist curdate current current_date current_time current_timestamp current_user cursor curtime data database databases datalength date_add date_format date_sub dateadd datediff datefromparts datename datepart datetime2fromparts datetimeoffsetfromparts day dayname dayofmonth dayofweek dayofyear deallocate declare decode default deferrable deferred degrees delayed delete des_decrypt des_encrypt des_key_file desc describe descriptor diagnostics difference disconnect distinct distinctrow div do domain double drop dumpfile each else elt enclosed encode encrypt end end-exec engine engines eomonth errors escape escaped event eventdata events except exception exec execute exists exp explain export_set extended external extract fast fetch field fields find_in_set first first_value floor flush for force foreign format found found_rows from from_base64 from_days from_unixtime full function get get_format get_lock getdate getutcdate global go goto grant grants greatest group group_concat grouping grouping_id gtid_subset gtid_subtract handler having help hex high_priority hosts hour ident_current ident_incr ident_seed identified identity if ifnull ignore iif ilike immediate in index indicator inet6_aton inet6_ntoa inet_aton inet_ntoa infile initially inner innodb input insert install instr intersect into is is_free_lock is_ipv4 is_ipv4_compat is_ipv4_mapped is_not is_not_null is_used_lock isdate isnull isolation join key kill language last last_day last_insert_id last_value lcase lead leading least leaves left len lenght level like limit lines ln load load_file local localtime localtimestamp locate lock log log10 log2 logfile logs low_priority lower lpad ltrim make_set makedate maketime master master_pos_wait match matched max md5 medium merge microsecond mid min minute mod mode module month monthname mutex name_const names national natural nchar next no no_write_to_binlog not now nullif nvarchar oct octet_length of old_password on only open optimize option optionally or ord order outer outfile output pad parse partial partition password patindex percent_rank percentile_cont percentile_disc period_add period_diff pi plugin position pow power pragma precision prepare preserve primary prior privileges procedure procedure_analyze processlist profile profiles public publishingservername purge quarter query quick quote quotename radians rand read references regexp relative relaylog release release_lock rename repair repeat replace replicate reset restore restrict return returns reverse revoke right rlike rollback rollup round row row_count rows rpad rtrim savepoint schema scroll sec_to_time second section select serializable server session session_user set sha sha1 sha2 share show sign sin size slave sleep smalldatetimefromparts snapshot some soname soundex sounds_like space sql sql_big_result sql_buffer_result sql_cache sql_calc_found_rows sql_no_cache sql_small_result sql_variant_property sqlstate sqrt square start starting status std stddev stddev_pop stddev_samp stdev stdevp stop str str_to_date straight_join strcmp string stuff subdate substr substring subtime subtring_index sum switchoffset sysdate sysdatetime sysdatetimeoffset system_user sysutcdatetime table tables tablespace tan temporary terminated tertiary_weights then time time_format time_to_sec timediff timefromparts timestamp timestampadd timestampdiff timezone_hour timezone_minute to to_base64 to_days to_seconds todatetimeoffset trailing transaction translation trigger trigger_nestlevel triggers trim truncate try_cast try_convert try_parse ucase uncompress uncompressed_length unhex unicode uninstall union unique unix_timestamp unknown unlock update upgrade upped upper usage use user user_resources using utc_date utc_time utc_timestamp uuid uuid_short validate_password_strength value values var var_pop var_samp variables variance varp version view warnings week weekday weekofyear weight_string when whenever where with work write xml xor year yearweek zon",literal:"true false null",built_in:"array bigint binary bit blob boolean char character date dec decimal float int integer interval number numeric real serial smallint varchar varying int8 serial8 text"},c:[{cN:"string",b:"'",e:"'",c:[e.BE,{b:"''"}]},{cN:"string",b:'"',e:'"',c:[e.BE,{b:'""'}]},{cN:"string",b:"`",e:"`",c:[e.BE]},e.CNM,e.CBCM,t]},e.CBCM,t]}}),hljs.registerLanguage("stylus",function(e){var t={cN:"variable",b:"\\$"+e.IR},r={cN:"hexcolor",b:"#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})",r:10},i=["charset","css","debug","extend","font-face","for","import","include","media","mixin","page","warn","while"],a=["after","before","first-letter","first-line","active","first-child","focus","hover","lang","link","visited"],n=["a","abbr","address","article","aside","audio","b","blockquote","body","button","canvas","caption","cite","code","dd","del","details","dfn","div","dl","dt","em","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","html","i","iframe","img","input","ins","kbd","label","legend","li","mark","menu","nav","object","ol","p","q","quote","samp","section","span","strong","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","tr","ul","var","video"],o="[\\.\\s\\n\\[\\:,]",s=["align-content","align-items","align-self","animation","animation-delay","animation-direction","animation-duration","animation-fill-mode","animation-iteration-count","animation-name","animation-play-state","animation-timing-function","auto","backface-visibility","background","background-attachment","background-clip","background-color","background-image","background-origin","background-position","background-repeat","background-size","border","border-bottom","border-bottom-color","border-bottom-left-radius","border-bottom-right-radius","border-bottom-style","border-bottom-width","border-collapse","border-color","border-image","border-image-outset","border-image-repeat","border-image-slice","border-image-source","border-image-width","border-left","border-left-color","border-left-style","border-left-width","border-radius","border-right","border-right-color","border-right-style","border-right-width","border-spacing","border-style","border-top","border-top-color","border-top-left-radius","border-top-right-radius","border-top-style","border-top-width","border-width","bottom","box-decoration-break","box-shadow","box-sizing","break-after","break-before","break-inside","caption-side","clear","clip","clip-path","color","column-count","column-fill","column-gap","column-rule","column-rule-color","column-rule-style","column-rule-width","column-span","column-width","columns","content","counter-increment","counter-reset","cursor","direction","display","empty-cells","filter","flex","flex-basis","flex-direction","flex-flow","flex-grow","flex-shrink","flex-wrap","float","font","font-family","font-feature-settings","font-kerning","font-language-override","font-size","font-size-adjust","font-stretch","font-style","font-variant","font-variant-ligatures","font-weight","height","hyphens","icon","image-orientation","image-rendering","image-resolution","ime-mode","inherit","initial","justify-content","left","letter-spacing","line-height","list-style","list-style-image","list-style-position","list-style-type","margin","margin-bottom","margin-left","margin-right","margin-top","marks","mask","max-height","max-width","min-height","min-width","nav-down","nav-index","nav-left","nav-right","nav-up","none","normal","object-fit","object-position","opacity","order","orphans","outline","outline-color","outline-offset","outline-style","outline-width","overflow","overflow-wrap","overflow-x","overflow-y","padding","padding-bottom","padding-left","padding-right","padding-top","page-break-after","page-break-before","page-break-inside","perspective","perspective-origin","pointer-events","position","quotes","resize","right","tab-size","table-layout","text-align","text-align-last","text-decoration","text-decoration-color","text-decoration-line","text-decoration-style","text-indent","text-overflow","text-rendering","text-shadow","text-transform","text-underline-position","top","transform","transform-origin","transform-style","transition","transition-delay","transition-duration","transition-property","transition-timing-function","unicode-bidi","vertical-align","visibility","white-space","widows","width","word-break","word-spacing","word-wrap","z-index"],l=["\\{","\\}","\\?","(\\bReturn\\b)","(\\bEnd\\b)","(\\bend\\b)",";","#\\s","\\*\\s","===\\s"];return{aliases:["styl"],cI:!1,i:"("+l.join("|")+")",k:"if else for in",c:[e.QSM,e.ASM,e.CLCM,e.CBCM,r,{b:"\\.[a-zA-Z][a-zA-Z0-9_-]*"+o,rB:!0,c:[{cN:"class",b:"\\.[a-zA-Z][a-zA-Z0-9_-]*"}]},{b:"\\#[a-zA-Z][a-zA-Z0-9_-]*"+o,rB:!0,c:[{cN:"id",b:"\\#[a-zA-Z][a-zA-Z0-9_-]*"}]},{b:"\\b("+n.join("|")+")"+o,rB:!0,c:[{cN:"tag",b:"\\b[a-zA-Z][a-zA-Z0-9_-]*"}]},{cN:"pseudo",b:"&?:?:\\b("+a.join("|")+")"+o},{cN:"at_rule",b:"@("+i.join("|")+")\\b"},t,e.CSSNM,e.NM,{cN:"function",b:"\\b[a-zA-Z][a-zA-Z0-9_-]*\\(.*\\)",i:"[\\n]",rB:!0,c:[{cN:"title",b:"\\b[a-zA-Z][a-zA-Z0-9_-]*"},{cN:"params",b:/\(/,e:/\)/,c:[r,t,e.ASM,e.CSSNM,e.NM,e.QSM]}]},{cN:"attribute",b:"\\b("+s.reverse().join("|")+")\\b"}]}}),hljs.registerLanguage("swift",function(e){var t={keyword:"class deinit enum extension func import init let protocol static struct subscript typealias var break case continue default do else fallthrough if in for return switch where while as dynamicType is new super self Self Type __COLUMN__ __FILE__ __FUNCTION__ __LINE__ associativity didSet get infix inout left mutating none nonmutating operator override postfix precedence prefix right set unowned unowned safe unsafe weak willSet",literal:"true false nil",built_in:"abs advance alignof alignofValue assert bridgeFromObjectiveC bridgeFromObjectiveCUnconditional bridgeToObjectiveC bridgeToObjectiveCUnconditional c contains count countElements countLeadingZeros debugPrint debugPrintln distance dropFirst dropLast dump encodeBitsAsWords enumerate equal false filter find getBridgedObjectiveCType getVaList indices insertionSort isBridgedToObjectiveC isBridgedVerbatimToObjectiveC isUniquelyReferenced join lexicographicalCompare map max maxElement min minElement nil numericCast partition posix print println quickSort reduce reflect reinterpretCast reverse roundUpToAlignment sizeof sizeofValue sort split startsWith strideof strideofValue swap swift toString transcode true underestimateCount unsafeReflect withExtendedLifetime withObjectAtPlusZero withUnsafePointer withUnsafePointerToObject withUnsafePointers withVaList"},r={cN:"type",b:"\\b[A-Z][\\w']*",r:0},i={cN:"comment",b:"/\\*",e:"\\*/",c:[e.PWM,"self"]},a={cN:"subst",b:/\\\(/,e:"\\)",k:t,c:[]},n={cN:"number",b:"\\b([\\d_]+(\\.[\\deE_]+)?|0x[a-fA-F0-9_]+(\\.[a-fA-F0-9p_]+)?|0b[01_]+|0o[0-7_]+)\\b",r:0},o=e.inherit(e.QSM,{c:[a,e.BE]});return a.c=[n],{k:t,c:[o,e.CLCM,i,r,n,{cN:"func",bK:"func",e:"{",eE:!0,c:[e.inherit(e.TM,{b:/[A-Za-z$_][0-9A-Za-z$_]*/,i:/\(/}),{cN:"generics",b:/\</,e:/\>/,i:/\>/},{cN:"params",b:/\(/,e:/\)/,k:t,c:["self",n,o,e.CBCM,{b:":"}],i:/["']/}],i:/\[|%/},{cN:"class",k:"struct protocol class extension enum",b:"(struct|protocol|class(?! (func|var))|extension|enum)",e:"\\{",eE:!0,c:[e.inherit(e.TM,{b:/[A-Za-z$_][0-9A-Za-z$_]*/})]},{cN:"preprocessor",b:"(@assignment|@class_protocol|@exported|@final|@lazy|@noreturn|@NSCopying|@NSManaged|@objc|@optional|@required|@auto_closure|@noreturn|@IBAction|@IBDesignable|@IBInspectable|@IBOutlet|@infix|@prefix|@postfix)"}]}}),hljs.registerLanguage("tcl",function(e){return{aliases:["tk"],k:"after append apply array auto_execok auto_import auto_load auto_mkindex auto_mkindex_old auto_qualify auto_reset bgerror binary break catch cd chan clock close concat continue dde dict encoding eof error eval exec exit expr fblocked fconfigure fcopy file fileevent filename flush for foreach format gets glob global history http if incr info interp join lappend|10 lassign|10 lindex|10 linsert|10 list llength|10 load lrange|10 lrepeat|10 lreplace|10 lreverse|10 lsearch|10 lset|10 lsort|10 mathfunc mathop memory msgcat namespace open package parray pid pkg::create pkg_mkIndex platform platform::shell proc puts pwd read refchan regexp registry regsub|10 rename return safe scan seek set socket source split string subst switch tcl_endOfWord tcl_findLibrary tcl_startOfNextWord tcl_startOfPreviousWord tcl_wordBreakAfter tcl_wordBreakBefore tcltest tclvars tell time tm trace unknown unload unset update uplevel upvar variable vwait while",c:[{cN:"comment",v:[{b:";[ \\t]*#",e:"$"},{b:"^[ \\t]*#",e:"$"}]},{bK:"proc",e:"[\\{]",eE:!0,c:[{cN:"symbol",b:"[ \\t\\n\\r]+(::)?[a-zA-Z_]((::)?[a-zA-Z0-9_])*",e:"[ \\t\\n\\r]",eW:!0,eE:!0}]},{cN:"variable",eE:!0,v:[{b:"\\$(\\{)?(::)?[a-zA-Z_]((::)?[a-zA-Z0-9_])*\\(([a-zA-Z0-9_])*\\)",e:"[^a-zA-Z0-9_\\}\\$]"},{b:"\\$(\\{)?(::)?[a-zA-Z_]((::)?[a-zA-Z0-9_])*",e:"(\\))?[^a-zA-Z0-9_\\}\\$]"}]},{cN:"string",c:[e.BE],v:[e.inherit(e.ASM,{i:null}),e.inherit(e.QSM,{i:null})]},{cN:"number",v:[e.BNM,e.CNM]}]}}),hljs.registerLanguage("tex",function(){var e={cN:"command",b:"\\\\[a-zA-Zа-яА-я]+[\\*]?"},t={cN:"command",b:"\\\\[^a-zA-Zа-яА-я0-9]"},r={cN:"special",b:"[{}\\[\\]\\&#~]",r:0};return{c:[{b:"\\\\[a-zA-Zа-яА-я]+[\\*]? *= *-?\\d*\\.?\\d+(pt|pc|mm|cm|in|dd|cc|ex|em)?",rB:!0,c:[e,t,{cN:"number",b:" *=",e:"-?\\d*\\.?\\d+(pt|pc|mm|cm|in|dd|cc|ex|em)?",eB:!0}],r:10},e,t,r,{cN:"formula",b:"\\$\\$",e:"\\$\\$",c:[e,t,r],r:0},{cN:"formula",b:"\\$",e:"\\$",c:[e,t,r],r:0},{cN:"comment",b:"%",e:"$",r:0}]}}),hljs.registerLanguage("thrift",function(e){var t="bool byte i16 i32 i64 double string binary";return{k:{keyword:"namespace const typedef struct enum service exception void oneway set list map required optional",built_in:t,literal:"true false"},c:[e.QSM,e.NM,e.CLCM,e.CBCM,{cN:"class",bK:"struct enum service exception",e:/\{/,i:/\n/,c:[e.inherit(e.TM,{starts:{eW:!0,eE:!0}})]},{cN:"stl_container",b:"\\b(set|list|map)\\s*<",e:">",k:t,c:["self"]}]}}),hljs.registerLanguage("twig",function(){var e={cN:"params",b:"\\(",e:"\\)"},t="attribute block constant cycle date dump include max min parent random range source template_from_string",r={cN:"function",bK:t,r:0,c:[e]},i={cN:"filter",b:/\|[A-Za-z]+\:?/,k:"abs batch capitalize convert_encoding date date_modify default escape first format join json_encode keys last length lower merge nl2br number_format raw replace reverse round slice sort split striptags title trim upper url_encode",c:[r]};return{aliases:["craftcms"],cI:!0,sL:"xml",subLanguageMode:"continuous",c:[{cN:"template_comment",b:/\{#/,e:/#}/},{cN:"template_tag",b:/\{%/,e:/%}/,k:"autoescape block do embed extends filter flush for if import include maro sandbox set spaceless use verbatim",c:[i,r]},{cN:"variable",b:/\{\{/,e:/}}/,c:[i,r]}]}}),hljs.registerLanguage("typescript",function(e){return{aliases:["ts"],k:{keyword:"in if for while finally var new function|0 do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const class public private get set super interface extendsstatic constructor implements enum export import declare",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document any number boolean string void"},c:[{cN:"pi",b:/^\s*('|")use strict('|")/,r:0},e.ASM,e.QSM,e.CLCM,e.CBCM,e.CNM,{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{b:/</,e:/>;/,r:0,sL:"xml"}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:/[A-Za-z$_][0-9A-Za-z$_]*/}),{cN:"params",b:/\(/,e:/\)/,c:[e.CLCM,e.CBCM],i:/["'\(]/}],i:/\[|%/,r:0},{cN:"constructor",bK:"constructor",e:/\{/,eE:!0,r:10},{cN:"module",bK:"module",e:/\{/,eE:!0},{cN:"interface",bK:"interface",e:/\{/,eE:!0},{b:/\$[(.]/},{b:"\\."+e.IR,r:0}]}}),hljs.registerLanguage("vala",function(e){return{k:{keyword:"char uchar unichar int uint long ulong short ushort int8 int16 int32 int64 uint8 uint16 uint32 uint64 float double bool struct enum string void weak unowned owned async signal static abstract interface override while do for foreach else switch case break default return try catch public private protected internal using new this get set const stdout stdin stderr var",built_in:"DBus GLib CCode Gee Object",literal:"false true null"},c:[{cN:"class",bK:"class interface delegate namespace",e:"{",eE:!0,i:"[^,:\\n\\s\\.]",c:[e.UTM]},e.CLCM,e.CBCM,{cN:"string",b:'"""',e:'"""',r:5},e.ASM,e.QSM,e.CNM,{cN:"preprocessor",b:"^#",e:"$",r:2},{cN:"constant",b:" [A-Z_]+ ",r:0}]}}),hljs.registerLanguage("vbnet",function(e){return{aliases:["vb"],cI:!0,k:{keyword:"addhandler addressof alias and andalso aggregate ansi as assembly auto binary by byref byval call case catch class compare const continue custom declare default delegate dim distinct do each equals else elseif end enum erase error event exit explicit finally for friend from function get global goto group handles if implements imports in inherits interface into is isfalse isnot istrue join key let lib like loop me mid mod module mustinherit mustoverride mybase myclass namespace narrowing new next not notinheritable notoverridable of off on operator option optional or order orelse overloads overridable overrides paramarray partial preserve private property protected public raiseevent readonly redim rem removehandler resume return select set shadows shared skip static step stop structure strict sub synclock take text then throw to try unicode until using when where while widening with withevents writeonly xor",built_in:"boolean byte cbool cbyte cchar cdate cdec cdbl char cint clng cobj csbyte cshort csng cstr ctype date decimal directcast double gettype getxmlnamespace iif integer long object sbyte short single string trycast typeof uinteger ulong ushort",literal:"true false nothing"},i:"//|{|}|endif|gosub|variant|wend",c:[e.inherit(e.QSM,{c:[{b:'""'}]}),{cN:"comment",b:"'",e:"$",rB:!0,c:[{cN:"xmlDocTag",b:"'''|<!--|-->"},{cN:"xmlDocTag",b:"</?",e:">"}]},e.CNM,{cN:"preprocessor",b:"#",e:"$",k:"if else elseif end region externalsource"}]}}),hljs.registerLanguage("vbscript",function(e){return{aliases:["vbs"],cI:!0,k:{keyword:"call class const dim do loop erase execute executeglobal exit for each next function if then else on error option explicit new private property let get public randomize redim rem select case set stop sub while wend with end to elseif is or xor and not class_initialize class_terminate default preserve in me byval byref step resume goto",built_in:"lcase month vartype instrrev ubound setlocale getobject rgb getref string weekdayname rnd dateadd monthname now day minute isarray cbool round formatcurrency conversions csng timevalue second year space abs clng timeserial fixs len asc isempty maths dateserial atn timer isobject filter weekday datevalue ccur isdate instr datediff formatdatetime replace isnull right sgn array snumeric log cdbl hex chr lbound msgbox ucase getlocale cos cdate cbyte rtrim join hour oct typename trim strcomp int createobject loadpicture tan formatnumber mid scriptenginebuildversion scriptengine split scriptengineminorversion cint sin datepart ltrim sqr scriptenginemajorversion time derived eval date formatpercent exp inputbox left ascw chrw regexp server response request cstr err",literal:"true false null nothing empty"},i:"//",c:[e.inherit(e.QSM,{c:[{b:'""'}]}),{cN:"comment",b:/'/,e:/$/,r:0},e.CNM]}}),hljs.registerLanguage("vbscript-html",function(){return{sL:"xml",subLanguageMode:"continuous",c:[{b:"<%",e:"%>",sL:"vbscript"}]}}),hljs.registerLanguage("vhdl",function(e){return{cI:!0,k:{keyword:"abs access after alias all and architecture array assert attribute begin block body buffer bus case component configuration constant context cover disconnect downto default else elsif end entity exit fairness file for force function generate generic group guarded if impure in inertial inout is label library linkage literal loop map mod nand new next nor not null of on open or others out package port postponed procedure process property protected pure range record register reject release rem report restrict restrict_guarantee return rol ror select sequence severity shared signal sla sll sra srl strong subtype then to transport type unaffected units until use variable vmode vprop vunit wait when while with xnor xor",typename:"boolean bit character severity_level integer time delay_length natural positive string bit_vector file_open_kind file_open_status std_ulogic std_ulogic_vector std_logic std_logic_vector unsigned signed boolean_vector integer_vector real_vector time_vector"},i:"{",c:[e.CBCM,{cN:"comment",b:"--",e:"$"},e.QSM,e.CNM,{cN:"literal",b:"'(U|X|0|1|Z|W|L|H|-)'",c:[e.BE]},{cN:"attribute",b:"'[A-Za-z](_?[A-Za-z0-9])*",c:[e.BE]}]}}),hljs.registerLanguage("vim",function(e){return{l:/[!#@\w]+/,k:{keyword:"N|0 P|0 X|0 a|0 ab abc abo al am an|0 ar arga argd arge argdo argg argl argu as au aug aun b|0 bN ba bad bd be bel bf bl bm bn bo bp br brea breaka breakd breakl bro bufdo buffers bun bw c|0 cN cNf ca cabc caddb cad caddf cal cat cb cc ccl cd ce cex cf cfir cgetb cgete cg changes chd che checkt cl cla clo cm cmapc cme cn cnew cnf cno cnorea cnoreme co col colo com comc comp con conf cope cp cpf cq cr cs cst cu cuna cunme cw d|0 delm deb debugg delc delf dif diffg diffo diffp diffpu diffs diffthis dig di dl dell dj dli do doautoa dp dr ds dsp e|0 ea ec echoe echoh echom echon el elsei em en endfo endf endt endw ene ex exe exi exu f|0 files filet fin fina fini fir fix fo foldc foldd folddoc foldo for fu g|0 go gr grepa gu gv ha h|0 helpf helpg helpt hi hid his i|0 ia iabc if ij il im imapc ime ino inorea inoreme int is isp iu iuna iunme j|0 ju k|0 keepa kee keepj lN lNf l|0 lad laddb laddf la lan lat lb lc lch lcl lcs le lefta let lex lf lfir lgetb lgete lg lgr lgrepa lh ll lla lli lmak lm lmapc lne lnew lnf ln loadk lo loc lockv lol lope lp lpf lr ls lt lu lua luad luaf lv lvimgrepa lw m|0 ma mak map mapc marks mat me menut mes mk mks mksp mkv mkvie mod mz mzf nbc nb nbs n|0 new nm nmapc nme nn nnoreme noa no noh norea noreme norm nu nun nunme ol o|0 om omapc ome on ono onoreme opt ou ounme ow p|0 profd prof pro promptr pc ped pe perld po popu pp pre prev ps pt ptN ptf ptj ptl ptn ptp ptr pts pu pw py3 python3 py3d py3f py pyd pyf q|0 quita qa r|0 rec red redi redr redraws reg res ret retu rew ri rightb rub rubyd rubyf rund ru rv s|0 sN san sa sal sav sb sbN sba sbf sbl sbm sbn sbp sbr scrip scripte scs se setf setg setl sf sfir sh sim sig sil sl sla sm smap smapc sme sn sni sno snor snoreme sor so spelld spe spelli spellr spellu spellw sp spr sre st sta startg startr star stopi stj sts sun sunm sunme sus sv sw sy synti sync t|0 tN tabN tabc tabdo tabe tabf tabfir tabl tabm tabnew tabn tabo tabp tabr tabs tab ta tags tc tcld tclf te tf th tj tl tm tn to tp tr try ts tu u|0 undoj undol una unh unl unlo unm unme uns up v|0 ve verb vert vim vimgrepa vi viu vie vm vmapc vme vne vn vnoreme vs vu vunme windo w|0 wN wa wh wi winc winp wn wp wq wqa ws wu wv x|0 xa xmapc xm xme xn xnoreme xu xunme y|0 z|0 ~ Next Print append abbreviate abclear aboveleft all amenu anoremenu args argadd argdelete argedit argglobal arglocal argument ascii autocmd augroup aunmenu buffer bNext ball badd bdelete behave belowright bfirst blast bmodified bnext botright bprevious brewind break breakadd breakdel breaklist browse bunload bwipeout change cNext cNfile cabbrev cabclear caddbuffer caddexpr caddfile call catch cbuffer cclose center cexpr cfile cfirst cgetbuffer cgetexpr cgetfile chdir checkpath checktime clist clast close cmap cmapclear cmenu cnext cnewer cnfile cnoremap cnoreabbrev cnoremenu copy colder colorscheme command comclear compiler continue confirm copen cprevious cpfile cquit crewind cscope cstag cunmap cunabbrev cunmenu cwindow delete delmarks debug debuggreedy delcommand delfunction diffupdate diffget diffoff diffpatch diffput diffsplit digraphs display deletel djump dlist doautocmd doautoall deletep drop dsearch dsplit edit earlier echo echoerr echohl echomsg else elseif emenu endif endfor endfunction endtry endwhile enew execute exit exusage file filetype find finally finish first fixdel fold foldclose folddoopen folddoclosed foldopen function global goto grep grepadd gui gvim hardcopy help helpfind helpgrep helptags highlight hide history insert iabbrev iabclear ijump ilist imap imapclear imenu inoremap inoreabbrev inoremenu intro isearch isplit iunmap iunabbrev iunmenu join jumps keepalt keepmarks keepjumps lNext lNfile list laddexpr laddbuffer laddfile last language later lbuffer lcd lchdir lclose lcscope left leftabove lexpr lfile lfirst lgetbuffer lgetexpr lgetfile lgrep lgrepadd lhelpgrep llast llist lmake lmap lmapclear lnext lnewer lnfile lnoremap loadkeymap loadview lockmarks lockvar lolder lopen lprevious lpfile lrewind ltag lunmap luado luafile lvimgrep lvimgrepadd lwindow move mark make mapclear match menu menutranslate messages mkexrc mksession mkspell mkvimrc mkview mode mzscheme mzfile nbclose nbkey nbsart next nmap nmapclear nmenu nnoremap nnoremenu noautocmd noremap nohlsearch noreabbrev noremenu normal number nunmap nunmenu oldfiles open omap omapclear omenu only onoremap onoremenu options ounmap ounmenu ownsyntax print profdel profile promptfind promptrepl pclose pedit perl perldo pop popup ppop preserve previous psearch ptag ptNext ptfirst ptjump ptlast ptnext ptprevious ptrewind ptselect put pwd py3do py3file python pydo pyfile quit quitall qall read recover redo redir redraw redrawstatus registers resize retab return rewind right rightbelow ruby rubydo rubyfile rundo runtime rviminfo substitute sNext sandbox sargument sall saveas sbuffer sbNext sball sbfirst sblast sbmodified sbnext sbprevious sbrewind scriptnames scriptencoding scscope set setfiletype setglobal setlocal sfind sfirst shell simalt sign silent sleep slast smagic smapclear smenu snext sniff snomagic snoremap snoremenu sort source spelldump spellgood spellinfo spellrepall spellundo spellwrong split sprevious srewind stop stag startgreplace startreplace startinsert stopinsert stjump stselect sunhide sunmap sunmenu suspend sview swapname syntax syntime syncbind tNext tabNext tabclose tabedit tabfind tabfirst tablast tabmove tabnext tabonly tabprevious tabrewind tag tcl tcldo tclfile tearoff tfirst throw tjump tlast tmenu tnext topleft tprevious trewind tselect tunmenu undo undojoin undolist unabbreviate unhide unlet unlockvar unmap unmenu unsilent update vglobal version verbose vertical vimgrep vimgrepadd visual viusage view vmap vmapclear vmenu vnew vnoremap vnoremenu vsplit vunmap vunmenu write wNext wall while winsize wincmd winpos wnext wprevious wqall wsverb wundo wviminfo xit xall xmapclear xmap xmenu xnoremap xnoremenu xunmap xunmenu yank",built_in:"abs acos add and append argc argidx argv asin atan atan2 browse browsedir bufexists buflisted bufloaded bufname bufnr bufwinnr byte2line byteidx call ceil changenr char2nr cindent clearmatches col complete complete_add complete_check confirm copy cos cosh count cscope_connection cursor deepcopy delete did_filetype diff_filler diff_hlID empty escape eval eventhandler executable exists exp expand extend feedkeys filereadable filewritable filter finddir findfile float2nr floor fmod fnameescape fnamemodify foldclosed foldclosedend foldlevel foldtext foldtextresult foreground function garbagecollect get getbufline getbufvar getchar getcharmod getcmdline getcmdpos getcmdtype getcwd getfontname getfperm getfsize getftime getftype getline getloclist getmatches getpid getpos getqflist getreg getregtype gettabvar gettabwinvar getwinposx getwinposy getwinvar glob globpath has has_key haslocaldir hasmapto histadd histdel histget histnr hlexists hlID hostname iconv indent index input inputdialog inputlist inputrestore inputsave inputsecret insert invert isdirectory islocked items join keys len libcall libcallnr line line2byte lispindent localtime log log10 luaeval map maparg mapcheck match matchadd matcharg matchdelete matchend matchlist matchstr max min mkdir mode mzeval nextnonblank nr2char or pathshorten pow prevnonblank printf pumvisible py3eval pyeval range readfile reltime reltimestr remote_expr remote_foreground remote_peek remote_read remote_send remove rename repeat resolve reverse round screenattr screenchar screencol screenrow search searchdecl searchpair searchpairpos searchpos server2client serverlist setbufvar setcmdpos setline setloclist setmatches setpos setqflist setreg settabvar settabwinvar setwinvar sha256 shellescape shiftwidth simplify sin sinh sort soundfold spellbadword spellsuggest split sqrt str2float str2nr strchars strdisplaywidth strftime stridx string strlen strpart strridx strtrans strwidth submatch substitute synconcealed synID synIDattr synIDtrans synstack system tabpagebuflist tabpagenr tabpagewinnr tagfiles taglist tan tanh tempname tolower toupper tr trunc type undofile undotree values virtcol visualmode wildmenumode winbufnr wincol winheight winline winnr winrestcmd winrestview winsaveview winwidth writefile xor"},i:/[{:]/,c:[e.NM,e.ASM,{cN:"string",b:/"((\\")|[^"\n])*("|\n)/},{cN:"variable",b:/[bwtglsav]:[\w\d_]*/},{cN:"function",bK:"function function!",e:"$",r:0,c:[e.TM,{cN:"params",b:"\\(",e:"\\)"}]}]}}),hljs.registerLanguage("x86asm",function(e){return{cI:!0,l:"\\.?"+e.IR,k:{keyword:"lock rep repe repz repne repnz xaquire xrelease bnd nobnd aaa aad aam aas adc add and arpl bb0_reset bb1_reset bound bsf bsr bswap bt btc btr bts call cbw cdq cdqe clc cld cli clts cmc cmp cmpsb cmpsd cmpsq cmpsw cmpxchg cmpxchg486 cmpxchg8b cmpxchg16b cpuid cpu_read cpu_write cqo cwd cwde daa das dec div dmint emms enter equ f2xm1 fabs fadd faddp fbld fbstp fchs fclex fcmovb fcmovbe fcmove fcmovnb fcmovnbe fcmovne fcmovnu fcmovu fcom fcomi fcomip fcomp fcompp fcos fdecstp fdisi fdiv fdivp fdivr fdivrp femms feni ffree ffreep fiadd ficom ficomp fidiv fidivr fild fimul fincstp finit fist fistp fisttp fisub fisubr fld fld1 fldcw fldenv fldl2e fldl2t fldlg2 fldln2 fldpi fldz fmul fmulp fnclex fndisi fneni fninit fnop fnsave fnstcw fnstenv fnstsw fpatan fprem fprem1 fptan frndint frstor fsave fscale fsetpm fsin fsincos fsqrt fst fstcw fstenv fstp fstsw fsub fsubp fsubr fsubrp ftst fucom fucomi fucomip fucomp fucompp fxam fxch fxtract fyl2x fyl2xp1 hlt ibts icebp idiv imul in inc incbin insb insd insw int int01 int1 int03 int3 into invd invpcid invlpg invlpga iret iretd iretq iretw jcxz jecxz jrcxz jmp jmpe lahf lar lds lea leave les lfence lfs lgdt lgs lidt lldt lmsw loadall loadall286 lodsb lodsd lodsq lodsw loop loope loopne loopnz loopz lsl lss ltr mfence monitor mov movd movq movsb movsd movsq movsw movsx movsxd movzx mul mwait neg nop not or out outsb outsd outsw packssdw packsswb packuswb paddb paddd paddsb paddsiw paddsw paddusb paddusw paddw pand pandn pause paveb pavgusb pcmpeqb pcmpeqd pcmpeqw pcmpgtb pcmpgtd pcmpgtw pdistib pf2id pfacc pfadd pfcmpeq pfcmpge pfcmpgt pfmax pfmin pfmul pfrcp pfrcpit1 pfrcpit2 pfrsqit1 pfrsqrt pfsub pfsubr pi2fd pmachriw pmaddwd pmagw pmulhriw pmulhrwa pmulhrwc pmulhw pmullw pmvgezb pmvlzb pmvnzb pmvzb pop popa popad popaw popf popfd popfq popfw por prefetch prefetchw pslld psllq psllw psrad psraw psrld psrlq psrlw psubb psubd psubsb psubsiw psubsw psubusb psubusw psubw punpckhbw punpckhdq punpckhwd punpcklbw punpckldq punpcklwd push pusha pushad pushaw pushf pushfd pushfq pushfw pxor rcl rcr rdshr rdmsr rdpmc rdtsc rdtscp ret retf retn rol ror rdm rsdc rsldt rsm rsts sahf sal salc sar sbb scasb scasd scasq scasw sfence sgdt shl shld shr shrd sidt sldt skinit smi smint smintold smsw stc std sti stosb stosd stosq stosw str sub svdc svldt svts swapgs syscall sysenter sysexit sysret test ud0 ud1 ud2b ud2 ud2a umov verr verw fwait wbinvd wrshr wrmsr xadd xbts xchg xlatb xlat xor cmove cmovz cmovne cmovnz cmova cmovnbe cmovae cmovnb cmovb cmovnae cmovbe cmovna cmovg cmovnle cmovge cmovnl cmovl cmovnge cmovle cmovng cmovc cmovnc cmovo cmovno cmovs cmovns cmovp cmovpe cmovnp cmovpo je jz jne jnz ja jnbe jae jnb jb jnae jbe jna jg jnle jge jnl jl jnge jle jng jc jnc jo jno js jns jpo jnp jpe jp sete setz setne setnz seta setnbe setae setnb setnc setb setnae setcset setbe setna setg setnle setge setnl setl setnge setle setng sets setns seto setno setpe setp setpo setnp addps addss andnps andps cmpeqps cmpeqss cmpleps cmpless cmpltps cmpltss cmpneqps cmpneqss cmpnleps cmpnless cmpnltps cmpnltss cmpordps cmpordss cmpunordps cmpunordss cmpps cmpss comiss cvtpi2ps cvtps2pi cvtsi2ss cvtss2si cvttps2pi cvttss2si divps divss ldmxcsr maxps maxss minps minss movaps movhps movlhps movlps movhlps movmskps movntps movss movups mulps mulss orps rcpps rcpss rsqrtps rsqrtss shufps sqrtps sqrtss stmxcsr subps subss ucomiss unpckhps unpcklps xorps fxrstor fxrstor64 fxsave fxsave64 xgetbv xsetbv xsave xsave64 xsaveopt xsaveopt64 xrstor xrstor64 prefetchnta prefetcht0 prefetcht1 prefetcht2 maskmovq movntq pavgb pavgw pextrw pinsrw pmaxsw pmaxub pminsw pminub pmovmskb pmulhuw psadbw pshufw pf2iw pfnacc pfpnacc pi2fw pswapd maskmovdqu clflush movntdq movnti movntpd movdqa movdqu movdq2q movq2dq paddq pmuludq pshufd pshufhw pshuflw pslldq psrldq psubq punpckhqdq punpcklqdq addpd addsd andnpd andpd cmpeqpd cmpeqsd cmplepd cmplesd cmpltpd cmpltsd cmpneqpd cmpneqsd cmpnlepd cmpnlesd cmpnltpd cmpnltsd cmpordpd cmpordsd cmpunordpd cmpunordsd cmppd comisd cvtdq2pd cvtdq2ps cvtpd2dq cvtpd2pi cvtpd2ps cvtpi2pd cvtps2dq cvtps2pd cvtsd2si cvtsd2ss cvtsi2sd cvtss2sd cvttpd2pi cvttpd2dq cvttps2dq cvttsd2si divpd divsd maxpd maxsd minpd minsd movapd movhpd movlpd movmskpd movupd mulpd mulsd orpd shufpd sqrtpd sqrtsd subpd subsd ucomisd unpckhpd unpcklpd xorpd addsubpd addsubps haddpd haddps hsubpd hsubps lddqu movddup movshdup movsldup clgi stgi vmcall vmclear vmfunc vmlaunch vmload vmmcall vmptrld vmptrst vmread vmresume vmrun vmsave vmwrite vmxoff vmxon invept invvpid pabsb pabsw pabsd palignr phaddw phaddd phaddsw phsubw phsubd phsubsw pmaddubsw pmulhrsw pshufb psignb psignw psignd extrq insertq movntsd movntss lzcnt blendpd blendps blendvpd blendvps dppd dpps extractps insertps movntdqa mpsadbw packusdw pblendvb pblendw pcmpeqq pextrb pextrd pextrq phminposuw pinsrb pinsrd pinsrq pmaxsb pmaxsd pmaxud pmaxuw pminsb pminsd pminud pminuw pmovsxbw pmovsxbd pmovsxbq pmovsxwd pmovsxwq pmovsxdq pmovzxbw pmovzxbd pmovzxbq pmovzxwd pmovzxwq pmovzxdq pmuldq pmulld ptest roundpd roundps roundsd roundss crc32 pcmpestri pcmpestrm pcmpistri pcmpistrm pcmpgtq popcnt getsec pfrcpv pfrsqrtv movbe aesenc aesenclast aesdec aesdeclast aesimc aeskeygenassist vaesenc vaesenclast vaesdec vaesdeclast vaesimc vaeskeygenassist vaddpd vaddps vaddsd vaddss vaddsubpd vaddsubps vandpd vandps vandnpd vandnps vblendpd vblendps vblendvpd vblendvps vbroadcastss vbroadcastsd vbroadcastf128 vcmpeq_ospd vcmpeqpd vcmplt_ospd vcmpltpd vcmple_ospd vcmplepd vcmpunord_qpd vcmpunordpd vcmpneq_uqpd vcmpneqpd vcmpnlt_uspd vcmpnltpd vcmpnle_uspd vcmpnlepd vcmpord_qpd vcmpordpd vcmpeq_uqpd vcmpnge_uspd vcmpngepd vcmpngt_uspd vcmpngtpd vcmpfalse_oqpd vcmpfalsepd vcmpneq_oqpd vcmpge_ospd vcmpgepd vcmpgt_ospd vcmpgtpd vcmptrue_uqpd vcmptruepd vcmplt_oqpd vcmple_oqpd vcmpunord_spd vcmpneq_uspd vcmpnlt_uqpd vcmpnle_uqpd vcmpord_spd vcmpeq_uspd vcmpnge_uqpd vcmpngt_uqpd vcmpfalse_ospd vcmpneq_ospd vcmpge_oqpd vcmpgt_oqpd vcmptrue_uspd vcmppd vcmpeq_osps vcmpeqps vcmplt_osps vcmpltps vcmple_osps vcmpleps vcmpunord_qps vcmpunordps vcmpneq_uqps vcmpneqps vcmpnlt_usps vcmpnltps vcmpnle_usps vcmpnleps vcmpord_qps vcmpordps vcmpeq_uqps vcmpnge_usps vcmpngeps vcmpngt_usps vcmpngtps vcmpfalse_oqps vcmpfalseps vcmpneq_oqps vcmpge_osps vcmpgeps vcmpgt_osps vcmpgtps vcmptrue_uqps vcmptrueps vcmplt_oqps vcmple_oqps vcmpunord_sps vcmpneq_usps vcmpnlt_uqps vcmpnle_uqps vcmpord_sps vcmpeq_usps vcmpnge_uqps vcmpngt_uqps vcmpfalse_osps vcmpneq_osps vcmpge_oqps vcmpgt_oqps vcmptrue_usps vcmpps vcmpeq_ossd vcmpeqsd vcmplt_ossd vcmpltsd vcmple_ossd vcmplesd vcmpunord_qsd vcmpunordsd vcmpneq_uqsd vcmpneqsd vcmpnlt_ussd vcmpnltsd vcmpnle_ussd vcmpnlesd vcmpord_qsd vcmpordsd vcmpeq_uqsd vcmpnge_ussd vcmpngesd vcmpngt_ussd vcmpngtsd vcmpfalse_oqsd vcmpfalsesd vcmpneq_oqsd vcmpge_ossd vcmpgesd vcmpgt_ossd vcmpgtsd vcmptrue_uqsd vcmptruesd vcmplt_oqsd vcmple_oqsd vcmpunord_ssd vcmpneq_ussd vcmpnlt_uqsd vcmpnle_uqsd vcmpord_ssd vcmpeq_ussd vcmpnge_uqsd vcmpngt_uqsd vcmpfalse_ossd vcmpneq_ossd vcmpge_oqsd vcmpgt_oqsd vcmptrue_ussd vcmpsd vcmpeq_osss vcmpeqss vcmplt_osss vcmpltss vcmple_osss vcmpless vcmpunord_qss vcmpunordss vcmpneq_uqss vcmpneqss vcmpnlt_usss vcmpnltss vcmpnle_usss vcmpnless vcmpord_qss vcmpordss vcmpeq_uqss vcmpnge_usss vcmpngess vcmpngt_usss vcmpngtss vcmpfalse_oqss vcmpfalsess vcmpneq_oqss vcmpge_osss vcmpgess vcmpgt_osss vcmpgtss vcmptrue_uqss vcmptruess vcmplt_oqss vcmple_oqss vcmpunord_sss vcmpneq_usss vcmpnlt_uqss vcmpnle_uqss vcmpord_sss vcmpeq_usss vcmpnge_uqss vcmpngt_uqss vcmpfalse_osss vcmpneq_osss vcmpge_oqss vcmpgt_oqss vcmptrue_usss vcmpss vcomisd vcomiss vcvtdq2pd vcvtdq2ps vcvtpd2dq vcvtpd2ps vcvtps2dq vcvtps2pd vcvtsd2si vcvtsd2ss vcvtsi2sd vcvtsi2ss vcvtss2sd vcvtss2si vcvttpd2dq vcvttps2dq vcvttsd2si vcvttss2si vdivpd vdivps vdivsd vdivss vdppd vdpps vextractf128 vextractps vhaddpd vhaddps vhsubpd vhsubps vinsertf128 vinsertps vlddqu vldqqu vldmxcsr vmaskmovdqu vmaskmovps vmaskmovpd vmaxpd vmaxps vmaxsd vmaxss vminpd vminps vminsd vminss vmovapd vmovaps vmovd vmovq vmovddup vmovdqa vmovqqa vmovdqu vmovqqu vmovhlps vmovhpd vmovhps vmovlhps vmovlpd vmovlps vmovmskpd vmovmskps vmovntdq vmovntqq vmovntdqa vmovntpd vmovntps vmovsd vmovshdup vmovsldup vmovss vmovupd vmovups vmpsadbw vmulpd vmulps vmulsd vmulss vorpd vorps vpabsb vpabsw vpabsd vpacksswb vpackssdw vpackuswb vpackusdw vpaddb vpaddw vpaddd vpaddq vpaddsb vpaddsw vpaddusb vpaddusw vpalignr vpand vpandn vpavgb vpavgw vpblendvb vpblendw vpcmpestri vpcmpestrm vpcmpistri vpcmpistrm vpcmpeqb vpcmpeqw vpcmpeqd vpcmpeqq vpcmpgtb vpcmpgtw vpcmpgtd vpcmpgtq vpermilpd vpermilps vperm2f128 vpextrb vpextrw vpextrd vpextrq vphaddw vphaddd vphaddsw vphminposuw vphsubw vphsubd vphsubsw vpinsrb vpinsrw vpinsrd vpinsrq vpmaddwd vpmaddubsw vpmaxsb vpmaxsw vpmaxsd vpmaxub vpmaxuw vpmaxud vpminsb vpminsw vpminsd vpminub vpminuw vpminud vpmovmskb vpmovsxbw vpmovsxbd vpmovsxbq vpmovsxwd vpmovsxwq vpmovsxdq vpmovzxbw vpmovzxbd vpmovzxbq vpmovzxwd vpmovzxwq vpmovzxdq vpmulhuw vpmulhrsw vpmulhw vpmullw vpmulld vpmuludq vpmuldq vpor vpsadbw vpshufb vpshufd vpshufhw vpshuflw vpsignb vpsignw vpsignd vpslldq vpsrldq vpsllw vpslld vpsllq vpsraw vpsrad vpsrlw vpsrld vpsrlq vptest vpsubb vpsubw vpsubd vpsubq vpsubsb vpsubsw vpsubusb vpsubusw vpunpckhbw vpunpckhwd vpunpckhdq vpunpckhqdq vpunpcklbw vpunpcklwd vpunpckldq vpunpcklqdq vpxor vrcpps vrcpss vrsqrtps vrsqrtss vroundpd vroundps vroundsd vroundss vshufpd vshufps vsqrtpd vsqrtps vsqrtsd vsqrtss vstmxcsr vsubpd vsubps vsubsd vsubss vtestps vtestpd vucomisd vucomiss vunpckhpd vunpckhps vunpcklpd vunpcklps vxorpd vxorps vzeroall vzeroupper pclmullqlqdq pclmulhqlqdq pclmullqhqdq pclmulhqhqdq pclmulqdq vpclmullqlqdq vpclmulhqlqdq vpclmullqhqdq vpclmulhqhqdq vpclmulqdq vfmadd132ps vfmadd132pd vfmadd312ps vfmadd312pd vfmadd213ps vfmadd213pd vfmadd123ps vfmadd123pd vfmadd231ps vfmadd231pd vfmadd321ps vfmadd321pd vfmaddsub132ps vfmaddsub132pd vfmaddsub312ps vfmaddsub312pd vfmaddsub213ps vfmaddsub213pd vfmaddsub123ps vfmaddsub123pd vfmaddsub231ps vfmaddsub231pd vfmaddsub321ps vfmaddsub321pd vfmsub132ps vfmsub132pd vfmsub312ps vfmsub312pd vfmsub213ps vfmsub213pd vfmsub123ps vfmsub123pd vfmsub231ps vfmsub231pd vfmsub321ps vfmsub321pd vfmsubadd132ps vfmsubadd132pd vfmsubadd312ps vfmsubadd312pd vfmsubadd213ps vfmsubadd213pd vfmsubadd123ps vfmsubadd123pd vfmsubadd231ps vfmsubadd231pd vfmsubadd321ps vfmsubadd321pd vfnmadd132ps vfnmadd132pd vfnmadd312ps vfnmadd312pd vfnmadd213ps vfnmadd213pd vfnmadd123ps vfnmadd123pd vfnmadd231ps vfnmadd231pd vfnmadd321ps vfnmadd321pd vfnmsub132ps vfnmsub132pd vfnmsub312ps vfnmsub312pd vfnmsub213ps vfnmsub213pd vfnmsub123ps vfnmsub123pd vfnmsub231ps vfnmsub231pd vfnmsub321ps vfnmsub321pd vfmadd132ss vfmadd132sd vfmadd312ss vfmadd312sd vfmadd213ss vfmadd213sd vfmadd123ss vfmadd123sd vfmadd231ss vfmadd231sd vfmadd321ss vfmadd321sd vfmsub132ss vfmsub132sd vfmsub312ss vfmsub312sd vfmsub213ss vfmsub213sd vfmsub123ss vfmsub123sd vfmsub231ss vfmsub231sd vfmsub321ss vfmsub321sd vfnmadd132ss vfnmadd132sd vfnmadd312ss vfnmadd312sd vfnmadd213ss vfnmadd213sd vfnmadd123ss vfnmadd123sd vfnmadd231ss vfnmadd231sd vfnmadd321ss vfnmadd321sd vfnmsub132ss vfnmsub132sd vfnmsub312ss vfnmsub312sd vfnmsub213ss vfnmsub213sd vfnmsub123ss vfnmsub123sd vfnmsub231ss vfnmsub231sd vfnmsub321ss vfnmsub321sd rdfsbase rdgsbase rdrand wrfsbase wrgsbase vcvtph2ps vcvtps2ph adcx adox rdseed clac stac xstore xcryptecb xcryptcbc xcryptctr xcryptcfb xcryptofb montmul xsha1 xsha256 llwpcb slwpcb lwpval lwpins vfmaddpd vfmaddps vfmaddsd vfmaddss vfmaddsubpd vfmaddsubps vfmsubaddpd vfmsubaddps vfmsubpd vfmsubps vfmsubsd vfmsubss vfnmaddpd vfnmaddps vfnmaddsd vfnmaddss vfnmsubpd vfnmsubps vfnmsubsd vfnmsubss vfrczpd vfrczps vfrczsd vfrczss vpcmov vpcomb vpcomd vpcomq vpcomub vpcomud vpcomuq vpcomuw vpcomw vphaddbd vphaddbq vphaddbw vphadddq vphaddubd vphaddubq vphaddubw vphaddudq vphadduwd vphadduwq vphaddwd vphaddwq vphsubbw vphsubdq vphsubwd vpmacsdd vpmacsdqh vpmacsdql vpmacssdd vpmacssdqh vpmacssdql vpmacsswd vpmacssww vpmacswd vpmacsww vpmadcsswd vpmadcswd vpperm vprotb vprotd vprotq vprotw vpshab vpshad vpshaq vpshaw vpshlb vpshld vpshlq vpshlw vbroadcasti128 vpblendd vpbroadcastb vpbroadcastw vpbroadcastd vpbroadcastq vpermd vpermpd vpermps vpermq vperm2i128 vextracti128 vinserti128 vpmaskmovd vpmaskmovq vpsllvd vpsllvq vpsravd vpsrlvd vpsrlvq vgatherdpd vgatherqpd vgatherdps vgatherqps vpgatherdd vpgatherqd vpgatherdq vpgatherqq xabort xbegin xend xtest andn bextr blci blcic blsi blsic blcfill blsfill blcmsk blsmsk blsr blcs bzhi mulx pdep pext rorx sarx shlx shrx tzcnt tzmsk t1mskc valignd valignq vblendmpd vblendmps vbroadcastf32x4 vbroadcastf64x4 vbroadcasti32x4 vbroadcasti64x4 vcompresspd vcompressps vcvtpd2udq vcvtps2udq vcvtsd2usi vcvtss2usi vcvttpd2udq vcvttps2udq vcvttsd2usi vcvttss2usi vcvtudq2pd vcvtudq2ps vcvtusi2sd vcvtusi2ss vexpandpd vexpandps vextractf32x4 vextractf64x4 vextracti32x4 vextracti64x4 vfixupimmpd vfixupimmps vfixupimmsd vfixupimmss vgetexppd vgetexpps vgetexpsd vgetexpss vgetmantpd vgetmantps vgetmantsd vgetmantss vinsertf32x4 vinsertf64x4 vinserti32x4 vinserti64x4 vmovdqa32 vmovdqa64 vmovdqu32 vmovdqu64 vpabsq vpandd vpandnd vpandnq vpandq vpblendmd vpblendmq vpcmpltd vpcmpled vpcmpneqd vpcmpnltd vpcmpnled vpcmpd vpcmpltq vpcmpleq vpcmpneqq vpcmpnltq vpcmpnleq vpcmpq vpcmpequd vpcmpltud vpcmpleud vpcmpnequd vpcmpnltud vpcmpnleud vpcmpud vpcmpequq vpcmpltuq vpcmpleuq vpcmpnequq vpcmpnltuq vpcmpnleuq vpcmpuq vpcompressd vpcompressq vpermi2d vpermi2pd vpermi2ps vpermi2q vpermt2d vpermt2pd vpermt2ps vpermt2q vpexpandd vpexpandq vpmaxsq vpmaxuq vpminsq vpminuq vpmovdb vpmovdw vpmovqb vpmovqd vpmovqw vpmovsdb vpmovsdw vpmovsqb vpmovsqd vpmovsqw vpmovusdb vpmovusdw vpmovusqb vpmovusqd vpmovusqw vpord vporq vprold vprolq vprolvd vprolvq vprord vprorq vprorvd vprorvq vpscatterdd vpscatterdq vpscatterqd vpscatterqq vpsraq vpsravq vpternlogd vpternlogq vptestmd vptestmq vptestnmd vptestnmq vpxord vpxorq vrcp14pd vrcp14ps vrcp14sd vrcp14ss vrndscalepd vrndscaleps vrndscalesd vrndscaless vrsqrt14pd vrsqrt14ps vrsqrt14sd vrsqrt14ss vscalefpd vscalefps vscalefsd vscalefss vscatterdpd vscatterdps vscatterqpd vscatterqps vshuff32x4 vshuff64x2 vshufi32x4 vshufi64x2 kandnw kandw kmovw knotw kortestw korw kshiftlw kshiftrw kunpckbw kxnorw kxorw vpbroadcastmb2q vpbroadcastmw2d vpconflictd vpconflictq vplzcntd vplzcntq vexp2pd vexp2ps vrcp28pd vrcp28ps vrcp28sd vrcp28ss vrsqrt28pd vrsqrt28ps vrsqrt28sd vrsqrt28ss vgatherpf0dpd vgatherpf0dps vgatherpf0qpd vgatherpf0qps vgatherpf1dpd vgatherpf1dps vgatherpf1qpd vgatherpf1qps vscatterpf0dpd vscatterpf0dps vscatterpf0qpd vscatterpf0qps vscatterpf1dpd vscatterpf1dps vscatterpf1qpd vscatterpf1qps prefetchwt1 bndmk bndcl bndcu bndcn bndmov bndldx bndstx sha1rnds4 sha1nexte sha1msg1 sha1msg2 sha256rnds2 sha256msg1 sha256msg2 hint_nop0 hint_nop1 hint_nop2 hint_nop3 hint_nop4 hint_nop5 hint_nop6 hint_nop7 hint_nop8 hint_nop9 hint_nop10 hint_nop11 hint_nop12 hint_nop13 hint_nop14 hint_nop15 hint_nop16 hint_nop17 hint_nop18 hint_nop19 hint_nop20 hint_nop21 hint_nop22 hint_nop23 hint_nop24 hint_nop25 hint_nop26 hint_nop27 hint_nop28 hint_nop29 hint_nop30 hint_nop31 hint_nop32 hint_nop33 hint_nop34 hint_nop35 hint_nop36 hint_nop37 hint_nop38 hint_nop39 hint_nop40 hint_nop41 hint_nop42 hint_nop43 hint_nop44 hint_nop45 hint_nop46 hint_nop47 hint_nop48 hint_nop49 hint_nop50 hint_nop51 hint_nop52 hint_nop53 hint_nop54 hint_nop55 hint_nop56 hint_nop57 hint_nop58 hint_nop59 hint_nop60 hint_nop61 hint_nop62 hint_nop63",literal:"ip eip rip al ah bl bh cl ch dl dh sil dil bpl spl r8b r9b r10b r11b r12b r13b r14b r15b ax bx cx dx si di bp sp r8w r9w r10w r11w r12w r13w r14w r15w eax ebx ecx edx esi edi ebp esp eip r8d r9d r10d r11d r12d r13d r14d r15d rax rbx rcx rdx rsi rdi rbp rsp r8 r9 r10 r11 r12 r13 r14 r15 cs ds es fs gs ss st st0 st1 st2 st3 st4 st5 st6 st7 mm0 mm1 mm2 mm3 mm4 mm5 mm6 mm7 xmm0  xmm1  xmm2  xmm3  xmm4  xmm5  xmm6  xmm7  xmm8  xmm9 xmm10  xmm11 xmm12 xmm13 xmm14 xmm15 xmm16 xmm17 xmm18 xmm19 xmm20 xmm21 xmm22 xmm23 xmm24 xmm25 xmm26 xmm27 xmm28 xmm29 xmm30 xmm31 ymm0  ymm1  ymm2  ymm3  ymm4  ymm5  ymm6  ymm7  ymm8  ymm9 ymm10  ymm11 ymm12 ymm13 ymm14 ymm15 ymm16 ymm17 ymm18 ymm19 ymm20 ymm21 ymm22 ymm23 ymm24 ymm25 ymm26 ymm27 ymm28 ymm29 ymm30 ymm31 zmm0  zmm1  zmm2  zmm3  zmm4  zmm5  zmm6  zmm7  zmm8  zmm9 zmm10  zmm11 zmm12 zmm13 zmm14 zmm15 zmm16 zmm17 zmm18 zmm19 zmm20 zmm21 zmm22 zmm23 zmm24 zmm25 zmm26 zmm27 zmm28 zmm29 zmm30 zmm31 k0 k1 k2 k3 k4 k5 k6 k7 bnd0 bnd1 bnd2 bnd3 cr0 cr1 cr2 cr3 cr4 cr8 dr0 dr1 dr2 dr3 dr8 tr3 tr4 tr5 tr6 tr7 r0 r1 r2 r3 r4 r5 r6 r7 r0b r1b r2b r3b r4b r5b r6b r7b r0w r1w r2w r3w r4w r5w r6w r7w r0d r1d r2d r3d r4d r5d r6d r7d r0h r1h r2h r3h r0l r1l r2l r3l r4l r5l r6l r7l r8l r9l r10l r11l r12l r13l r14l r15l",pseudo:"db dw dd dq dt ddq do dy dz resb resw resd resq rest resdq reso resy resz incbin equ times",preprocessor:"%define %xdefine %+ %undef %defstr %deftok %assign %strcat %strlen %substr %rotate %elif %else %endif %ifmacro %ifctx %ifidn %ifidni %ifid %ifnum %ifstr %iftoken %ifempty %ifenv %error %warning %fatal %rep %endrep %include %push %pop %repl %pathsearch %depend %use %arg %stacksize %local %line %comment %endcomment .nolist byte word dword qword nosplit rel abs seg wrt strict near far a32 ptr __FILE__ __LINE__ __SECT__  __BITS__ __OUTPUT_FORMAT__ __DATE__ __TIME__ __DATE_NUM__ __TIME_NUM__ __UTC_DATE__ __UTC_TIME__ __UTC_DATE_NUM__ __UTC_TIME_NUM__  __PASS__ struc endstruc istruc at iend align alignb sectalign daz nodaz up down zero default option assume public ",built_in:"bits use16 use32 use64 default section segment absolute extern global common cpu float __utf16__ __utf16le__ __utf16be__ __utf32__ __utf32le__ __utf32be__ __float8__ __float16__ __float32__ __float64__ __float80m__ __float80e__ __float128l__ __float128h__ __Infinity__ __QNaN__ __SNaN__ Inf NaN QNaN SNaN float8 float16 float32 float64 float80m float80e float128l float128h __FLOAT_DAZ__ __FLOAT_ROUND__ __FLOAT__"},c:[{cN:"comment",b:";",e:"$",r:0},{cN:"number",b:"\\b(?:([0-9][0-9_]*)?\\.[0-9_]*(?:[eE][+-]?[0-9_]+)?|(0[Xx])?[0-9][0-9_]*\\.?[0-9_]*(?:[pP](?:[+-]?[0-9_]+)?)?)\\b",r:0},{cN:"number",b:"\\$[0-9][0-9A-Fa-f]*",r:0},{cN:"number",b:"\\b(?:[0-9A-Fa-f][0-9A-Fa-f_]*[HhXx]|[0-9][0-9_]*[DdTt]?|[0-7][0-7_]*[QqOo]|[0-1][0-1_]*[BbYy])\\b"},{cN:"number",b:"\\b(?:0[HhXx][0-9A-Fa-f_]+|0[DdTt][0-9_]+|0[QqOo][0-7_]+|0[BbYy][0-1_]+)\\b"},e.QSM,{cN:"string",b:"'",e:"[^\\\\]'",r:0},{cN:"string",b:"`",e:"[^\\\\]`",r:0},{cN:"string",b:"\\.[A-Za-z0-9]+",r:0},{cN:"label",b:"^\\s*[A-Za-z._?][A-Za-z0-9_$#@~.?]*(:|\\s+label)",r:0},{cN:"label",b:"^\\s*%%[A-Za-z0-9_$#@~.?]*:",r:0},{cN:"argument",b:"%[0-9]+",r:0},{cN:"built_in",b:"%!S+",r:0}]}
 }),hljs.registerLanguage("xl",function(e){var t="ObjectLoader Animate MovieCredits Slides Filters Shading Materials LensFlare Mapping VLCAudioVideo StereoDecoder PointCloud NetworkAccess RemoteControl RegExp ChromaKey Snowfall NodeJS Speech Charts",r={keyword:"if then else do while until for loop import with is as where when by data constant",literal:"true false nil",type:"integer real text name boolean symbol infix prefix postfix block tree",built_in:"in mod rem and or xor not abs sign floor ceil sqrt sin cos tan asin acos atan exp expm1 log log2 log10 log1p pi at",module:t,id:"text_length text_range text_find text_replace contains page slide basic_slide title_slide title subtitle fade_in fade_out fade_at clear_color color line_color line_width texture_wrap texture_transform texture scale_?x scale_?y scale_?z? translate_?x translate_?y translate_?z? rotate_?x rotate_?y rotate_?z? rectangle circle ellipse sphere path line_to move_to quad_to curve_to theme background contents locally time mouse_?x mouse_?y mouse_buttons"},i={cN:"constant",b:"[A-Z][A-Z_0-9]+",r:0},a={cN:"variable",b:"([A-Z][a-z_0-9]+)+",r:0},n={cN:"id",b:"[a-z][a-z_0-9]+",r:0},o={cN:"string",b:'"',e:'"',i:"\\n"},s={cN:"string",b:"'",e:"'",i:"\\n"},l={cN:"string",b:"<<",e:">>"},c={cN:"number",b:"[0-9]+#[0-9A-Z_]+(\\.[0-9-A-Z_]+)?#?([Ee][+-]?[0-9]+)?",r:10},d={cN:"import",bK:"import",e:"$",k:{keyword:"import",module:t},r:0,c:[o]},p={cN:"function",b:"[a-z].*->"};return{aliases:["tao"],l:/[a-zA-Z][a-zA-Z0-9_?]*/,k:r,c:[e.CLCM,e.CBCM,o,s,l,p,d,i,a,n,c,e.NM]}});
-;eval("define(\"ember-select-2/components/select-2\", \n  [\"ember\",\"exports\"],\n  function(__dependency1__, __exports__) {\n    \"use strict\";\n    var Ember = __dependency1__[\"default\"];\n\n    var get = Ember.get;\n\n    /**\n     * Ember select-2 component wrapping the jQuery select2 plugin while\n     * respecting Ember data bindings and getter/setter methods on the content.\n     *\n     * Terminology:\n     *  - Value: The currently selected value(s). Propagated to controllers etc.\n     *    through the \"value=...\"\" binding. Types:\n     *    - Object: when using select-2 without any further configuration\n     *    - Array of Objects: when using select-2 with \"multiple=true\"\n     *    - Mixed: when using select-2 with \"optionValuePath=...\"\n     *    - Array of Mixed: when using select-2 with \"multiple=true\" and\n     *      \"optionValuePath=...\"\n     *\n     *  - Content: Array of Objects used to present to the user for choosing the\n     *    selected values. \"content\" cannot be an Array of Strings, the Objects are\n     *    expected to have an \"id\" and a property to be used as the label (by default,\n     *    it is \"text\", but it can be overwritten it via \"optionLabelPath\"). These \n     *    properties can be computed properties or just plain JavaScript values.\n     */\n    var Select2Component = Ember.Component.extend({\n      tagName: \"input\",\n      classNames: [\"form-control\"],\n      classNameBindings: [\"inputSize\"],\n      attributeBindings: [\"style\"],\n      style: \"display: hidden;\",\n\n      // Bindings that may be overwritten in the template\n      inputSize: \"input-md\",\n      cssClass: null,\n      optionValuePath: null,\n      optionLabelPath: \'text\',\n      optionDescriptionPath: \'description\',\n      placeholder: null,\n      multiple: false,\n      allowClear: false,\n      enabled: true,\n      query: null,\n\n      // internal state\n      _hasSelectedMissingItems: false,\n      _hasPendingContentPromise: Ember.computed.alias(\'content.isPending\'),\n      _hasFailedContentPromise: Ember.computed.alias(\'content.isRejected\'),\n      _typeaheadMode: Ember.computed.bool(\'query\'),\n\n      didInsertElement: function() {\n        var self = this,\n            options = {},\n            optionLabelPath = this.get(\'optionLabelPath\'),\n            optionDescriptionPath = this.get(\'optionDescriptionPath\'),\n            content = this.get(\'content\');\n\n\n        // ensure select2 is loaded\n        Ember.assert(\"select2 has to exist on Ember.$.fn.select2\", Ember.$.fn.select2);\n\n        // setup\n        options.placeholder = this.get(\'placeholder\');\n        options.multiple = this.get(\'multiple\');\n        options.allowClear = this.get(\'allowClear\');\n\n        // allowClear is only allowed with placeholder\n        Ember.assert(\"To use allowClear, you have to specify a placeholder\", !options.allowClear || options.placeholder);\n\n        /*\n          Formatting functions that ensure that the passed content is escaped in\n          order to prevent XSS vulnerabilities. Escaping can be avoided by passing\n          Handlebars.SafeString as \"text\" or \"description\" values.\n\n          Generates the html used in the dropdown list (and is implemented to\n          include the description html if available).\n         */\n        options.formatResult = function(item) {\n          if (!item) {\n            return;\n          }\n\n          var id = get(item, \"id\"),\n              text = get(item, optionLabelPath),\n              description = get(item, optionDescriptionPath),\n              output = Ember.Handlebars.Utils.escapeExpression(text);\n\n          // only for \"real items\" (no group headers) that have a description\n          if (id && description) {\n            output += \" <span class=\\\"text-muted\\\">\" +\n              Ember.Handlebars.Utils.escapeExpression(description) + \"</span>\";\n          }\n\n          return output;\n        };\n\n        /*\n          Generates the html used in the closed select input, displaying the\n          currently selected element(s). Works like \"formatResult\" but\n          produces shorter output by leaving out the description.\n         */\n        options.formatSelection = function(item) {\n          if (!item) {\n            return;\n          }\n\n          var text = get(item, optionLabelPath);\n\n          // escape text unless it\'s passed as a Handlebars.SafeString\n          return Ember.Handlebars.Utils.escapeExpression(text);\n        };\n\n        /*\n          Provides a list of items that should be displayed for the current query\n          term. Uses the default select2 matcher (which handles diacritics) with the\n          Ember compatible getter method for optionLabelPath.\n         */\n        options.query = function(query) {\n          var select2 = this;\n\n          if (self.get(\'_typeaheadMode\')) {\n            var deferred = Ember.RSVP.defer(\'select2#query: \' + query.term);\n\n            self.sendAction(\'query\', query, deferred);\n\n            deferred.promise.then(function(data) {\n              query.callback({\n                results: data\n              });\n            }, function() {\n              query.callback({\n                hasError: true\n              });\n            });\n          } else {\n            Ember.assert(\"select2 has no content!\", self.get(\'content\'));\n\n            var filteredContent = self.get(\"content\").reduce(function(results, item) {\n              // items may contain children, so filter them, too\n              var filteredChildren = [];\n\n              if (item.children) {\n                filteredChildren = item.children.reduce(function(children, child) {\n                  if (select2.matcher(query.term, get(child, optionLabelPath))) {\n                    children.push(child);\n                  }\n                  return children;\n                }, []);\n              }\n\n              // apply the regular matcher\n              if (select2.matcher(query.term, get(item, optionLabelPath))) {\n                // keep this item either if itself matches\n                results.push(item);\n              } else if (filteredChildren.length) {\n                // or it has children that matched the term\n                var result = Ember.$.extend({}, item, { children: filteredChildren });\n                results.push(result);\n              }\n              return results;\n            }, []);\n\n            query.callback({\n              results: filteredContent\n            });\n          }\n        };\n\n        /*\n          Maps \"value\" -> \"object\" when using select2 with \"optionValuePath\" set,\n          and one time directly when setting up the select2 plugin even without \"oVP\".\n          (but with empty value, which will just skip the method)\n\n          Provides an object or an array of objects (depending on \"multiple\") that\n          are referenced by the current select2 \"val\".\n\n          When there are keys that can not be matched to objects, the select2 input\n          will be disabled and a warning will be printed on the console.\n          This is important in case the \"content\" has yet to be loaded but the\n          \"value\" is already set and must not be accidentally changed because the\n          inout cannot yet display all the options that are required.\n\n          To disable this behaviour, remove those keys from \"value\" that can\'t be\n          matched by objects from \"content\".\n         */\n        options.initSelection = function(element, callback) {\n          var value = element.val(),\n              content = self.get(\"content\"),\n              contentIsArrayProxy = Ember.ArrayProxy.detectInstance(content),\n              multiple = self.get(\"multiple\"),\n              optionValuePath = self.get(\"optionValuePath\");\n\n          if (!value || !value.length) {\n            return callback([]);\n          }\n\n          // this method should not be needed without the optionValuePath option\n          // but make sure there is an appropriate error just in case.\n          Ember.assert(\"select2#initSelection has been called without an \\\"\" +\n            \"optionValuePath\\\" set.\", optionValuePath);\n\n          Ember.assert(\"select2#initSelection can not map string values to full objects \" +\n            \"in typeahead mode. Please open a github issue if you have questions to this.\",\n            !self.get(\'_typeaheadMode\'));\n\n\n          var values = value.split(\",\"),\n              filteredContent = [];\n\n          // for every object, check if its optionValuePath is in the selected\n          // values array and save it to the right position in filteredContent\n          var contentLength = get(content, \'length\'),\n              unmatchedValues = values.length,\n              matchIndex;\n\n          // START loop over content\n          for (var i = 0; i < contentLength; i++) {\n            var item = contentIsArrayProxy ? content.objectAt(i) : content[i];\n            matchIndex = -1;\n\n            if (item.children && item.children.length) {\n              // take care of either nested data...\n              for (var c = 0; c < item.children.length; c++) {\n                var child = item.children[c];\n                matchIndex = values.indexOf(\"\" + get(child, optionValuePath));\n                if (matchIndex !== -1) {\n                  filteredContent[matchIndex] = child;\n                  unmatchedValues--;\n                }\n                // break loop if all values are found\n                if (unmatchedValues === 0) {\n                  break;\n                }\n              }\n            } else {\n              // ...or flat data structure: try to match simple item\n              matchIndex = values.indexOf(\"\" + get(item, optionValuePath));\n              if (matchIndex !== -1) {\n                filteredContent[matchIndex] = item;\n                unmatchedValues--;\n              }\n              // break loop if all values are found\n              if (unmatchedValues === 0) {\n                break;\n              }\n            }\n          }\n          // END loop over content\n\n          if (unmatchedValues === 0) {\n            self.set(\'_hasSelectedMissingItems\', false);\n          } else {\n            // disable the select2 element if there are keys left in the values\n            // array that were not matched to an object\n            self.set(\'_hasSelectedMissingItems\', true);\n\n            Ember.warn(\"select2#initSelection was not able to map each \\\"\" +\n              optionValuePath +\"\\\" to an object from \\\"content\\\". The remaining \" +\n              \"keys are: \" + values + \". The input will be disabled until a) the \" +\n              \"desired objects is added to the \\\"content\\\" array or b) the \" +\n              \"\\\"value\\\" is changed.\", !values.length);\n          }\n\n          if (multiple) {\n            // return all matched objects\n            return callback(filteredContent);\n          } else {\n            // only care about the first match in single selection mode\n            return callback(filteredContent.get(\'firstObject\'));\n          }\n        };\n\n        /*\n          Forward a custom css class to the components container and dropdown.\n          The value will be read from the `cssClass` binding\n         */\n        options.containerCssClass = options.dropdownCssClass = function() {\n          return self.get(\'cssClass\') || \'\';\n        };\n\n        this._select = this.$().select2(options);\n\n        this._select.on(\"change\", function() {\n          // grab currently selected data from select plugin\n          var data = self._select.select2(\"data\");\n          // call our callback for further processing\n          self.selectionChanged(data);\n        });\n\n        this.addObserver(\'content.[]\', this.valueChanged);\n        this.addObserver(\'content.@each.\' + optionLabelPath, this.valueChanged);\n        this.addObserver(\'content.@each.\' + optionDescriptionPath, this.valueChanged);\n        this.addObserver(\'value\', this.valueChanged);\n\n        // trigger initial data sync to set select2 to the external \"value\"\n        this.valueChanged();\n\n        // eventually disable input when content is PromiseProxy\n        if (Ember.PromiseProxyMixin.detect(content)) {\n          // enabling/siabling is done via binding to _hasPendingContentPromise\n          // provide error for rejected promise, though.\n          content.then(null, function (reason) {\n            Ember.warn(\"select2: content promise was reject with reason \" + reason +\n              \". Recovering from this is not (yet) implemented.\");\n          });\n        }\n        \n        this.watchDisabled();\n      },\n\n      /**\n       * Teardown to prevent memory leaks\n       */\n      willDestroyElement: function() {\n        // If an assertion caused the component not to render, we can\'t remove it from the dom.\n        if(this._select) {\n          this._select.off(\"change\");\n          this._select.select2(\"destroy\");\n        }\n\n        this.removeObserver(\'content.[]\', this.valueChanged);\n        this.removeObserver(\n          \'content.@each.\' + this.get(\'optionLabelPath\'),\n          this.valueChanged\n        );\n        this.removeObserver(\n          \'content.@each.\' + this.get(\'optionDescriptionPath\'),\n          this.valueChanged\n        );\n        this.removeObserver(\'value\', this.valueChanged);\n      },\n\n      /**\n       * Respond to selection changes originating from the select2 element. If\n       * select2 is working with full objects just use them to set the value,\n       * use the optionValuePath otherwise.\n       *\n       * @param  {String|Object} data   Currently selected value\n       */\n      selectionChanged: function(data) {\n        var value,\n            multiple = this.get(\"multiple\"),\n            optionValuePath = this.get(\"optionValuePath\");\n\n        // if there is a optionValuePath, don\'t set value to the complete object,\n        // but only the property referred to by optionValuePath\n        if (optionValuePath) {\n          if (multiple) {\n            // data is an array, so use getEach\n            value = data.getEach(optionValuePath);\n          } else {\n            // treat data as a single object\n            value = get(data, optionValuePath);\n          }\n        } else {\n          value = data;\n        }\n\n        this.set(\"value\", value);\n      },\n\n      /**\n       * Respond to external value changes. If select2 is working with full objects,\n       * use the \"data\" API, otherwise just set the \"val\" property and let the\n       * \"initSelection\" figure out which object was meant by that.\n       */\n      valueChanged: function() {\n        var value = this.get(\"value\"),\n            optionValuePath = this.get(\"optionValuePath\");\n\n        if (optionValuePath) {\n          // when there is a optionValuePath, the external value is a primitive value\n          // so use the \"val\" method\n          this._select.select2(\"val\", value);\n        } else {\n          // otherwise set the full object via \"data\"\n          this._select.select2(\"data\", value);\n        }\n      },\n\n      /**\n       * Watch properties that determine the disabled state of the input.\n       */\n      watchDisabled: Ember.observer(\'_hasSelectedMissingItems\', \'_hasPendingContentPromise\', \'_hasFailedContentPromise\', \'enabled\', function() {\n        var select = this._select,\n            disabled = this.get(\'_hasSelectedMissingItems\') ||\n              this.get(\'_hasPendingContentPromise\') ||\n              this.get(\'_hasFailedContentPromise\') ||\n              !this.get(\'enabled\');\n\n        if (select) {\n          Ember.run(function() {\n            select.select2(\"readonly\", disabled);\n          });\n        }\n      })\n    });\n\n    __exports__[\"default\"] = Select2Component;\n  });//# sourceURL=ember-select-2/components/select-2.js");
+;/**
+ * Sinon.JS 1.12.1, 2014/11/16
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @author Contributors: https://github.com/cjohansen/Sinon.JS/blob/master/AUTHORS
+ *
+ * (The BSD License)
+ * 
+ * Copyright (c) 2010-2014, Christian Johansen, christian@cjohansen.no
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *     * Redistributions of source code must retain the above copyright notice,
+ *       this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright notice,
+ *       this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of Christian Johansen nor the names of his contributors
+ *       may be used to endorse or promote products derived from this software
+ *       without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], function () {
+      return (root.sinon = factory());
+    });
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    root.sinon = factory();
+  }
+}(this, function () {
+  var samsam, formatio;
+  (function () {
+                function define(mod, deps, fn) {
+                  if (mod == "samsam") {
+                    samsam = deps();
+                  } else if (typeof deps === "function" && mod.length === 0) {
+                    lolex = deps();
+                  } else if (typeof fn === "function") {
+                    formatio = fn(samsam);
+                  }
+                }
+    define.amd = {};
+((typeof define === "function" && define.amd && function (m) { define("samsam", m); }) ||
+ (typeof module === "object" &&
+      function (m) { module.exports = m(); }) || // Node
+ function (m) { this.samsam = m(); } // Browser globals
+)(function () {
+    var o = Object.prototype;
+    var div = typeof document !== "undefined" && document.createElement("div");
+
+    function isNaN(value) {
+        // Unlike global isNaN, this avoids type coercion
+        // typeof check avoids IE host object issues, hat tip to
+        // lodash
+        var val = value; // JsLint thinks value !== value is "weird"
+        return typeof value === "number" && value !== val;
+    }
+
+    function getClass(value) {
+        // Returns the internal [[Class]] by calling Object.prototype.toString
+        // with the provided value as this. Return value is a string, naming the
+        // internal class, e.g. "Array"
+        return o.toString.call(value).split(/[ \]]/)[1];
+    }
+
+    /**
+     * @name samsam.isArguments
+     * @param Object object
+     *
+     * Returns ``true`` if ``object`` is an ``arguments`` object,
+     * ``false`` otherwise.
+     */
+    function isArguments(object) {
+        if (getClass(object) === 'Arguments') { return true; }
+        if (typeof object !== "object" || typeof object.length !== "number" ||
+                getClass(object) === "Array") {
+            return false;
+        }
+        if (typeof object.callee == "function") { return true; }
+        try {
+            object[object.length] = 6;
+            delete object[object.length];
+        } catch (e) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @name samsam.isElement
+     * @param Object object
+     *
+     * Returns ``true`` if ``object`` is a DOM element node. Unlike
+     * Underscore.js/lodash, this function will return ``false`` if ``object``
+     * is an *element-like* object, i.e. a regular object with a ``nodeType``
+     * property that holds the value ``1``.
+     */
+    function isElement(object) {
+        if (!object || object.nodeType !== 1 || !div) { return false; }
+        try {
+            object.appendChild(div);
+            object.removeChild(div);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @name samsam.keys
+     * @param Object object
+     *
+     * Return an array of own property names.
+     */
+    function keys(object) {
+        var ks = [], prop;
+        for (prop in object) {
+            if (o.hasOwnProperty.call(object, prop)) { ks.push(prop); }
+        }
+        return ks;
+    }
+
+    /**
+     * @name samsam.isDate
+     * @param Object value
+     *
+     * Returns true if the object is a ``Date``, or *date-like*. Duck typing
+     * of date objects work by checking that the object has a ``getTime``
+     * function whose return value equals the return value from the object's
+     * ``valueOf``.
+     */
+    function isDate(value) {
+        return typeof value.getTime == "function" &&
+            value.getTime() == value.valueOf();
+    }
+
+    /**
+     * @name samsam.isNegZero
+     * @param Object value
+     *
+     * Returns ``true`` if ``value`` is ``-0``.
+     */
+    function isNegZero(value) {
+        return value === 0 && 1 / value === -Infinity;
+    }
+
+    /**
+     * @name samsam.equal
+     * @param Object obj1
+     * @param Object obj2
+     *
+     * Returns ``true`` if two objects are strictly equal. Compared to
+     * ``===`` there are two exceptions:
+     *
+     *   - NaN is considered equal to NaN
+     *   - -0 and +0 are not considered equal
+     */
+    function identical(obj1, obj2) {
+        if (obj1 === obj2 || (isNaN(obj1) && isNaN(obj2))) {
+            return obj1 !== 0 || isNegZero(obj1) === isNegZero(obj2);
+        }
+    }
+
+
+    /**
+     * @name samsam.deepEqual
+     * @param Object obj1
+     * @param Object obj2
+     *
+     * Deep equal comparison. Two values are "deep equal" if:
+     *
+     *   - They are equal, according to samsam.identical
+     *   - They are both date objects representing the same time
+     *   - They are both arrays containing elements that are all deepEqual
+     *   - They are objects with the same set of properties, and each property
+     *     in ``obj1`` is deepEqual to the corresponding property in ``obj2``
+     *
+     * Supports cyclic objects.
+     */
+    function deepEqualCyclic(obj1, obj2) {
+
+        // used for cyclic comparison
+        // contain already visited objects
+        var objects1 = [],
+            objects2 = [],
+        // contain pathes (position in the object structure)
+        // of the already visited objects
+        // indexes same as in objects arrays
+            paths1 = [],
+            paths2 = [],
+        // contains combinations of already compared objects
+        // in the manner: { "$1['ref']$2['ref']": true }
+            compared = {};
+
+        /**
+         * used to check, if the value of a property is an object
+         * (cyclic logic is only needed for objects)
+         * only needed for cyclic logic
+         */
+        function isObject(value) {
+
+            if (typeof value === 'object' && value !== null &&
+                    !(value instanceof Boolean) &&
+                    !(value instanceof Date)    &&
+                    !(value instanceof Number)  &&
+                    !(value instanceof RegExp)  &&
+                    !(value instanceof String)) {
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
+         * returns the index of the given object in the
+         * given objects array, -1 if not contained
+         * only needed for cyclic logic
+         */
+        function getIndex(objects, obj) {
+
+            var i;
+            for (i = 0; i < objects.length; i++) {
+                if (objects[i] === obj) {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        // does the recursion for the deep equal check
+        return (function deepEqual(obj1, obj2, path1, path2) {
+            var type1 = typeof obj1;
+            var type2 = typeof obj2;
+
+            // == null also matches undefined
+            if (obj1 === obj2 ||
+                    isNaN(obj1) || isNaN(obj2) ||
+                    obj1 == null || obj2 == null ||
+                    type1 !== "object" || type2 !== "object") {
+
+                return identical(obj1, obj2);
+            }
+
+            // Elements are only equal if identical(expected, actual)
+            if (isElement(obj1) || isElement(obj2)) { return false; }
+
+            var isDate1 = isDate(obj1), isDate2 = isDate(obj2);
+            if (isDate1 || isDate2) {
+                if (!isDate1 || !isDate2 || obj1.getTime() !== obj2.getTime()) {
+                    return false;
+                }
+            }
+
+            if (obj1 instanceof RegExp && obj2 instanceof RegExp) {
+                if (obj1.toString() !== obj2.toString()) { return false; }
+            }
+
+            var class1 = getClass(obj1);
+            var class2 = getClass(obj2);
+            var keys1 = keys(obj1);
+            var keys2 = keys(obj2);
+
+            if (isArguments(obj1) || isArguments(obj2)) {
+                if (obj1.length !== obj2.length) { return false; }
+            } else {
+                if (type1 !== type2 || class1 !== class2 ||
+                        keys1.length !== keys2.length) {
+                    return false;
+                }
+            }
+
+            var key, i, l,
+                // following vars are used for the cyclic logic
+                value1, value2,
+                isObject1, isObject2,
+                index1, index2,
+                newPath1, newPath2;
+
+            for (i = 0, l = keys1.length; i < l; i++) {
+                key = keys1[i];
+                if (!o.hasOwnProperty.call(obj2, key)) {
+                    return false;
+                }
+
+                // Start of the cyclic logic
+
+                value1 = obj1[key];
+                value2 = obj2[key];
+
+                isObject1 = isObject(value1);
+                isObject2 = isObject(value2);
+
+                // determine, if the objects were already visited
+                // (it's faster to check for isObject first, than to
+                // get -1 from getIndex for non objects)
+                index1 = isObject1 ? getIndex(objects1, value1) : -1;
+                index2 = isObject2 ? getIndex(objects2, value2) : -1;
+
+                // determine the new pathes of the objects
+                // - for non cyclic objects the current path will be extended
+                //   by current property name
+                // - for cyclic objects the stored path is taken
+                newPath1 = index1 !== -1
+                    ? paths1[index1]
+                    : path1 + '[' + JSON.stringify(key) + ']';
+                newPath2 = index2 !== -1
+                    ? paths2[index2]
+                    : path2 + '[' + JSON.stringify(key) + ']';
+
+                // stop recursion if current objects are already compared
+                if (compared[newPath1 + newPath2]) {
+                    return true;
+                }
+
+                // remember the current objects and their pathes
+                if (index1 === -1 && isObject1) {
+                    objects1.push(value1);
+                    paths1.push(newPath1);
+                }
+                if (index2 === -1 && isObject2) {
+                    objects2.push(value2);
+                    paths2.push(newPath2);
+                }
+
+                // remember that the current objects are already compared
+                if (isObject1 && isObject2) {
+                    compared[newPath1 + newPath2] = true;
+                }
+
+                // End of cyclic logic
+
+                // neither value1 nor value2 is a cycle
+                // continue with next level
+                if (!deepEqual(value1, value2, newPath1, newPath2)) {
+                    return false;
+                }
+            }
+
+            return true;
+
+        }(obj1, obj2, '$1', '$2'));
+    }
+
+    var match;
+
+    function arrayContains(array, subset) {
+        if (subset.length === 0) { return true; }
+        var i, l, j, k;
+        for (i = 0, l = array.length; i < l; ++i) {
+            if (match(array[i], subset[0])) {
+                for (j = 0, k = subset.length; j < k; ++j) {
+                    if (!match(array[i + j], subset[j])) { return false; }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @name samsam.match
+     * @param Object object
+     * @param Object matcher
+     *
+     * Compare arbitrary value ``object`` with matcher.
+     */
+    match = function match(object, matcher) {
+        if (matcher && typeof matcher.test === "function") {
+            return matcher.test(object);
+        }
+
+        if (typeof matcher === "function") {
+            return matcher(object) === true;
+        }
+
+        if (typeof matcher === "string") {
+            matcher = matcher.toLowerCase();
+            var notNull = typeof object === "string" || !!object;
+            return notNull &&
+                (String(object)).toLowerCase().indexOf(matcher) >= 0;
+        }
+
+        if (typeof matcher === "number") {
+            return matcher === object;
+        }
+
+        if (typeof matcher === "boolean") {
+            return matcher === object;
+        }
+
+        if (getClass(object) === "Array" && getClass(matcher) === "Array") {
+            return arrayContains(object, matcher);
+        }
+
+        if (matcher && typeof matcher === "object") {
+            var prop;
+            for (prop in matcher) {
+                var value = object[prop];
+                if (typeof value === "undefined" &&
+                        typeof object.getAttribute === "function") {
+                    value = object.getAttribute(prop);
+                }
+                if (typeof value === "undefined" || !match(value, matcher[prop])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        throw new Error("Matcher was not a string, a number, a " +
+                        "function, a boolean or an object");
+    };
+
+    return {
+        isArguments: isArguments,
+        isElement: isElement,
+        isDate: isDate,
+        isNegZero: isNegZero,
+        identical: identical,
+        deepEqual: deepEqualCyclic,
+        match: match,
+        keys: keys
+    };
+});
+((typeof define === "function" && define.amd && function (m) {
+    define("formatio", ["samsam"], m);
+}) || (typeof module === "object" && function (m) {
+    module.exports = m(require("samsam"));
+}) || function (m) { this.formatio = m(this.samsam); }
+)(function (samsam) {
+    
+    var formatio = {
+        excludeConstructors: ["Object", /^.$/],
+        quoteStrings: true,
+        limitChildrenCount: 0
+    };
+
+    var hasOwn = Object.prototype.hasOwnProperty;
+
+    var specialObjects = [];
+    if (typeof global !== "undefined") {
+        specialObjects.push({ object: global, value: "[object global]" });
+    }
+    if (typeof document !== "undefined") {
+        specialObjects.push({
+            object: document,
+            value: "[object HTMLDocument]"
+        });
+    }
+    if (typeof window !== "undefined") {
+        specialObjects.push({ object: window, value: "[object Window]" });
+    }
+
+    function functionName(func) {
+        if (!func) { return ""; }
+        if (func.displayName) { return func.displayName; }
+        if (func.name) { return func.name; }
+        var matches = func.toString().match(/function\s+([^\(]+)/m);
+        return (matches && matches[1]) || "";
+    }
+
+    function constructorName(f, object) {
+        var name = functionName(object && object.constructor);
+        var excludes = f.excludeConstructors ||
+                formatio.excludeConstructors || [];
+
+        var i, l;
+        for (i = 0, l = excludes.length; i < l; ++i) {
+            if (typeof excludes[i] === "string" && excludes[i] === name) {
+                return "";
+            } else if (excludes[i].test && excludes[i].test(name)) {
+                return "";
+            }
+        }
+
+        return name;
+    }
+
+    function isCircular(object, objects) {
+        if (typeof object !== "object") { return false; }
+        var i, l;
+        for (i = 0, l = objects.length; i < l; ++i) {
+            if (objects[i] === object) { return true; }
+        }
+        return false;
+    }
+
+    function ascii(f, object, processed, indent) {
+        if (typeof object === "string") {
+            var qs = f.quoteStrings;
+            var quote = typeof qs !== "boolean" || qs;
+            return processed || quote ? '"' + object + '"' : object;
+        }
+
+        if (typeof object === "function" && !(object instanceof RegExp)) {
+            return ascii.func(object);
+        }
+
+        processed = processed || [];
+
+        if (isCircular(object, processed)) { return "[Circular]"; }
+
+        if (Object.prototype.toString.call(object) === "[object Array]") {
+            return ascii.array.call(f, object, processed);
+        }
+
+        if (!object) { return String((1/object) === -Infinity ? "-0" : object); }
+        if (samsam.isElement(object)) { return ascii.element(object); }
+
+        if (typeof object.toString === "function" &&
+                object.toString !== Object.prototype.toString) {
+            return object.toString();
+        }
+
+        var i, l;
+        for (i = 0, l = specialObjects.length; i < l; i++) {
+            if (object === specialObjects[i].object) {
+                return specialObjects[i].value;
+            }
+        }
+
+        return ascii.object.call(f, object, processed, indent);
+    }
+
+    ascii.func = function (func) {
+        return "function " + functionName(func) + "() {}";
+    };
+
+    ascii.array = function (array, processed) {
+        processed = processed || [];
+        processed.push(array);
+        var pieces = [];
+        var i, l;
+        l = (this.limitChildrenCount > 0) ? 
+            Math.min(this.limitChildrenCount, array.length) : array.length;
+
+        for (i = 0; i < l; ++i) {
+            pieces.push(ascii(this, array[i], processed));
+        }
+
+        if(l < array.length)
+            pieces.push("[... " + (array.length - l) + " more elements]");
+
+        return "[" + pieces.join(", ") + "]";
+    };
+
+    ascii.object = function (object, processed, indent) {
+        processed = processed || [];
+        processed.push(object);
+        indent = indent || 0;
+        var pieces = [], properties = samsam.keys(object).sort();
+        var length = 3;
+        var prop, str, obj, i, k, l;
+        l = (this.limitChildrenCount > 0) ? 
+            Math.min(this.limitChildrenCount, properties.length) : properties.length;
+
+        for (i = 0; i < l; ++i) {
+            prop = properties[i];
+            obj = object[prop];
+
+            if (isCircular(obj, processed)) {
+                str = "[Circular]";
+            } else {
+                str = ascii(this, obj, processed, indent + 2);
+            }
+
+            str = (/\s/.test(prop) ? '"' + prop + '"' : prop) + ": " + str;
+            length += str.length;
+            pieces.push(str);
+        }
+
+        var cons = constructorName(this, object);
+        var prefix = cons ? "[" + cons + "] " : "";
+        var is = "";
+        for (i = 0, k = indent; i < k; ++i) { is += " "; }
+
+        if(l < properties.length)
+            pieces.push("[... " + (properties.length - l) + " more elements]");
+
+        if (length + indent > 80) {
+            return prefix + "{\n  " + is + pieces.join(",\n  " + is) + "\n" +
+                is + "}";
+        }
+        return prefix + "{ " + pieces.join(", ") + " }";
+    };
+
+    ascii.element = function (element) {
+        var tagName = element.tagName.toLowerCase();
+        var attrs = element.attributes, attr, pairs = [], attrName, i, l, val;
+
+        for (i = 0, l = attrs.length; i < l; ++i) {
+            attr = attrs.item(i);
+            attrName = attr.nodeName.toLowerCase().replace("html:", "");
+            val = attr.nodeValue;
+            if (attrName !== "contenteditable" || val !== "inherit") {
+                if (!!val) { pairs.push(attrName + "=\"" + val + "\""); }
+            }
+        }
+
+        var formatted = "<" + tagName + (pairs.length > 0 ? " " : "");
+        var content = element.innerHTML;
+
+        if (content.length > 20) {
+            content = content.substr(0, 20) + "[...]";
+        }
+
+        var res = formatted + pairs.join(" ") + ">" + content +
+                "</" + tagName + ">";
+
+        return res.replace(/ contentEditable="inherit"/, "");
+    };
+
+    function Formatio(options) {
+        for (var opt in options) {
+            this[opt] = options[opt];
+        }
+    }
+
+    Formatio.prototype = {
+        functionName: functionName,
+
+        configure: function (options) {
+            return new Formatio(options);
+        },
+
+        constructorName: function (object) {
+            return constructorName(this, object);
+        },
+
+        ascii: function (object, processed, indent) {
+            return ascii(this, object, processed, indent);
+        }
+    };
+
+    return Formatio.prototype;
+});
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.lolex=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function (global){
+/*jslint eqeqeq: false, plusplus: false, evil: true, onevar: false, browser: true, forin: false*/
+/*global global*/
+/**
+ * @author Christian Johansen (christian@cjohansen.no) and contributors
+ * @license BSD
+ *
+ * Copyright (c) 2010-2014 Christian Johansen
+ */
+
+// node expects setTimeout/setInterval to return a fn object w/ .ref()/.unref()
+// browsers, a number.
+// see https://github.com/cjohansen/Sinon.JS/pull/436
+var timeoutResult = setTimeout(function() {}, 0);
+var addTimerReturnsObject = typeof timeoutResult === "object";
+clearTimeout(timeoutResult);
+
+var NativeDate = Date;
+var id = 1;
+
+/**
+ * Parse strings like "01:10:00" (meaning 1 hour, 10 minutes, 0 seconds) into
+ * number of milliseconds. This is used to support human-readable strings passed
+ * to clock.tick()
+ */
+function parseTime(str) {
+    if (!str) {
+        return 0;
+    }
+
+    var strings = str.split(":");
+    var l = strings.length, i = l;
+    var ms = 0, parsed;
+
+    if (l > 3 || !/^(\d\d:){0,2}\d\d?$/.test(str)) {
+        throw new Error("tick only understands numbers and 'h:m:s'");
+    }
+
+    while (i--) {
+        parsed = parseInt(strings[i], 10);
+
+        if (parsed >= 60) {
+            throw new Error("Invalid time " + str);
+        }
+
+        ms += parsed * Math.pow(60, (l - i - 1));
+    }
+
+    return ms * 1000;
+}
+
+/**
+ * Used to grok the `now` parameter to createClock.
+ */
+function getEpoch(epoch) {
+    if (!epoch) { return 0; }
+    if (typeof epoch.getTime === "function") { return epoch.getTime(); }
+    if (typeof epoch === "number") { return epoch; }
+    throw new TypeError("now should be milliseconds since UNIX epoch");
+}
+
+function inRange(from, to, timer) {
+    return timer && timer.callAt >= from && timer.callAt <= to;
+}
+
+function mirrorDateProperties(target, source) {
+    if (source.now) {
+        target.now = function now() {
+            return target.clock.now;
+        };
+    } else {
+        delete target.now;
+    }
+
+    if (source.toSource) {
+        target.toSource = function toSource() {
+            return source.toSource();
+        };
+    } else {
+        delete target.toSource;
+    }
+
+    target.toString = function toString() {
+        return source.toString();
+    };
+
+    target.prototype = source.prototype;
+    target.parse = source.parse;
+    target.UTC = source.UTC;
+    target.prototype.toUTCString = source.prototype.toUTCString;
+
+    for (var prop in source) {
+        if (source.hasOwnProperty(prop)) {
+            target[prop] = source[prop];
+        }
+    }
+
+    return target;
+}
+
+function createDate() {
+    function ClockDate(year, month, date, hour, minute, second, ms) {
+        // Defensive and verbose to avoid potential harm in passing
+        // explicit undefined when user does not pass argument
+        switch (arguments.length) {
+        case 0:
+            return new NativeDate(ClockDate.clock.now);
+        case 1:
+            return new NativeDate(year);
+        case 2:
+            return new NativeDate(year, month);
+        case 3:
+            return new NativeDate(year, month, date);
+        case 4:
+            return new NativeDate(year, month, date, hour);
+        case 5:
+            return new NativeDate(year, month, date, hour, minute);
+        case 6:
+            return new NativeDate(year, month, date, hour, minute, second);
+        default:
+            return new NativeDate(year, month, date, hour, minute, second, ms);
+        }
+    }
+
+    return mirrorDateProperties(ClockDate, NativeDate);
+}
+
+function addTimer(clock, timer) {
+    if (typeof timer.func === "undefined") {
+        throw new Error("Callback must be provided to timer calls");
+    }
+
+    if (!clock.timers) {
+        clock.timers = {};
+    }
+
+    timer.id = id++;
+    timer.createdAt = clock.now;
+    timer.callAt = clock.now + (timer.delay || 0);
+
+    clock.timers[timer.id] = timer;
+
+    if (addTimerReturnsObject) {
+        return {
+            id: timer.id,
+            ref: function() {},
+            unref: function() {}
+        };
+    }
+    else {
+        return timer.id;
+    }
+}
+
+function firstTimerInRange(clock, from, to) {
+    var timers = clock.timers, timer = null;
+
+    for (var id in timers) {
+        if (!inRange(from, to, timers[id])) {
+            continue;
+        }
+
+        if (!timer || ~compareTimers(timer, timers[id])) {
+            timer = timers[id];
+        }
+    }
+
+    return timer;
+}
+
+function compareTimers(a, b) {
+    // Sort first by absolute timing
+    if (a.callAt < b.callAt) {
+        return -1;
+    }
+    if (a.callAt > b.callAt) {
+        return 1;
+    }
+
+    // Sort next by immediate, immediate timers take precedence
+    if (a.immediate && !b.immediate) {
+        return -1;
+    }
+    if (!a.immediate && b.immediate) {
+        return 1;
+    }
+
+    // Sort next by creation time, earlier-created timers take precedence
+    if (a.createdAt < b.createdAt) {
+        return -1;
+    }
+    if (a.createdAt > b.createdAt) {
+        return 1;
+    }
+
+    // Sort next by id, lower-id timers take precedence
+    if (a.id < b.id) {
+        return -1;
+    }
+    if (a.id > b.id) {
+        return 1;
+    }
+
+    // As timer ids are unique, no fallback `0` is necessary
+}
+
+function callTimer(clock, timer) {
+    if (typeof timer.interval == "number") {
+        clock.timers[timer.id].callAt += timer.interval;
+    } else {
+        delete clock.timers[timer.id];
+    }
+
+    try {
+        if (typeof timer.func == "function") {
+            timer.func.apply(null, timer.args);
+        } else {
+            eval(timer.func);
+        }
+    } catch (e) {
+        var exception = e;
+    }
+
+    if (!clock.timers[timer.id]) {
+        if (exception) {
+            throw exception;
+        }
+        return;
+    }
+
+    if (exception) {
+        throw exception;
+    }
+}
+
+function uninstall(clock, target) {
+    var method;
+
+    for (var i = 0, l = clock.methods.length; i < l; i++) {
+        method = clock.methods[i];
+
+        if (target[method].hadOwnProperty) {
+            target[method] = clock["_" + method];
+        } else {
+            try {
+                delete target[method];
+            } catch (e) {}
+        }
+    }
+
+    // Prevent multiple executions which will completely remove these props
+    clock.methods = [];
+}
+
+function hijackMethod(target, method, clock) {
+    clock[method].hadOwnProperty = Object.prototype.hasOwnProperty.call(target, method);
+    clock["_" + method] = target[method];
+
+    if (method == "Date") {
+        var date = mirrorDateProperties(clock[method], target[method]);
+        target[method] = date;
+    } else {
+        target[method] = function () {
+            return clock[method].apply(clock, arguments);
+        };
+
+        for (var prop in clock[method]) {
+            if (clock[method].hasOwnProperty(prop)) {
+                target[method][prop] = clock[method][prop];
+            }
+        }
+    }
+
+    target[method].clock = clock;
+}
+
+var timers = {
+    setTimeout: setTimeout,
+    clearTimeout: clearTimeout,
+    setImmediate: (typeof setImmediate !== "undefined" ? setImmediate : undefined),
+    clearImmediate: (typeof clearImmediate !== "undefined" ? clearImmediate: undefined),
+    setInterval: setInterval,
+    clearInterval: clearInterval,
+    Date: Date
+};
+
+var keys = Object.keys || function (obj) {
+    var ks = [];
+    for (var key in obj) {
+        ks.push(key);
+    }
+    return ks;
+};
+
+exports.timers = timers;
+
+var createClock = exports.createClock = function (now) {
+    var clock = {
+        now: getEpoch(now),
+        timeouts: {},
+        Date: createDate()
+    };
+
+    clock.Date.clock = clock;
+
+    clock.setTimeout = function setTimeout(func, timeout) {
+        return addTimer(clock, {
+            func: func,
+            args: Array.prototype.slice.call(arguments, 2),
+            delay: timeout
+        });
+    };
+
+    clock.clearTimeout = function clearTimeout(timerId) {
+        if (!timerId) {
+            // null appears to be allowed in most browsers, and appears to be
+            // relied upon by some libraries, like Bootstrap carousel
+            return;
+        }
+        if (!clock.timers) {
+            clock.timers = [];
+        }
+        // in Node, timerId is an object with .ref()/.unref(), and
+        // its .id field is the actual timer id.
+        if (typeof timerId === "object") {
+            timerId = timerId.id
+        }
+        if (timerId in clock.timers) {
+            delete clock.timers[timerId];
+        }
+    };
+
+    clock.setInterval = function setInterval(func, timeout) {
+        return addTimer(clock, {
+            func: func,
+            args: Array.prototype.slice.call(arguments, 2),
+            delay: timeout,
+            interval: timeout
+        });
+    };
+
+    clock.clearInterval = function clearInterval(timerId) {
+        clock.clearTimeout(timerId);
+    };
+
+    clock.setImmediate = function setImmediate(func) {
+        return addTimer(clock, {
+            func: func,
+            args: Array.prototype.slice.call(arguments, 1),
+            immediate: true
+        });
+    };
+
+    clock.clearImmediate = function clearImmediate(timerId) {
+        clock.clearTimeout(timerId);
+    };
+
+    clock.tick = function tick(ms) {
+        ms = typeof ms == "number" ? ms : parseTime(ms);
+        var tickFrom = clock.now, tickTo = clock.now + ms, previous = clock.now;
+        var timer = firstTimerInRange(clock, tickFrom, tickTo);
+
+        var firstException;
+        while (timer && tickFrom <= tickTo) {
+            if (clock.timers[timer.id]) {
+                tickFrom = clock.now = timer.callAt;
+                try {
+                    callTimer(clock, timer);
+                } catch (e) {
+                    firstException = firstException || e;
+                }
+            }
+
+            timer = firstTimerInRange(clock, previous, tickTo);
+            previous = tickFrom;
+        }
+
+        clock.now = tickTo;
+
+        if (firstException) {
+            throw firstException;
+        }
+
+        return clock.now;
+    };
+
+    clock.reset = function reset() {
+        clock.timers = {};
+    };
+
+    return clock;
+};
+
+exports.install = function install(target, now, toFake) {
+    if (typeof target === "number") {
+        toFake = now;
+        now = target;
+        target = null;
+    }
+
+    if (!target) {
+        target = global;
+    }
+
+    var clock = createClock(now);
+
+    clock.uninstall = function () {
+        uninstall(clock, target);
+    };
+
+    clock.methods = toFake || [];
+
+    if (clock.methods.length === 0) {
+        clock.methods = keys(timers);
+    }
+
+    for (var i = 0, l = clock.methods.length; i < l; i++) {
+        hijackMethod(target, clock.methods[i], clock);
+    }
+
+    return clock;
+};
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}]},{},[1])(1)
+});
+  })();
+  var define;
+/**
+ * Sinon core utilities. For internal use only.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+var sinon = (function () {
+"use strict";
+
+    var sinon;
+    var isNode = typeof module !== "undefined" && module.exports && typeof require === "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        sinon = module.exports = require("./sinon/util/core");
+        require("./sinon/extend");
+        require("./sinon/typeOf");
+        require("./sinon/times_in_words");
+        require("./sinon/spy");
+        require("./sinon/call");
+        require("./sinon/behavior");
+        require("./sinon/stub");
+        require("./sinon/mock");
+        require("./sinon/collection");
+        require("./sinon/assert");
+        require("./sinon/sandbox");
+        require("./sinon/test");
+        require("./sinon/test_case");
+        require("./sinon/match");
+        require("./sinon/format");
+        require("./sinon/log_error");
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+        sinon = module.exports;
+    } else {
+        sinon = {};
+    }
+
+    return sinon;
+}());
+
+/**
+ * @depend ../../sinon.js
+ */
+/**
+ * Sinon core utilities. For internal use only.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon) {
+    var div = typeof document != "undefined" && document.createElement("div");
+    var hasOwn = Object.prototype.hasOwnProperty;
+
+    function isDOMNode(obj) {
+        var success = false;
+
+        try {
+            obj.appendChild(div);
+            success = div.parentNode == obj;
+        } catch (e) {
+            return false;
+        } finally {
+            try {
+                obj.removeChild(div);
+            } catch (e) {
+                // Remove failed, not much we can do about that
+            }
+        }
+
+        return success;
+    }
+
+    function isElement(obj) {
+        return div && obj && obj.nodeType === 1 && isDOMNode(obj);
+    }
+
+    function isFunction(obj) {
+        return typeof obj === "function" || !!(obj && obj.constructor && obj.call && obj.apply);
+    }
+
+    function isReallyNaN(val) {
+        return typeof val === "number" && isNaN(val);
+    }
+
+    function mirrorProperties(target, source) {
+        for (var prop in source) {
+            if (!hasOwn.call(target, prop)) {
+                target[prop] = source[prop];
+            }
+        }
+    }
+
+    function isRestorable(obj) {
+        return typeof obj === "function" && typeof obj.restore === "function" && obj.restore.sinon;
+    }
+
+    function makeApi(sinon) {
+        sinon.wrapMethod = function wrapMethod(object, property, method) {
+            if (!object) {
+                throw new TypeError("Should wrap property of object");
+            }
+
+            if (typeof method != "function") {
+                throw new TypeError("Method wrapper should be function");
+            }
+
+            var wrappedMethod = object[property],
+                error;
+
+            if (!isFunction(wrappedMethod)) {
+                error = new TypeError("Attempted to wrap " + (typeof wrappedMethod) + " property " +
+                                    property + " as function");
+            } else if (wrappedMethod.restore && wrappedMethod.restore.sinon) {
+                error = new TypeError("Attempted to wrap " + property + " which is already wrapped");
+            } else if (wrappedMethod.calledBefore) {
+                var verb = !!wrappedMethod.returns ? "stubbed" : "spied on";
+                error = new TypeError("Attempted to wrap " + property + " which is already " + verb);
+            }
+
+            if (error) {
+                if (wrappedMethod && wrappedMethod.stackTrace) {
+                    error.stack += "\n--------------\n" + wrappedMethod.stackTrace;
+                }
+                throw error;
+            }
+
+            // IE 8 does not support hasOwnProperty on the window object and Firefox has a problem
+            // when using hasOwn.call on objects from other frames.
+            var owned = object.hasOwnProperty ? object.hasOwnProperty(property) : hasOwn.call(object, property);
+            object[property] = method;
+            method.displayName = property;
+            // Set up a stack trace which can be used later to find what line of
+            // code the original method was created on.
+            method.stackTrace = (new Error("Stack Trace for original")).stack;
+
+            method.restore = function () {
+                // For prototype properties try to reset by delete first.
+                // If this fails (ex: localStorage on mobile safari) then force a reset
+                // via direct assignment.
+                if (!owned) {
+                    delete object[property];
+                }
+                if (object[property] === method) {
+                    object[property] = wrappedMethod;
+                }
+            };
+
+            method.restore.sinon = true;
+            mirrorProperties(method, wrappedMethod);
+
+            return method;
+        };
+
+        sinon.create = function create(proto) {
+            var F = function () {};
+            F.prototype = proto;
+            return new F();
+        };
+
+        sinon.deepEqual = function deepEqual(a, b) {
+            if (sinon.match && sinon.match.isMatcher(a)) {
+                return a.test(b);
+            }
+
+            if (typeof a != "object" || typeof b != "object") {
+                if (isReallyNaN(a) && isReallyNaN(b)) {
+                    return true;
+                } else {
+                    return a === b;
+                }
+            }
+
+            if (isElement(a) || isElement(b)) {
+                return a === b;
+            }
+
+            if (a === b) {
+                return true;
+            }
+
+            if ((a === null && b !== null) || (a !== null && b === null)) {
+                return false;
+            }
+
+            if (a instanceof RegExp && b instanceof RegExp) {
+                return (a.source === b.source) && (a.global === b.global) &&
+                    (a.ignoreCase === b.ignoreCase) && (a.multiline === b.multiline);
+            }
+
+            var aString = Object.prototype.toString.call(a);
+            if (aString != Object.prototype.toString.call(b)) {
+                return false;
+            }
+
+            if (aString == "[object Date]") {
+                return a.valueOf() === b.valueOf();
+            }
+
+            var prop, aLength = 0, bLength = 0;
+
+            if (aString == "[object Array]" && a.length !== b.length) {
+                return false;
+            }
+
+            for (prop in a) {
+                aLength += 1;
+
+                if (!(prop in b)) {
+                    return false;
+                }
+
+                if (!deepEqual(a[prop], b[prop])) {
+                    return false;
+                }
+            }
+
+            for (prop in b) {
+                bLength += 1;
+            }
+
+            return aLength == bLength;
+        };
+
+        sinon.functionName = function functionName(func) {
+            var name = func.displayName || func.name;
+
+            // Use function decomposition as a last resort to get function
+            // name. Does not rely on function decomposition to work - if it
+            // doesn't debugging will be slightly less informative
+            // (i.e. toString will say 'spy' rather than 'myFunc').
+            if (!name) {
+                var matches = func.toString().match(/function ([^\s\(]+)/);
+                name = matches && matches[1];
+            }
+
+            return name;
+        };
+
+        sinon.functionToString = function toString() {
+            if (this.getCall && this.callCount) {
+                var thisValue, prop, i = this.callCount;
+
+                while (i--) {
+                    thisValue = this.getCall(i).thisValue;
+
+                    for (prop in thisValue) {
+                        if (thisValue[prop] === this) {
+                            return prop;
+                        }
+                    }
+                }
+            }
+
+            return this.displayName || "sinon fake";
+        };
+
+        sinon.getConfig = function (custom) {
+            var config = {};
+            custom = custom || {};
+            var defaults = sinon.defaultConfig;
+
+            for (var prop in defaults) {
+                if (defaults.hasOwnProperty(prop)) {
+                    config[prop] = custom.hasOwnProperty(prop) ? custom[prop] : defaults[prop];
+                }
+            }
+
+            return config;
+        };
+
+        sinon.defaultConfig = {
+            injectIntoThis: true,
+            injectInto: null,
+            properties: ["spy", "stub", "mock", "clock", "server", "requests"],
+            useFakeTimers: true,
+            useFakeServer: true
+        };
+
+        sinon.timesInWords = function timesInWords(count) {
+            return count == 1 && "once" ||
+                count == 2 && "twice" ||
+                count == 3 && "thrice" ||
+                (count || 0) + " times";
+        };
+
+        sinon.calledInOrder = function (spies) {
+            for (var i = 1, l = spies.length; i < l; i++) {
+                if (!spies[i - 1].calledBefore(spies[i]) || !spies[i].called) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        sinon.orderByFirstCall = function (spies) {
+            return spies.sort(function (a, b) {
+                // uuid, won't ever be equal
+                var aCall = a.getCall(0);
+                var bCall = b.getCall(0);
+                var aId = aCall && aCall.callId || -1;
+                var bId = bCall && bCall.callId || -1;
+
+                return aId < bId ? -1 : 1;
+            });
+        };
+
+        sinon.createStubInstance = function (constructor) {
+            if (typeof constructor !== "function") {
+                throw new TypeError("The constructor should be a function.");
+            }
+            return sinon.stub(sinon.create(constructor.prototype));
+        };
+
+        sinon.restore = function (object) {
+            if (object !== null && typeof object === "object") {
+                for (var prop in object) {
+                    if (isRestorable(object[prop])) {
+                        object[prop].restore();
+                    }
+                }
+            } else if (isRestorable(object)) {
+                object.restore();
+            }
+        };
+
+        return sinon;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports) {
+        makeApi(exports);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend ../sinon.js
+ */
+
+(function (sinon) {
+    function makeApi(sinon) {
+
+        // Adapted from https://developer.mozilla.org/en/docs/ECMAScript_DontEnum_attribute#JScript_DontEnum_Bug
+        var hasDontEnumBug = (function () {
+            var obj = {
+                constructor: function () {
+                    return "0";
+                },
+                toString: function () {
+                    return "1";
+                },
+                valueOf: function () {
+                    return "2";
+                },
+                toLocaleString: function () {
+                    return "3";
+                },
+                prototype: function () {
+                    return "4";
+                },
+                isPrototypeOf: function () {
+                    return "5";
+                },
+                propertyIsEnumerable: function () {
+                    return "6";
+                },
+                hasOwnProperty: function () {
+                    return "7";
+                },
+                length: function () {
+                    return "8";
+                },
+                unique: function () {
+                    return "9"
+                }
+            };
+
+            var result = [];
+            for (var prop in obj) {
+                result.push(obj[prop]());
+            }
+            return result.join("") !== "0123456789";
+        })();
+
+        /* Public: Extend target in place with all (own) properties from sources in-order. Thus, last source will
+         *         override properties in previous sources.
+         *
+         * target - The Object to extend
+         * sources - Objects to copy properties from.
+         *
+         * Returns the extended target
+         */
+        function extend(target /*, sources */) {
+            var sources = Array.prototype.slice.call(arguments, 1),
+                source, i, prop;
+
+            for (i = 0; i < sources.length; i++) {
+                source = sources[i];
+
+                for (prop in source) {
+                    if (source.hasOwnProperty(prop)) {
+                        target[prop] = source[prop];
+                    }
+                }
+
+                // Make sure we copy (own) toString method even when in JScript with DontEnum bug
+                // See https://developer.mozilla.org/en/docs/ECMAScript_DontEnum_attribute#JScript_DontEnum_Bug
+                if (hasDontEnumBug && source.hasOwnProperty("toString") && source.toString !== target.toString) {
+                    target.toString = source.toString;
+                }
+            }
+
+            return target;
+        };
+
+        sinon.extend = extend;
+        return sinon.extend;
+    }
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        module.exports = makeApi(sinon);
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend ../sinon.js
+ */
+
+(function (sinon) {
+    function makeApi(sinon) {
+
+        function timesInWords(count) {
+            switch (count) {
+                case 1:
+                    return "once";
+                case 2:
+                    return "twice";
+                case 3:
+                    return "thrice";
+                default:
+                    return (count || 0) + " times";
+            }
+        }
+
+        sinon.timesInWords = timesInWords;
+        return sinon.timesInWords;
+    }
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        module.exports = makeApi(sinon);
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend ../sinon.js
+ */
+/**
+ * Format functions
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2014 Christian Johansen
+ */
+
+(function (sinon, formatio) {
+    function makeApi(sinon) {
+        function typeOf(value) {
+            if (value === null) {
+                return "null";
+            } else if (value === undefined) {
+                return "undefined";
+            }
+            var string = Object.prototype.toString.call(value);
+            return string.substring(8, string.length - 1).toLowerCase();
+        };
+
+        sinon.typeOf = typeOf;
+        return sinon.typeOf;
+    }
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        module.exports = makeApi(sinon);
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(
+    (typeof sinon == "object" && sinon || null),
+    (typeof formatio == "object" && formatio)
+));
+
+/**
+ * @depend util/core.js
+ * @depend typeOf.js
+ */
+/*jslint eqeqeq: false, onevar: false, plusplus: false*/
+/*global module, require, sinon*/
+/**
+ * Match functions
+ *
+ * @author Maximilian Antoni (mail@maxantoni.de)
+ * @license BSD
+ *
+ * Copyright (c) 2012 Maximilian Antoni
+ */
+
+(function (sinon) {
+    function makeApi(sinon) {
+        function assertType(value, type, name) {
+            var actual = sinon.typeOf(value);
+            if (actual !== type) {
+                throw new TypeError("Expected type of " + name + " to be " +
+                    type + ", but was " + actual);
+            }
+        }
+
+        var matcher = {
+            toString: function () {
+                return this.message;
+            }
+        };
+
+        function isMatcher(object) {
+            return matcher.isPrototypeOf(object);
+        }
+
+        function matchObject(expectation, actual) {
+            if (actual === null || actual === undefined) {
+                return false;
+            }
+            for (var key in expectation) {
+                if (expectation.hasOwnProperty(key)) {
+                    var exp = expectation[key];
+                    var act = actual[key];
+                    if (match.isMatcher(exp)) {
+                        if (!exp.test(act)) {
+                            return false;
+                        }
+                    } else if (sinon.typeOf(exp) === "object") {
+                        if (!matchObject(exp, act)) {
+                            return false;
+                        }
+                    } else if (!sinon.deepEqual(exp, act)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        matcher.or = function (m2) {
+            if (!arguments.length) {
+                throw new TypeError("Matcher expected");
+            } else if (!isMatcher(m2)) {
+                m2 = match(m2);
+            }
+            var m1 = this;
+            var or = sinon.create(matcher);
+            or.test = function (actual) {
+                return m1.test(actual) || m2.test(actual);
+            };
+            or.message = m1.message + ".or(" + m2.message + ")";
+            return or;
+        };
+
+        matcher.and = function (m2) {
+            if (!arguments.length) {
+                throw new TypeError("Matcher expected");
+            } else if (!isMatcher(m2)) {
+                m2 = match(m2);
+            }
+            var m1 = this;
+            var and = sinon.create(matcher);
+            and.test = function (actual) {
+                return m1.test(actual) && m2.test(actual);
+            };
+            and.message = m1.message + ".and(" + m2.message + ")";
+            return and;
+        };
+
+        var match = function (expectation, message) {
+            var m = sinon.create(matcher);
+            var type = sinon.typeOf(expectation);
+            switch (type) {
+            case "object":
+                if (typeof expectation.test === "function") {
+                    m.test = function (actual) {
+                        return expectation.test(actual) === true;
+                    };
+                    m.message = "match(" + sinon.functionName(expectation.test) + ")";
+                    return m;
+                }
+                var str = [];
+                for (var key in expectation) {
+                    if (expectation.hasOwnProperty(key)) {
+                        str.push(key + ": " + expectation[key]);
+                    }
+                }
+                m.test = function (actual) {
+                    return matchObject(expectation, actual);
+                };
+                m.message = "match(" + str.join(", ") + ")";
+                break;
+            case "number":
+                m.test = function (actual) {
+                    return expectation == actual;
+                };
+                break;
+            case "string":
+                m.test = function (actual) {
+                    if (typeof actual !== "string") {
+                        return false;
+                    }
+                    return actual.indexOf(expectation) !== -1;
+                };
+                m.message = "match(\"" + expectation + "\")";
+                break;
+            case "regexp":
+                m.test = function (actual) {
+                    if (typeof actual !== "string") {
+                        return false;
+                    }
+                    return expectation.test(actual);
+                };
+                break;
+            case "function":
+                m.test = expectation;
+                if (message) {
+                    m.message = message;
+                } else {
+                    m.message = "match(" + sinon.functionName(expectation) + ")";
+                }
+                break;
+            default:
+                m.test = function (actual) {
+                    return sinon.deepEqual(expectation, actual);
+                };
+            }
+            if (!m.message) {
+                m.message = "match(" + expectation + ")";
+            }
+            return m;
+        };
+
+        match.isMatcher = isMatcher;
+
+        match.any = match(function () {
+            return true;
+        }, "any");
+
+        match.defined = match(function (actual) {
+            return actual !== null && actual !== undefined;
+        }, "defined");
+
+        match.truthy = match(function (actual) {
+            return !!actual;
+        }, "truthy");
+
+        match.falsy = match(function (actual) {
+            return !actual;
+        }, "falsy");
+
+        match.same = function (expectation) {
+            return match(function (actual) {
+                return expectation === actual;
+            }, "same(" + expectation + ")");
+        };
+
+        match.typeOf = function (type) {
+            assertType(type, "string", "type");
+            return match(function (actual) {
+                return sinon.typeOf(actual) === type;
+            }, "typeOf(\"" + type + "\")");
+        };
+
+        match.instanceOf = function (type) {
+            assertType(type, "function", "type");
+            return match(function (actual) {
+                return actual instanceof type;
+            }, "instanceOf(" + sinon.functionName(type) + ")");
+        };
+
+        function createPropertyMatcher(propertyTest, messagePrefix) {
+            return function (property, value) {
+                assertType(property, "string", "property");
+                var onlyProperty = arguments.length === 1;
+                var message = messagePrefix + "(\"" + property + "\"";
+                if (!onlyProperty) {
+                    message += ", " + value;
+                }
+                message += ")";
+                return match(function (actual) {
+                    if (actual === undefined || actual === null ||
+                            !propertyTest(actual, property)) {
+                        return false;
+                    }
+                    return onlyProperty || sinon.deepEqual(value, actual[property]);
+                }, message);
+            };
+        }
+
+        match.has = createPropertyMatcher(function (actual, property) {
+            if (typeof actual === "object") {
+                return property in actual;
+            }
+            return actual[property] !== undefined;
+        }, "has");
+
+        match.hasOwn = createPropertyMatcher(function (actual, property) {
+            return actual.hasOwnProperty(property);
+        }, "hasOwn");
+
+        match.bool = match.typeOf("boolean");
+        match.number = match.typeOf("number");
+        match.string = match.typeOf("string");
+        match.object = match.typeOf("object");
+        match.func = match.typeOf("function");
+        match.array = match.typeOf("array");
+        match.regexp = match.typeOf("regexp");
+        match.date = match.typeOf("date");
+
+        sinon.match = match;
+        return match;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend ../sinon.js
+ */
+/**
+ * Format functions
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2014 Christian Johansen
+ */
+
+(function (sinon, formatio) {
+    function makeApi(sinon) {
+        function valueFormatter(value) {
+            return "" + value;
+        }
+
+        function getFormatioFormatter() {
+            var formatter = formatio.configure({
+                    quoteStrings: false,
+                    limitChildrenCount: 250
+                });
+
+            function format() {
+                return formatter.ascii.apply(formatter, arguments);
+            };
+
+            return format;
+        }
+
+        function getNodeFormatter(value) {
+            function format(value) {
+                return typeof value == "object" && value.toString === Object.prototype.toString ? util.inspect(value) : value;
+            };
+
+            try {
+                var util = require("util");
+            } catch (e) {
+                /* Node, but no util module - would be very old, but better safe than sorry */
+            }
+
+            return util ? format : valueFormatter;
+        }
+
+        var isNode = typeof module !== "undefined" && module.exports && typeof require == "function",
+            formatter;
+
+        if (isNode) {
+            try {
+                formatio = require("formatio");
+            } catch (e) {}
+        }
+
+        if (formatio) {
+            formatter = getFormatioFormatter()
+        } else if (isNode) {
+            formatter = getNodeFormatter();
+        } else {
+            formatter = valueFormatter;
+        }
+
+        sinon.format = formatter;
+        return sinon.format;
+    }
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        module.exports = makeApi(sinon);
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(
+    (typeof sinon == "object" && sinon || null),
+    (typeof formatio == "object" && formatio)
+));
+
+/**
+  * @depend util/core.js
+  * @depend match.js
+  * @depend format.js
+  */
+/**
+  * Spy calls
+  *
+  * @author Christian Johansen (christian@cjohansen.no)
+  * @author Maximilian Antoni (mail@maxantoni.de)
+  * @license BSD
+  *
+  * Copyright (c) 2010-2013 Christian Johansen
+  * Copyright (c) 2013 Maximilian Antoni
+  */
+
+(function (sinon) {
+    function makeApi(sinon) {
+        function throwYieldError(proxy, text, args) {
+            var msg = sinon.functionName(proxy) + text;
+            if (args.length) {
+                msg += " Received [" + slice.call(args).join(", ") + "]";
+            }
+            throw new Error(msg);
+        }
+
+        var slice = Array.prototype.slice;
+
+        var callProto = {
+            calledOn: function calledOn(thisValue) {
+                if (sinon.match && sinon.match.isMatcher(thisValue)) {
+                    return thisValue.test(this.thisValue);
+                }
+                return this.thisValue === thisValue;
+            },
+
+            calledWith: function calledWith() {
+                for (var i = 0, l = arguments.length; i < l; i += 1) {
+                    if (!sinon.deepEqual(arguments[i], this.args[i])) {
+                        return false;
+                    }
+                }
+
+                return true;
+            },
+
+            calledWithMatch: function calledWithMatch() {
+                for (var i = 0, l = arguments.length; i < l; i += 1) {
+                    var actual = this.args[i];
+                    var expectation = arguments[i];
+                    if (!sinon.match || !sinon.match(expectation).test(actual)) {
+                        return false;
+                    }
+                }
+                return true;
+            },
+
+            calledWithExactly: function calledWithExactly() {
+                return arguments.length == this.args.length &&
+                    this.calledWith.apply(this, arguments);
+            },
+
+            notCalledWith: function notCalledWith() {
+                return !this.calledWith.apply(this, arguments);
+            },
+
+            notCalledWithMatch: function notCalledWithMatch() {
+                return !this.calledWithMatch.apply(this, arguments);
+            },
+
+            returned: function returned(value) {
+                return sinon.deepEqual(value, this.returnValue);
+            },
+
+            threw: function threw(error) {
+                if (typeof error === "undefined" || !this.exception) {
+                    return !!this.exception;
+                }
+
+                return this.exception === error || this.exception.name === error;
+            },
+
+            calledWithNew: function calledWithNew() {
+                return this.proxy.prototype && this.thisValue instanceof this.proxy;
+            },
+
+            calledBefore: function (other) {
+                return this.callId < other.callId;
+            },
+
+            calledAfter: function (other) {
+                return this.callId > other.callId;
+            },
+
+            callArg: function (pos) {
+                this.args[pos]();
+            },
+
+            callArgOn: function (pos, thisValue) {
+                this.args[pos].apply(thisValue);
+            },
+
+            callArgWith: function (pos) {
+                this.callArgOnWith.apply(this, [pos, null].concat(slice.call(arguments, 1)));
+            },
+
+            callArgOnWith: function (pos, thisValue) {
+                var args = slice.call(arguments, 2);
+                this.args[pos].apply(thisValue, args);
+            },
+
+            yield: function () {
+                this.yieldOn.apply(this, [null].concat(slice.call(arguments, 0)));
+            },
+
+            yieldOn: function (thisValue) {
+                var args = this.args;
+                for (var i = 0, l = args.length; i < l; ++i) {
+                    if (typeof args[i] === "function") {
+                        args[i].apply(thisValue, slice.call(arguments, 1));
+                        return;
+                    }
+                }
+                throwYieldError(this.proxy, " cannot yield since no callback was passed.", args);
+            },
+
+            yieldTo: function (prop) {
+                this.yieldToOn.apply(this, [prop, null].concat(slice.call(arguments, 1)));
+            },
+
+            yieldToOn: function (prop, thisValue) {
+                var args = this.args;
+                for (var i = 0, l = args.length; i < l; ++i) {
+                    if (args[i] && typeof args[i][prop] === "function") {
+                        args[i][prop].apply(thisValue, slice.call(arguments, 2));
+                        return;
+                    }
+                }
+                throwYieldError(this.proxy, " cannot yield to '" + prop +
+                    "' since no callback was passed.", args);
+            },
+
+            toString: function () {
+                var callStr = this.proxy.toString() + "(";
+                var args = [];
+
+                for (var i = 0, l = this.args.length; i < l; ++i) {
+                    args.push(sinon.format(this.args[i]));
+                }
+
+                callStr = callStr + args.join(", ") + ")";
+
+                if (typeof this.returnValue != "undefined") {
+                    callStr += " => " + sinon.format(this.returnValue);
+                }
+
+                if (this.exception) {
+                    callStr += " !" + this.exception.name;
+
+                    if (this.exception.message) {
+                        callStr += "(" + this.exception.message + ")";
+                    }
+                }
+
+                return callStr;
+            }
+        };
+
+        callProto.invokeCallback = callProto.yield;
+
+        function createSpyCall(spy, thisValue, args, returnValue, exception, id) {
+            if (typeof id !== "number") {
+                throw new TypeError("Call id is not a number");
+            }
+            var proxyCall = sinon.create(callProto);
+            proxyCall.proxy = spy;
+            proxyCall.thisValue = thisValue;
+            proxyCall.args = args;
+            proxyCall.returnValue = returnValue;
+            proxyCall.exception = exception;
+            proxyCall.callId = id;
+
+            return proxyCall;
+        }
+        createSpyCall.toString = callProto.toString; // used by mocks
+
+        sinon.spyCall = createSpyCall;
+        return createSpyCall;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./match");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+  * @depend times_in_words.js
+  * @depend util/core.js
+  * @depend extend.js
+  * @depend call.js
+  * @depend format.js
+  */
+/**
+  * Spy functions
+  *
+  * @author Christian Johansen (christian@cjohansen.no)
+  * @license BSD
+  *
+  * Copyright (c) 2010-2013 Christian Johansen
+  */
+
+(function (sinon) {
+    function makeApi(sinon) {
+        var push = Array.prototype.push;
+        var slice = Array.prototype.slice;
+        var callId = 0;
+
+        function spy(object, property) {
+            if (!property && typeof object == "function") {
+                return spy.create(object);
+            }
+
+            if (!object && !property) {
+                return spy.create(function () { });
+            }
+
+            var method = object[property];
+            return sinon.wrapMethod(object, property, spy.create(method));
+        }
+
+        function matchingFake(fakes, args, strict) {
+            if (!fakes) {
+                return;
+            }
+
+            for (var i = 0, l = fakes.length; i < l; i++) {
+                if (fakes[i].matches(args, strict)) {
+                    return fakes[i];
+                }
+            }
+        }
+
+        function incrementCallCount() {
+            this.called = true;
+            this.callCount += 1;
+            this.notCalled = false;
+            this.calledOnce = this.callCount == 1;
+            this.calledTwice = this.callCount == 2;
+            this.calledThrice = this.callCount == 3;
+        }
+
+        function createCallProperties() {
+            this.firstCall = this.getCall(0);
+            this.secondCall = this.getCall(1);
+            this.thirdCall = this.getCall(2);
+            this.lastCall = this.getCall(this.callCount - 1);
+        }
+
+        var vars = "a,b,c,d,e,f,g,h,i,j,k,l";
+        function createProxy(func) {
+            // Retain the function length:
+            var p;
+            if (func.length) {
+                eval("p = (function proxy(" + vars.substring(0, func.length * 2 - 1) +
+                    ") { return p.invoke(func, this, slice.call(arguments)); });");
+            } else {
+                p = function proxy() {
+                    return p.invoke(func, this, slice.call(arguments));
+                };
+            }
+            return p;
+        }
+
+        var uuid = 0;
+
+        // Public API
+        var spyApi = {
+            reset: function () {
+                if (this.invoking) {
+                    var err = new Error("Cannot reset Sinon function while invoking it. " +
+                                        "Move the call to .reset outside of the callback.");
+                    err.name = "InvalidResetException";
+                    throw err;
+                }
+
+                this.called = false;
+                this.notCalled = true;
+                this.calledOnce = false;
+                this.calledTwice = false;
+                this.calledThrice = false;
+                this.callCount = 0;
+                this.firstCall = null;
+                this.secondCall = null;
+                this.thirdCall = null;
+                this.lastCall = null;
+                this.args = [];
+                this.returnValues = [];
+                this.thisValues = [];
+                this.exceptions = [];
+                this.callIds = [];
+                if (this.fakes) {
+                    for (var i = 0; i < this.fakes.length; i++) {
+                        this.fakes[i].reset();
+                    }
+                }
+            },
+
+            create: function create(func) {
+                var name;
+
+                if (typeof func != "function") {
+                    func = function () { };
+                } else {
+                    name = sinon.functionName(func);
+                }
+
+                var proxy = createProxy(func);
+
+                sinon.extend(proxy, spy);
+                delete proxy.create;
+                sinon.extend(proxy, func);
+
+                proxy.reset();
+                proxy.prototype = func.prototype;
+                proxy.displayName = name || "spy";
+                proxy.toString = sinon.functionToString;
+                proxy.instantiateFake = sinon.spy.create;
+                proxy.id = "spy#" + uuid++;
+
+                return proxy;
+            },
+
+            invoke: function invoke(func, thisValue, args) {
+                var matching = matchingFake(this.fakes, args);
+                var exception, returnValue;
+
+                incrementCallCount.call(this);
+                push.call(this.thisValues, thisValue);
+                push.call(this.args, args);
+                push.call(this.callIds, callId++);
+
+                // Make call properties available from within the spied function:
+                createCallProperties.call(this);
+
+                try {
+                    this.invoking = true;
+
+                    if (matching) {
+                        returnValue = matching.invoke(func, thisValue, args);
+                    } else {
+                        returnValue = (this.func || func).apply(thisValue, args);
+                    }
+
+                    var thisCall = this.getCall(this.callCount - 1);
+                    if (thisCall.calledWithNew() && typeof returnValue !== "object") {
+                        returnValue = thisValue;
+                    }
+                } catch (e) {
+                    exception = e;
+                } finally {
+                    delete this.invoking;
+                }
+
+                push.call(this.exceptions, exception);
+                push.call(this.returnValues, returnValue);
+
+                // Make return value and exception available in the calls:
+                createCallProperties.call(this);
+
+                if (exception !== undefined) {
+                    throw exception;
+                }
+
+                return returnValue;
+            },
+
+            named: function named(name) {
+                this.displayName = name;
+                return this;
+            },
+
+            getCall: function getCall(i) {
+                if (i < 0 || i >= this.callCount) {
+                    return null;
+                }
+
+                return sinon.spyCall(this, this.thisValues[i], this.args[i],
+                                        this.returnValues[i], this.exceptions[i],
+                                        this.callIds[i]);
+            },
+
+            getCalls: function () {
+                var calls = [];
+                var i;
+
+                for (i = 0; i < this.callCount; i++) {
+                    calls.push(this.getCall(i));
+                }
+
+                return calls;
+            },
+
+            calledBefore: function calledBefore(spyFn) {
+                if (!this.called) {
+                    return false;
+                }
+
+                if (!spyFn.called) {
+                    return true;
+                }
+
+                return this.callIds[0] < spyFn.callIds[spyFn.callIds.length - 1];
+            },
+
+            calledAfter: function calledAfter(spyFn) {
+                if (!this.called || !spyFn.called) {
+                    return false;
+                }
+
+                return this.callIds[this.callCount - 1] > spyFn.callIds[spyFn.callCount - 1];
+            },
+
+            withArgs: function () {
+                var args = slice.call(arguments);
+
+                if (this.fakes) {
+                    var match = matchingFake(this.fakes, args, true);
+
+                    if (match) {
+                        return match;
+                    }
+                } else {
+                    this.fakes = [];
+                }
+
+                var original = this;
+                var fake = this.instantiateFake();
+                fake.matchingAguments = args;
+                fake.parent = this;
+                push.call(this.fakes, fake);
+
+                fake.withArgs = function () {
+                    return original.withArgs.apply(original, arguments);
+                };
+
+                for (var i = 0; i < this.args.length; i++) {
+                    if (fake.matches(this.args[i])) {
+                        incrementCallCount.call(fake);
+                        push.call(fake.thisValues, this.thisValues[i]);
+                        push.call(fake.args, this.args[i]);
+                        push.call(fake.returnValues, this.returnValues[i]);
+                        push.call(fake.exceptions, this.exceptions[i]);
+                        push.call(fake.callIds, this.callIds[i]);
+                    }
+                }
+                createCallProperties.call(fake);
+
+                return fake;
+            },
+
+            matches: function (args, strict) {
+                var margs = this.matchingAguments;
+
+                if (margs.length <= args.length &&
+                    sinon.deepEqual(margs, args.slice(0, margs.length))) {
+                    return !strict || margs.length == args.length;
+                }
+            },
+
+            printf: function (format) {
+                var spy = this;
+                var args = slice.call(arguments, 1);
+                var formatter;
+
+                return (format || "").replace(/%(.)/g, function (match, specifyer) {
+                    formatter = spyApi.formatters[specifyer];
+
+                    if (typeof formatter == "function") {
+                        return formatter.call(null, spy, args);
+                    } else if (!isNaN(parseInt(specifyer, 10))) {
+                        return sinon.format(args[specifyer - 1]);
+                    }
+
+                    return "%" + specifyer;
+                });
+            }
+        };
+
+        function delegateToCalls(method, matchAny, actual, notCalled) {
+            spyApi[method] = function () {
+                if (!this.called) {
+                    if (notCalled) {
+                        return notCalled.apply(this, arguments);
+                    }
+                    return false;
+                }
+
+                var currentCall;
+                var matches = 0;
+
+                for (var i = 0, l = this.callCount; i < l; i += 1) {
+                    currentCall = this.getCall(i);
+
+                    if (currentCall[actual || method].apply(currentCall, arguments)) {
+                        matches += 1;
+
+                        if (matchAny) {
+                            return true;
+                        }
+                    }
+                }
+
+                return matches === this.callCount;
+            };
+        }
+
+        delegateToCalls("calledOn", true);
+        delegateToCalls("alwaysCalledOn", false, "calledOn");
+        delegateToCalls("calledWith", true);
+        delegateToCalls("calledWithMatch", true);
+        delegateToCalls("alwaysCalledWith", false, "calledWith");
+        delegateToCalls("alwaysCalledWithMatch", false, "calledWithMatch");
+        delegateToCalls("calledWithExactly", true);
+        delegateToCalls("alwaysCalledWithExactly", false, "calledWithExactly");
+        delegateToCalls("neverCalledWith", false, "notCalledWith",
+            function () { return true; });
+        delegateToCalls("neverCalledWithMatch", false, "notCalledWithMatch",
+            function () { return true; });
+        delegateToCalls("threw", true);
+        delegateToCalls("alwaysThrew", false, "threw");
+        delegateToCalls("returned", true);
+        delegateToCalls("alwaysReturned", false, "returned");
+        delegateToCalls("calledWithNew", true);
+        delegateToCalls("alwaysCalledWithNew", false, "calledWithNew");
+        delegateToCalls("callArg", false, "callArgWith", function () {
+            throw new Error(this.toString() + " cannot call arg since it was not yet invoked.");
+        });
+        spyApi.callArgWith = spyApi.callArg;
+        delegateToCalls("callArgOn", false, "callArgOnWith", function () {
+            throw new Error(this.toString() + " cannot call arg since it was not yet invoked.");
+        });
+        spyApi.callArgOnWith = spyApi.callArgOn;
+        delegateToCalls("yield", false, "yield", function () {
+            throw new Error(this.toString() + " cannot yield since it was not yet invoked.");
+        });
+        // "invokeCallback" is an alias for "yield" since "yield" is invalid in strict mode.
+        spyApi.invokeCallback = spyApi.yield;
+        delegateToCalls("yieldOn", false, "yieldOn", function () {
+            throw new Error(this.toString() + " cannot yield since it was not yet invoked.");
+        });
+        delegateToCalls("yieldTo", false, "yieldTo", function (property) {
+            throw new Error(this.toString() + " cannot yield to '" + property +
+                "' since it was not yet invoked.");
+        });
+        delegateToCalls("yieldToOn", false, "yieldToOn", function (property) {
+            throw new Error(this.toString() + " cannot yield to '" + property +
+                "' since it was not yet invoked.");
+        });
+
+        spyApi.formatters = {
+            c: function (spy) {
+                return sinon.timesInWords(spy.callCount);
+            },
+
+            n: function (spy) {
+                return spy.toString();
+            },
+
+            C: function (spy) {
+                var calls = [];
+
+                for (var i = 0, l = spy.callCount; i < l; ++i) {
+                    var stringifiedCall = "    " + spy.getCall(i).toString();
+                    if (/\n/.test(calls[i - 1])) {
+                        stringifiedCall = "\n" + stringifiedCall;
+                    }
+                    push.call(calls, stringifiedCall);
+                }
+
+                return calls.length > 0 ? "\n" + calls.join("\n") : "";
+            },
+
+            t: function (spy) {
+                var objects = [];
+
+                for (var i = 0, l = spy.callCount; i < l; ++i) {
+                    push.call(objects, sinon.format(spy.thisValues[i]));
+                }
+
+                return objects.join(", ");
+            },
+
+            "*": function (spy, args) {
+                var formatted = [];
+
+                for (var i = 0, l = args.length; i < l; ++i) {
+                    push.call(formatted, sinon.format(args[i]));
+                }
+
+                return formatted.join(", ");
+            }
+        };
+
+        sinon.extend(spy, spyApi);
+
+        spy.spyCall = sinon.spyCall;
+        sinon.spy = spy;
+
+        return spy;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./call");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend util/core.js
+ * @depend extend.js
+ */
+/**
+ * Stub behavior
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @author Tim Fischbach (mail@timfischbach.de)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon) {
+    var slice = Array.prototype.slice;
+    var join = Array.prototype.join;
+
+    var nextTick = (function () {
+        if (typeof process === "object" && typeof process.nextTick === "function") {
+            return process.nextTick;
+        } else if (typeof setImmediate === "function") {
+            return setImmediate;
+        } else {
+            return function (callback) {
+                setTimeout(callback, 0);
+            };
+        }
+    })();
+
+    function throwsException(error, message) {
+        if (typeof error == "string") {
+            this.exception = new Error(message || "");
+            this.exception.name = error;
+        } else if (!error) {
+            this.exception = new Error("Error");
+        } else {
+            this.exception = error;
+        }
+
+        return this;
+    }
+
+    function getCallback(behavior, args) {
+        var callArgAt = behavior.callArgAt;
+
+        if (callArgAt < 0) {
+            var callArgProp = behavior.callArgProp;
+
+            for (var i = 0, l = args.length; i < l; ++i) {
+                if (!callArgProp && typeof args[i] == "function") {
+                    return args[i];
+                }
+
+                if (callArgProp && args[i] &&
+                    typeof args[i][callArgProp] == "function") {
+                    return args[i][callArgProp];
+                }
+            }
+
+            return null;
+        }
+
+        return args[callArgAt];
+    }
+
+    function makeApi(sinon) {
+        function getCallbackError(behavior, func, args) {
+            if (behavior.callArgAt < 0) {
+                var msg;
+
+                if (behavior.callArgProp) {
+                    msg = sinon.functionName(behavior.stub) +
+                        " expected to yield to '" + behavior.callArgProp +
+                        "', but no object with such a property was passed.";
+                } else {
+                    msg = sinon.functionName(behavior.stub) +
+                        " expected to yield, but no callback was passed.";
+                }
+
+                if (args.length > 0) {
+                    msg += " Received [" + join.call(args, ", ") + "]";
+                }
+
+                return msg;
+            }
+
+            return "argument at index " + behavior.callArgAt + " is not a function: " + func;
+        }
+
+        function callCallback(behavior, args) {
+            if (typeof behavior.callArgAt == "number") {
+                var func = getCallback(behavior, args);
+
+                if (typeof func != "function") {
+                    throw new TypeError(getCallbackError(behavior, func, args));
+                }
+
+                if (behavior.callbackAsync) {
+                    nextTick(function () {
+                        func.apply(behavior.callbackContext, behavior.callbackArguments);
+                    });
+                } else {
+                    func.apply(behavior.callbackContext, behavior.callbackArguments);
+                }
+            }
+        }
+
+        var proto = {
+            create: function create(stub) {
+                var behavior = sinon.extend({}, sinon.behavior);
+                delete behavior.create;
+                behavior.stub = stub;
+
+                return behavior;
+            },
+
+            isPresent: function isPresent() {
+                return (typeof this.callArgAt == "number" ||
+                        this.exception ||
+                        typeof this.returnArgAt == "number" ||
+                        this.returnThis ||
+                        this.returnValueDefined);
+            },
+
+            invoke: function invoke(context, args) {
+                callCallback(this, args);
+
+                if (this.exception) {
+                    throw this.exception;
+                } else if (typeof this.returnArgAt == "number") {
+                    return args[this.returnArgAt];
+                } else if (this.returnThis) {
+                    return context;
+                }
+
+                return this.returnValue;
+            },
+
+            onCall: function onCall(index) {
+                return this.stub.onCall(index);
+            },
+
+            onFirstCall: function onFirstCall() {
+                return this.stub.onFirstCall();
+            },
+
+            onSecondCall: function onSecondCall() {
+                return this.stub.onSecondCall();
+            },
+
+            onThirdCall: function onThirdCall() {
+                return this.stub.onThirdCall();
+            },
+
+            withArgs: function withArgs(/* arguments */) {
+                throw new Error("Defining a stub by invoking \"stub.onCall(...).withArgs(...)\" is not supported. " +
+                                "Use \"stub.withArgs(...).onCall(...)\" to define sequential behavior for calls with certain arguments.");
+            },
+
+            callsArg: function callsArg(pos) {
+                if (typeof pos != "number") {
+                    throw new TypeError("argument index is not number");
+                }
+
+                this.callArgAt = pos;
+                this.callbackArguments = [];
+                this.callbackContext = undefined;
+                this.callArgProp = undefined;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            callsArgOn: function callsArgOn(pos, context) {
+                if (typeof pos != "number") {
+                    throw new TypeError("argument index is not number");
+                }
+                if (typeof context != "object") {
+                    throw new TypeError("argument context is not an object");
+                }
+
+                this.callArgAt = pos;
+                this.callbackArguments = [];
+                this.callbackContext = context;
+                this.callArgProp = undefined;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            callsArgWith: function callsArgWith(pos) {
+                if (typeof pos != "number") {
+                    throw new TypeError("argument index is not number");
+                }
+
+                this.callArgAt = pos;
+                this.callbackArguments = slice.call(arguments, 1);
+                this.callbackContext = undefined;
+                this.callArgProp = undefined;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            callsArgOnWith: function callsArgWith(pos, context) {
+                if (typeof pos != "number") {
+                    throw new TypeError("argument index is not number");
+                }
+                if (typeof context != "object") {
+                    throw new TypeError("argument context is not an object");
+                }
+
+                this.callArgAt = pos;
+                this.callbackArguments = slice.call(arguments, 2);
+                this.callbackContext = context;
+                this.callArgProp = undefined;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            yields: function () {
+                this.callArgAt = -1;
+                this.callbackArguments = slice.call(arguments, 0);
+                this.callbackContext = undefined;
+                this.callArgProp = undefined;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            yieldsOn: function (context) {
+                if (typeof context != "object") {
+                    throw new TypeError("argument context is not an object");
+                }
+
+                this.callArgAt = -1;
+                this.callbackArguments = slice.call(arguments, 1);
+                this.callbackContext = context;
+                this.callArgProp = undefined;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            yieldsTo: function (prop) {
+                this.callArgAt = -1;
+                this.callbackArguments = slice.call(arguments, 1);
+                this.callbackContext = undefined;
+                this.callArgProp = prop;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            yieldsToOn: function (prop, context) {
+                if (typeof context != "object") {
+                    throw new TypeError("argument context is not an object");
+                }
+
+                this.callArgAt = -1;
+                this.callbackArguments = slice.call(arguments, 2);
+                this.callbackContext = context;
+                this.callArgProp = prop;
+                this.callbackAsync = false;
+
+                return this;
+            },
+
+            throws: throwsException,
+            throwsException: throwsException,
+
+            returns: function returns(value) {
+                this.returnValue = value;
+                this.returnValueDefined = true;
+
+                return this;
+            },
+
+            returnsArg: function returnsArg(pos) {
+                if (typeof pos != "number") {
+                    throw new TypeError("argument index is not number");
+                }
+
+                this.returnArgAt = pos;
+
+                return this;
+            },
+
+            returnsThis: function returnsThis() {
+                this.returnThis = true;
+
+                return this;
+            }
+        };
+
+        // create asynchronous versions of callsArg* and yields* methods
+        for (var method in proto) {
+            // need to avoid creating anotherasync versions of the newly added async methods
+            if (proto.hasOwnProperty(method) &&
+                method.match(/^(callsArg|yields)/) &&
+                !method.match(/Async/)) {
+                proto[method + "Async"] = (function (syncFnName) {
+                    return function () {
+                        var result = this[syncFnName].apply(this, arguments);
+                        this.callbackAsync = true;
+                        return result;
+                    };
+                })(method);
+            }
+        }
+
+        sinon.behavior = proto;
+        return proto;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend util/core.js
+ * @depend extend.js
+ * @depend spy.js
+ * @depend behavior.js
+ */
+/**
+ * Stub functions
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon) {
+    function makeApi(sinon) {
+        function stub(object, property, func) {
+            if (!!func && typeof func != "function") {
+                throw new TypeError("Custom stub should be function");
+            }
+
+            var wrapper;
+
+            if (func) {
+                wrapper = sinon.spy && sinon.spy.create ? sinon.spy.create(func) : func;
+            } else {
+                wrapper = stub.create();
+            }
+
+            if (!object && typeof property === "undefined") {
+                return sinon.stub.create();
+            }
+
+            if (typeof property === "undefined" && typeof object == "object") {
+                for (var prop in object) {
+                    if (typeof object[prop] === "function") {
+                        stub(object, prop);
+                    }
+                }
+
+                return object;
+            }
+
+            return sinon.wrapMethod(object, property, wrapper);
+        }
+
+        function getDefaultBehavior(stub) {
+            return stub.defaultBehavior || getParentBehaviour(stub) || sinon.behavior.create(stub);
+        }
+
+        function getParentBehaviour(stub) {
+            return (stub.parent && getCurrentBehavior(stub.parent));
+        }
+
+        function getCurrentBehavior(stub) {
+            var behavior = stub.behaviors[stub.callCount - 1];
+            return behavior && behavior.isPresent() ? behavior : getDefaultBehavior(stub);
+        }
+
+        var uuid = 0;
+
+        var proto = {
+            create: function create() {
+                var functionStub = function () {
+                    return getCurrentBehavior(functionStub).invoke(this, arguments);
+                };
+
+                functionStub.id = "stub#" + uuid++;
+                var orig = functionStub;
+                functionStub = sinon.spy.create(functionStub);
+                functionStub.func = orig;
+
+                sinon.extend(functionStub, stub);
+                functionStub.instantiateFake = sinon.stub.create;
+                functionStub.displayName = "stub";
+                functionStub.toString = sinon.functionToString;
+
+                functionStub.defaultBehavior = null;
+                functionStub.behaviors = [];
+
+                return functionStub;
+            },
+
+            resetBehavior: function () {
+                var i;
+
+                this.defaultBehavior = null;
+                this.behaviors = [];
+
+                delete this.returnValue;
+                delete this.returnArgAt;
+                this.returnThis = false;
+
+                if (this.fakes) {
+                    for (i = 0; i < this.fakes.length; i++) {
+                        this.fakes[i].resetBehavior();
+                    }
+                }
+            },
+
+            onCall: function onCall(index) {
+                if (!this.behaviors[index]) {
+                    this.behaviors[index] = sinon.behavior.create(this);
+                }
+
+                return this.behaviors[index];
+            },
+
+            onFirstCall: function onFirstCall() {
+                return this.onCall(0);
+            },
+
+            onSecondCall: function onSecondCall() {
+                return this.onCall(1);
+            },
+
+            onThirdCall: function onThirdCall() {
+                return this.onCall(2);
+            }
+        };
+
+        for (var method in sinon.behavior) {
+            if (sinon.behavior.hasOwnProperty(method) &&
+                !proto.hasOwnProperty(method) &&
+                method != "create" &&
+                method != "withArgs" &&
+                method != "invoke") {
+                proto[method] = (function (behaviorMethod) {
+                    return function () {
+                        this.defaultBehavior = this.defaultBehavior || sinon.behavior.create(this);
+                        this.defaultBehavior[behaviorMethod].apply(this.defaultBehavior, arguments);
+                        return this;
+                    };
+                }(method));
+            }
+        }
+
+        sinon.extend(stub, proto);
+        sinon.stub = stub;
+
+        return stub;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./behavior");
+        require("./spy");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend times_in_words.js
+ * @depend util/core.js
+ * @depend extend.js
+ * @depend stub.js
+ * @depend format.js
+ */
+/**
+ * Mock functions.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon) {
+    function makeApi(sinon) {
+        var push = [].push;
+        var match = sinon.match;
+
+        function mock(object) {
+            if (!object) {
+                return sinon.expectation.create("Anonymous mock");
+            }
+
+            return mock.create(object);
+        }
+
+        function each(collection, callback) {
+            if (!collection) {
+                return;
+            }
+
+            for (var i = 0, l = collection.length; i < l; i += 1) {
+                callback(collection[i]);
+            }
+        }
+
+        sinon.extend(mock, {
+            create: function create(object) {
+                if (!object) {
+                    throw new TypeError("object is null");
+                }
+
+                var mockObject = sinon.extend({}, mock);
+                mockObject.object = object;
+                delete mockObject.create;
+
+                return mockObject;
+            },
+
+            expects: function expects(method) {
+                if (!method) {
+                    throw new TypeError("method is falsy");
+                }
+
+                if (!this.expectations) {
+                    this.expectations = {};
+                    this.proxies = [];
+                }
+
+                if (!this.expectations[method]) {
+                    this.expectations[method] = [];
+                    var mockObject = this;
+
+                    sinon.wrapMethod(this.object, method, function () {
+                        return mockObject.invokeMethod(method, this, arguments);
+                    });
+
+                    push.call(this.proxies, method);
+                }
+
+                var expectation = sinon.expectation.create(method);
+                push.call(this.expectations[method], expectation);
+
+                return expectation;
+            },
+
+            restore: function restore() {
+                var object = this.object;
+
+                each(this.proxies, function (proxy) {
+                    if (typeof object[proxy].restore == "function") {
+                        object[proxy].restore();
+                    }
+                });
+            },
+
+            verify: function verify() {
+                var expectations = this.expectations || {};
+                var messages = [], met = [];
+
+                each(this.proxies, function (proxy) {
+                    each(expectations[proxy], function (expectation) {
+                        if (!expectation.met()) {
+                            push.call(messages, expectation.toString());
+                        } else {
+                            push.call(met, expectation.toString());
+                        }
+                    });
+                });
+
+                this.restore();
+
+                if (messages.length > 0) {
+                    sinon.expectation.fail(messages.concat(met).join("\n"));
+                } else if (met.length > 0) {
+                    sinon.expectation.pass(messages.concat(met).join("\n"));
+                }
+
+                return true;
+            },
+
+            invokeMethod: function invokeMethod(method, thisValue, args) {
+                var expectations = this.expectations && this.expectations[method];
+                var length = expectations && expectations.length || 0, i;
+
+                for (i = 0; i < length; i += 1) {
+                    if (!expectations[i].met() &&
+                        expectations[i].allowsCall(thisValue, args)) {
+                        return expectations[i].apply(thisValue, args);
+                    }
+                }
+
+                var messages = [], available, exhausted = 0;
+
+                for (i = 0; i < length; i += 1) {
+                    if (expectations[i].allowsCall(thisValue, args)) {
+                        available = available || expectations[i];
+                    } else {
+                        exhausted += 1;
+                    }
+                    push.call(messages, "    " + expectations[i].toString());
+                }
+
+                if (exhausted === 0) {
+                    return available.apply(thisValue, args);
+                }
+
+                messages.unshift("Unexpected call: " + sinon.spyCall.toString.call({
+                    proxy: method,
+                    args: args
+                }));
+
+                sinon.expectation.fail(messages.join("\n"));
+            }
+        });
+
+        var times = sinon.timesInWords;
+        var slice = Array.prototype.slice;
+
+        function callCountInWords(callCount) {
+            if (callCount == 0) {
+                return "never called";
+            } else {
+                return "called " + times(callCount);
+            }
+        }
+
+        function expectedCallCountInWords(expectation) {
+            var min = expectation.minCalls;
+            var max = expectation.maxCalls;
+
+            if (typeof min == "number" && typeof max == "number") {
+                var str = times(min);
+
+                if (min != max) {
+                    str = "at least " + str + " and at most " + times(max);
+                }
+
+                return str;
+            }
+
+            if (typeof min == "number") {
+                return "at least " + times(min);
+            }
+
+            return "at most " + times(max);
+        }
+
+        function receivedMinCalls(expectation) {
+            var hasMinLimit = typeof expectation.minCalls == "number";
+            return !hasMinLimit || expectation.callCount >= expectation.minCalls;
+        }
+
+        function receivedMaxCalls(expectation) {
+            if (typeof expectation.maxCalls != "number") {
+                return false;
+            }
+
+            return expectation.callCount == expectation.maxCalls;
+        }
+
+        function verifyMatcher(possibleMatcher, arg) {
+            if (match && match.isMatcher(possibleMatcher)) {
+                return possibleMatcher.test(arg);
+            } else {
+                return true;
+            }
+        }
+
+        sinon.expectation = {
+            minCalls: 1,
+            maxCalls: 1,
+
+            create: function create(methodName) {
+                var expectation = sinon.extend(sinon.stub.create(), sinon.expectation);
+                delete expectation.create;
+                expectation.method = methodName;
+
+                return expectation;
+            },
+
+            invoke: function invoke(func, thisValue, args) {
+                this.verifyCallAllowed(thisValue, args);
+
+                return sinon.spy.invoke.apply(this, arguments);
+            },
+
+            atLeast: function atLeast(num) {
+                if (typeof num != "number") {
+                    throw new TypeError("'" + num + "' is not number");
+                }
+
+                if (!this.limitsSet) {
+                    this.maxCalls = null;
+                    this.limitsSet = true;
+                }
+
+                this.minCalls = num;
+
+                return this;
+            },
+
+            atMost: function atMost(num) {
+                if (typeof num != "number") {
+                    throw new TypeError("'" + num + "' is not number");
+                }
+
+                if (!this.limitsSet) {
+                    this.minCalls = null;
+                    this.limitsSet = true;
+                }
+
+                this.maxCalls = num;
+
+                return this;
+            },
+
+            never: function never() {
+                return this.exactly(0);
+            },
+
+            once: function once() {
+                return this.exactly(1);
+            },
+
+            twice: function twice() {
+                return this.exactly(2);
+            },
+
+            thrice: function thrice() {
+                return this.exactly(3);
+            },
+
+            exactly: function exactly(num) {
+                if (typeof num != "number") {
+                    throw new TypeError("'" + num + "' is not a number");
+                }
+
+                this.atLeast(num);
+                return this.atMost(num);
+            },
+
+            met: function met() {
+                return !this.failed && receivedMinCalls(this);
+            },
+
+            verifyCallAllowed: function verifyCallAllowed(thisValue, args) {
+                if (receivedMaxCalls(this)) {
+                    this.failed = true;
+                    sinon.expectation.fail(this.method + " already called " + times(this.maxCalls));
+                }
+
+                if ("expectedThis" in this && this.expectedThis !== thisValue) {
+                    sinon.expectation.fail(this.method + " called with " + thisValue + " as thisValue, expected " +
+                        this.expectedThis);
+                }
+
+                if (!("expectedArguments" in this)) {
+                    return;
+                }
+
+                if (!args) {
+                    sinon.expectation.fail(this.method + " received no arguments, expected " +
+                        sinon.format(this.expectedArguments));
+                }
+
+                if (args.length < this.expectedArguments.length) {
+                    sinon.expectation.fail(this.method + " received too few arguments (" + sinon.format(args) +
+                        "), expected " + sinon.format(this.expectedArguments));
+                }
+
+                if (this.expectsExactArgCount &&
+                    args.length != this.expectedArguments.length) {
+                    sinon.expectation.fail(this.method + " received too many arguments (" + sinon.format(args) +
+                        "), expected " + sinon.format(this.expectedArguments));
+                }
+
+                for (var i = 0, l = this.expectedArguments.length; i < l; i += 1) {
+
+                    if (!verifyMatcher(this.expectedArguments[i], args[i])) {
+                        sinon.expectation.fail(this.method + " received wrong arguments " + sinon.format(args) +
+                            ", didn't match " + this.expectedArguments.toString());
+                    }
+
+                    if (!sinon.deepEqual(this.expectedArguments[i], args[i])) {
+                        sinon.expectation.fail(this.method + " received wrong arguments " + sinon.format(args) +
+                            ", expected " + sinon.format(this.expectedArguments));
+                    }
+                }
+            },
+
+            allowsCall: function allowsCall(thisValue, args) {
+                if (this.met() && receivedMaxCalls(this)) {
+                    return false;
+                }
+
+                if ("expectedThis" in this && this.expectedThis !== thisValue) {
+                    return false;
+                }
+
+                if (!("expectedArguments" in this)) {
+                    return true;
+                }
+
+                args = args || [];
+
+                if (args.length < this.expectedArguments.length) {
+                    return false;
+                }
+
+                if (this.expectsExactArgCount &&
+                    args.length != this.expectedArguments.length) {
+                    return false;
+                }
+
+                for (var i = 0, l = this.expectedArguments.length; i < l; i += 1) {
+                    if (!verifyMatcher(this.expectedArguments[i], args[i])) {
+                        return false;
+                    }
+
+                    if (!sinon.deepEqual(this.expectedArguments[i], args[i])) {
+                        return false;
+                    }
+                }
+
+                return true;
+            },
+
+            withArgs: function withArgs() {
+                this.expectedArguments = slice.call(arguments);
+                return this;
+            },
+
+            withExactArgs: function withExactArgs() {
+                this.withArgs.apply(this, arguments);
+                this.expectsExactArgCount = true;
+                return this;
+            },
+
+            on: function on(thisValue) {
+                this.expectedThis = thisValue;
+                return this;
+            },
+
+            toString: function () {
+                var args = (this.expectedArguments || []).slice();
+
+                if (!this.expectsExactArgCount) {
+                    push.call(args, "[...]");
+                }
+
+                var callStr = sinon.spyCall.toString.call({
+                    proxy: this.method || "anonymous mock expectation",
+                    args: args
+                });
+
+                var message = callStr.replace(", [...", "[, ...") + " " +
+                    expectedCallCountInWords(this);
+
+                if (this.met()) {
+                    return "Expectation met: " + message;
+                }
+
+                return "Expected " + message + " (" +
+                    callCountInWords(this.callCount) + ")";
+            },
+
+            verify: function verify() {
+                if (!this.met()) {
+                    sinon.expectation.fail(this.toString());
+                } else {
+                    sinon.expectation.pass(this.toString());
+                }
+
+                return true;
+            },
+
+            pass: function pass(message) {
+                sinon.assert.pass(message);
+            },
+
+            fail: function fail(message) {
+                var exception = new Error(message);
+                exception.name = "ExpectationError";
+
+                throw exception;
+            }
+        };
+
+        sinon.mock = mock;
+        return mock;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./call");
+        require("./match");
+        require("./spy");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend util/core.js
+ * @depend stub.js
+ * @depend mock.js
+ */
+/**
+ * Collections of stubs, spies and mocks.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon) {
+    var push = [].push;
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+    function getFakes(fakeCollection) {
+        if (!fakeCollection.fakes) {
+            fakeCollection.fakes = [];
+        }
+
+        return fakeCollection.fakes;
+    }
+
+    function each(fakeCollection, method) {
+        var fakes = getFakes(fakeCollection);
+
+        for (var i = 0, l = fakes.length; i < l; i += 1) {
+            if (typeof fakes[i][method] == "function") {
+                fakes[i][method]();
+            }
+        }
+    }
+
+    function compact(fakeCollection) {
+        var fakes = getFakes(fakeCollection);
+        var i = 0;
+        while (i < fakes.length) {
+            fakes.splice(i, 1);
+        }
+    }
+
+    function makeApi(sinon) {
+        var collection = {
+            verify: function resolve() {
+                each(this, "verify");
+            },
+
+            restore: function restore() {
+                each(this, "restore");
+                compact(this);
+            },
+
+            reset: function restore() {
+                each(this, "reset");
+            },
+
+            verifyAndRestore: function verifyAndRestore() {
+                var exception;
+
+                try {
+                    this.verify();
+                } catch (e) {
+                    exception = e;
+                }
+
+                this.restore();
+
+                if (exception) {
+                    throw exception;
+                }
+            },
+
+            add: function add(fake) {
+                push.call(getFakes(this), fake);
+                return fake;
+            },
+
+            spy: function spy() {
+                return this.add(sinon.spy.apply(sinon, arguments));
+            },
+
+            stub: function stub(object, property, value) {
+                if (property) {
+                    var original = object[property];
+
+                    if (typeof original != "function") {
+                        if (!hasOwnProperty.call(object, property)) {
+                            throw new TypeError("Cannot stub non-existent own property " + property);
+                        }
+
+                        object[property] = value;
+
+                        return this.add({
+                            restore: function () {
+                                object[property] = original;
+                            }
+                        });
+                    }
+                }
+                if (!property && !!object && typeof object == "object") {
+                    var stubbedObj = sinon.stub.apply(sinon, arguments);
+
+                    for (var prop in stubbedObj) {
+                        if (typeof stubbedObj[prop] === "function") {
+                            this.add(stubbedObj[prop]);
+                        }
+                    }
+
+                    return stubbedObj;
+                }
+
+                return this.add(sinon.stub.apply(sinon, arguments));
+            },
+
+            mock: function mock() {
+                return this.add(sinon.mock.apply(sinon, arguments));
+            },
+
+            inject: function inject(obj) {
+                var col = this;
+
+                obj.spy = function () {
+                    return col.spy.apply(col, arguments);
+                };
+
+                obj.stub = function () {
+                    return col.stub.apply(col, arguments);
+                };
+
+                obj.mock = function () {
+                    return col.mock.apply(col, arguments);
+                };
+
+                return obj;
+            }
+        };
+
+        sinon.collection = collection;
+        return collection;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./mock");
+        require("./spy");
+        require("./stub");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/*global lolex */
+
+/**
+ * Fake timer API
+ * setTimeout
+ * setInterval
+ * clearTimeout
+ * clearInterval
+ * tick
+ * reset
+ * Date
+ *
+ * Inspired by jsUnitMockTimeOut from JsUnit
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+if (typeof sinon == "undefined") {
+    var sinon = {};
+}
+
+(function (global) {
+    function makeApi(sinon, lol) {
+        var _lolex = typeof lolex !== "undefined" ? lolex : lol;
+
+        sinon.useFakeTimers = function () {
+            var now, methods = Array.prototype.slice.call(arguments);
+
+            if (typeof methods[0] === "string") {
+                now = 0;
+            } else {
+                now = methods.shift();
+            }
+
+            var clock = _lolex.install(now || 0, methods);
+            clock.restore = clock.uninstall;
+            return clock;
+        };
+
+        sinon.clock = {
+            create: function (now) {
+                return _lolex.createClock(now);
+            }
+        };
+
+        sinon.timers = {
+            setTimeout: setTimeout,
+            clearTimeout: clearTimeout,
+            setImmediate: (typeof setImmediate !== "undefined" ? setImmediate : undefined),
+            clearImmediate: (typeof clearImmediate !== "undefined" ? clearImmediate : undefined),
+            setInterval: setInterval,
+            clearInterval: clearInterval,
+            Date: Date
+        };
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, epxorts, module) {
+        var sinon = require("./core");
+        makeApi(sinon, require("lolex"));
+        module.exports = sinon;
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else {
+        makeApi(sinon);
+    }
+}(typeof global != "undefined" && typeof global !== "function" ? global : this));
+
+/**
+ * Minimal Event interface implementation
+ *
+ * Original implementation by Sven Fuchs: https://gist.github.com/995028
+ * Modifications and tests by Christian Johansen.
+ *
+ * @author Sven Fuchs (svenfuchs@artweb-design.de)
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2011 Sven Fuchs, Christian Johansen
+ */
+
+if (typeof sinon == "undefined") {
+    this.sinon = {};
+}
+
+(function () {
+    var push = [].push;
+
+    function makeApi(sinon) {
+        sinon.Event = function Event(type, bubbles, cancelable, target) {
+            this.initEvent(type, bubbles, cancelable, target);
+        };
+
+        sinon.Event.prototype = {
+            initEvent: function (type, bubbles, cancelable, target) {
+                this.type = type;
+                this.bubbles = bubbles;
+                this.cancelable = cancelable;
+                this.target = target;
+            },
+
+            stopPropagation: function () {},
+
+            preventDefault: function () {
+                this.defaultPrevented = true;
+            }
+        };
+
+        sinon.ProgressEvent = function ProgressEvent(type, progressEventRaw, target) {
+            this.initEvent(type, false, false, target);
+            this.loaded = progressEventRaw.loaded || null;
+            this.total = progressEventRaw.total || null;
+        };
+
+        sinon.ProgressEvent.prototype = new sinon.Event();
+
+        sinon.ProgressEvent.prototype.constructor =  sinon.ProgressEvent;
+
+        sinon.CustomEvent = function CustomEvent(type, customData, target) {
+            this.initEvent(type, false, false, target);
+            this.detail = customData.detail || null;
+        };
+
+        sinon.CustomEvent.prototype = new sinon.Event();
+
+        sinon.CustomEvent.prototype.constructor =  sinon.CustomEvent;
+
+        sinon.EventTarget = {
+            addEventListener: function addEventListener(event, listener) {
+                this.eventListeners = this.eventListeners || {};
+                this.eventListeners[event] = this.eventListeners[event] || [];
+                push.call(this.eventListeners[event], listener);
+            },
+
+            removeEventListener: function removeEventListener(event, listener) {
+                var listeners = this.eventListeners && this.eventListeners[event] || [];
+
+                for (var i = 0, l = listeners.length; i < l; ++i) {
+                    if (listeners[i] == listener) {
+                        return listeners.splice(i, 1);
+                    }
+                }
+            },
+
+            dispatchEvent: function dispatchEvent(event) {
+                var type = event.type;
+                var listeners = this.eventListeners && this.eventListeners[type] || [];
+
+                for (var i = 0; i < listeners.length; i++) {
+                    if (typeof listeners[i] == "function") {
+                        listeners[i].call(this, event);
+                    } else {
+                        listeners[i].handleEvent(event);
+                    }
+                }
+
+                return !!event.defaultPrevented;
+            }
+        };
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require) {
+        var sinon = require("./core");
+        makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require);
+    } else {
+        makeApi(sinon);
+    }
+}());
+
+/**
+ * @depend ../sinon.js
+ */
+/**
+ * Logs errors
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2014 Christian Johansen
+ */
+
+(function (sinon) {
+    // cache a reference to setTimeout, so that our reference won't be stubbed out
+    // when using fake timers and errors will still get logged
+    // https://github.com/cjohansen/Sinon.JS/issues/381
+    var realSetTimeout = setTimeout;
+
+    function makeApi(sinon) {
+
+        function log() {}
+
+        function logError(label, err) {
+            var msg = label + " threw exception: ";
+
+            sinon.log(msg + "[" + err.name + "] " + err.message);
+
+            if (err.stack) {
+                sinon.log(err.stack);
+            }
+
+            logError.setTimeout(function () {
+                err.message = msg + err.message;
+                throw err;
+            }, 0);
+        };
+
+        // wrap realSetTimeout with something we can stub in tests
+        logError.setTimeout = function (func, timeout) {
+            realSetTimeout(func, timeout);
+        }
+
+        var exports = {};
+        exports.log = sinon.log = log;
+        exports.logError = sinon.logError = logError;
+
+        return exports;
+    }
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        module.exports = makeApi(sinon);
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend core.js
+ * @depend ../extend.js
+ * @depend event.js
+ * @depend ../log_error.js
+ */
+/**
+ * Fake XMLHttpRequest object
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (global) {
+
+    var supportsProgress = typeof ProgressEvent !== "undefined";
+    var supportsCustomEvent = typeof CustomEvent !== "undefined";
+    var sinonXhr = { XMLHttpRequest: global.XMLHttpRequest };
+    sinonXhr.GlobalXMLHttpRequest = global.XMLHttpRequest;
+    sinonXhr.GlobalActiveXObject = global.ActiveXObject;
+    sinonXhr.supportsActiveX = typeof sinonXhr.GlobalActiveXObject != "undefined";
+    sinonXhr.supportsXHR = typeof sinonXhr.GlobalXMLHttpRequest != "undefined";
+    sinonXhr.workingXHR = sinonXhr.supportsXHR ? sinonXhr.GlobalXMLHttpRequest : sinonXhr.supportsActiveX
+                                     ? function () { return new sinonXhr.GlobalActiveXObject("MSXML2.XMLHTTP.3.0") } : false;
+    sinonXhr.supportsCORS = sinonXhr.supportsXHR && "withCredentials" in (new sinonXhr.GlobalXMLHttpRequest());
+
+    /*jsl:ignore*/
+    var unsafeHeaders = {
+        "Accept-Charset": true,
+        "Accept-Encoding": true,
+        Connection: true,
+        "Content-Length": true,
+        Cookie: true,
+        Cookie2: true,
+        "Content-Transfer-Encoding": true,
+        Date: true,
+        Expect: true,
+        Host: true,
+        "Keep-Alive": true,
+        Referer: true,
+        TE: true,
+        Trailer: true,
+        "Transfer-Encoding": true,
+        Upgrade: true,
+        "User-Agent": true,
+        Via: true
+    };
+    /*jsl:end*/
+
+    function FakeXMLHttpRequest() {
+        this.readyState = FakeXMLHttpRequest.UNSENT;
+        this.requestHeaders = {};
+        this.requestBody = null;
+        this.status = 0;
+        this.statusText = "";
+        this.upload = new UploadProgress();
+        if (sinonXhr.supportsCORS) {
+            this.withCredentials = false;
+        }
+
+        var xhr = this;
+        var events = ["loadstart", "load", "abort", "loadend"];
+
+        function addEventListener(eventName) {
+            xhr.addEventListener(eventName, function (event) {
+                var listener = xhr["on" + eventName];
+
+                if (listener && typeof listener == "function") {
+                    listener.call(this, event);
+                }
+            });
+        }
+
+        for (var i = events.length - 1; i >= 0; i--) {
+            addEventListener(events[i]);
+        }
+
+        if (typeof FakeXMLHttpRequest.onCreate == "function") {
+            FakeXMLHttpRequest.onCreate(this);
+        }
+    }
+
+    // An upload object is created for each
+    // FakeXMLHttpRequest and allows upload
+    // events to be simulated using uploadProgress
+    // and uploadError.
+    function UploadProgress() {
+        this.eventListeners = {
+            progress: [],
+            load: [],
+            abort: [],
+            error: []
+        }
+    }
+
+    UploadProgress.prototype.addEventListener = function addEventListener(event, listener) {
+        this.eventListeners[event].push(listener);
+    };
+
+    UploadProgress.prototype.removeEventListener = function removeEventListener(event, listener) {
+        var listeners = this.eventListeners[event] || [];
+
+        for (var i = 0, l = listeners.length; i < l; ++i) {
+            if (listeners[i] == listener) {
+                return listeners.splice(i, 1);
+            }
+        }
+    };
+
+    UploadProgress.prototype.dispatchEvent = function dispatchEvent(event) {
+        var listeners = this.eventListeners[event.type] || [];
+
+        for (var i = 0, listener; (listener = listeners[i]) != null; i++) {
+            listener(event);
+        }
+    };
+
+    function verifyState(xhr) {
+        if (xhr.readyState !== FakeXMLHttpRequest.OPENED) {
+            throw new Error("INVALID_STATE_ERR");
+        }
+
+        if (xhr.sendFlag) {
+            throw new Error("INVALID_STATE_ERR");
+        }
+    }
+
+    function getHeader(headers, header) {
+        header = header.toLowerCase();
+
+        for (var h in headers) {
+            if (h.toLowerCase() == header) {
+                return h;
+            }
+        }
+
+        return null;
+    }
+
+    // filtering to enable a white-list version of Sinon FakeXhr,
+    // where whitelisted requests are passed through to real XHR
+    function each(collection, callback) {
+        if (!collection) {
+            return;
+        }
+
+        for (var i = 0, l = collection.length; i < l; i += 1) {
+            callback(collection[i]);
+        }
+    }
+    function some(collection, callback) {
+        for (var index = 0; index < collection.length; index++) {
+            if (callback(collection[index]) === true) {
+                return true;
+            }
+        }
+        return false;
+    }
+    // largest arity in XHR is 5 - XHR#open
+    var apply = function (obj, method, args) {
+        switch (args.length) {
+        case 0: return obj[method]();
+        case 1: return obj[method](args[0]);
+        case 2: return obj[method](args[0], args[1]);
+        case 3: return obj[method](args[0], args[1], args[2]);
+        case 4: return obj[method](args[0], args[1], args[2], args[3]);
+        case 5: return obj[method](args[0], args[1], args[2], args[3], args[4]);
+        }
+    };
+
+    FakeXMLHttpRequest.filters = [];
+    FakeXMLHttpRequest.addFilter = function addFilter(fn) {
+        this.filters.push(fn)
+    };
+    var IE6Re = /MSIE 6/;
+    FakeXMLHttpRequest.defake = function defake(fakeXhr, xhrArgs) {
+        var xhr = new sinonXhr.workingXHR();
+        each([
+            "open",
+            "setRequestHeader",
+            "send",
+            "abort",
+            "getResponseHeader",
+            "getAllResponseHeaders",
+            "addEventListener",
+            "overrideMimeType",
+            "removeEventListener"
+        ], function (method) {
+            fakeXhr[method] = function () {
+                return apply(xhr, method, arguments);
+            };
+        });
+
+        var copyAttrs = function (args) {
+            each(args, function (attr) {
+                try {
+                    fakeXhr[attr] = xhr[attr]
+                } catch (e) {
+                    if (!IE6Re.test(navigator.userAgent)) {
+                        throw e;
+                    }
+                }
+            });
+        };
+
+        var stateChange = function stateChange() {
+            fakeXhr.readyState = xhr.readyState;
+            if (xhr.readyState >= FakeXMLHttpRequest.HEADERS_RECEIVED) {
+                copyAttrs(["status", "statusText"]);
+            }
+            if (xhr.readyState >= FakeXMLHttpRequest.LOADING) {
+                copyAttrs(["responseText", "response"]);
+            }
+            if (xhr.readyState === FakeXMLHttpRequest.DONE) {
+                copyAttrs(["responseXML"]);
+            }
+            if (fakeXhr.onreadystatechange) {
+                fakeXhr.onreadystatechange.call(fakeXhr, { target: fakeXhr });
+            }
+        };
+
+        if (xhr.addEventListener) {
+            for (var event in fakeXhr.eventListeners) {
+                if (fakeXhr.eventListeners.hasOwnProperty(event)) {
+                    each(fakeXhr.eventListeners[event], function (handler) {
+                        xhr.addEventListener(event, handler);
+                    });
+                }
+            }
+            xhr.addEventListener("readystatechange", stateChange);
+        } else {
+            xhr.onreadystatechange = stateChange;
+        }
+        apply(xhr, "open", xhrArgs);
+    };
+    FakeXMLHttpRequest.useFilters = false;
+
+    function verifyRequestOpened(xhr) {
+        if (xhr.readyState != FakeXMLHttpRequest.OPENED) {
+            throw new Error("INVALID_STATE_ERR - " + xhr.readyState);
+        }
+    }
+
+    function verifyRequestSent(xhr) {
+        if (xhr.readyState == FakeXMLHttpRequest.DONE) {
+            throw new Error("Request done");
+        }
+    }
+
+    function verifyHeadersReceived(xhr) {
+        if (xhr.async && xhr.readyState != FakeXMLHttpRequest.HEADERS_RECEIVED) {
+            throw new Error("No headers received");
+        }
+    }
+
+    function verifyResponseBodyType(body) {
+        if (typeof body != "string") {
+            var error = new Error("Attempted to respond to fake XMLHttpRequest with " +
+                                 body + ", which is not a string.");
+            error.name = "InvalidBodyException";
+            throw error;
+        }
+    }
+
+    FakeXMLHttpRequest.parseXML = function parseXML(text) {
+        var xmlDoc;
+
+        if (typeof DOMParser != "undefined") {
+            var parser = new DOMParser();
+            xmlDoc = parser.parseFromString(text, "text/xml");
+        } else {
+            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+            xmlDoc.async = "false";
+            xmlDoc.loadXML(text);
+        }
+
+        return xmlDoc;
+    };
+
+    FakeXMLHttpRequest.statusCodes = {
+        100: "Continue",
+        101: "Switching Protocols",
+        200: "OK",
+        201: "Created",
+        202: "Accepted",
+        203: "Non-Authoritative Information",
+        204: "No Content",
+        205: "Reset Content",
+        206: "Partial Content",
+        300: "Multiple Choice",
+        301: "Moved Permanently",
+        302: "Found",
+        303: "See Other",
+        304: "Not Modified",
+        305: "Use Proxy",
+        307: "Temporary Redirect",
+        400: "Bad Request",
+        401: "Unauthorized",
+        402: "Payment Required",
+        403: "Forbidden",
+        404: "Not Found",
+        405: "Method Not Allowed",
+        406: "Not Acceptable",
+        407: "Proxy Authentication Required",
+        408: "Request Timeout",
+        409: "Conflict",
+        410: "Gone",
+        411: "Length Required",
+        412: "Precondition Failed",
+        413: "Request Entity Too Large",
+        414: "Request-URI Too Long",
+        415: "Unsupported Media Type",
+        416: "Requested Range Not Satisfiable",
+        417: "Expectation Failed",
+        422: "Unprocessable Entity",
+        500: "Internal Server Error",
+        501: "Not Implemented",
+        502: "Bad Gateway",
+        503: "Service Unavailable",
+        504: "Gateway Timeout",
+        505: "HTTP Version Not Supported"
+    };
+
+    function makeApi(sinon) {
+        sinon.xhr = sinonXhr;
+
+        sinon.extend(FakeXMLHttpRequest.prototype, sinon.EventTarget, {
+            async: true,
+
+            open: function open(method, url, async, username, password) {
+                this.method = method;
+                this.url = url;
+                this.async = typeof async == "boolean" ? async : true;
+                this.username = username;
+                this.password = password;
+                this.responseText = null;
+                this.responseXML = null;
+                this.requestHeaders = {};
+                this.sendFlag = false;
+
+                if (FakeXMLHttpRequest.useFilters === true) {
+                    var xhrArgs = arguments;
+                    var defake = some(FakeXMLHttpRequest.filters, function (filter) {
+                        return filter.apply(this, xhrArgs)
+                    });
+                    if (defake) {
+                        return FakeXMLHttpRequest.defake(this, arguments);
+                    }
+                }
+                this.readyStateChange(FakeXMLHttpRequest.OPENED);
+            },
+
+            readyStateChange: function readyStateChange(state) {
+                this.readyState = state;
+
+                if (typeof this.onreadystatechange == "function") {
+                    try {
+                        this.onreadystatechange();
+                    } catch (e) {
+                        sinon.logError("Fake XHR onreadystatechange handler", e);
+                    }
+                }
+
+                this.dispatchEvent(new sinon.Event("readystatechange"));
+
+                switch (this.readyState) {
+                    case FakeXMLHttpRequest.DONE:
+                        this.dispatchEvent(new sinon.Event("load", false, false, this));
+                        this.dispatchEvent(new sinon.Event("loadend", false, false, this));
+                        this.upload.dispatchEvent(new sinon.Event("load", false, false, this));
+                        if (supportsProgress) {
+                            this.upload.dispatchEvent(new sinon.ProgressEvent("progress", {loaded: 100, total: 100}));
+                        }
+                        break;
+                }
+            },
+
+            setRequestHeader: function setRequestHeader(header, value) {
+                verifyState(this);
+
+                if (unsafeHeaders[header] || /^(Sec-|Proxy-)/.test(header)) {
+                    throw new Error("Refused to set unsafe header \"" + header + "\"");
+                }
+
+                if (this.requestHeaders[header]) {
+                    this.requestHeaders[header] += "," + value;
+                } else {
+                    this.requestHeaders[header] = value;
+                }
+            },
+
+            // Helps testing
+            setResponseHeaders: function setResponseHeaders(headers) {
+                verifyRequestOpened(this);
+                this.responseHeaders = {};
+
+                for (var header in headers) {
+                    if (headers.hasOwnProperty(header)) {
+                        this.responseHeaders[header] = headers[header];
+                    }
+                }
+
+                if (this.async) {
+                    this.readyStateChange(FakeXMLHttpRequest.HEADERS_RECEIVED);
+                } else {
+                    this.readyState = FakeXMLHttpRequest.HEADERS_RECEIVED;
+                }
+            },
+
+            // Currently treats ALL data as a DOMString (i.e. no Document)
+            send: function send(data) {
+                verifyState(this);
+
+                if (!/^(get|head)$/i.test(this.method)) {
+                    var contentType = getHeader(this.requestHeaders, "Content-Type");
+                    if (this.requestHeaders[contentType]) {
+                        var value = this.requestHeaders[contentType].split(";");
+                        this.requestHeaders[contentType] = value[0] + ";charset=utf-8";
+                    } else {
+                        this.requestHeaders["Content-Type"] = "text/plain;charset=utf-8";
+                    }
+
+                    this.requestBody = data;
+                }
+
+                this.errorFlag = false;
+                this.sendFlag = this.async;
+                this.readyStateChange(FakeXMLHttpRequest.OPENED);
+
+                if (typeof this.onSend == "function") {
+                    this.onSend(this);
+                }
+
+                this.dispatchEvent(new sinon.Event("loadstart", false, false, this));
+            },
+
+            abort: function abort() {
+                this.aborted = true;
+                this.responseText = null;
+                this.errorFlag = true;
+                this.requestHeaders = {};
+
+                if (this.readyState > FakeXMLHttpRequest.UNSENT && this.sendFlag) {
+                    this.readyStateChange(FakeXMLHttpRequest.DONE);
+                    this.sendFlag = false;
+                }
+
+                this.readyState = FakeXMLHttpRequest.UNSENT;
+
+                this.dispatchEvent(new sinon.Event("abort", false, false, this));
+
+                this.upload.dispatchEvent(new sinon.Event("abort", false, false, this));
+
+                if (typeof this.onerror === "function") {
+                    this.onerror();
+                }
+            },
+
+            getResponseHeader: function getResponseHeader(header) {
+                if (this.readyState < FakeXMLHttpRequest.HEADERS_RECEIVED) {
+                    return null;
+                }
+
+                if (/^Set-Cookie2?$/i.test(header)) {
+                    return null;
+                }
+
+                header = getHeader(this.responseHeaders, header);
+
+                return this.responseHeaders[header] || null;
+            },
+
+            getAllResponseHeaders: function getAllResponseHeaders() {
+                if (this.readyState < FakeXMLHttpRequest.HEADERS_RECEIVED) {
+                    return "";
+                }
+
+                var headers = "";
+
+                for (var header in this.responseHeaders) {
+                    if (this.responseHeaders.hasOwnProperty(header) &&
+                        !/^Set-Cookie2?$/i.test(header)) {
+                        headers += header + ": " + this.responseHeaders[header] + "\r\n";
+                    }
+                }
+
+                return headers;
+            },
+
+            setResponseBody: function setResponseBody(body) {
+                verifyRequestSent(this);
+                verifyHeadersReceived(this);
+                verifyResponseBodyType(body);
+
+                var chunkSize = this.chunkSize || 10;
+                var index = 0;
+                this.responseText = "";
+
+                do {
+                    if (this.async) {
+                        this.readyStateChange(FakeXMLHttpRequest.LOADING);
+                    }
+
+                    this.responseText += body.substring(index, index + chunkSize);
+                    index += chunkSize;
+                } while (index < body.length);
+
+                var type = this.getResponseHeader("Content-Type");
+
+                if (this.responseText &&
+                    (!type || /(text\/xml)|(application\/xml)|(\+xml)/.test(type))) {
+                    try {
+                        this.responseXML = FakeXMLHttpRequest.parseXML(this.responseText);
+                    } catch (e) {
+                        // Unable to parse XML - no biggie
+                    }
+                }
+
+                this.readyStateChange(FakeXMLHttpRequest.DONE);
+            },
+
+            respond: function respond(status, headers, body) {
+                this.status = typeof status == "number" ? status : 200;
+                this.statusText = FakeXMLHttpRequest.statusCodes[this.status];
+                this.setResponseHeaders(headers || {});
+                this.setResponseBody(body || "");
+            },
+
+            uploadProgress: function uploadProgress(progressEventRaw) {
+                if (supportsProgress) {
+                    this.upload.dispatchEvent(new sinon.ProgressEvent("progress", progressEventRaw));
+                }
+            },
+
+            uploadError: function uploadError(error) {
+                if (supportsCustomEvent) {
+                    this.upload.dispatchEvent(new sinon.CustomEvent("error", {detail: error}));
+                }
+            }
+        });
+
+        sinon.extend(FakeXMLHttpRequest, {
+            UNSENT: 0,
+            OPENED: 1,
+            HEADERS_RECEIVED: 2,
+            LOADING: 3,
+            DONE: 4
+        });
+
+        sinon.useFakeXMLHttpRequest = function () {
+            FakeXMLHttpRequest.restore = function restore(keepOnCreate) {
+                if (sinonXhr.supportsXHR) {
+                    global.XMLHttpRequest = sinonXhr.GlobalXMLHttpRequest;
+                }
+
+                if (sinonXhr.supportsActiveX) {
+                    global.ActiveXObject = sinonXhr.GlobalActiveXObject;
+                }
+
+                delete FakeXMLHttpRequest.restore;
+
+                if (keepOnCreate !== true) {
+                    delete FakeXMLHttpRequest.onCreate;
+                }
+            };
+            if (sinonXhr.supportsXHR) {
+                global.XMLHttpRequest = FakeXMLHttpRequest;
+            }
+
+            if (sinonXhr.supportsActiveX) {
+                global.ActiveXObject = function ActiveXObject(objId) {
+                    if (objId == "Microsoft.XMLHTTP" || /^Msxml2\.XMLHTTP/i.test(objId)) {
+
+                        return new FakeXMLHttpRequest();
+                    }
+
+                    return new sinonXhr.GlobalActiveXObject(objId);
+                };
+            }
+
+            return FakeXMLHttpRequest;
+        };
+
+        sinon.FakeXMLHttpRequest = FakeXMLHttpRequest;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./core");
+        require("./event");
+        makeApi(sinon);
+        module.exports = sinon;
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (typeof sinon === "undefined") {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+
+})(typeof self !== "undefined" ? self : this);
+
+/**
+ * @depend fake_xml_http_request.js
+ * @depend ../format.js
+ * @depend ../log_error.js
+ */
+/**
+ * The Sinon "server" mimics a web server that receives requests from
+ * sinon.FakeXMLHttpRequest and provides an API to respond to those requests,
+ * both synchronously and asynchronously. To respond synchronuously, canned
+ * answers have to be provided upfront.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+if (typeof sinon == "undefined") {
+    var sinon = {};
+}
+
+(function () {
+    var push = [].push;
+    function F() {}
+
+    function create(proto) {
+        F.prototype = proto;
+        return new F();
+    }
+
+    function responseArray(handler) {
+        var response = handler;
+
+        if (Object.prototype.toString.call(handler) != "[object Array]") {
+            response = [200, {}, handler];
+        }
+
+        if (typeof response[2] != "string") {
+            throw new TypeError("Fake server response body should be string, but was " +
+                                typeof response[2]);
+        }
+
+        return response;
+    }
+
+    var wloc = typeof window !== "undefined" ? window.location : {};
+    var rCurrLoc = new RegExp("^" + wloc.protocol + "//" + wloc.host);
+
+    function matchOne(response, reqMethod, reqUrl) {
+        var rmeth = response.method;
+        var matchMethod = !rmeth || rmeth.toLowerCase() == reqMethod.toLowerCase();
+        var url = response.url;
+        var matchUrl = !url || url == reqUrl || (typeof url.test == "function" && url.test(reqUrl));
+
+        return matchMethod && matchUrl;
+    }
+
+    function match(response, request) {
+        var requestUrl = request.url;
+
+        if (!/^https?:\/\//.test(requestUrl) || rCurrLoc.test(requestUrl)) {
+            requestUrl = requestUrl.replace(rCurrLoc, "");
+        }
+
+        if (matchOne(response, this.getHTTPMethod(request), requestUrl)) {
+            if (typeof response.response == "function") {
+                var ru = response.url;
+                var args = [request].concat(ru && typeof ru.exec == "function" ? ru.exec(requestUrl).slice(1) : []);
+                return response.response.apply(response, args);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function makeApi(sinon) {
+        sinon.fakeServer = {
+            create: function () {
+                var server = create(this);
+                this.xhr = sinon.useFakeXMLHttpRequest();
+                server.requests = [];
+
+                this.xhr.onCreate = function (xhrObj) {
+                    server.addRequest(xhrObj);
+                };
+
+                return server;
+            },
+
+            addRequest: function addRequest(xhrObj) {
+                var server = this;
+                push.call(this.requests, xhrObj);
+
+                xhrObj.onSend = function () {
+                    server.handleRequest(this);
+
+                    if (server.autoRespond && !server.responding) {
+                        setTimeout(function () {
+                            server.responding = false;
+                            server.respond();
+                        }, server.autoRespondAfter || 10);
+
+                        server.responding = true;
+                    }
+                };
+            },
+
+            getHTTPMethod: function getHTTPMethod(request) {
+                if (this.fakeHTTPMethods && /post/i.test(request.method)) {
+                    var matches = (request.requestBody || "").match(/_method=([^\b;]+)/);
+                    return !!matches ? matches[1] : request.method;
+                }
+
+                return request.method;
+            },
+
+            handleRequest: function handleRequest(xhr) {
+                if (xhr.async) {
+                    if (!this.queue) {
+                        this.queue = [];
+                    }
+
+                    push.call(this.queue, xhr);
+                } else {
+                    this.processRequest(xhr);
+                }
+            },
+
+            log: function log(response, request) {
+                var str;
+
+                str =  "Request:\n"  + sinon.format(request)  + "\n\n";
+                str += "Response:\n" + sinon.format(response) + "\n\n";
+
+                sinon.log(str);
+            },
+
+            respondWith: function respondWith(method, url, body) {
+                if (arguments.length == 1 && typeof method != "function") {
+                    this.response = responseArray(method);
+                    return;
+                }
+
+                if (!this.responses) { this.responses = []; }
+
+                if (arguments.length == 1) {
+                    body = method;
+                    url = method = null;
+                }
+
+                if (arguments.length == 2) {
+                    body = url;
+                    url = method;
+                    method = null;
+                }
+
+                push.call(this.responses, {
+                    method: method,
+                    url: url,
+                    response: typeof body == "function" ? body : responseArray(body)
+                });
+            },
+
+            respond: function respond() {
+                if (arguments.length > 0) {
+                    this.respondWith.apply(this, arguments);
+                }
+
+                var queue = this.queue || [];
+                var requests = queue.splice(0, queue.length);
+                var request;
+
+                while (request = requests.shift()) {
+                    this.processRequest(request);
+                }
+            },
+
+            processRequest: function processRequest(request) {
+                try {
+                    if (request.aborted) {
+                        return;
+                    }
+
+                    var response = this.response || [404, {}, ""];
+
+                    if (this.responses) {
+                        for (var l = this.responses.length, i = l - 1; i >= 0; i--) {
+                            if (match.call(this, this.responses[i], request)) {
+                                response = this.responses[i].response;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (request.readyState != 4) {
+                        this.log(response, request);
+
+                        request.respond(response[0], response[1], response[2]);
+                    }
+                } catch (e) {
+                    sinon.logError("Fake server request processing", e);
+                }
+            },
+
+            restore: function restore() {
+                return this.xhr.restore && this.xhr.restore.apply(this.xhr, arguments);
+            }
+        };
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./core");
+        require("./fake_xml_http_request");
+        makeApi(sinon);
+        module.exports = sinon;
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else {
+        makeApi(sinon);
+    }
+}());
+
+/**
+ * @depend fake_server.js
+ * @depend fake_timers.js
+ */
+/**
+ * Add-on for sinon.fakeServer that automatically handles a fake timer along with
+ * the FakeXMLHttpRequest. The direct inspiration for this add-on is jQuery
+ * 1.3.x, which does not use xhr object's onreadystatehandler at all - instead,
+ * it polls the object for completion with setInterval. Dispite the direct
+ * motivation, there is nothing jQuery-specific in this file, so it can be used
+ * in any environment where the ajax implementation depends on setInterval or
+ * setTimeout.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function () {
+    function makeApi(sinon) {
+        function Server() {}
+        Server.prototype = sinon.fakeServer;
+
+        sinon.fakeServerWithClock = new Server();
+
+        sinon.fakeServerWithClock.addRequest = function addRequest(xhr) {
+            if (xhr.async) {
+                if (typeof setTimeout.clock == "object") {
+                    this.clock = setTimeout.clock;
+                } else {
+                    this.clock = sinon.useFakeTimers();
+                    this.resetClock = true;
+                }
+
+                if (!this.longestTimeout) {
+                    var clockSetTimeout = this.clock.setTimeout;
+                    var clockSetInterval = this.clock.setInterval;
+                    var server = this;
+
+                    this.clock.setTimeout = function (fn, timeout) {
+                        server.longestTimeout = Math.max(timeout, server.longestTimeout || 0);
+
+                        return clockSetTimeout.apply(this, arguments);
+                    };
+
+                    this.clock.setInterval = function (fn, timeout) {
+                        server.longestTimeout = Math.max(timeout, server.longestTimeout || 0);
+
+                        return clockSetInterval.apply(this, arguments);
+                    };
+                }
+            }
+
+            return sinon.fakeServer.addRequest.call(this, xhr);
+        };
+
+        sinon.fakeServerWithClock.respond = function respond() {
+            var returnVal = sinon.fakeServer.respond.apply(this, arguments);
+
+            if (this.clock) {
+                this.clock.tick(this.longestTimeout || 0);
+                this.longestTimeout = 0;
+
+                if (this.resetClock) {
+                    this.clock.restore();
+                    this.resetClock = false;
+                }
+            }
+
+            return returnVal;
+        };
+
+        sinon.fakeServerWithClock.restore = function restore() {
+            if (this.clock) {
+                this.clock.restore();
+            }
+
+            return sinon.fakeServer.restore.apply(this, arguments);
+        };
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require) {
+        var sinon = require("./core");
+        require("./fake_server");
+        require("./fake_timers");
+        makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require);
+    } else {
+        makeApi(sinon);
+    }
+}());
+
+/**
+ * @depend util/core.js
+ * @depend extend.js
+ * @depend collection.js
+ * @depend util/fake_timers.js
+ * @depend util/fake_server_with_clock.js
+ */
+/**
+ * Manages fake collections as well as fake utilities such as Sinon's
+ * timers and fake XHR implementation in one convenient object.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function () {
+    function makeApi(sinon) {
+        var push = [].push;
+
+        function exposeValue(sandbox, config, key, value) {
+            if (!value) {
+                return;
+            }
+
+            if (config.injectInto && !(key in config.injectInto)) {
+                config.injectInto[key] = value;
+                sandbox.injectedKeys.push(key);
+            } else {
+                push.call(sandbox.args, value);
+            }
+        }
+
+        function prepareSandboxFromConfig(config) {
+            var sandbox = sinon.create(sinon.sandbox);
+
+            if (config.useFakeServer) {
+                if (typeof config.useFakeServer == "object") {
+                    sandbox.serverPrototype = config.useFakeServer;
+                }
+
+                sandbox.useFakeServer();
+            }
+
+            if (config.useFakeTimers) {
+                if (typeof config.useFakeTimers == "object") {
+                    sandbox.useFakeTimers.apply(sandbox, config.useFakeTimers);
+                } else {
+                    sandbox.useFakeTimers();
+                }
+            }
+
+            return sandbox;
+        }
+
+        sinon.sandbox = sinon.extend(sinon.create(sinon.collection), {
+            useFakeTimers: function useFakeTimers() {
+                this.clock = sinon.useFakeTimers.apply(sinon, arguments);
+
+                return this.add(this.clock);
+            },
+
+            serverPrototype: sinon.fakeServer,
+
+            useFakeServer: function useFakeServer() {
+                var proto = this.serverPrototype || sinon.fakeServer;
+
+                if (!proto || !proto.create) {
+                    return null;
+                }
+
+                this.server = proto.create();
+                return this.add(this.server);
+            },
+
+            inject: function (obj) {
+                sinon.collection.inject.call(this, obj);
+
+                if (this.clock) {
+                    obj.clock = this.clock;
+                }
+
+                if (this.server) {
+                    obj.server = this.server;
+                    obj.requests = this.server.requests;
+                }
+
+                obj.match = sinon.match;
+
+                return obj;
+            },
+
+            restore: function () {
+                sinon.collection.restore.apply(this, arguments);
+                this.restoreContext();
+            },
+
+            restoreContext: function () {
+                if (this.injectedKeys) {
+                    for (var i = 0, j = this.injectedKeys.length; i < j; i++) {
+                        delete this.injectInto[this.injectedKeys[i]];
+                    }
+                    this.injectedKeys = [];
+                }
+            },
+
+            create: function (config) {
+                if (!config) {
+                    return sinon.create(sinon.sandbox);
+                }
+
+                var sandbox = prepareSandboxFromConfig(config);
+                sandbox.args = sandbox.args || [];
+                sandbox.injectedKeys = [];
+                sandbox.injectInto = config.injectInto;
+                var prop, value, exposed = sandbox.inject({});
+
+                if (config.properties) {
+                    for (var i = 0, l = config.properties.length; i < l; i++) {
+                        prop = config.properties[i];
+                        value = exposed[prop] || prop == "sandbox" && sandbox;
+                        exposeValue(sandbox, config, prop, value);
+                    }
+                } else {
+                    exposeValue(sandbox, config, "sandbox", value);
+                }
+
+                return sandbox;
+            },
+
+            match: sinon.match
+        });
+
+        sinon.sandbox.useFakeXMLHttpRequest = sinon.sandbox.useFakeServer;
+
+        return sinon.sandbox;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./util/fake_server");
+        require("./util/fake_timers");
+        require("./collection");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}());
+
+/**
+ * @depend util/core.js
+ * @depend stub.js
+ * @depend mock.js
+ * @depend sandbox.js
+ */
+/**
+ * Test function, sandboxes fakes
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon) {
+    function makeApi(sinon) {
+        function test(callback) {
+            var type = typeof callback;
+
+            if (type != "function") {
+                throw new TypeError("sinon.test needs to wrap a test function, got " + type);
+            }
+
+            function sinonSandboxedTest() {
+                var config = sinon.getConfig(sinon.config);
+                config.injectInto = config.injectIntoThis && this || config.injectInto;
+                var sandbox = sinon.sandbox.create(config);
+                var exception, result;
+                var doneIsWrapped = false;
+                var argumentsCopy = Array.prototype.slice.call(arguments);
+                if (argumentsCopy.length > 0 && typeof argumentsCopy[arguments.length - 1] == "function") {
+                    var oldDone = argumentsCopy[arguments.length - 1];
+                    argumentsCopy[arguments.length - 1] = function done(result) {
+                        if (result) {
+                            sandbox.restore();
+                            throw exception;
+                        } else {
+                            sandbox.verifyAndRestore();
+                        }
+                        oldDone(result);
+                    }
+                    doneIsWrapped = true;
+                }
+
+                var args = argumentsCopy.concat(sandbox.args);
+
+                try {
+                    result = callback.apply(this, args);
+                } catch (e) {
+                    exception = e;
+                }
+
+                if (!doneIsWrapped) {
+                    if (typeof exception !== "undefined") {
+                        sandbox.restore();
+                        throw exception;
+                    } else {
+                        sandbox.verifyAndRestore();
+                    }
+                }
+
+                return result;
+            };
+
+            if (callback.length) {
+                return function sinonAsyncSandboxedTest(callback) {
+                    return sinonSandboxedTest.apply(this, arguments);
+                };
+            }
+
+            return sinonSandboxedTest;
+        }
+
+        test.config = {
+            injectIntoThis: true,
+            injectInto: null,
+            properties: ["spy", "stub", "mock", "clock", "server", "requests"],
+            useFakeTimers: true,
+            useFakeServer: true
+        };
+
+        sinon.test = test;
+        return test;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./sandbox");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend util/core.js
+ * @depend test.js
+ */
+/**
+ * Test case, sandboxes all test functions
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon) {
+    function createTest(property, setUp, tearDown) {
+        return function () {
+            if (setUp) {
+                setUp.apply(this, arguments);
+            }
+
+            var exception, result;
+
+            try {
+                result = property.apply(this, arguments);
+            } catch (e) {
+                exception = e;
+            }
+
+            if (tearDown) {
+                tearDown.apply(this, arguments);
+            }
+
+            if (exception) {
+                throw exception;
+            }
+
+            return result;
+        };
+    }
+
+    function makeApi(sinon) {
+        function testCase(tests, prefix) {
+            /*jsl:ignore*/
+            if (!tests || typeof tests != "object") {
+                throw new TypeError("sinon.testCase needs an object with test functions");
+            }
+            /*jsl:end*/
+
+            prefix = prefix || "test";
+            var rPrefix = new RegExp("^" + prefix);
+            var methods = {}, testName, property, method;
+            var setUp = tests.setUp;
+            var tearDown = tests.tearDown;
+
+            for (testName in tests) {
+                if (tests.hasOwnProperty(testName)) {
+                    property = tests[testName];
+
+                    if (/^(setUp|tearDown)$/.test(testName)) {
+                        continue;
+                    }
+
+                    if (typeof property == "function" && rPrefix.test(testName)) {
+                        method = property;
+
+                        if (setUp || tearDown) {
+                            method = createTest(property, setUp, tearDown);
+                        }
+
+                        methods[testName] = sinon.test(method);
+                    } else {
+                        methods[testName] = tests[testName];
+                    }
+                }
+            }
+
+            return methods;
+        }
+
+        sinon.testCase = testCase;
+        return testCase;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./test");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+}(typeof sinon == "object" && sinon || null));
+
+/**
+ * @depend times_in_words.js
+ * @depend util/core.js
+ * @depend stub.js
+ * @depend format.js
+ */
+/**
+ * Assertions matching the test spy retrieval interface.
+ *
+ * @author Christian Johansen (christian@cjohansen.no)
+ * @license BSD
+ *
+ * Copyright (c) 2010-2013 Christian Johansen
+ */
+
+(function (sinon, global) {
+    var slice = Array.prototype.slice;
+
+    function makeApi(sinon) {
+        var assert;
+
+        function verifyIsStub() {
+            var method;
+
+            for (var i = 0, l = arguments.length; i < l; ++i) {
+                method = arguments[i];
+
+                if (!method) {
+                    assert.fail("fake is not a spy");
+                }
+
+                if (typeof method != "function") {
+                    assert.fail(method + " is not a function");
+                }
+
+                if (typeof method.getCall != "function") {
+                    assert.fail(method + " is not stubbed");
+                }
+            }
+        }
+
+        function failAssertion(object, msg) {
+            object = object || global;
+            var failMethod = object.fail || assert.fail;
+            failMethod.call(object, msg);
+        }
+
+        function mirrorPropAsAssertion(name, method, message) {
+            if (arguments.length == 2) {
+                message = method;
+                method = name;
+            }
+
+            assert[name] = function (fake) {
+                verifyIsStub(fake);
+
+                var args = slice.call(arguments, 1);
+                var failed = false;
+
+                if (typeof method == "function") {
+                    failed = !method(fake);
+                } else {
+                    failed = typeof fake[method] == "function" ?
+                        !fake[method].apply(fake, args) : !fake[method];
+                }
+
+                if (failed) {
+                    failAssertion(this, fake.printf.apply(fake, [message].concat(args)));
+                } else {
+                    assert.pass(name);
+                }
+            };
+        }
+
+        function exposedName(prefix, prop) {
+            return !prefix || /^fail/.test(prop) ? prop :
+                prefix + prop.slice(0, 1).toUpperCase() + prop.slice(1);
+        }
+
+        assert = {
+            failException: "AssertError",
+
+            fail: function fail(message) {
+                var error = new Error(message);
+                error.name = this.failException || assert.failException;
+
+                throw error;
+            },
+
+            pass: function pass(assertion) {},
+
+            callOrder: function assertCallOrder() {
+                verifyIsStub.apply(null, arguments);
+                var expected = "", actual = "";
+
+                if (!sinon.calledInOrder(arguments)) {
+                    try {
+                        expected = [].join.call(arguments, ", ");
+                        var calls = slice.call(arguments);
+                        var i = calls.length;
+                        while (i) {
+                            if (!calls[--i].called) {
+                                calls.splice(i, 1);
+                            }
+                        }
+                        actual = sinon.orderByFirstCall(calls).join(", ");
+                    } catch (e) {
+                        // If this fails, we'll just fall back to the blank string
+                    }
+
+                    failAssertion(this, "expected " + expected + " to be " +
+                                "called in order but were called as " + actual);
+                } else {
+                    assert.pass("callOrder");
+                }
+            },
+
+            callCount: function assertCallCount(method, count) {
+                verifyIsStub(method);
+
+                if (method.callCount != count) {
+                    var msg = "expected %n to be called " + sinon.timesInWords(count) +
+                        " but was called %c%C";
+                    failAssertion(this, method.printf(msg));
+                } else {
+                    assert.pass("callCount");
+                }
+            },
+
+            expose: function expose(target, options) {
+                if (!target) {
+                    throw new TypeError("target is null or undefined");
+                }
+
+                var o = options || {};
+                var prefix = typeof o.prefix == "undefined" && "assert" || o.prefix;
+                var includeFail = typeof o.includeFail == "undefined" || !!o.includeFail;
+
+                for (var method in this) {
+                    if (method != "expose" && (includeFail || !/^(fail)/.test(method))) {
+                        target[exposedName(prefix, method)] = this[method];
+                    }
+                }
+
+                return target;
+            },
+
+            match: function match(actual, expectation) {
+                var matcher = sinon.match(expectation);
+                if (matcher.test(actual)) {
+                    assert.pass("match");
+                } else {
+                    var formatted = [
+                        "expected value to match",
+                        "    expected = " + sinon.format(expectation),
+                        "    actual = " + sinon.format(actual)
+                    ]
+                    failAssertion(this, formatted.join("\n"));
+                }
+            }
+        };
+
+        mirrorPropAsAssertion("called", "expected %n to have been called at least once but was never called");
+        mirrorPropAsAssertion("notCalled", function (spy) { return !spy.called; },
+                            "expected %n to not have been called but was called %c%C");
+        mirrorPropAsAssertion("calledOnce", "expected %n to be called once but was called %c%C");
+        mirrorPropAsAssertion("calledTwice", "expected %n to be called twice but was called %c%C");
+        mirrorPropAsAssertion("calledThrice", "expected %n to be called thrice but was called %c%C");
+        mirrorPropAsAssertion("calledOn", "expected %n to be called with %1 as this but was called with %t");
+        mirrorPropAsAssertion("alwaysCalledOn", "expected %n to always be called with %1 as this but was called with %t");
+        mirrorPropAsAssertion("calledWithNew", "expected %n to be called with new");
+        mirrorPropAsAssertion("alwaysCalledWithNew", "expected %n to always be called with new");
+        mirrorPropAsAssertion("calledWith", "expected %n to be called with arguments %*%C");
+        mirrorPropAsAssertion("calledWithMatch", "expected %n to be called with match %*%C");
+        mirrorPropAsAssertion("alwaysCalledWith", "expected %n to always be called with arguments %*%C");
+        mirrorPropAsAssertion("alwaysCalledWithMatch", "expected %n to always be called with match %*%C");
+        mirrorPropAsAssertion("calledWithExactly", "expected %n to be called with exact arguments %*%C");
+        mirrorPropAsAssertion("alwaysCalledWithExactly", "expected %n to always be called with exact arguments %*%C");
+        mirrorPropAsAssertion("neverCalledWith", "expected %n to never be called with arguments %*%C");
+        mirrorPropAsAssertion("neverCalledWithMatch", "expected %n to never be called with match %*%C");
+        mirrorPropAsAssertion("threw", "%n did not throw exception%C");
+        mirrorPropAsAssertion("alwaysThrew", "%n did not always throw exception%C");
+
+        sinon.assert = assert;
+        return assert;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./util/core");
+        require("./match");
+        module.exports = makeApi(sinon);
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else if (!sinon) {
+        return;
+    } else {
+        makeApi(sinon);
+    }
+
+}(typeof sinon == "object" && sinon || null, typeof window != "undefined" ? window : (typeof self != "undefined") ? self : global));
+
+/**
+ * @depend core.js
+ * @depend ../extend.js
+ * @depend event.js
+ * @depend ../log_error.js
+ */
+/**
+ * Fake XDomainRequest object
+ */
+
+if (typeof sinon == "undefined") {
+    this.sinon = {};
+}
+
+// wrapper for global
+(function (global) {
+    var xdr = { XDomainRequest: global.XDomainRequest };
+    xdr.GlobalXDomainRequest = global.XDomainRequest;
+    xdr.supportsXDR = typeof xdr.GlobalXDomainRequest != "undefined";
+    xdr.workingXDR = xdr.supportsXDR ? xdr.GlobalXDomainRequest :  false;
+
+    function makeApi(sinon) {
+        sinon.xdr = xdr;
+
+        function FakeXDomainRequest() {
+            this.readyState = FakeXDomainRequest.UNSENT;
+            this.requestBody = null;
+            this.requestHeaders = {};
+            this.status = 0;
+            this.timeout = null;
+
+            if (typeof FakeXDomainRequest.onCreate == "function") {
+                FakeXDomainRequest.onCreate(this);
+            }
+        }
+
+        function verifyState(xdr) {
+            if (xdr.readyState !== FakeXDomainRequest.OPENED) {
+                throw new Error("INVALID_STATE_ERR");
+            }
+
+            if (xdr.sendFlag) {
+                throw new Error("INVALID_STATE_ERR");
+            }
+        }
+
+        function verifyRequestSent(xdr) {
+            if (xdr.readyState == FakeXDomainRequest.UNSENT) {
+                throw new Error("Request not sent");
+            }
+            if (xdr.readyState == FakeXDomainRequest.DONE) {
+                throw new Error("Request done");
+            }
+        }
+
+        function verifyResponseBodyType(body) {
+            if (typeof body != "string") {
+                var error = new Error("Attempted to respond to fake XDomainRequest with " +
+                                    body + ", which is not a string.");
+                error.name = "InvalidBodyException";
+                throw error;
+            }
+        }
+
+        sinon.extend(FakeXDomainRequest.prototype, sinon.EventTarget, {
+            open: function open(method, url) {
+                this.method = method;
+                this.url = url;
+
+                this.responseText = null;
+                this.sendFlag = false;
+
+                this.readyStateChange(FakeXDomainRequest.OPENED);
+            },
+
+            readyStateChange: function readyStateChange(state) {
+                this.readyState = state;
+                var eventName = "";
+                switch (this.readyState) {
+                case FakeXDomainRequest.UNSENT:
+                    break;
+                case FakeXDomainRequest.OPENED:
+                    break;
+                case FakeXDomainRequest.LOADING:
+                    if (this.sendFlag) {
+                        //raise the progress event
+                        eventName = "onprogress";
+                    }
+                    break;
+                case FakeXDomainRequest.DONE:
+                    if (this.isTimeout) {
+                        eventName = "ontimeout"
+                    } else if (this.errorFlag || (this.status < 200 || this.status > 299)) {
+                        eventName = "onerror";
+                    } else {
+                        eventName = "onload"
+                    }
+                    break;
+                }
+
+                // raising event (if defined)
+                if (eventName) {
+                    if (typeof this[eventName] == "function") {
+                        try {
+                            this[eventName]();
+                        } catch (e) {
+                            sinon.logError("Fake XHR " + eventName + " handler", e);
+                        }
+                    }
+                }
+            },
+
+            send: function send(data) {
+                verifyState(this);
+
+                if (!/^(get|head)$/i.test(this.method)) {
+                    this.requestBody = data;
+                }
+                this.requestHeaders["Content-Type"] = "text/plain;charset=utf-8";
+
+                this.errorFlag = false;
+                this.sendFlag = true;
+                this.readyStateChange(FakeXDomainRequest.OPENED);
+
+                if (typeof this.onSend == "function") {
+                    this.onSend(this);
+                }
+            },
+
+            abort: function abort() {
+                this.aborted = true;
+                this.responseText = null;
+                this.errorFlag = true;
+
+                if (this.readyState > sinon.FakeXDomainRequest.UNSENT && this.sendFlag) {
+                    this.readyStateChange(sinon.FakeXDomainRequest.DONE);
+                    this.sendFlag = false;
+                }
+            },
+
+            setResponseBody: function setResponseBody(body) {
+                verifyRequestSent(this);
+                verifyResponseBodyType(body);
+
+                var chunkSize = this.chunkSize || 10;
+                var index = 0;
+                this.responseText = "";
+
+                do {
+                    this.readyStateChange(FakeXDomainRequest.LOADING);
+                    this.responseText += body.substring(index, index + chunkSize);
+                    index += chunkSize;
+                } while (index < body.length);
+
+                this.readyStateChange(FakeXDomainRequest.DONE);
+            },
+
+            respond: function respond(status, contentType, body) {
+                // content-type ignored, since XDomainRequest does not carry this
+                // we keep the same syntax for respond(...) as for FakeXMLHttpRequest to ease
+                // test integration across browsers
+                this.status = typeof status == "number" ? status : 200;
+                this.setResponseBody(body || "");
+            },
+
+            simulatetimeout: function simulatetimeout() {
+                this.status = 0;
+                this.isTimeout = true;
+                // Access to this should actually throw an error
+                this.responseText = undefined;
+                this.readyStateChange(FakeXDomainRequest.DONE);
+            }
+        });
+
+        sinon.extend(FakeXDomainRequest, {
+            UNSENT: 0,
+            OPENED: 1,
+            LOADING: 3,
+            DONE: 4
+        });
+
+        sinon.useFakeXDomainRequest = function useFakeXDomainRequest() {
+            sinon.FakeXDomainRequest.restore = function restore(keepOnCreate) {
+                if (xdr.supportsXDR) {
+                    global.XDomainRequest = xdr.GlobalXDomainRequest;
+                }
+
+                delete sinon.FakeXDomainRequest.restore;
+
+                if (keepOnCreate !== true) {
+                    delete sinon.FakeXDomainRequest.onCreate;
+                }
+            };
+            if (xdr.supportsXDR) {
+                global.XDomainRequest = sinon.FakeXDomainRequest;
+            }
+            return sinon.FakeXDomainRequest;
+        };
+
+        sinon.FakeXDomainRequest = FakeXDomainRequest;
+    }
+
+    var isNode = typeof module !== "undefined" && module.exports && typeof require == "function";
+    var isAMD = typeof define === "function" && typeof define.amd === "object" && define.amd;
+
+    function loadDependencies(require, exports, module) {
+        var sinon = require("./core");
+        require("./event");
+        makeApi(sinon);
+        module.exports = sinon;
+    }
+
+    if (isAMD) {
+        define(loadDependencies);
+    } else if (isNode) {
+        loadDependencies(require, module.exports, module);
+    } else {
+        makeApi(sinon);
+    }
+})(this);
+
+  return sinon;
+}));
+
+;eval("define(\"ember-select-2/components/select-2\", \n  [\"ember\",\"exports\"],\n  function(__dependency1__, __exports__) {\n    \"use strict\";\n    var Ember = __dependency1__[\"default\"];\n\n    var get = Ember.get;\n\n    /**\n     * Ember select-2 component wrapping the jQuery select2 plugin while\n     * respecting Ember data bindings and getter/setter methods on the content.\n     *\n     * Terminology:\n     *  - Value: The currently selected value(s). Propagated to controllers etc.\n     *    through the \"value=...\"\" binding. Types:\n     *    - Object: when using select-2 without any further configuration\n     *    - Array of Objects: when using select-2 with \"multiple=true\"\n     *    - Mixed: when using select-2 with \"optionValuePath=...\"\n     *    - Array of Mixed: when using select-2 with \"multiple=true\" and\n     *      \"optionValuePath=...\"\n     *\n     *  - Content: Array of Objects used to present to the user for choosing the\n     *    selected values. \"content\" cannot be an Array of Strings, the Objects are\n     *    expected to have an \"id\" and a property to be used as the label (by default,\n     *    it is \"text\", but it can be overwritten it via \"optionLabelPath\"). These \n     *    properties can be computed properties or just plain JavaScript values.\n     */\n    var Select2Component = Ember.Component.extend({\n      tagName: \"input\",\n      classNames: [\"form-control\"],\n      classNameBindings: [\"inputSize\"],\n      attributeBindings: [\"style\"],\n      style: \"display: hidden;\",\n\n      // Bindings that may be overwritten in the template\n      inputSize: \"input-md\",\n      cssClass: null,\n      optionValuePath: null,\n      optionLabelPath: \'text\',\n      optionDescriptionPath: \'description\',\n      placeholder: null,\n      multiple: false,\n      allowClear: false,\n      enabled: true,\n      query: null,\n      typeaheadSearchingText: \'Searching…\',\n      typeaheadNoMatchesText: \'No matches found\',\n      typeaheadErrorText: \'Loading failed\',\n\n      // internal state\n      _hasSelectedMissingItems: false,\n      _hasPendingContentPromise: Ember.computed.alias(\'content.isPending\'),\n      _hasFailedContentPromise: Ember.computed.alias(\'content.isRejected\'),\n      _typeaheadMode: Ember.computed.bool(\'query\'),\n\n      didInsertElement: function() {\n        var self = this,\n            options = {},\n            optionLabelPath = this.get(\'optionLabelPath\'),\n            optionDescriptionPath = this.get(\'optionDescriptionPath\'),\n            content = this.get(\'content\');\n\n\n        // ensure select2 is loaded\n        Ember.assert(\"select2 has to exist on Ember.$.fn.select2\", Ember.$.fn.select2);\n\n        // setup\n        options.placeholder = this.get(\'placeholder\');\n        options.multiple = this.get(\'multiple\');\n        options.allowClear = this.get(\'allowClear\');\n\n        // allowClear is only allowed with placeholder\n        Ember.assert(\"To use allowClear, you have to specify a placeholder\", !options.allowClear || options.placeholder);\n\n        /*\n          Formatting functions that ensure that the passed content is escaped in\n          order to prevent XSS vulnerabilities. Escaping can be avoided by passing\n          Handlebars.SafeString as \"text\" or \"description\" values.\n\n          Generates the html used in the dropdown list (and is implemented to\n          include the description html if available).\n         */\n        options.formatResult = function(item) {\n          if (!item) {\n            return;\n          }\n\n          var id = get(item, \"id\"),\n              text = get(item, optionLabelPath),\n              description = get(item, optionDescriptionPath),\n              output = Ember.Handlebars.Utils.escapeExpression(text);\n\n          // only for \"real items\" (no group headers) that have a description\n          if (id && description) {\n            output += \" <span class=\\\"text-muted\\\">\" +\n              Ember.Handlebars.Utils.escapeExpression(description) + \"</span>\";\n          }\n\n          return output;\n        };\n\n        /*\n          Generates the html used in the closed select input, displaying the\n          currently selected element(s). Works like \"formatResult\" but\n          produces shorter output by leaving out the description.\n         */\n        options.formatSelection = function(item) {\n          if (!item) {\n            return;\n          }\n\n          var text = get(item, optionLabelPath);\n\n          // escape text unless it\'s passed as a Handlebars.SafeString\n          return Ember.Handlebars.Utils.escapeExpression(text);\n        };\n\n        /*\n          Provides a list of items that should be displayed for the current query\n          term. Uses the default select2 matcher (which handles diacritics) with the\n          Ember compatible getter method for optionLabelPath.\n         */\n        options.query = function(query) {\n          var select2 = this;\n\n          if (self.get(\'_typeaheadMode\')) {\n            var deferred = Ember.RSVP.defer(\'select2#query: \' + query.term);\n\n            self.sendAction(\'query\', query, deferred);\n\n            deferred.promise.then(function(data) {\n              query.callback({\n                results: data\n              });\n            }, function(reason) {\n              query.callback({\n                hasError: true,\n                errorThrown: reason\n              });\n            });\n          } else {\n            Ember.assert(\"select2 has no content!\", self.get(\'content\'));\n\n            var filteredContent = self.get(\"content\").reduce(function(results, item) {\n              // items may contain children, so filter them, too\n              var filteredChildren = [];\n\n              if (item.children) {\n                filteredChildren = item.children.reduce(function(children, child) {\n                  if (select2.matcher(query.term, get(child, optionLabelPath))) {\n                    children.push(child);\n                  }\n                  return children;\n                }, []);\n              }\n\n              // apply the regular matcher\n              if (select2.matcher(query.term, get(item, optionLabelPath))) {\n                // keep this item either if itself matches\n                results.push(item);\n              } else if (filteredChildren.length) {\n                // or it has children that matched the term\n                var result = Ember.$.extend({}, item, { children: filteredChildren });\n                results.push(result);\n              }\n              return results;\n            }, []);\n\n            query.callback({\n              results: filteredContent\n            });\n          }\n        };\n\n        /* \n          Supplies the string used when searching for options, can be set via\n          `typeaheadSearchingText`\n         */\n        options.formatSearching = function() {\n          var text = self.get(\'typeaheadSearchingText\');\n\n          return Ember.String.htmlSafe(text);\n        };\n\n        /* \n          Format the no matches message, substituting the %@ placeholder with the\n          html-escaped user input\n         */\n        options.formatNoMatches = function(term) {\n          var text = self.get(\'typeaheadNoMatchesText\');\n          if (text instanceof Ember.Handlebars.SafeString) {\n            text = text.string;\n          }\n\n          term = Ember.Handlebars.Utils.escapeExpression(term);\n\n          return Ember.String.htmlSafe(Ember.String.fmt(text, term));\n        };\n\n        /*\n          Format the error message, substituting the %@ placeholder with the promise\n          rejection reason\n         */\n        options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {\n          var text = self.get(\'typeaheadErrorText\');\n\n          return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));\n        };\n\n        /*\n          Maps \"value\" -> \"object\" when using select2 with \"optionValuePath\" set,\n          and one time directly when setting up the select2 plugin even without \"oVP\".\n          (but with empty value, which will just skip the method)\n\n          Provides an object or an array of objects (depending on \"multiple\") that\n          are referenced by the current select2 \"val\".\n\n          When there are keys that can not be matched to objects, the select2 input\n          will be disabled and a warning will be printed on the console.\n          This is important in case the \"content\" has yet to be loaded but the\n          \"value\" is already set and must not be accidentally changed because the\n          inout cannot yet display all the options that are required.\n\n          To disable this behaviour, remove those keys from \"value\" that can\'t be\n          matched by objects from \"content\".\n         */\n        options.initSelection = function(element, callback) {\n          var value = element.val(),\n              content = self.get(\"content\"),\n              contentIsArrayProxy = Ember.ArrayProxy.detectInstance(content),\n              multiple = self.get(\"multiple\"),\n              optionValuePath = self.get(\"optionValuePath\");\n\n          if (!value || !value.length) {\n            return callback([]);\n          }\n\n          // this method should not be needed without the optionValuePath option\n          // but make sure there is an appropriate error just in case.\n          Ember.assert(\"select2#initSelection has been called without an \\\"\" +\n            \"optionValuePath\\\" set.\", optionValuePath);\n\n          Ember.assert(\"select2#initSelection can not map string values to full objects \" +\n            \"in typeahead mode. Please open a github issue if you have questions to this.\",\n            !self.get(\'_typeaheadMode\'));\n\n\n          var values = value.split(\",\"),\n              filteredContent = [];\n\n          // for every object, check if its optionValuePath is in the selected\n          // values array and save it to the right position in filteredContent\n          var contentLength = get(content, \'length\'),\n              unmatchedValues = values.length,\n              matchIndex;\n\n          // START loop over content\n          for (var i = 0; i < contentLength; i++) {\n            var item = contentIsArrayProxy ? content.objectAt(i) : content[i];\n            matchIndex = -1;\n\n            if (item.children && item.children.length) {\n              // take care of either nested data...\n              for (var c = 0; c < item.children.length; c++) {\n                var child = item.children[c];\n                matchIndex = values.indexOf(\"\" + get(child, optionValuePath));\n                if (matchIndex !== -1) {\n                  filteredContent[matchIndex] = child;\n                  unmatchedValues--;\n                }\n                // break loop if all values are found\n                if (unmatchedValues === 0) {\n                  break;\n                }\n              }\n            } else {\n              // ...or flat data structure: try to match simple item\n              matchIndex = values.indexOf(\"\" + get(item, optionValuePath));\n              if (matchIndex !== -1) {\n                filteredContent[matchIndex] = item;\n                unmatchedValues--;\n              }\n              // break loop if all values are found\n              if (unmatchedValues === 0) {\n                break;\n              }\n            }\n          }\n          // END loop over content\n\n          if (unmatchedValues === 0) {\n            self.set(\'_hasSelectedMissingItems\', false);\n          } else {\n            // disable the select2 element if there are keys left in the values\n            // array that were not matched to an object\n            self.set(\'_hasSelectedMissingItems\', true);\n\n            Ember.warn(\"select2#initSelection was not able to map each \\\"\" +\n              optionValuePath +\"\\\" to an object from \\\"content\\\". The remaining \" +\n              \"keys are: \" + values + \". The input will be disabled until a) the \" +\n              \"desired objects is added to the \\\"content\\\" array or b) the \" +\n              \"\\\"value\\\" is changed.\", !values.length);\n          }\n\n          if (multiple) {\n            // return all matched objects\n            return callback(filteredContent);\n          } else {\n            // only care about the first match in single selection mode\n            return callback(filteredContent.get(\'firstObject\'));\n          }\n        };\n\n        /*\n          Forward a custom css class to the components container and dropdown.\n          The value will be read from the `cssClass` binding\n         */\n        options.containerCssClass = options.dropdownCssClass = function() {\n          return self.get(\'cssClass\') || \'\';\n        };\n\n        this._select = this.$().select2(options);\n\n        this._select.on(\"change\", function() {\n          // grab currently selected data from select plugin\n          var data = self._select.select2(\"data\");\n          // call our callback for further processing\n          self.selectionChanged(data);\n        });\n\n        this.addObserver(\'content.[]\', this.valueChanged);\n        this.addObserver(\'content.@each.\' + optionLabelPath, this.valueChanged);\n        this.addObserver(\'content.@each.\' + optionDescriptionPath, this.valueChanged);\n        this.addObserver(\'value\', this.valueChanged);\n\n        // trigger initial data sync to set select2 to the external \"value\"\n        this.valueChanged();\n\n        // eventually disable input when content is PromiseProxy\n        if (Ember.PromiseProxyMixin.detect(content)) {\n          // enabling/siabling is done via binding to _hasPendingContentPromise\n          // provide error for rejected promise, though.\n          content.then(null, function (reason) {\n            Ember.warn(\"select2: content promise was reject with reason \" + reason +\n              \". Recovering from this is not (yet) implemented.\");\n          });\n        }\n        \n        this.watchDisabled();\n      },\n\n      /**\n       * Teardown to prevent memory leaks\n       */\n      willDestroyElement: function() {\n        // If an assertion caused the component not to render, we can\'t remove it from the dom.\n        if(this._select) {\n          this._select.off(\"change\");\n          this._select.select2(\"destroy\");\n        }\n\n        this.removeObserver(\'content.[]\', this.valueChanged);\n        this.removeObserver(\n          \'content.@each.\' + this.get(\'optionLabelPath\'),\n          this.valueChanged\n        );\n        this.removeObserver(\n          \'content.@each.\' + this.get(\'optionDescriptionPath\'),\n          this.valueChanged\n        );\n        this.removeObserver(\'value\', this.valueChanged);\n      },\n\n      /**\n       * Respond to selection changes originating from the select2 element. If\n       * select2 is working with full objects just use them to set the value,\n       * use the optionValuePath otherwise.\n       *\n       * @param  {String|Object} data   Currently selected value\n       */\n      selectionChanged: function(data) {\n        var value,\n            multiple = this.get(\"multiple\"),\n            optionValuePath = this.get(\"optionValuePath\");\n\n        // if there is a optionValuePath, don\'t set value to the complete object,\n        // but only the property referred to by optionValuePath\n        if (optionValuePath) {\n          if (multiple) {\n            // data is an array, so use getEach\n            value = data.getEach(optionValuePath);\n          } else {\n            // treat data as a single object\n            value = get(data, optionValuePath);\n          }\n        } else {\n          value = data;\n        }\n\n        this.set(\"value\", value);\n      },\n\n      /**\n       * Respond to external value changes. If select2 is working with full objects,\n       * use the \"data\" API, otherwise just set the \"val\" property and let the\n       * \"initSelection\" figure out which object was meant by that.\n       */\n      valueChanged: function() {\n        var value = this.get(\"value\"),\n            optionValuePath = this.get(\"optionValuePath\");\n\n        if (optionValuePath) {\n          // when there is a optionValuePath, the external value is a primitive value\n          // so use the \"val\" method\n          this._select.select2(\"val\", value);\n        } else {\n          // otherwise set the full object via \"data\"\n          this._select.select2(\"data\", value);\n        }\n      },\n\n      /**\n       * Watch properties that determine the disabled state of the input.\n       */\n      watchDisabled: Ember.observer(\'_hasSelectedMissingItems\', \'_hasPendingContentPromise\', \'_hasFailedContentPromise\', \'enabled\', function() {\n        var select = this._select,\n            disabled = this.get(\'_hasSelectedMissingItems\') ||\n              this.get(\'_hasPendingContentPromise\') ||\n              this.get(\'_hasFailedContentPromise\') ||\n              !this.get(\'enabled\');\n\n        if (select) {\n          Ember.run(function() {\n            select.select2(\"readonly\", disabled);\n          });\n        }\n      })\n    });\n\n    __exports__[\"default\"] = Select2Component;\n  });//# sourceURL=ember-select-2/components/select-2.js");
 
 ;eval("define(\"ember-select-2\", [\"ember-select-2/index\",\"exports\"], function(__index__, __exports__) {\n  \"use strict\";\n  Object.keys(__index__).forEach(function(key){\n    __exports__[key] = __index__[key];\n  });\n});\n//# sourceURL=__reexport.js");
