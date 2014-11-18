@@ -12,6 +12,22 @@ import { test, moduleFor, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 
 
+var simpleContent = [
+  {
+    id: true,
+    text: "Margherita"
+  }, {
+    id: "pep",
+    text: "Peperoni"
+  }, {
+    id: 42,
+    text: "Ham"
+  }, {
+    id: "haw",
+    text: "Hawaii"
+  }
+];
+
 var App, component;
 moduleForComponent('select-2', 'Select2Component (typeahead)', {
   setup: function() {
@@ -31,12 +47,7 @@ test("it send `query` action with query and deferred arguments", function() {
 
   var controller = {
     queryOptions: function(query, deferred) {
-      deferred.resolve([
-        {
-          id: 42,
-          text: "Margherita"
-        }
-      ]);
+      deferred.resolve(simpleContent);
     }
   };
 
@@ -57,6 +68,58 @@ test("it send `query` action with query and deferred arguments", function() {
         sinon.match.has('term', sinon.match.string),
         sinon.match.has('resolve', sinon.match.func)
       ), "callback with query object with search string and deferred object that can be resolved");
+  });
+});
+
+
+test("it displays options from array", function() {
+  expect(2);
+
+  var controller = {
+    queryOptions: function(query, deferred) {
+      deferred.resolve(simpleContent);
+    }
+  };
+
+  component.setProperties({
+    targetObject: controller,
+    query: 'queryOptions'
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    equal($('.select2-results li').length, simpleContent.length, "has correct options length");
+    equal($('.select2-results li').text(), simpleContent.getEach('text').join(''), "display correct text");
+  });
+});
+
+
+test("it displays options from ArrayProxy", function() {
+  expect(2);
+
+  var controller = {
+    queryOptions: function(query, deferred) {
+      deferred.resolve(Ember.ArrayProxy.create({ content: simpleContent }));
+    }
+  };
+
+  component.setProperties({
+    targetObject: controller,
+    query: 'queryOptions'
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    equal($('.select2-results li').length, simpleContent.length, "has correct options length");
+    equal($('.select2-results li').text(), simpleContent.getEach('text').join(''), "display correct text");
   });
 });
 
