@@ -13,7 +13,8 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.4",
     "qunit": "~1.15.0",
-    "boxuk": "https://raw.githubusercontent.com/daylerees/colour-schemes/master/highlightjs/boxuk.css"
+    "boxuk": "https://raw.githubusercontent.com/daylerees/colour-schemes/master/highlightjs/boxuk.css",
+    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js"
   },
   "devDependencies": {
     "select2": "~3.5.1",

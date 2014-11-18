@@ -1,5 +1,3 @@
-/* globals andThen */
-
 /*
 	Test "customization" options like:
 	 * `optionLabelPath`

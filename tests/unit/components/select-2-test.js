@@ -1,5 +1,3 @@
-/* globals andThen */
-
 /*
   Test basic functionality like selection in various modes
  */

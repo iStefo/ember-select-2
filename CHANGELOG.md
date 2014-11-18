@@ -1,6 +1,6 @@
 # ember-select-2 changelog
 
-### 1.1.0 (TBD)
+### 1.1.0 (November 18, 2014)
 
 * #18 Allow to specify optionLabelPath instead of relying on text. (thanks, abuiles!)
 * Added option to set custom optionDescriptionPath
@@ -8,6 +8,7 @@
 * Added option to enable/disable input
 * Refactor tests into multiple files
 * #20 Add the custom classes to result box too. (`cssClass` option)
+* #13 Server Side Type Ahead (`query` option)
 
 ### 1.0.1 (Oktober 11, 2014)
 

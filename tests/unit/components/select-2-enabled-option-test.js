@@ -1,5 +1,3 @@
-/* globals andThen */
-
 /*
   Test the `enabled=true/false` binding
  */
