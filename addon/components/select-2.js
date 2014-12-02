@@ -327,6 +327,10 @@ var Select2Component = Ember.Component.extend({
       self.selectionChanged(data);
     });
 
+    this._select.on('select2-blur', function(e) {
+      self.$().trigger('focusout', e);
+    });
+
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
