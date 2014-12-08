@@ -47,6 +47,8 @@ var Select2Component = Ember.Component.extend({
   _hasSelectedMissingItems: false,
   _hasPendingContentPromise: Ember.computed.alias('content.isPending'),
   _hasFailedContentPromise: Ember.computed.alias('content.isRejected'),
+  _hasPendingValuePromise: Ember.computed.alias('value.isPending'),
+  _hasFailedValuePromise: Ember.computed.alias('value.isRejected'),
   _typeaheadMode: Ember.computed.bool('query'),
 
   didInsertElement: function() {
@@ -405,8 +407,21 @@ var Select2Component = Ember.Component.extend({
    * "initSelection" figure out which object was meant by that.
    */
   valueChanged: function() {
-    var value = this.get("value"),
+    var self = this,
+        value = this.get("value"),
         optionValuePath = this.get("optionValuePath");
+
+    if (Ember.PromiseProxyMixin.detect(value)) {
+      // schedule re-setting value after promise is settled
+      value.then(function(value) {
+        if (value === null || value === undefined) {
+          self._select.select2("val", null);
+        }
+      }, function(reason) {
+        Ember.warn("select2: value promise was reject with reason " + reason +
+          ". Recovering from this is not (yet) implemented.");
+      });
+    }
 
     if (optionValuePath) {
       // when there is a optionValuePath, the external value is a primitive value
@@ -421,19 +436,29 @@ var Select2Component = Ember.Component.extend({
   /**
    * Watch properties that determine the disabled state of the input.
    */
-  watchDisabled: Ember.observer('_hasSelectedMissingItems', '_hasPendingContentPromise', '_hasFailedContentPromise', 'enabled', function() {
-    var select = this._select,
-        disabled = this.get('_hasSelectedMissingItems') ||
-          this.get('_hasPendingContentPromise') ||
-          this.get('_hasFailedContentPromise') ||
-          !this.get('enabled');
+  watchDisabled: Ember.observer(
+    '_hasSelectedMissingItems',
+    '_hasPendingContentPromise',
+    '_hasFailedContentPromise',
+    '_hasPendingValuePromise',
+    '_hasFailedValuePromise',
+    'enabled',
+    function() {
+      var select = this._select,
+          disabled = this.get('_hasSelectedMissingItems') ||
+            this.get('_hasPendingContentPromise') ||
+            this.get('_hasFailedContentPromise') ||
+            this.get('_hasPendingValuePromise') ||
+            this.get('_hasFailedValuePromise') ||
+            !this.get('enabled');
 
-    if (select) {
-      Ember.run(function() {
-        select.select2("readonly", disabled);
-      });
+      if (select) {
+        Ember.run(function() {
+          select.select2("readonly", disabled);
+        });
+      }
     }
-  })
+  )
 });
 
 export default Select2Component;

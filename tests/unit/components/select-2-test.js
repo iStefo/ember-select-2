@@ -52,11 +52,11 @@ moduleForComponent('select-2', 'Select2Component', {
 test("it renders", function() {
   expect(2);
 
-  equal(component.state, 'preRender');
+  equal(component._state, 'preRender');
 
   // appends the component to the page
   this.append();
-  equal(component.state, 'inDOM');
+  equal(component._state, 'inDOM');
 });
 
 

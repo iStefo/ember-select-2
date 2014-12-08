@@ -95,14 +95,14 @@ test("it displays items from DS.PromiseArray", function() {
   });
 });
 
-test("it is disabled until DS.PromiseArray's promise is resolved", function() {
+test("it is disabled until content promise is resolved", function() {
   expect(2);
 
-  var deferred = Ember.Deferred.create();
+  var deferred = Ember.RSVP.defer();
 
   // warp content in DS.RecordArray
   var simpleContentPromiseArray = DS.PromiseArray.create({
-    promise: deferred
+    promise: deferred.promise
   });
 
   component.set('content', simpleContentPromiseArray);
@@ -119,15 +119,15 @@ test("it is disabled until DS.PromiseArray's promise is resolved", function() {
   });
 });
 
-test("it stays disabled after DS.PromiseArray's promise is rejected", function() {
+test("it stays disabled after content promise is rejected", function() {
   expect(2);
 
-  var deferred = Ember.Deferred.create(),
+  var deferred = Ember.RSVP.defer(),
       errorText = "some error description";
 
   // warp content in DS.RecordArray
   var simpleContentPromiseArray = DS.PromiseArray.create({
-    promise: deferred
+    promise: deferred.promise
   });
 
   component.set('content', simpleContentPromiseArray);
@@ -141,5 +141,80 @@ test("it stays disabled after DS.PromiseArray's promise is rejected", function()
   // wait until Promise is rejected
   simpleContentPromiseArray.then(null, function() {
     ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+  });
+});
+
+test("it is disabled until value promise is resolved", function() {
+  expect(2);
+
+  var deferred = Ember.RSVP.defer();
+
+  var simpleValuePromiseProxy = DS.PromiseObject.create({
+    promise: deferred.promise
+  });
+
+  component.set('value', simpleValuePromiseProxy);
+
+  this.append();
+
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  deferred.resolve(simpleContent[0]);
+
+  // wait until Promise is resolved
+  simpleValuePromiseProxy.then(function() {
+    ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+  });
+});
+
+test("it stays disabled after value promise is rejected", function() {
+  expect(2);
+
+  var deferred = Ember.RSVP.defer(),
+      errorText = "some error description";
+
+  var simpleValuePromiseProxy = DS.PromiseObject.create({
+    promise: deferred.promise
+  });
+
+  component.set('value', simpleValuePromiseProxy);
+  
+  this.append();
+  
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  deferred.reject(new Error(errorText));
+
+  // wait until Promise is rejected
+  simpleValuePromiseProxy.then(null, function() {
+    ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+  });
+});
+
+test("it clears selection when value promise resolves to null", function() {
+  expect(2);
+
+  var deferred = Ember.RSVP.defer(),
+      placeholder = 'placeholder';
+
+  var simpleValuePromiseProxy = DS.PromiseObject.create({
+    promise: deferred.promise
+  });
+
+  component.setProperties({
+    value: simpleValuePromiseProxy,
+    placeholder: placeholder,
+    allowClear: true
+  });
+
+  this.append();
+
+  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+
+  deferred.resolve(null);
+
+  // wait until Promise is resolved
+  simpleValuePromiseProxy.then(function() {
+    equal($('.select2-chosen').text(), placeholder, "has placeholder text");
   });
 });
