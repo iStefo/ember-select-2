@@ -1,6 +1,7 @@
 import Ember from "ember";
 
 var get = Ember.get;
+var run = Ember.run;
 
 /**
  * Ember select-2 component wrapping the jQuery select2 plugin while
@@ -18,7 +19,7 @@ var get = Ember.get;
  *  - Content: Array of Objects used to present to the user for choosing the
  *    selected values. "content" cannot be an Array of Strings, the Objects are
  *    expected to have an "id" and a property to be used as the label (by default,
- *    it is "text", but it can be overwritten it via "optionLabelPath"). These 
+ *    it is "text", but it can be overwritten it via "optionLabelPath"). These
  *    properties can be computed properties or just plain JavaScript values.
  */
 var Select2Component = Ember.Component.extend({
@@ -173,7 +174,7 @@ var Select2Component = Ember.Component.extend({
       }
     };
 
-    /* 
+    /*
       Supplies the string used when searching for options, can be set via
       `typeaheadSearchingText`
      */
@@ -183,7 +184,7 @@ var Select2Component = Ember.Component.extend({
       return Ember.String.htmlSafe(text);
     };
 
-    /* 
+    /*
       Format the no matches message, substituting the %@ placeholder with the
       html-escaped user input
      */
@@ -322,12 +323,12 @@ var Select2Component = Ember.Component.extend({
 
     this._select = this.$().select2(options);
 
-    this._select.on("change", function() {
+    this._select.on("change", run.bind(this, function() {
       // grab currently selected data from select plugin
-      var data = self._select.select2("data");
+      var data = this._select.select2("data");
       // call our callback for further processing
-      self.selectionChanged(data);
-    });
+      this.selectionChanged(data);
+    }));
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
@@ -346,7 +347,7 @@ var Select2Component = Ember.Component.extend({
           ". Recovering from this is not (yet) implemented.");
       });
     }
-    
+
     this.watchDisabled();
   },
 
