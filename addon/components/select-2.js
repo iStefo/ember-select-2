@@ -53,6 +53,7 @@ var Select2Component = Ember.Component.extend({
     var self = this,
         options = {},
         optionLabelPath = this.get('optionLabelPath'),
+        optionPicturePath = this.get('optionPicturePath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
         content = this.get('content');
 
@@ -317,6 +318,20 @@ var Select2Component = Ember.Component.extend({
     options.containerCssClass = options.dropdownCssClass = function() {
       return self.get('cssClass') || '';
     };
+
+    if (!Ember.isBlank(this.get('optionPicturePath'))) {
+      var fmt = function format(value) {
+        var picture = get(value, optionPicturePath);
+        var text = get(value, optionLabelPath);
+
+        if (Ember.isBlank(text)) { return get(value, 'text'); }
+        return "<img class='select2--picture' src='" + get(value, optionPicturePath) + "'/>" + get(value, optionLabelPath);
+      }
+
+      options.formatResult = fmt;
+      options.formatSelection = fmt;
+      options.escapeMarkup = function(m) { return m; };
+    }
 
     this._select = this.$().select2(options);
 
