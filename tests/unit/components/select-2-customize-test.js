@@ -1,8 +1,9 @@
 /*
-	Test "customization" options like:
-	 * `optionLabelPath`
-	 * `optionDescriptionPath`
-	 * custom styles (future...)
+  Test "customization" options like:
+   * `optionLabelPath`
+   * `optionDescriptionPath`
+   * `searchEnabled` 
+   * custom styles (future...)
  */
 
 import Ember from "ember";
@@ -87,31 +88,70 @@ test("it uses optionDescriptionPath", function() {
 
 
 test("it uses custom `cssClass` for container", function() {
-	expect(1);
+  expect(1);
 
-	var component = this.subject();
+  var component = this.subject();
 
-	component.set('cssClass', 'customClass');
+  component.set('cssClass', 'customClass');
 
-	this.append();
+  this.append();
 
-	ok($('.select2-container').hasClass('customClass'), "has class");
+  ok($('.select2-container').hasClass('customClass'), "has class");
 });
 
 
 test("it uses custom `cssClass` for dropdown", function() {
-	expect(1);
+  expect(1);
 
-	var component = this.subject();
+  var component = this.subject();
 
-	component.set('cssClass', 'customClass');
-	component.set('content', ingredients);
+  component.set('cssClass', 'customClass');
+  component.set('content', ingredients);
 
-	this.append();
+  this.append();
 
-	click('.select2-choice');
+  click('.select2-choice');
 
-	andThen(function() {
-	  ok($('.select2-drop').hasClass('customClass'), "has class");
-	});
+  andThen(function() {
+    ok($('.select2-drop').hasClass('customClass'), "has class");
+  });
+});
+
+
+test("disable search hides search field in single slection mode", function() {
+  expect(1);
+
+  var component = this.subject();
+
+  component.setProperties({
+    searchEnabled: false,
+    content: ingredients
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    equal($('select2-search input').length, 0, "no input field");
+  });
+});
+
+
+test("disable search throws exception in multiple selection mode", function() {
+  expect(1);
+
+  var component = this.subject();
+
+  component.setProperties({
+    searchEnabled: false,
+    multiple: true
+  });
+
+  try {
+    this.append();
+  } catch (e) {
+    ok(e, "threw exception");
+  }
 });

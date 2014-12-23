@@ -299,4 +299,21 @@
     placeholder="Choose some Pizzas"
 }}{{/highlight-code}}
   </div>
+  <div class="col-sm-6">
+    <h4>Disabling the Search Field</h4>
+    <p>For small option lists, you may want to disable the search to save screen estate and make the component easier to use on mobile devices. Set <code>searchEnabled</code> to <code>false</code> to disable search. <b>This works in single selection mode only!</b></p>
+    <p>You can, in fact, use any binding (e.g. the <code>Ember.computed.lt</code> computed property), but the value has to be computed on initial rendering.</p>
+    <div class="example-box">
+      {{select-2
+          content=pizzas
+          searchEnabled=false
+          placeholder="Choose some Pizzas"
+      }}
+    </div>
+        {{#highlight-code lang=".hbs"}}\{{select-2
+    content=pizzas
+    searchEnabled=false
+    placeholder="Choose some Pizzas"
+}}{{/highlight-code}}
+  </div>
 </div>

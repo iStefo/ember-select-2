@@ -52,11 +52,11 @@ moduleForComponent('select-2', 'Select2Component', {
 test("it renders", function() {
   expect(2);
 
-  equal(component.state, 'preRender');
+  equal(component._state, 'preRender');
 
   // appends the component to the page
   this.append();
-  equal(component.state, 'inDOM');
+  equal(component._state, 'inDOM');
 });
 
 
@@ -358,3 +358,20 @@ test("it is disabled when its selection contains values not in the content array
   ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
 });
 
+test("Change event does not trigger an autorun", function() {
+  expect(1);
+
+  this.append();
+  var content = [];
+  content.pushObjects(simpleContent);
+  component.set('content', content);
+  component.set('optionValuePath', 'id');
+
+  Ember.addObserver(component, 'value', function() {
+    Ember.run.schedule('afterRender', function() {
+      ok(true);
+    });
+  });
+
+  component._select.val(42).trigger('change');
+});

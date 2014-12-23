@@ -1,6 +1,7 @@
 import Ember from "ember";
 
 var get = Ember.get;
+var run = Ember.run;
 
 /**
  * Ember select-2 component wrapping the jQuery select2 plugin while
@@ -18,7 +19,7 @@ var get = Ember.get;
  *  - Content: Array of Objects used to present to the user for choosing the
  *    selected values. "content" cannot be an Array of Strings, the Objects are
  *    expected to have an "id" and a property to be used as the label (by default,
- *    it is "text", but it can be overwritten it via "optionLabelPath"). These 
+ *    it is "text", but it can be overwritten it via "optionLabelPath"). These
  *    properties can be computed properties or just plain JavaScript values.
  */
 var Select2Component = Ember.Component.extend({
@@ -42,11 +43,14 @@ var Select2Component = Ember.Component.extend({
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
+  searchEnabled: true,
 
   // internal state
   _hasSelectedMissingItems: false,
   _hasPendingContentPromise: Ember.computed.alias('content.isPending'),
   _hasFailedContentPromise: Ember.computed.alias('content.isRejected'),
+  _hasPendingValuePromise: Ember.computed.alias('value.isPending'),
+  _hasFailedValuePromise: Ember.computed.alias('value.isRejected'),
   _typeaheadMode: Ember.computed.bool('query'),
 
   didInsertElement: function() {
@@ -64,9 +68,14 @@ var Select2Component = Ember.Component.extend({
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
+    options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
+
+    // search can't be disabled for multiple selection mode
+    var illegalSearchInMultipleMode = options.multiple && !this.get('searchEnabled');
+    Ember.assert("Search field can't be disabled for multiple selection mode", !illegalSearchInMultipleMode);
 
     /*
       Formatting functions that ensure that the passed content is escaped in
@@ -171,7 +180,7 @@ var Select2Component = Ember.Component.extend({
       }
     };
 
-    /* 
+    /*
       Supplies the string used when searching for options, can be set via
       `typeaheadSearchingText`
      */
@@ -181,7 +190,7 @@ var Select2Component = Ember.Component.extend({
       return Ember.String.htmlSafe(text);
     };
 
-    /* 
+    /*
       Format the no matches message, substituting the %@ placeholder with the
       html-escaped user input
      */
@@ -320,12 +329,12 @@ var Select2Component = Ember.Component.extend({
 
     this._select = this.$().select2(options);
 
-    this._select.on("change", function() {
+    this._select.on("change", run.bind(this, function() {
       // grab currently selected data from select plugin
-      var data = self._select.select2("data");
+      var data = this._select.select2("data");
       // call our callback for further processing
-      self.selectionChanged(data);
-    });
+      this.selectionChanged(data);
+    }));
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
@@ -344,7 +353,7 @@ var Select2Component = Ember.Component.extend({
           ". Recovering from this is not (yet) implemented.");
       });
     }
-    
+
     this.watchDisabled();
   },
 
@@ -405,8 +414,21 @@ var Select2Component = Ember.Component.extend({
    * "initSelection" figure out which object was meant by that.
    */
   valueChanged: function() {
-    var value = this.get("value"),
+    var self = this,
+        value = this.get("value"),
         optionValuePath = this.get("optionValuePath");
+
+    if (Ember.PromiseProxyMixin.detect(value)) {
+      // schedule re-setting value after promise is settled
+      value.then(function(value) {
+        if (value === null || value === undefined) {
+          self._select.select2("val", null);
+        }
+      }, function(reason) {
+        Ember.warn("select2: value promise was reject with reason " + reason +
+          ". Recovering from this is not (yet) implemented.");
+      });
+    }
 
     if (optionValuePath) {
       // when there is a optionValuePath, the external value is a primitive value
@@ -421,19 +443,29 @@ var Select2Component = Ember.Component.extend({
   /**
    * Watch properties that determine the disabled state of the input.
    */
-  watchDisabled: Ember.observer('_hasSelectedMissingItems', '_hasPendingContentPromise', '_hasFailedContentPromise', 'enabled', function() {
-    var select = this._select,
-        disabled = this.get('_hasSelectedMissingItems') ||
-          this.get('_hasPendingContentPromise') ||
-          this.get('_hasFailedContentPromise') ||
-          !this.get('enabled');
+  watchDisabled: Ember.observer(
+    '_hasSelectedMissingItems',
+    '_hasPendingContentPromise',
+    '_hasFailedContentPromise',
+    '_hasPendingValuePromise',
+    '_hasFailedValuePromise',
+    'enabled',
+    function() {
+      var select = this._select,
+          disabled = this.get('_hasSelectedMissingItems') ||
+            this.get('_hasPendingContentPromise') ||
+            this.get('_hasFailedContentPromise') ||
+            this.get('_hasPendingValuePromise') ||
+            this.get('_hasFailedValuePromise') ||
+            !this.get('enabled');
 
-    if (select) {
-      Ember.run(function() {
-        select.select2("readonly", disabled);
-      });
+      if (select) {
+        Ember.run(function() {
+          select.select2("readonly", disabled);
+        });
+      }
     }
-  })
+  )
 });
 
 export default Select2Component;
