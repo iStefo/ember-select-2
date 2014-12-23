@@ -43,6 +43,7 @@ var Select2Component = Ember.Component.extend({
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
+  searchEnabled: true,
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -67,9 +68,14 @@ var Select2Component = Ember.Component.extend({
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
+    options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
+
+    // search can't be disabled for multiple selection mode
+    var illegalSearchInMultipleMode = options.multiple && !this.get('searchEnabled');
+    Ember.assert("Search field can't be disabled for multiple selection mode", !illegalSearchInMultipleMode);
 
     /*
       Formatting functions that ensure that the passed content is escaped in
