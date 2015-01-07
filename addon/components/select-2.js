@@ -69,6 +69,11 @@ var Select2Component = Ember.Component.extend({
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
+    
+    // override select2's default id fetching behavior
+    options.id = (function(e) {
+      return e == undefined ? null : e.get('id');
+    });
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
