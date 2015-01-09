@@ -34,13 +34,13 @@ var ingredients = [
     group: 'Seefruits',
     subtext: 'fifth',
     children: [
-	  {    
-		id: 6,
-		name: 'Salmon'    
+      {    
+        id: 6,
+        name: 'Salmon'    
       },
       {    
-		id: 7,
-		name: 'Shrimps'    
+        id: 7,
+        name: 'Shrimps'    
       }
     ]
   }
@@ -91,8 +91,8 @@ test("it uses optionHeadlinePath", function() {
   click('.select2-choice');
 
   andThen(function() {
-	var headline = $('.select2-results > li:last-child').find('.select2-result-label').first().text();
-	var expected = ingredients[4].group;
+    var headline = $('.select2-results > li:last-child').find('.select2-result-label').first().text();
+    var expected = ingredients[4].group;
     equal(headline, expected, "has correct headline");
   });
 });
