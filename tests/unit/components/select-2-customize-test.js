@@ -115,7 +115,7 @@ test("it uses optionDescriptionPath", function() {
   andThen(function() {
     var expected = ingredients.map(function(ingredient) {
       // jQuery .text() will have space between name and subtext, but thats ok
-      return ('undefined' !== typeof ingredient.children) ? '' : ingredient.name + ' ' + ingredient.subtext;
+      return (ingredient.children) ? '' : ingredient.name + ' ' + ingredient.subtext;
     }).join('');
     equal($('.select2-results > li:not(:last)').text(), expected, "display correct text");
   });
