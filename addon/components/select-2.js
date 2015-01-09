@@ -62,7 +62,7 @@ var Select2Component = Ember.Component.extend({
 
 
     // ensure select2 is loaded
-    Ember.assert("select2 has to exist on Ember.$.fn.select2", Ember.$.fn.select2);
+    Ember.assert("select2 has to exist on Ember.$.fn.select2", typeof Ember.$.fn.select2 === "function");
 
     // setup
     options.placeholder = this.get('placeholder');
