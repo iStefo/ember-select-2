@@ -82,7 +82,7 @@ var Select2Component = Ember.Component.extend({
     /*
       Formatting functions that ensure that the passed content is escaped in
       order to prevent XSS vulnerabilities. Escaping can be avoided by passing
-      Handlebars.SafeString as "text" or "description" values.
+      Handlebars.SafeString as "text", "headline" or "description" values.
 
       Generates the html used in the dropdown list (and is implemented to
       include the description html if available).
@@ -95,11 +95,11 @@ var Select2Component = Ember.Component.extend({
       var output,
           id = get(item, "id"),
           text = get(item, optionLabelPath),
-          groupText = get(item, optionHeadlinePath),
+          headline = get(item, optionHeadlinePath),
           description = get(item, optionDescriptionPath);
 
       if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(groupText);
+        output = Ember.Handlebars.Utils.escapeExpression(headline);
       } else {
         output = Ember.Handlebars.Utils.escapeExpression(text);
       }
