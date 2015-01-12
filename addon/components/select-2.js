@@ -74,7 +74,7 @@ var Select2Component = Ember.Component.extend({
     
     // override select2's default id fetching behavior
     options.id = (function(e) {
-      return e == undefined ? null : e.get('id');
+      return (e === undefined) ? null : get(e, 'id');
     });
 
     // allowClear is only allowed with placeholder
