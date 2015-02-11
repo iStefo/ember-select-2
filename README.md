@@ -8,11 +8,8 @@ For Demo & Docs, see the [Github Page](https://istefo.github.io/ember-select-2/)
 ## Including Select2 in your Project
 Since ember-cli 0.0.44 (or so...), there is a default way of installing addons. It's easy:
 
-```sh
-# install addon from npm repository
-$ npm install ember-select-2 --save-dev
-# install dependencies
-$ ember g ember-select-2
+```
+ember install:addon ember-select-2
 ```
 
 ## Contributing
