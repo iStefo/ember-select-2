@@ -32,8 +32,10 @@ var Select2Component = Ember.Component.extend({
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
   cssClass: null,
+  optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
+  optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
   placeholder: null,
   multiple: false,
@@ -44,6 +46,8 @@ var Select2Component = Ember.Component.extend({
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
   searchEnabled: true,
+  minimumInputLength: null,
+  maximumInputLength: null,
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -56,19 +60,29 @@ var Select2Component = Ember.Component.extend({
   didInsertElement: function() {
     var self = this,
         options = {},
+        optionIdPath = this.get('optionIdPath'),
         optionLabelPath = this.get('optionLabelPath'),
+        optionHeadlinePath = this.get('optionHeadlinePath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
         content = this.get('content');
 
 
     // ensure select2 is loaded
-    Ember.assert("select2 has to exist on Ember.$.fn.select2", Ember.$.fn.select2);
+    Ember.assert("select2 has to exist on Ember.$.fn.select2", typeof Ember.$.fn.select2 === "function");
 
     // setup
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
+
+    options.minimumInputLength = this.get('minimumInputLength');
+    options.maximumInputLength = this.get('maximumInputLength');
+
+    // override select2's default id fetching behavior
+    options.id = (function(e) {
+      return (e === undefined) ? null : get(e, optionIdPath);
+    });
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
@@ -80,7 +94,7 @@ var Select2Component = Ember.Component.extend({
     /*
       Formatting functions that ensure that the passed content is escaped in
       order to prevent XSS vulnerabilities. Escaping can be avoided by passing
-      Handlebars.SafeString as "text" or "description" values.
+      Handlebars.SafeString as "text", "headline" or "description" values.
 
       Generates the html used in the dropdown list (and is implemented to
       include the description html if available).
@@ -90,10 +104,17 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var id = get(item, "id"),
+      var output,
+          id = get(item, optionIdPath),
           text = get(item, optionLabelPath),
-          description = get(item, optionDescriptionPath),
-          output = Ember.Handlebars.Utils.escapeExpression(text);
+          headline = get(item, optionHeadlinePath),
+          description = get(item, optionDescriptionPath);
+
+      if (item.children) {
+        output = Ember.Handlebars.Utils.escapeExpression(headline);
+      } else {
+        output = Ember.Handlebars.Utils.escapeExpression(text);
+      }
 
       // only for "real items" (no group headers) that have a description
       if (id && description) {
@@ -155,7 +176,7 @@ var Select2Component = Ember.Component.extend({
 
           if (item.children) {
             filteredChildren = item.children.reduce(function(children, child) {
-              if (select2.matcher(query.term, get(child, optionLabelPath))) {
+              if (select2.matcher(query.term, get(child, optionLabelPath)) || select2.matcher(query.term, get(child, optionHeadlinePath))) {
                 children.push(child);
               }
               return children;
@@ -163,7 +184,7 @@ var Select2Component = Ember.Component.extend({
           }
 
           // apply the regular matcher
-          if (select2.matcher(query.term, get(item, optionLabelPath))) {
+          if (select2.matcher(query.term, get(item, optionLabelPath)) || select2.matcher(query.term, get(item, optionHeadlinePath))) {
             // keep this item either if itself matches
             results.push(item);
           } else if (filteredChildren.length) {
@@ -338,6 +359,7 @@ var Select2Component = Ember.Component.extend({
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
+    this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
 
@@ -370,6 +392,10 @@ var Select2Component = Ember.Component.extend({
     this.removeObserver('content.[]', this.valueChanged);
     this.removeObserver(
       'content.@each.' + this.get('optionLabelPath'),
+      this.valueChanged
+    );
+    this.removeObserver(
+      'content.@each.' + this.get('optionHeadlinePath'),
       this.valueChanged
     );
     this.removeObserver(
@@ -406,6 +432,7 @@ var Select2Component = Ember.Component.extend({
     }
 
     this.set("value", value);
+    this.sendAction('didSelect');
   },
 
   /**

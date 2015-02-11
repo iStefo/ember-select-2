@@ -127,6 +127,32 @@ test("it sets value to selected object in single selection mode", function() {
   });
 });
 
+test("it sends `didSelect` action once when selection has been changed", function() {
+  expect(1);
+
+  var controller = {
+    selectionChanged: function() {}
+  };
+  var spy = sinon.spy(controller, 'selectionChanged');
+
+  component.setProperties({
+    targetObject: controller,
+    content: simpleContent,
+    didSelect: 'selectionChanged'
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(3)', 'body');
+
+  andThen(function() {
+    ok(spy.calledOnce, "callback after selection changed has been executed");
+  });
+});
+
 test("it supports the allowClear option", function() {
   expect(3);
 

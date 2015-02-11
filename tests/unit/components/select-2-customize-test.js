@@ -1,6 +1,7 @@
 /*
   Test "customization" options like:
    * `optionLabelPath`
+   * `optionHeadlinePath`   
    * `optionDescriptionPath`
    * `searchEnabled` 
    * custom styles (future...)
@@ -27,6 +28,41 @@ var ingredients = [
     id: 4,
     name: 'Chorizo',
     subtext: 'fourth'
+  },
+  {
+    id: 5,
+    group: 'Seefruits',
+    subtext: 'fifth',
+    children: [
+      {    
+        id: 6,
+        name: 'Salmon'    
+      },
+      {    
+        id: 7,
+        name: 'Shrimps'    
+      }
+    ]
+  }
+];
+
+var modifiedIdIngredients = [
+  {
+    code: 1,
+    name: 'Tomato',
+    description: 'first'
+  }, {
+    code: 2,
+    name: 'Peperoni',
+    description: 'second'
+  }, {
+    code: 3,
+    name: 'Ham',
+    description: 'third'
+  }, {
+    code: 4,
+    name: 'Chorizo',
+    description: 'fourth'
   }
 ];
 
@@ -63,6 +99,25 @@ test("it uses optionLabelPath", function() {
 });
 
 
+test("it uses optionHeadlinePath", function() {
+  expect(1);
+  var component = this.subject({});
+
+  component.set('optionHeadlinePath', 'group');
+  component.set('content', ingredients);
+
+  this.append();
+
+  click('.select2-choice');
+
+  andThen(function() {
+    var headline = $('.select2-results > li:last-child').find('.select2-result-label').first().text();
+    var expected = ingredients[4].group;
+    equal(headline, expected, "has correct headline");
+  });
+});
+
+
 test("it uses optionDescriptionPath", function() {
   expect(1);
 
@@ -80,9 +135,32 @@ test("it uses optionDescriptionPath", function() {
   andThen(function() {
     var expected = ingredients.map(function(ingredient) {
       // jQuery .text() will have space between name and subtext, but thats ok
-      return ingredient.name + ' ' + ingredient.subtext;
+      return (ingredient.children) ? '' : ingredient.name + ' ' + ingredient.subtext;
     }).join('');
-    equal($('.select2-results li').text(), expected, "display correct text");
+    equal($('.select2-results > li:not(:last)').text(), expected, "display correct text");
+  });
+});
+
+
+test("it uses optionIdPath", function() {
+  expect(1);
+
+  var component = this.subject({});
+
+  component.setProperties({
+    optionIdPath: 'code',
+    content: modifiedIdIngredients
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(1)', 'body');
+
+  andThen(function() {
+    strictEqual(component.get('value'), modifiedIdIngredients[0], 'selects correct item');
   });
 });
 

@@ -123,6 +123,39 @@ test("it displays options from ArrayProxy", function() {
   });
 });
 
+test("it displays default minimumInputLength text", function() {
+  expect(1);
+
+  component.set("minimumInputLength", 3);
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    equal($('li.select2-no-results').text(), "Please enter 3 or more characters", "displays minimumInputLength text info");
+  });
+});
+
+test("it allows no inputs longer than maximumInputLength", function() {
+  expect(1);
+
+  component.setProperties({
+    maximumInputLength: 10,
+    content: simpleContent
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    equal(find('.select2-input', 'body')[0].maxLength, 10, "has 10 character limit");
+  });
+
+});
 
 test("it displays default searching text when waiting for results for first time", function() {
   expect(1);
