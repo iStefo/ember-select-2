@@ -123,7 +123,7 @@ test("it displays options from ArrayProxy", function() {
   });
 });
 
-test("it displays default minimum text", function() {
+test("it displays default minimumInputLength text", function() {
   expect(1);
 
   component.set("minimumInputLength", 3);
@@ -134,8 +134,27 @@ test("it displays default minimum text", function() {
   click('.select2-choice');
 
   andThen(function() {
-    equal($('li.select2-no-results').text(), "Please enter 3 or more characters", "displays minimum text info");
+    equal($('li.select2-no-results').text(), "Please enter 3 or more characters", "displays minimumInputLength text info");
   });
+});
+
+test("it allows no inputs longer than maximumInputLength", function() {
+  expect(1);
+
+  component.setProperties({
+    maximumInputLength: 10,
+    content: simpleContent
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    equal(find('.select2-input', 'body')[0].maxLength, 10, "has 10 character limit");
+  });
+
 });
 
 test("it displays default searching text when waiting for results for first time", function() {
