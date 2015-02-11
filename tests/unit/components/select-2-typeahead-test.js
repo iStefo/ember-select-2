@@ -123,6 +123,20 @@ test("it displays options from ArrayProxy", function() {
   });
 });
 
+test("it displays default minimum text", function() {
+  expect(1);
+
+  component.set("minimumInputLength", 3);
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+
+  andThen(function() {
+    equal($('li.select2-no-results').text(), "Please enter 3 or more characters", "displays minimum text info");
+  });
+});
 
 test("it displays default searching text when waiting for results for first time", function() {
   expect(1);

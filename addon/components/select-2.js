@@ -72,6 +72,8 @@ var Select2Component = Ember.Component.extend({
     options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     
+    options.minimumInputLength = this.get('minimumInputLength');
+
     // override select2's default id fetching behavior
     options.id = (function(e) {
       return (e === undefined) ? null : get(e, 'id');
