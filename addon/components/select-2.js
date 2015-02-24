@@ -132,10 +132,11 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
+      var text;
       if (optionSelectedPath) {
-        var text = get(item, optionSelectedPath);
+        text = get(item, optionSelectedPath);
       } else {
-        var text = get(item, optionLabelPath);
+        text = get(item, optionLabelPath);
       }
 
       // escape text unless it's passed as a Handlebars.SafeString
