@@ -8,6 +8,8 @@
 * Make select2 assertion ember 1.10 proof (#34, thanks, lucas-clemente!)
 * Added option to customize group headers (#46, thanks, gopeter)
 * Override default option of select2 libraries for looking up object id (#39, thanks, tylr & kevin-brown)
+* Added `minimumInputLength` option and `didSelect` action (#61, thanks, jniechcial)
+* Added `optionIdPath` option (#58, thanks, ziggythehamster)
 
 ### 1.1.0 (November 18, 2014)
 

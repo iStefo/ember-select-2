@@ -46,6 +46,26 @@ var ingredients = [
   }
 ];
 
+var modifiedIdIngredients = [
+  {
+    code: 1,
+    name: 'Tomato',
+    description: 'first'
+  }, {
+    code: 2,
+    name: 'Peperoni',
+    description: 'second'
+  }, {
+    code: 3,
+    name: 'Ham',
+    description: 'third'
+  }, {
+    code: 4,
+    name: 'Chorizo',
+    description: 'fourth'
+  }
+];
+
 var App, component;
 moduleForComponent('select-2', 'Select2Component (customize)', {
   setup: function() {
@@ -118,6 +138,29 @@ test("it uses optionDescriptionPath", function() {
       return (ingredient.children) ? '' : ingredient.name + ' ' + ingredient.subtext;
     }).join('');
     equal($('.select2-results > li:not(:last)').text(), expected, "display correct text");
+  });
+});
+
+
+test("it uses optionIdPath", function() {
+  expect(1);
+
+  var component = this.subject({});
+
+  component.setProperties({
+    optionIdPath: 'code',
+    content: modifiedIdIngredients
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(1)', 'body');
+
+  andThen(function() {
+    strictEqual(component.get('value'), modifiedIdIngredients[0], 'selects correct item');
   });
 });
 

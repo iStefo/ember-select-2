@@ -47,6 +47,8 @@ var Select2Component = Ember.Component.extend({
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
   searchEnabled: true,
+  minimumInputLength: null,
+  maximumInputLength: null,
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -76,6 +78,12 @@ var Select2Component = Ember.Component.extend({
     options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
 
+<<<<<<< HEAD
+=======
+    options.minimumInputLength = this.get('minimumInputLength');
+    options.maximumInputLength = this.get('maximumInputLength');
+
+>>>>>>> 272fdbcbcc9af517c8c91365ca0be77f0620bf15
     // override select2's default id fetching behavior
     options.id = (function(e) {
       return (e === undefined) ? null : get(e, optionIdPath);
@@ -439,6 +447,7 @@ var Select2Component = Ember.Component.extend({
     }
 
     this.set("value", value);
+    this.sendAction('didSelect');
   },
 
   /**

@@ -11,17 +11,17 @@
           content=pizzas
           value=favouritePizza
           placeholder="Choose your Pizza"
-          allow-clear=true
+          allowClear=true
       }}
     </div>
     {{#highlight-code lang=".hbs"}}\{{select-2
     content=pizzas
     value=favouritePizza
     placeholder="Choose your pizza"
-    allow-clear=true
+    allowClear=true
 }}{{/highlight-code}}
     <p>Full Object Binding ensures strict equality between the selected object and the object from the <code>content</code> array.</p>
-    <p>You can specify the <code>placeholder</code> option to display a placeholder.  By specifying the <code>allow-clear</code>
+    <p>You can specify the <code>placeholder</code> option to display a placeholder.  By specifying the <code>allowClear</code>
     option, you determine whether or not a clear button is displayed when the select box has a selection.</p>
   </div>
 
@@ -225,6 +225,8 @@
           typeaheadSearchingText="Searching pizzas"
           typeaheadNoMatchesText="No pizzas found for '%@'"
           typeaheadErrorText="Loading failed: %@"
+          minimumInputLength=3
+          maximumInputLength=10
           query="queryPizzas"
       }}
     </div>
@@ -234,6 +236,8 @@
     typeaheadSearchingText="Searching pizzas"
     typeaheadNoMatchesText="No pizzas found for '%@'"
     typeaheadErrorText="Loading failed: %@"
+    minimumInputLength=3
+    maximumInputLength=10
     query="queryPizzas"
 }}{{/highlight-code}}
   </div>
