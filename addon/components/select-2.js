@@ -187,6 +187,12 @@ var Select2Component = Ember.Component.extend({
             var result = Ember.$.extend({}, item, { children: filteredChildren });
             results.push(result);
           }
+          else if (self.get('tagsEnabled')) {
+            var val = { id: query.term, name: query.term, description: self.get("newDescription") };
+            if (!results.isAny('name', query.term)) {
+              results.push(val);
+            }
+          }
           return results;
         }, []);
 
