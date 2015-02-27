@@ -431,7 +431,12 @@ var Select2Component = Ember.Component.extend({
       value = data;
     }
 
-    this.set("value", value);
+    if (multiple) {
+      this.get('value').replace(0, this.get('value.length'), value)
+      this.get('value').enumerableContentDidChange()
+    }else{
+      this.set("value", value);
+    }
     this.sendAction('didSelect');
   },
 
