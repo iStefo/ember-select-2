@@ -6,6 +6,7 @@ module.exports = function(environment) {
     environment: environment,
     contentSecurityPolicyHeader: 'Disabled-Content-Security-Policy',
     baseURL: '/',
+    includeSelect2Assets: true,
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
