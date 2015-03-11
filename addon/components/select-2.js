@@ -94,31 +94,38 @@ var Select2Component = Ember.Component.extend({
       Generates the html used in the dropdown list (and is implemented to
       include the description html if available).
      */
-    options.formatResult = function(item) {
-      if (!item) {
-        return;
-      }
+    if (this.get('formatResult'))
+    {
+      options.formatResult = this.get('formatResult');
+    }
+    else
+    {
+      options.formatResult = function(item) {
+        if (!item) {
+          return;
+        }
 
-      var output,
-          id = get(item, "id"),
-          text = get(item, optionLabelPath),
-          headline = get(item, optionHeadlinePath),
-          description = get(item, optionDescriptionPath);
+        var output,
+            id = get(item, "id"),
+            text = get(item, optionLabelPath),
+            headline = get(item, optionHeadlinePath),
+            description = get(item, optionDescriptionPath);
 
-      if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(headline);
-      } else {
-        output = Ember.Handlebars.Utils.escapeExpression(text);
-      }
+        if (item.children) {
+          output = Ember.Handlebars.Utils.escapeExpression(headline);
+        } else {
+          output = Ember.Handlebars.Utils.escapeExpression(text);
+        }
 
-      // only for "real items" (no group headers) that have a description
-      if (id && description) {
-        output += " <span class=\"text-muted\">" +
-          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
-      }
+        // only for "real items" (no group headers) that have a description
+        if (id && description) {
+          output += " <span class=\"text-muted\">" +
+            Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+        }
 
-      return output;
-    };
+        return output;
+      };
+    }
 
     /*
       Generates the html used in the closed select input, displaying the
