@@ -188,13 +188,19 @@ var Select2Component = Ember.Component.extend({
             results.push(result);
           }
           else if (self.get('tagsEnabled')) {
-            var val = { id: query.term, name: query.term, description: self.get("newDescription") };
+            var val = { id: query.term, name: query.term, isNew: true };
             if (!results.isAny('name', query.term)) {
               results.push(val);
             }
           }
           return results;
         }, []);
+
+        var tempFirstElem = filteredContent[0];
+        if (get(tempFirstElem, 'isNew')) {
+          filteredContent.shift();
+          filteredContent.push(tempFirstElem);
+        }
 
         query.callback({
           results: filteredContent
