@@ -132,16 +132,23 @@ var Select2Component = Ember.Component.extend({
       currently selected element(s). Works like "formatResult" but
       produces shorter output by leaving out the description.
      */
-    options.formatSelection = function(item) {
-      if (!item) {
-        return;
-      }
+    if (this.get('formatSelection'))
+    {
+      options.formatSelection = this.get('formatSelection');
+    }
+    else
+    {
+      options.formatSelection = function(item) {
+        if (!item) {
+          return;
+        }
 
-      var text = get(item, optionLabelPath);
+        var text = get(item, optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
-    };
+        // escape text unless it's passed as a Handlebars.SafeString
+        return Ember.Handlebars.Utils.escapeExpression(text);
+      };
+    }
 
     /*
       Provides a list of items that should be displayed for the current query
