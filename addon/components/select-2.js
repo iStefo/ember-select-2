@@ -378,6 +378,12 @@ var Select2Component = Ember.Component.extend({
       this.selectionChanged(data);
     }));
 
+    if (this.get('searchPlaceholder')) {
+      var mainId = this.$().attr('id');
+      var focusserId = $('#s2id_' + mainId + ' input.select2-focusser').attr('id')
+      $('#' + focusserId + '_search').attr('placeholder', this.get('searchPlaceholder'));
+    }
+
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
