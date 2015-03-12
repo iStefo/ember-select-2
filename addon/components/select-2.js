@@ -211,9 +211,11 @@ var Select2Component = Ember.Component.extend({
         }, []);
 
         var tempFirstElem = filteredContent[0];
-        if (get(tempFirstElem, 'isNew')) {
-          filteredContent.shift();
-          filteredContent.push(tempFirstElem);
+        if (tempFirstElem) {
+          if (get(tempFirstElem, 'isNew')) {
+            filteredContent.shift();
+            filteredContent.push(tempFirstElem);
+          }
         }
 
         query.callback({
