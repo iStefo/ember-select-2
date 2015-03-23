@@ -1,6 +1,11 @@
 # ember-select-2 changelog
 
-### 1.2.0 (TBB)
+### TBD
+
+* The `didSelect` action should wait for databinding (#75, thanks, pierrickrouxel!)
+* Make select2 assets optional (#71, thanks, minichate!)
+
+### 1.2.0 (February 11, 2015)
 
 * Added option to disable the search field for single select dropdowns (#29)
 * Fixed promises in value binding (#30)

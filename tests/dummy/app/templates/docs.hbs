@@ -47,3 +47,9 @@ of the term used.</p>
 
 <h3>Styling</h3>
 <p>select-2 does not interfere with the default styling of the Select2 Component and depends on the original stylesheet. It adds support for <a href="http://fk.github.io/select2-bootstrap-css/master.html">Twitter Bootstrap styling</a> by adding the class <code>.form-control</code> when the corresponding stylesheets are loaded.</p>
+<p>It is possible to exclude the select2 assets from ember-cli by setting the <code>includeAssets</code> option to <code>false</code> in your <code>Brocfile.js</code>. This will skip loading select2.css, select2.png, select2x2.png and select2-spinner.gif.</p>
+{{#highlight-code lang=".js"}}var app = new EmberAddon({
+  select2: {
+    includeAssets: false
+  }
+});{{/highlight-code}}
