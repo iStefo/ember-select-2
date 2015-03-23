@@ -153,6 +153,35 @@ test("it sends `didSelect` action once when selection has been changed", functio
   });
 });
 
+/*
+  This test assures, that when sending the `didSelect` action, bindings have
+  already been synced. Test for PR #75
+ */
+test("component has correct value before `didSelect` fires", function() {
+  expect(1);
+
+  var controller = Ember.Object.create({
+    component: component,
+    valueBinding: 'component.value',
+    selectionChanged: function() {
+      strictEqual(this.get('value'), simpleContent[2], "selects correct item");
+    }
+  });
+
+  component.setProperties({
+    targetObject: controller,
+    content: simpleContent,
+    didSelect: 'selectionChanged'
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(3)', 'body');
+});
+
 test("it supports the allowClear option", function() {
   expect(3);
 
