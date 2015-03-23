@@ -3,6 +3,7 @@
 ### TBD
 
 * The `didSelect` action should wait for databinding (#75, thanks, pierrickrouxel!)
+* Make select2 assets optional (#71, thanks, minichate!)
 
 ### 1.2.0 (February 11, 2015)
 
