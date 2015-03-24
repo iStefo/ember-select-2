@@ -433,7 +433,7 @@ var Select2Component = Ember.Component.extend({
 
     this.set("value", value);
     Ember.run.schedule('actions', this, function() {
-      this.sendAction('didSelect');
+      this.sendAction('didSelect', value);
     });
   },
 
