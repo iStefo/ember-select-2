@@ -182,6 +182,63 @@ test("component has correct value before `didSelect` fires", function() {
   click('.select2-results li:nth-child(3)', 'body');
 });
 
+
+test("it sends `didSelect` action having the new value as the first argument", function() {
+  expect(2);
+
+  var controller = {
+    selectionChanged: function() {}
+  };
+  var spy = sinon.spy(controller, 'selectionChanged');
+
+  component.setProperties({
+    targetObject: controller,
+    content: simpleContent,
+    didSelect: 'selectionChanged'
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(3)', 'body');
+
+  andThen(function() {
+    ok(spy.calledOnce, "callback after selection changed has been executed");
+    ok(spy.calledWith(simpleContent[2]), "has new value as argument");
+  });
+});
+
+
+test("it sends `didSelect` action having a reference to itself as the second argument", function() {
+  expect(2);
+
+  var controller = {
+    selectionChanged: function() {}
+  };
+  var spy = sinon.spy(controller, 'selectionChanged');
+
+  component.setProperties({
+    targetObject: controller,
+    content: simpleContent,
+    didSelect: 'selectionChanged'
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choice');
+  // then select an option
+  click('.select2-results li:nth-child(3)', 'body');
+
+  andThen(function() {
+    ok(spy.calledOnce, "callback after selection changed has been executed");
+    ok(spy.calledWith(simpleContent[2], component), "has reference to self as argument");
+  });
+});
+
+
 test("it supports the allowClear option", function() {
   expect(3);
 
