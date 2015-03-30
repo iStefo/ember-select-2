@@ -336,7 +336,7 @@ var Select2Component = Ember.Component.extend({
         return callback(filteredContent);
       } else {
         // only care about the first match in single selection mode
-        return callback(filteredContent.get('firstObject'));
+        return callback(filteredContent[0]);
       }
     };
 
