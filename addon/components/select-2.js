@@ -27,7 +27,7 @@ var Select2Component = Ember.Component.extend({
   classNames: ["form-control"],
   classNameBindings: ["inputSize"],
   attributeBindings: ["style"],
-  style: "display: hidden;",
+  style: Ember.Handlebars.SafeString("display: hidden;"),
 
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
