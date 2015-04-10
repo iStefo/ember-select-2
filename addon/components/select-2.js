@@ -154,12 +154,16 @@ var Select2Component = Ember.Component.extend({
 
         self.sendAction('query', query, deferred);
 
-        deferred.promise.then(function(data) {
+        deferred.promise.then(function(result) {
+          var data = Array.isArray(result) ? result : result.data;
+          var more = Array.isArray(result) ? false : result.more;
+
           if (data instanceof Ember.ArrayProxy) {
             data = data.toArray();
           }
           query.callback({
-            results: data
+            results: data,
+            more: more
           });
         }, function(reason) {
           query.callback({
