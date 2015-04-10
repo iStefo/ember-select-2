@@ -102,7 +102,7 @@ var ExamplesController = Ember.Controller.extend({
       this.toggleProperty('enabled');
     },
 
-    queryPizzas: function(query, deferred) {
+    queryPizzas: function(query, deferred, isInfiniteScroll) {
       setTimeout(function() {
         var data = [];
         switch(query.term) {
@@ -119,12 +119,21 @@ var ExamplesController = Ember.Controller.extend({
                 text: 'Pizza ' + query.term + ' ' + i
               });
             }
-            deferred.resolve(data);
+            if (isInfiniteScroll) {
+              deferred.resolve({data: data, more: true});
+            } else {
+              deferred.resolve(data);
+            }
             break;
         }
       }, 300);
+    },
+
+    queryInfiniteScrollPizzas: function(query, deferred) {
+      this.send('queryPizzas', query, deferred, true);
     }
-  }
+  },
+
 });
 
 export default ExamplesController;
