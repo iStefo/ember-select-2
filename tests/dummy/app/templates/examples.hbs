@@ -258,6 +258,56 @@
   </div>
 </div>
 
+<h3>Infinite Scroll with Typeahead & Ajax Queries</h3>
+<p>Imagine you sell so many pizzas that you don't want to send all of them to the client, and using Typeahead doesn't give you a large enough filter. You can implement infinite scroll using the <code>more</code> property</p>
+<div class="row">
+  <div class="col-sm-6">
+    <h4>The Component</h4>
+    <div class="example-box">
+      <p>The component is exactly the same as the regular Typeahead and Ajax query from above</p>
+      {{select-2
+          placeholder="Choose from our many pizzas"
+          value=chosenTypeaheadPizza
+          typeaheadSearchingText="Searching pizzas"
+          typeaheadNoMatchesText="No pizzas found for '%@'"
+          typeaheadErrorText="Loading failed: %@"
+          minimumInputLength=3
+          maximumInputLength=10
+          query="queryInfiniteScrollPizzas"
+      }}
+    </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+    placeholder="Choose from our many pizzas"
+    value=chosenTypeaheadPizza
+    typeaheadSearchingText="Searching pizzas"
+    typeaheadNoMatchesText="No pizzas found for '%@'"
+    typeaheadErrorText="Loading failed: %@"
+    minimumInputLength=3
+    maximumInputLength=10
+    query="queryPizzas"
+}}{{/highlight-code}}
+  </div>
+  <div class="col-sm-6">
+    <h4>The Controller</h4>
+    <div class="example-box">
+      <p>There are a few minor changes from the regular Typeahead and Ajax query from above.
+      <p>Instead of sending in deferred.resolve as the callback, you need to implement your own callback and call deferred.resolve with the data that was returned and more property</p>
+      <p>Implement <code>more: true</code> when there is still more data to load, and <code>more: false</code> when the server has responded with all the data and there is nothing to load.</p>
+    </div>
+    {{#highlight-code lang=".js"}}Ember.Controller.extend({
+  actions: {
+    queryPizzas: function(query, deferred) {
+      this.store.find('myModel', { name: query.term })
+        .then(function(data) {
+          //'when everything has been loaded, specify more: false'
+          deferred.resolve({data: data, more: true});
+        }, deferred.reject);
+    }
+  }
+});{{/highlight-code}}
+  </div>
+</div>
+
 <h3>Miscellaneous</h3>
 <div class="row">
   <div class="col-sm-6">

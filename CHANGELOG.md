@@ -2,6 +2,7 @@
 
 ### 1.3.0 (TBD)
 
+* Add ability for infinite scroll (#85, thanks, cooperjbrandon!)
 * The `didSelect` action should wait for databinding (#75, thanks, pierrickrouxel!)
 * Make select2 assets optional (#71, thanks, minichate!)
 * The `didSelect` action passes new value and reference to component (suggested in #76, thanks, DENIELER!)
