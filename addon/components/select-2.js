@@ -238,16 +238,20 @@ var Select2Component = Ember.Component.extend({
       Format the no matches message, substituting the %@ placeholder with the
       html-escaped user input
      */
-    options.formatNoMatches = function(term) {
-      var text = self.get('typeaheadNoMatchesText');
-      if (text instanceof Ember.Handlebars.SafeString) {
-        text = text.string;
-      }
+    if (this.get('formatNoMatches')) {
+      options.formatNoMatches = this.get('formatNoMatches');
+    } else {
+      options.formatNoMatches = function(term) {
+        var text = self.get('typeaheadNoMatchesText');
+        if (text instanceof Ember.Handlebars.SafeString) {
+          text = text.string;
+        }
 
-      term = Ember.Handlebars.Utils.escapeExpression(term);
+        term = Ember.Handlebars.Utils.escapeExpression(term);
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
-    };
+        return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      };
+    }
 
     /*
       Format the error message, substituting the %@ placeholder with the promise
