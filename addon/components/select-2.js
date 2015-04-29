@@ -286,8 +286,15 @@ var Select2Component = Ember.Component.extend({
         !self.get('_typeaheadMode'));
 
 
-      var values = value.split(","),
-          filteredContent = [];
+      var values;
+      var filteredContent = [];
+
+      if (self.get('skipValueSeparator')) {
+        values = [value];
+      } else {
+        var separator = self.get('valueSeparator') || ",";
+        values = value.split(separator);
+      }
 
       // for every object, check if its optionValuePath is in the selected
       // values array and save it to the right position in filteredContent
