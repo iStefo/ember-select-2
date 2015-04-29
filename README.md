@@ -12,6 +12,12 @@ Since ember-cli 0.0.44 (or so...), there is a default way of installing addons. 
 ember install:addon ember-select-2
 ```
 
+Since ember-cli 0.2.3 `ember install <addon-name>` now is the correct way to install an add-on.
+```
+ember install ember-select-2
+```
+
+
 ## Contributing
 I would love to see some support when extending or bugfixing this component! Please keep in mind the agena on the top of this page and discuss possible conflicts with the ember-way of things (bindings, proxies...).
 
