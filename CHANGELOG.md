@@ -6,7 +6,8 @@
 * The `didSelect` action should wait for databinding (#75, thanks, pierrickrouxel!)
 * Make select2 assets optional (#71, thanks, minichate!)
 * The `didSelect` action passes new value and reference to component (suggested in #76, thanks, DENIELER!)
-* Add ability to set a custom separator for values (#88, thanks drapergeek!).
+* Add ability to set a custom separator for values (#88, thanks drapergeek!)
+* Fix a crash with disabled prototype extension (#79, thanks, huafu!)
 
 ### 1.2.0 (February 11, 2015)
 
