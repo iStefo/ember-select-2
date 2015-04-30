@@ -22,6 +22,10 @@ var simpleContent = [
   }, {
     id: "haw",
     text: "Hawaii"
+  }, {
+    id: "lame",
+    disabled: true,
+    text: "Plain Cheese"
   }
 ];
 var additionalContent = [
@@ -308,6 +312,33 @@ test("it sets value to selected object's optionValuePath in single selection mod
   });
 });
 
+
+test("it allows individual options to be disabled", function() {
+  expect(3);
+
+  this.append();
+
+  component.set('content', simpleContent);
+  component.set('optionValuePath', 'id');
+
+  //select an enabled option
+  click('.select2-choice');
+  click('.select2-results li:nth-child(2)', 'body');
+
+  //click disabled option
+  click('.select2-choice');
+  click('.select2-results li:nth-child(5)', 'body');
+
+  andThen(function() {
+    //selection should remain unchanged
+    strictEqual(component.get('value'), simpleContent[1].id, "selection remains unchanged");
+    equal($('.select2-chosen').text(), simpleContent[1].text, "remains unchanged");
+
+    //should have disabled styling
+    equal($('.select2-results li:nth-child(5)').hasClass('select2-disabled'), true, "has disabled class");
+  });
+
+});
 
 test("it reacts to external value change", function() {
   expect(2);

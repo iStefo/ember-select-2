@@ -336,6 +336,32 @@
   }, { ... }
 ]{{/highlight-code}}
   </div>
+
+  <div class="col-sm-6">
+      <h4>Disabled Individual Options</h4>
+      <p>Setting an attribute of <code>disabled</code> to <code>true</code> will disable the option from being selected</p>
+      <div class="example-box">
+        {{select-2
+            content=disabledPizzas
+            placeholder="Choose some Pizzas"
+        }}
+      </div>
+      {{#highlight-code lang="json"}}[
+    {
+       id: "1",
+       text: "Margherita",
+       description: "The original italian one"
+     }, {
+       id: "2",
+       text: "Cheese",
+       disabled: true,
+       description: "Can you say Laaame?"
+     }
+  ]{{/highlight-code}}
+  </div>
+</div>
+
+<div class="row">
   <div class="col-sm-6">
     <h4>Enabling/Disabling</h4>
     <p>By binding the component's <code>enabled</code> value, supply a truthy value to enable or a falsy value to disable the input.</p>
