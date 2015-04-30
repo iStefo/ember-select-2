@@ -48,6 +48,7 @@ var Select2Component = Ember.Component.extend({
   searchEnabled: true,
   minimumInputLength: null,
   maximumInputLength: null,
+  tabindex: '-1',
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -366,6 +367,12 @@ var Select2Component = Ember.Component.extend({
     options.containerCssClass = options.dropdownCssClass = function() {
       return self.get('cssClass') || '';
     };
+
+    /*
+      Adds support for overwriting the tab index for the element.
+      Will be copied by select2.
+     */
+    this.$().attr('tabindex', this.get('tabindex'));
 
     this._select = this.$().select2(options);
 
