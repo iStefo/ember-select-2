@@ -54,6 +54,19 @@ var ExamplesController = Ember.Controller.extend({
     }
   ],
 
+  disabledPizzas: Ember.A([
+    {
+       id: "1",
+       text: "Margherita",
+       description: "The original italian one"
+     }, {
+       id: "2",
+       text: "Cheese",
+       disabled: true,
+       description: "Can you say Laaame?"
+     }
+  ]),
+
   ingredients: [
     {
       text: "Vegetables",
