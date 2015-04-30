@@ -249,3 +249,48 @@ test("uses tabindex", function() {
 
   equal(find(".select2-focusser").attr("tabindex"), "-1", "tabindex matches");
 });
+
+
+test("uses `valueSeparator`", function() {
+  expect(2);
+
+  var component = this.subject();
+
+  component.setProperties({
+    content: [
+      {
+        id: "first",
+        text: "First",
+      }, {
+        id: "second",
+        text: "Second",
+      }, {
+        id: "thi,rd",
+        text: "Third"
+      }
+    ],
+    multiple: true,
+    optionValuePath: 'id',
+    valueSeparator: '|'
+  });
+
+  this.append();
+
+  // open options by clicking on the element
+  click('.select2-choices');
+  // then select an option
+  click('.select2-results li:nth-child(1)', 'body');
+
+  // open options by clicking on the element
+  click('.select2-choices');
+  // and select another option
+  click('.select2-results li:nth-child(2)', 'body');
+
+  andThen(function() {
+    equal(component._select.val(), "first|second", "outputs correct raw value string");
+
+    component.set("value", "second|thi,rd");
+
+    equal(component.get('_hasSelectedMissingItems'), false, "accepts value string with custom separator");
+  });
+});

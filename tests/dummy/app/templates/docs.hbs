@@ -45,9 +45,8 @@ of the term used.</p>
 <p>This path will also be used to collect the complete objects when syncing the component with the external value, so it better be unique.</p>
 <p>In value binding mode, there is a special feature important when lazy-loading data:<br/>Imagine there is already a selection <code>value</code>, but the <code>content</code> array does not yet contain all selected elements. As long as the selection can not be fullfilled, user interaction on the component is disabled in order to prevent the user from accidentally destroying the selection.</p>
 <p>
-  Values by default are split by commas.
-  If you want to disable this you can set <code>skipValueSeparator=true</code> for the component.
-  You can also use a custom separator such as <code>valueSeparator=';'</code>.
+  For multiple selection mode with <code>optionValuePath</code> set, the value string is by default split at commas.
+  If you want to change this, you can set the <code>valueSeparator</code> to any character that does not appear within your item ids. Value string splitting will only be done in the configuration stated above.
 </p>
 
 <h3>Styling</h3>

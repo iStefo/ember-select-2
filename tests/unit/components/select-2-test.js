@@ -501,53 +501,6 @@ test("it is disabled when its selection contains values not in the content array
   ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
 });
 
-test("it allows disabling the separator for values", function() {
-  expect(1);
-
-  this.append();
-
-  var content = [
-    {
-      id: "Normal",
-      text: "Normal",
-    },
-    {
-      id: "Multiple, Things",
-      text: "Multiple, Things",
-    }
-  ];
-
-  component.set('skipValueSeparator', true);
-  component.set('content', content);
-  component.set('optionValuePath', 'id');
-  component.set('value', "Multiple, Things");
-
-  ok(!component.get('_hasSelectedMissingItems'), "items are missing");
-});
-
-test("it allows using a custom separator for values", function() {
-  expect(1);
-
-  this.append();
-
-  var content = [
-    {
-      id: "First",
-      text: "First",
-    },
-    {
-      id: "Second",
-      text: "Second",
-    }
-  ];
-
-  component.set('valueSeparator', "|");
-  component.set('content', content);
-  component.set('optionValuePath', 'id');
-  component.set('value', "First|Second");
-
-  ok(!component.get('_hasSelectedMissingItems'), "items are missing");
-});
 
 test("Change event does not trigger an autorun", function() {
   expect(1);

@@ -49,6 +49,7 @@ var Select2Component = Ember.Component.extend({
   searchEnabled: true,
   minimumInputLength: null,
   maximumInputLength: null,
+  valueSeparator: ',',
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -79,6 +80,12 @@ var Select2Component = Ember.Component.extend({
 
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
+
+    // ensure there is a value separator if needed (= when in multiple selection with value binding)
+    var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
+    Ember.assert("select2#didInsertElement: You must specify a valueSeparator when in multiple mode.", !missesValueSeperator);
+
+    options.separator = this.get('valueSeparator');
 
     // override select2's default id fetching behavior
     options.id = (function(e) {
@@ -290,11 +297,12 @@ var Select2Component = Ember.Component.extend({
       var values;
       var filteredContent = [];
 
-      if (self.get('skipValueSeparator')) {
-        values = [value];
-      } else {
-        var separator = self.get('valueSeparator') || ",";
+      // only split select2's string value on valueSeparator when in multiple mode
+      if (self.get('multiple')) {
+        var separator = self.get('valueSeparator');
         values = value.split(separator);
+      } else {
+        values = [value];
       }
 
       // for every object, check if its optionValuePath is in the selected
@@ -482,6 +490,10 @@ var Select2Component = Ember.Component.extend({
     if (optionValuePath) {
       // when there is a optionValuePath, the external value is a primitive value
       // so use the "val" method
+      if (this.get("multiple") && "string" === typeof value && value.length > 0) {
+        // split the value on the specified separator
+        value = value.split(this.get("valueSeparator"));
+      }
       this._select.select2("val", value);
     } else {
       // otherwise set the full object via "data"
