@@ -233,3 +233,19 @@ test("disable search throws exception in multiple selection mode", function() {
     ok(e, "threw exception");
   }
 });
+
+
+test("uses tabindex", function() {
+  expect(1);
+
+  var component = this.subject();
+
+  component.setProperties({
+    tabindex: -1,
+    content: ingredients
+  });
+
+  this.append();
+
+  equal(find(".select2-focusser").attr("tabindex"), "-1", "tabindex matches");
+});
