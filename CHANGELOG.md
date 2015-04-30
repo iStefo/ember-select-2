@@ -9,6 +9,7 @@
 * Add ability to set a custom separator for values (#88, thanks drapergeek!)
 * Fix a crash with disabled prototype extension (#79, thanks, huafu!)
 * Add the ability to pass a `tabindex` (suggested in #53, thanks, ryanjm!)
+* Add support for disabled options (#47, thanks, kevintraver!)
 
 ### 1.2.0 (February 11, 2015)
 
