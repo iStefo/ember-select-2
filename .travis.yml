@@ -11,6 +11,13 @@ install:
   - npm install -g bower
   - npm install
   - bower install
+  - ./packaging/select-ember-version.js
 
 script:
   - npm test
+
+env:
+  matrix:
+    - EMBER_CHANNEL=release
+    - EMBER_CHANNEL=beta
+    - EMBER_CHANNEL=canary

@@ -27,7 +27,7 @@
 
   <div class="col-sm-6">
     <h4>Selection with Value Binding</h4>
-    <p>Again, choose your pizza. This time though, only the ID will be set to the value binding.<p>
+    <p>Again, choose your pizza. This time though, only the ID will be set to the value binding.</p>
     <div class="example-box">
       <p>Your Pizza Id: {{favouritePizzaId}}</p>
       {{select-2
@@ -126,7 +126,7 @@
           optionValuePath="id"
           placeholder="Choose your Pizza"
       }}
-      </div>
+    </div>
     <p>You will notice, that the dropdown gets locked when the entered ID does not match any of the objects available. This is a feature intended to prevent the destruction of the currently selected value when the options are yet to be loaded. (See the next example)</p>
   </div>
 </div>
@@ -152,7 +152,7 @@
   </div>
   <div class="col-sm-6">
     <h4>Value Binding</h4>
-    <p>As you can see below, there is an Array of selected pizzas which contains keys that are not yet loaded into the main pizza Array. As soon as you load more pizzas, the input will become editable.<p>
+    <p>As you can see below, there is an Array of selected pizzas which contains keys that are not yet loaded into the main pizza Array. As soon as you load more pizzas, the input will become editable.</p>
     <div class="example-box example-box-full">
       <p>Available: {{#each pizzas}}{{id}} {{/each}}<br/>Selected: {{preselectedPizzaIds}}</p>
       <p><button class="btn btn-default" {{action "loadMorePizzas"}}>Load even more Pizzas</button></p>
