@@ -294,3 +294,32 @@ test("uses `valueSeparator`", function() {
     equal(component.get('_hasSelectedMissingItems'), false, "accepts value string with custom separator");
   });
 });
+
+
+test("uses `optionLabelSelectedPath`", function() {
+  expect(1);
+
+  var component = this.subject();
+
+  component.setProperties({
+    content: [
+      {
+        id: "first",
+        text: "First",
+        selectedText: "selectedFirst"
+      }, {
+        id: "second",
+        text: "Second",
+        selectedText: "selectedSecond"
+      }
+    ],
+    optionValuePath: 'id',
+    optionLabelSelectedPath: 'selectedText'
+  });
+
+  this.append();
+
+  component.set("value", "first");
+
+  equal(find(".select2-choice").text().trim(), "selectedFirst", "has correct selected text");
+});

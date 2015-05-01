@@ -36,7 +36,7 @@ var Select2Component = Ember.Component.extend({
   optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
-  optionSelectedPath: null,
+  optionLabelSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
   placeholder: null,
@@ -65,7 +65,7 @@ var Select2Component = Ember.Component.extend({
         options = {},
         optionIdPath = this.get('optionIdPath'),
         optionLabelPath = this.get('optionLabelPath'),
-        optionSelectedPath = this.get('optionSelectedPath'),
+        optionLabelSelectedPath = this.get('optionLabelSelectedPath'),
         optionHeadlinePath = this.get('optionHeadlinePath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
         content = this.get('content');
@@ -144,12 +144,9 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var text;
-      if (optionSelectedPath) {
-        text = get(item, optionSelectedPath);
-      } else {
-        text = get(item, optionLabelPath);
-      }
+      // if set, use the optionLabelSelectedPath for formatting selected items,
+      // otherwise use the usual optionLabelPath
+      var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
       // escape text unless it's passed as a Handlebars.SafeString
       return Ember.Handlebars.Utils.escapeExpression(text);
@@ -393,7 +390,7 @@ var Select2Component = Ember.Component.extend({
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
-    this.addObserver('content.@each.' + optionSelectedPath, this.valueChanged);
+    this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
@@ -430,7 +427,7 @@ var Select2Component = Ember.Component.extend({
       this.valueChanged
     );
     this.removeObserver(
-      'content.@each.' + this.get('optionSelectedPath'),
+      'content.@each.' + this.get('optionLabelSelectedPath'),
       this.valueChanged
     );
     this.removeObserver(
