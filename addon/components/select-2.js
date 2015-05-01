@@ -19,7 +19,7 @@ var run = Ember.run;
  *  - Content: Array of Objects used to present to the user for choosing the
  *    selected values. "content" cannot be an Array of Strings, the Objects are
  *    expected to have an "id" and a property to be used as the label (by default,
- *    it is "text", but it can be overwritten it via "optionLabelPath"). These
+ *    it is "text", but it can be overwritten via "optionLabelPath"). These
  *    properties can be computed properties or just plain JavaScript values.
  */
 var Select2Component = Ember.Component.extend({
@@ -36,6 +36,7 @@ var Select2Component = Ember.Component.extend({
   optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
+  optionSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
   placeholder: null,
@@ -64,6 +65,7 @@ var Select2Component = Ember.Component.extend({
         options = {},
         optionIdPath = this.get('optionIdPath'),
         optionLabelPath = this.get('optionLabelPath'),
+        optionSelectedPath = this.get('optionSelectedPath'),
         optionHeadlinePath = this.get('optionHeadlinePath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
         content = this.get('content');
@@ -77,7 +79,6 @@ var Select2Component = Ember.Component.extend({
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
-
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
 
@@ -143,7 +144,12 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var text = get(item, optionLabelPath);
+      var text;
+      if (optionSelectedPath) {
+        text = get(item, optionSelectedPath);
+      } else {
+        text = get(item, optionLabelPath);
+      }
 
       // escape text unless it's passed as a Handlebars.SafeString
       return Ember.Handlebars.Utils.escapeExpression(text);
@@ -387,6 +393,7 @@ var Select2Component = Ember.Component.extend({
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
+    this.addObserver('content.@each.' + optionSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
@@ -420,6 +427,10 @@ var Select2Component = Ember.Component.extend({
     this.removeObserver('content.[]', this.valueChanged);
     this.removeObserver(
       'content.@each.' + this.get('optionLabelPath'),
+      this.valueChanged
+    );
+    this.removeObserver(
+      'content.@each.' + this.get('optionSelectedPath'),
       this.valueChanged
     );
     this.removeObserver(
