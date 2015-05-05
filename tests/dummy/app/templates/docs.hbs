@@ -28,7 +28,7 @@ of the term used.</p>
 <dl class="dl-horizontal">
   <dt>id</dt>
   <dd>Not necessary, header elements cannot be selected</dd>
-  <dt>children<dt>
+  <dt>children</dt>
   <dd>Array<br/>Containing elements that conform to the <i>Flat Content</i> specification</dd>
   <dt>description</dt>
   <dd>Not displayed, instead, the text will be printed in bold.</dd>
@@ -44,6 +44,10 @@ of the term used.</p>
 <p>There are situations where it's more convenient to only bind one property of the whole content objects. This can be accieved by setting the <code>optionValuePath</code>, this path will then be used to <code>Ember.get()</code> the desired value which then is the selected value.</p>
 <p>This path will also be used to collect the complete objects when syncing the component with the external value, so it better be unique.</p>
 <p>In value binding mode, there is a special feature important when lazy-loading data:<br/>Imagine there is already a selection <code>value</code>, but the <code>content</code> array does not yet contain all selected elements. As long as the selection can not be fullfilled, user interaction on the component is disabled in order to prevent the user from accidentally destroying the selection.</p>
+<p>
+  For multiple selection mode with <code>optionValuePath</code> set, the value string is by default split at commas.
+  If you want to change this, you can set the <code>valueSeparator</code> to any character that does not appear within your item ids. Value string splitting will only be done in the configuration stated above.
+</p>
 
 <h3>Styling</h3>
 <p>select-2 does not interfere with the default styling of the Select2 Component and depends on the original stylesheet. It adds support for <a href="http://fk.github.io/select2-bootstrap-css/master.html">Twitter Bootstrap styling</a> by adding the class <code>.form-control</code> when the corresponding stylesheets are loaded.</p>

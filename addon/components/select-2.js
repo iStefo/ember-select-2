@@ -19,15 +19,16 @@ var run = Ember.run;
  *  - Content: Array of Objects used to present to the user for choosing the
  *    selected values. "content" cannot be an Array of Strings, the Objects are
  *    expected to have an "id" and a property to be used as the label (by default,
- *    it is "text", but it can be overwritten it via "optionLabelPath"). These
+ *    it is "text", but it can be overwritten via "optionLabelPath"). These
  *    properties can be computed properties or just plain JavaScript values.
  */
 var Select2Component = Ember.Component.extend({
   tagName: "input",
   classNames: ["form-control"],
   classNameBindings: ["inputSize"],
-  attributeBindings: ["style"],
-  style: "display: hidden;",
+  attributeBindings: ["style", "tabindex"],
+  style: Ember.String.htmlSafe("display: hidden;"),
+  tabindex: 0,
 
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
@@ -35,6 +36,7 @@ var Select2Component = Ember.Component.extend({
   optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
+  optionLabelSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
   placeholder: null,
@@ -48,6 +50,7 @@ var Select2Component = Ember.Component.extend({
   searchEnabled: true,
   minimumInputLength: null,
   maximumInputLength: null,
+  valueSeparator: ',',
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -62,6 +65,7 @@ var Select2Component = Ember.Component.extend({
         options = {},
         optionIdPath = this.get('optionIdPath'),
         optionLabelPath = this.get('optionLabelPath'),
+        optionLabelSelectedPath = this.get('optionLabelSelectedPath'),
         optionHeadlinePath = this.get('optionHeadlinePath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
         content = this.get('content');
@@ -75,9 +79,14 @@ var Select2Component = Ember.Component.extend({
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
-
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
+
+    // ensure there is a value separator if needed (= when in multiple selection with value binding)
+    var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
+    Ember.assert("select2#didInsertElement: You must specify a valueSeparator when in multiple mode.", !missesValueSeperator);
+
+    options.separator = this.get('valueSeparator');
 
     // override select2's default id fetching behavior
     options.id = (function(e) {
@@ -135,7 +144,9 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var text = get(item, optionLabelPath);
+      // if set, use the optionLabelSelectedPath for formatting selected items,
+      // otherwise use the usual optionLabelPath
+      var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
       // escape text unless it's passed as a Handlebars.SafeString
       return Ember.Handlebars.Utils.escapeExpression(text);
@@ -154,12 +165,24 @@ var Select2Component = Ember.Component.extend({
 
         self.sendAction('query', query, deferred);
 
-        deferred.promise.then(function(data) {
-          if (data instanceof Ember.ArrayProxy) {
-            data = data.toArray();
+        deferred.promise.then(function(result) {
+          var data = result;
+          var more = false;
+
+          if (result instanceof Ember.ArrayProxy) {
+            data = result.toArray();
+          } else if (!Array.isArray(result)) {
+            if (result.data instanceof Ember.ArrayProxy) {
+              data = result.data.toArray();
+            } else {
+              data = result.data;
+            }
+            more = result.more;
           }
+
           query.callback({
-            results: data
+            results: data,
+            more: more
           });
         }, function(reason) {
           query.callback({
@@ -274,8 +297,16 @@ var Select2Component = Ember.Component.extend({
         !self.get('_typeaheadMode'));
 
 
-      var values = value.split(","),
-          filteredContent = [];
+      var values;
+      var filteredContent = [];
+
+      // only split select2's string value on valueSeparator when in multiple mode
+      if (self.get('multiple')) {
+        var separator = self.get('valueSeparator');
+        values = value.split(separator);
+      } else {
+        values = [value];
+      }
 
       // for every object, check if its optionValuePath is in the selected
       // values array and save it to the right position in filteredContent
@@ -336,7 +367,7 @@ var Select2Component = Ember.Component.extend({
         return callback(filteredContent);
       } else {
         // only care about the first match in single selection mode
-        return callback(filteredContent.get('firstObject'));
+        return callback(filteredContent[0]);
       }
     };
 
@@ -359,6 +390,7 @@ var Select2Component = Ember.Component.extend({
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
+    this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
@@ -395,6 +427,10 @@ var Select2Component = Ember.Component.extend({
       this.valueChanged
     );
     this.removeObserver(
+      'content.@each.' + this.get('optionLabelSelectedPath'),
+      this.valueChanged
+    );
+    this.removeObserver(
       'content.@each.' + this.get('optionHeadlinePath'),
       this.valueChanged
     );
@@ -422,7 +458,7 @@ var Select2Component = Ember.Component.extend({
     if (optionValuePath) {
       if (multiple) {
         // data is an array, so use getEach
-        value = data.getEach(optionValuePath);
+        value = Ember.A(data).getEach(optionValuePath);
       } else {
         // treat data as a single object
         value = get(data, optionValuePath);
@@ -433,7 +469,7 @@ var Select2Component = Ember.Component.extend({
 
     this.set("value", value);
     Ember.run.schedule('actions', this, function() {
-      this.sendAction('didSelect');
+      this.sendAction('didSelect', value, this);
     });
   },
 
@@ -462,6 +498,10 @@ var Select2Component = Ember.Component.extend({
     if (optionValuePath) {
       // when there is a optionValuePath, the external value is a primitive value
       // so use the "val" method
+      if (this.get("multiple") && "string" === typeof value && value.length > 0) {
+        // split the value on the specified separator
+        value = value.split(this.get("valueSeparator"));
+      }
       this._select.select2("val", value);
     } else {
       // otherwise set the full object via "data"
