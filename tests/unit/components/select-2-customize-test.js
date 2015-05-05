@@ -11,7 +11,7 @@ import Ember from "ember";
 import { test, moduleFor, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 
-var ingredients = [
+var ingredients = Ember.A([
   {
     id: 1,
     name: 'Tomato',
@@ -44,9 +44,9 @@ var ingredients = [
       }
     ]
   }
-];
+]);
 
-var modifiedIdIngredients = [
+var modifiedIdIngredients = Ember.A([
   {
     code: 1,
     name: 'Tomato',
@@ -64,7 +64,7 @@ var modifiedIdIngredients = [
     name: 'Chorizo',
     description: 'fourth'
   }
-];
+]);
 
 var App, component;
 moduleForComponent('select-2', 'Select2Component (customize)', {
@@ -80,54 +80,50 @@ moduleForComponent('select-2', 'Select2Component (customize)', {
 });
 
 
-test("it uses optionLabelPath", function() {
-  expect(2);
-  var component = this.subject({});
+test("it uses optionLabelPath", function(assert) {
+  assert.expect(2);
 
   component.set('optionLabelPath', 'name');
   component.set('content', ingredients);
 
-  this.append();
+  this.render();
 
   click('.select2-choice');
   click('.select2-results li:nth-child(2)', 'body');
 
   andThen(function() {
-    strictEqual(component.get('value'), ingredients[1], "selects correct item");
-    equal($('.select2-chosen').text(), ingredients[1].name, "has correct text");
+    assert.strictEqual(component.get('value'), ingredients[1], "selects correct item");
+    assert.equal($('.select2-chosen').text(), ingredients[1].name, "has correct text");
   });
 });
 
 
-test("it uses optionHeadlinePath", function() {
-  expect(1);
-  var component = this.subject({});
+test("it uses optionHeadlinePath", function(assert) {
+  assert.expect(1);
 
   component.set('optionHeadlinePath', 'group');
   component.set('content', ingredients);
 
-  this.append();
+  this.render();
 
   click('.select2-choice');
 
   andThen(function() {
     var headline = $('.select2-results > li:last-child').find('.select2-result-label').first().text();
     var expected = ingredients[4].group;
-    equal(headline, expected, "has correct headline");
+    assert.equal(headline, expected, "has correct headline");
   });
 });
 
 
-test("it uses optionDescriptionPath", function() {
-  expect(1);
-
-  var component = this.subject({});
+test("it uses optionDescriptionPath", function(assert) {
+  assert.expect(1);
 
   component.set('optionLabelPath', 'name');
   component.set('optionDescriptionPath', 'subtext');
   component.set('content', ingredients);
 
-  this.append();
+  this.render();
 
   // open options by clicking on the element
   click('.select2-choice');
@@ -137,22 +133,20 @@ test("it uses optionDescriptionPath", function() {
       // jQuery .text() will have space between name and subtext, but thats ok
       return (ingredient.children) ? '' : ingredient.name + ' ' + ingredient.subtext;
     }).join('');
-    equal($('.select2-results > li:not(:last)').text(), expected, "display correct text");
+    assert.equal($('.select2-results > li:not(:last)').text(), expected, "display correct text");
   });
 });
 
 
-test("it uses optionIdPath", function() {
-  expect(1);
-
-  var component = this.subject({});
+test("it uses optionIdPath", function(assert) {
+  assert.expect(1);
 
   component.setProperties({
     optionIdPath: 'code',
     content: modifiedIdIngredients
   });
 
-  this.append();
+  this.render();
 
   // open options by clicking on the element
   click('.select2-choice');
@@ -160,67 +154,59 @@ test("it uses optionIdPath", function() {
   click('.select2-results li:nth-child(1)', 'body');
 
   andThen(function() {
-    strictEqual(component.get('value'), modifiedIdIngredients[0], 'selects correct item');
+    assert.strictEqual(component.get('value'), modifiedIdIngredients[0], 'selects correct item');
   });
 });
 
 
-test("it uses custom `cssClass` for container", function() {
-  expect(1);
-
-  var component = this.subject();
+test("it uses custom `cssClass` for container", function(assert) {
+  assert.expect(1);
 
   component.set('cssClass', 'customClass');
 
-  this.append();
+  this.render();
 
-  ok($('.select2-container').hasClass('customClass'), "has class");
+  assert.ok($('.select2-container').hasClass('customClass'), "has class");
 });
 
 
-test("it uses custom `cssClass` for dropdown", function() {
-  expect(1);
-
-  var component = this.subject();
+test("it uses custom `cssClass` for dropdown", function(assert) {
+  assert.expect(1);
 
   component.set('cssClass', 'customClass');
   component.set('content', ingredients);
 
-  this.append();
+  this.render();
 
   click('.select2-choice');
 
   andThen(function() {
-    ok($('.select2-drop').hasClass('customClass'), "has class");
+    assert.ok($('.select2-drop').hasClass('customClass'), "has class");
   });
 });
 
 
-test("disable search hides search field in single slection mode", function() {
-  expect(1);
-
-  var component = this.subject();
+test("disable search hides search field in single slection mode", function(assert) {
+  assert.expect(1);
 
   component.setProperties({
     searchEnabled: false,
     content: ingredients
   });
 
-  this.append();
+  this.render();
 
   // open options by clicking on the element
   click('.select2-choice');
 
   andThen(function() {
-    equal($('select2-search input').length, 0, "no input field");
+    assert.equal($('select2-search input').length, 0, "no input field");
   });
 });
 
 
-test("disable search throws exception in multiple selection mode", function() {
-  expect(1);
-
-  var component = this.subject();
+test("disable search throws exception in multiple selection mode", function(assert) {
+  assert.expect(1);
 
   component.setProperties({
     searchEnabled: false,
@@ -228,33 +214,29 @@ test("disable search throws exception in multiple selection mode", function() {
   });
 
   try {
-    this.append();
+    this.render();
   } catch (e) {
-    ok(e, "threw exception");
+    assert.ok(e, "threw exception");
   }
 });
 
 
-test("uses tabindex", function() {
-  expect(1);
-
-  var component = this.subject();
+test("uses tabindex", function(assert) {
+  assert.expect(1);
 
   component.setProperties({
     tabindex: -1,
     content: ingredients
   });
 
-  this.append();
+  this.render();
 
-  equal(find(".select2-focusser").attr("tabindex"), "-1", "tabindex matches");
+  assert.equal(find(".select2-focusser").attr("tabindex"), "-1", "tabindex matches");
 });
 
 
-test("uses `valueSeparator`", function() {
-  expect(2);
-
-  var component = this.subject();
+test("uses `valueSeparator`", function(assert) {
+  assert.expect(2);
 
   component.setProperties({
     content: [
@@ -274,7 +256,7 @@ test("uses `valueSeparator`", function() {
     valueSeparator: '|'
   });
 
-  this.append();
+  this.render();
 
   // open options by clicking on the element
   click('.select2-choices');
@@ -287,19 +269,17 @@ test("uses `valueSeparator`", function() {
   click('.select2-results li:nth-child(2)', 'body');
 
   andThen(function() {
-    equal(component._select.val(), "first|second", "outputs correct raw value string");
+    assert.equal(component._select.val(), "first|second", "outputs correct raw value string");
 
     component.set("value", "second|thi,rd");
 
-    equal(component.get('_hasSelectedMissingItems'), false, "accepts value string with custom separator");
+    assert.equal(component.get('_hasSelectedMissingItems'), false, "accepts value string with custom separator");
   });
 });
 
 
-test("uses `optionLabelSelectedPath`", function() {
-  expect(1);
-
-  var component = this.subject();
+test("uses `optionLabelSelectedPath`", function(assert) {
+  assert.expect(1);
 
   component.setProperties({
     content: [
@@ -317,9 +297,9 @@ test("uses `optionLabelSelectedPath`", function() {
     optionLabelSelectedPath: 'selectedText'
   });
 
-  this.append();
+  this.render();
 
   component.set("value", "first");
 
-  equal(find(".select2-choice").text().trim(), "selectedFirst", "has correct selected text");
+  assert.equal(find(".select2-choice").text().trim(), "selectedFirst", "has correct selected text");
 });

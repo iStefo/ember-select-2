@@ -458,7 +458,7 @@ var Select2Component = Ember.Component.extend({
     if (optionValuePath) {
       if (multiple) {
         // data is an array, so use getEach
-        value = data.getEach(optionValuePath);
+        value = Ember.A(data).getEach(optionValuePath);
       } else {
         // treat data as a single object
         value = get(data, optionValuePath);

@@ -1,6 +1,6 @@
 # ember-select-2 changelog
 
-### 1.3.0 (TBD)
+### 1.3.0 (May 5, 2015)
 
 * Add ability for infinite scroll (#85, thanks, cooperjbrandon!)
 * The `didSelect` action should wait for databinding (#75, thanks, pierrickrouxel!)
@@ -11,6 +11,7 @@
 * Add the ability to pass a `tabindex` (suggested in #53, thanks, ryanjm!)
 * Add support for disabled options (#47, thanks, kevintraver!)
 * Add `optionSelectedLabelPath` option (#66, thanks, ziggythehamster!)
+* Fix possible incopatibility with disabled prototype extension
 
 ### 1.2.0 (February 11, 2015)
 

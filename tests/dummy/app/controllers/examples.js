@@ -2,7 +2,7 @@ import Ember from "ember";
 
 var ExamplesController = Ember.Controller.extend({
   favouritePizza: null,
-  favouritePizzaId: Ember.computed.defaultTo('ham'),
+  favouritePizzaId: Ember.computed.oneWay('ham'),
   favouritePizzas: null,
   favouritePizzaIds: null,
   preselectedPizzaIds: ["ham", "pep", "tex"],

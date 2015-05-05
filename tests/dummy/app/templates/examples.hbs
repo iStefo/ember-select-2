@@ -27,7 +27,7 @@
 
   <div class="col-sm-6">
     <h4>Selection with Value Binding</h4>
-    <p>Again, choose your pizza. This time though, only the ID will be set to the value binding.<p>
+    <p>Again, choose your pizza. This time though, only the ID will be set to the value binding.</p>
     <div class="example-box">
       <p>Your Pizza Id: {{favouritePizzaId}}</p>
       {{select-2
@@ -106,7 +106,7 @@
     <h4>Full Object Binding</h4>
     <p>Same example as above, but now you can manually set the selected Element from outside the input.</p>
     <div class="example-box example-box-full">
-      <p>Set Selection to: {{#each pizzas}}<a {{action "selectPizza" this}}>{{text}}</a> {{/each}}</p>
+      <p>Set Selection to: {{#each pizzas as |pizza|}}<a {{action "selectPizza" pizza}}>{{pizza.text}}</a> {{/each}}</p>
       {{select-2
           content=pizzas
           value=favouritePizza
@@ -126,7 +126,7 @@
           optionValuePath="id"
           placeholder="Choose your Pizza"
       }}
-      </div>
+    </div>
     <p>You will notice, that the dropdown gets locked when the entered ID does not match any of the objects available. This is a feature intended to prevent the destruction of the currently selected value when the options are yet to be loaded. (See the next example)</p>
   </div>
 </div>
@@ -152,9 +152,9 @@
   </div>
   <div class="col-sm-6">
     <h4>Value Binding</h4>
-    <p>As you can see below, there is an Array of selected pizzas which contains keys that are not yet loaded into the main pizza Array. As soon as you load more pizzas, the input will become editable.<p>
+    <p>As you can see below, there is an Array of selected pizzas which contains keys that are not yet loaded into the main pizza Array. As soon as you load more pizzas, the input will become editable.</p>
     <div class="example-box example-box-full">
-      <p>Available: {{#each pizzas}}{{id}} {{/each}}<br/>Selected: {{preselectedPizzaIds}}</p>
+      <p>Available: {{#each pizzas as |pizza|}}{{pizza.id}} {{/each}}<br/>Selected: {{preselectedPizzaIds}}</p>
       <p><button class="btn btn-default" {{action "loadMorePizzas"}}>Load even more Pizzas</button></p>
       {{select-2
           content=pizzas
@@ -290,7 +290,7 @@
   <div class="col-sm-6">
     <h4>The Controller</h4>
     <div class="example-box">
-      <p>There are a few minor changes from the regular Typeahead and Ajax query from above.
+      <p>There are a few minor changes from the regular Typeahead and Ajax query from above.</p>
       <p>Instead of sending in deferred.resolve as the callback, you need to implement your own callback and call deferred.resolve with the data that was returned and more property</p>
       <p>Implement <code>more: true</code> when there is still more data to load, and <code>more: false</code> when the server has responded with all the data and there is nothing to load.</p>
     </div>

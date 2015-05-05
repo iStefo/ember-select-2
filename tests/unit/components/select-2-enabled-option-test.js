@@ -19,38 +19,38 @@ moduleForComponent('select-2', 'Select2Component (enabled-option)', {
   }
 });
 
-test("it is disabled when `enabled=false` on creation", function() {
-  expect(1);
+test("it is disabled when `enabled=false` on creation", function(assert) {
+  assert.expect(1);
 
   component.set('enabled', false);
 
-  this.append();
+  this.render();
   
-  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+  assert.ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
 });
 
-test("it is disabled when `enabled=false`", function() {
-  expect(3);
+test("it is disabled when `enabled=false`", function(assert) {
+  assert.expect(3);
 
-  this.append();
+  this.render();
 
-  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+  assert.ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
 
   component.set('enabled', false);
 
-  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+  assert.ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
 
   component.set('enabled', true);
 
-  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+  assert.ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
 });
 
-test("it stays disabled when `enabled=true` but has selected missing values", function() {
-  expect(2);
+test("it stays disabled when `enabled=true` but has selected missing values", function(assert) {
+  assert.expect(2);
 
-  this.append();
+  this.render();
 
-  ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
+  assert.ok(!$('.select2-container').hasClass('select2-container-disabled'), "is enabled");
 
   component.setProperties({
     optionValuePath: 'id',
@@ -58,5 +58,5 @@ test("it stays disabled when `enabled=true` but has selected missing values", fu
     value: ['missingObject']
   });
 
-  ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
+  assert.ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
 });
