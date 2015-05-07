@@ -113,26 +113,22 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var output;
-      if($.isFunction(self.formatResult)) {
-        output = self.formatResult(item);
+      var output,
+          id = get(item, "id"),
+          text = get(item, optionLabelPath),
+          headline = get(item, optionHeadlinePath),
+          description = get(item, optionDescriptionPath);
+
+      if (item.children) {
+        output = Ember.Handlebars.Utils.escapeExpression(headline);
       } else {
-        var id = get(item, optionIdPath),
-            text = get(item, optionLabelPath),
-            headline = get(item, optionHeadlinePath),
-            description = get(item, optionDescriptionPath);
+        output = Ember.Handlebars.Utils.escapeExpression(text);
+      }
 
-        if (item.children) {
-          output = Ember.Handlebars.Utils.escapeExpression(headline);
-        } else {
-          output = Ember.Handlebars.Utils.escapeExpression(text);
-        }
-
-        // only for "real items" (no group headers) that have a description
-        if (id && description) {
-          output += " <span class=\"text-muted\">" +
-            Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
-        }
+      // only for "real items" (no group headers) that have a description
+      if (id && description) {
+        output += " <span class=\"text-muted\">" +
+          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
       }
 
       return output;
@@ -148,17 +144,10 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      if($.isFunction(self.formatSelection)) {
-        return self.formatSelection(item);
-      } else {
-        // if set, use the optionLabelSelectedPath for formatting selected items,
-        // otherwise use the usual optionLabelPath
-        var text = get(item, optionLabelSelectedPath || optionLabelPath);
+      var text = get(item, optionLabelPath);
 
-        // escape text unless it's passed as a Handlebars.SafeString
-        return Ember.Handlebars.Utils.escapeExpression(text);
-      }
-
+      // escape text unless it's passed as a Handlebars.SafeString
+      return Ember.Handlebars.Utils.escapeExpression(text);
     };
 
     /*
@@ -224,8 +213,22 @@ var Select2Component = Ember.Component.extend({
             var result = Ember.$.extend({}, item, { children: filteredChildren });
             results.push(result);
           }
+          else if (self.get('tagsEnabled')) {
+            var val = { id: query.term, name: query.term, isNew: true };
+            if (!results.isAny('name', query.term)) {
+              results.push(val);
+            }
+          }
           return results;
         }, []);
+
+        var tempFirstElem = filteredContent[0];
+        if (tempFirstElem) {
+          if (get(tempFirstElem, 'isNew')) {
+            filteredContent.shift();
+            filteredContent.push(tempFirstElem);
+          }
+        }
 
         query.callback({
           results: filteredContent
@@ -247,16 +250,20 @@ var Select2Component = Ember.Component.extend({
       Format the no matches message, substituting the %@ placeholder with the
       html-escaped user input
      */
-    options.formatNoMatches = function(term) {
-      var text = self.get('typeaheadNoMatchesText');
-      if (text instanceof Ember.Handlebars.SafeString) {
-        text = text.string;
-      }
+    if (this.get('formatNoMatches')) {
+      options.formatNoMatches = this.get('formatNoMatches');
+    } else {
+      options.formatNoMatches = function(term) {
+        var text = self.get('typeaheadNoMatchesText');
+        if (text instanceof Ember.Handlebars.SafeString) {
+          text = text.string;
+        }
 
-      term = Ember.Handlebars.Utils.escapeExpression(term);
+        term = Ember.Handlebars.Utils.escapeExpression(term);
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
-    };
+        return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      };
+    }
 
     /*
       Format the error message, substituting the %@ placeholder with the promise
@@ -396,6 +403,12 @@ var Select2Component = Ember.Component.extend({
       // call our callback for further processing
       this.selectionChanged(data);
     }));
+
+    if (this.get('searchPlaceholder')) {
+      var mainId = this.$().attr('id');
+      var focusserId = $('#s2id_' + mainId + ' input.select2-focusser').attr('id')
+      $('#' + focusserId + '_search').attr('placeholder', this.get('searchPlaceholder'));
+    }
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
