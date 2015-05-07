@@ -93,7 +93,7 @@ var Select2Component = Ember.Component.extend({
     // override select2's default id fetching behavior
     options.id = (function(e) {
       var id = (e === undefined) ? null : get(e, optionIdPath);
-      if (self.get('tags')) {
+      if (self.get('tags') && id) {
         return id.toLowerCase();
       }
       return id;

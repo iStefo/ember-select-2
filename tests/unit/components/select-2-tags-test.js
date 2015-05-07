@@ -14,15 +14,22 @@ moduleForComponent('select-2', 'Select2Component (tags)', {
     component = this.subject();
   },
   teardown: function() {
-    //Ember.run(App, 'destroy');
-    //Ember.run(component, 'destroy');
+    Ember.run(App, 'destroy');
+    Ember.run(component, 'destroy');
   }
 });
 
-test("it can have ember data record array as content", function(assert) {
-  var store = App.__container__.lookup('store:main');
+test("it can have ember data record array as value and content", function(assert) {
+  assert.expect(2);
 
-  var post;
+  component.set("tags", true);
+  component.set("optionLabelPath", "name");
+  component.set("optionIdPath", "name");
+
+  this.render();
+
+  var store = App.__container__.lookup('store:main'),
+      post, tags = Ember.A([]);
 
   Ember.run(function() {
     post = store.createRecord('post', {
@@ -34,21 +41,77 @@ test("it can have ember data record array as content", function(assert) {
       name: "Ember.js"
     });
     post.get('tags').pushObject(tag);
+
+    component.set("value", post.get('tags'));
+
+    tags.pushObject(store.createRecord('tag', {
+      name: "Tan"
+    }));
+
+    component.set("content", tags);
   });
 
-  component.setProperties({
-    tags: true,
-    value: post.get('tags'),
-    optionLabelPath: 'name'
+  andThen(function() {
+    click('.select2-choices');
+    component._select.select2("search", "tag 2");
+    click('.select2-results li:first-child', 'body');
   });
+
+  andThen(function() {
+    assert.equal(component.get('value.lastObject.name'), 'tag 2', 'new tag added correctly');
+  });
+
+  andThen(function() {
+    click('.select2-choices');
+    component._select.select2("search", "TAG 2");
+    click('.select2-results li:first-child', 'body');
+  });
+
+  andThen(function() {
+    assert.equal(component.get('value.lastObject.name'), 'tag 2', 'tagging is case-sensitive');
+  });
+});
+
+test("it can have plain objects as value and content", function(assert) {
+  assert.expect(2);
+
+  component.set("tags", true);
+  component.set("optionLabelPath", "name");
+  component.set("optionIdPath", "name");
 
   this.render();
 
-  click('.select2-search-field');
-  fillIn('.select2-input', 'tag 2');
-  click('.select2-results li:first-child');
+  var tags = Ember.A([
+    Ember.Object.create({ name: "tag 1" }),
+    Ember.Object.create({ name: "tag 2" }),
+    Ember.Object.create({ name: "tag 3" }),
+    Ember.Object.create({ name: "tag 4" })
+  ]);
+
+  var value = Ember.A([
+    Ember.Object.create({ name: "tag 6" })
+  ]);
+
+  component.set("content", tags);
+  component.set("value", value);
 
   andThen(function() {
-    assert.equal(component.get('value.lastObject.name'), 'tag 2');
+    click('.select2-choices');
+    component._select.select2("search", "New tag");
+    click('.select2-results li:first-child', 'body');
+  });
+
+  andThen(function() {
+    assert.equal(component.get('value.lastObject.name'), 'New tag', 'new tag added correctly');
+  });
+
+  andThen(function() {
+    click('.select2-choices');
+    component._select.select2("search", "new TAG");
+    click('.select2-results li:first-child', 'body');
+  });
+
+  andThen(function() {
+    assert.equal(component.get('value.lastObject.name'), 'New tag', 'tagging is case-sensitive');
   });
 });
