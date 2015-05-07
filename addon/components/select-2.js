@@ -48,6 +48,7 @@ var Select2Component = Ember.Component.extend({
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
   searchEnabled: true,
+  sortableEnabled: false,
   minimumInputLength: null,
   maximumInputLength: null,
   valueSeparator: ',',
@@ -78,6 +79,8 @@ var Select2Component = Ember.Component.extend({
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
+    options.searchEnabled = this.get('searchEnabled');
+    options.sortableEnabled = this.get('sortableEnabled');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
@@ -144,10 +147,15 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var text = get(item, optionLabelPath);
+      // Kudos to https://github.com/jniechcial
+      if($.isFunction(self.formatSelection)) {
+        return self.formatSelection(item);
+      } else {
+        var text = get(item, optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+        // escape text unless it's passed as a Handlebars.SafeString
+        return Ember.Handlebars.Utils.escapeExpression(text);
+      }
     };
 
     /*
@@ -240,10 +248,13 @@ var Select2Component = Ember.Component.extend({
       Supplies the string used when searching for options, can be set via
       `typeaheadSearchingText`
      */
-    options.formatSearching = function() {
-      var text = self.get('typeaheadSearchingText');
-
-      return Ember.String.htmlSafe(text);
+    options.formatSearching = function(item) {
+      if ($.isFunction(self.formatSearching)) {
+        return self.formatSearching(item);
+      } else {
+        var text = self.get('typeaheadSearchingText');
+        return Ember.String.htmlSafe(text);
+      }
     };
 
     /*
@@ -270,9 +281,12 @@ var Select2Component = Ember.Component.extend({
       rejection reason
      */
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
-      var text = self.get('typeaheadErrorText');
-
-      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      if($.isFunction(self.formatAjaxError)) {
+        return self.formatAjaxError(jqXHR, textStatus, errorThrown);
+      } else {
+        var text = self.get('typeaheadErrorText');
+        return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      }
     };
 
     /*
@@ -427,6 +441,29 @@ var Select2Component = Ember.Component.extend({
       content.then(null, function (reason) {
         Ember.warn("select2: content promise was reject with reason " + reason +
           ". Recovering from this is not (yet) implemented.");
+      });
+    }
+
+    /*
+     Enable sortable
+     // Has jQuery-UI dependency
+    */
+
+    Ember.assert("Sortable has jQuery-UI dependency. Make sure it is installed and included.", typeof Ember.$.ui === "function");
+
+    if (options.sortableEnabled) {
+      this._select.select2('container').find('ul.select2-choices').sortable({
+        containment: 'parent',
+        start: function() { self._select.select2("onSortStart"); },
+        update: function() {
+          var indexes = {};
+
+          $(this).find('.select2-search-choice').each(function(index) {
+            indexes[$(this).find('span').data('id')] = index;
+          });
+
+          self.sendAction('updateSortOrder', indexes);
+        }
       });
     }
 
