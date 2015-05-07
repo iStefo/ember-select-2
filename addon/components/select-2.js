@@ -449,9 +449,9 @@ var Select2Component = Ember.Component.extend({
      // Has jQuery-UI dependency
     */
 
-    Ember.assert("Sortable has jQuery-UI dependency. Make sure it is installed and included.", typeof Ember.$.ui === "function");
-
     if (options.sortableEnabled) {
+      Ember.assert("Sortable has jQuery-UI dependency. Make sure it is installed and included.", typeof Ember.$.ui === "object");
+
       this._select.select2('container').find('ul.select2-choices').sortable({
         containment: 'parent',
         start: function() { self._select.select2("onSortStart"); },
