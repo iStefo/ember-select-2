@@ -6,21 +6,35 @@
       <h4>Ember Data models</h4>
       <p>Type as much tags as you like.</p>
       <div class="example-box">
-          <p>Your Pizza:<br/><b>Id</b>: {{favouritePizza.id}}<br/><b>Name</b>: {{favouritePizza.text}}<br/><b>Description</b>: {{favouritePizza.description}}</p>
+          <p>Result:</p>
+          <ul>
+            {{#each tag in model.post.tags }}
+              <li>{{tag.name}}</li>
+            {{/each}}
+          </ul>
+        {{#highlight-code lang=".hbs"}}&lt;ul&gt;
+  \{{#each tag in model.post.tags }}
+       &lt;li&gt;\{{tag.name}}&lt;/&gt;
+  \{{/each}}
+&lt;/ul&gt;
+        {{/highlight-code}}
+        <p>Type some things below:</p>
         {{select-2
           tags=true
+          content=model.tags
           value=model.post.tags
-          multiple=true
           placeholder="Begin typing tags for this post"
           optionLabelPath="name"
           optionIdPath="name"
         }}
       </div>
     {{#highlight-code lang=".hbs"}}\{{select-2
-        content=pizzas
-        value=favouritePizza
-        placeholder="Choose your pizza"
-        allowClear=true
+        tags=true
+        content=model.tags
+        value=model.post.tags
+        placeholder="Begin typing tags for this post"
+        optionLabelPath="name"
+        optionIdPath="name"
         }}{{/highlight-code}}
   </div>
 </div>
