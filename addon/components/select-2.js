@@ -62,14 +62,14 @@ var Select2Component = Ember.Component.extend({
   _typeaheadMode: Ember.computed.bool('query'),
 
   didInsertElement: function() {
-    var self = this,
-        options = {},
-        optionIdPath = this.get('optionIdPath'),
-        optionLabelPath = this.get('optionLabelPath'),
+    var self                    = this,
+        options                 = {},
+        optionIdPath            = this.get('optionIdPath'),
+        optionLabelPath         = this.get('optionLabelPath'),
         optionLabelSelectedPath = this.get('optionLabelSelectedPath'),
-        optionHeadlinePath = this.get('optionHeadlinePath'),
-        optionDescriptionPath = this.get('optionDescriptionPath'),
-        content = this.get('content');
+        optionHeadlinePath      = this.get('optionHeadlinePath'),
+        optionDescriptionPath   = this.get('optionDescriptionPath'),
+        content                 = this.get('content');
 
 
     // ensure select2 is loaded
@@ -80,7 +80,7 @@ var Select2Component = Ember.Component.extend({
     options.multiple = this.get('multiple');
     options.tags = this.get('tags');
     options.allowClear = this.get('allowClear');
-    options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
+    options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
 
@@ -107,12 +107,12 @@ var Select2Component = Ember.Component.extend({
     Ember.assert("Search field can't be disabled for multiple selection mode", !illegalSearchInMultipleMode);
 
     /*
-      Formatting functions that ensure that the passed content is escaped in
-      order to prevent XSS vulnerabilities. Escaping can be avoided by passing
-      Handlebars.SafeString as "text", "headline" or "description" values.
+     Formatting functions that ensure that the passed content is escaped in
+     order to prevent XSS vulnerabilities. Escaping can be avoided by passing
+     Handlebars.SafeString as "text", "headline" or "description" values.
 
-      Generates the html used in the dropdown list (and is implemented to
-      include the description html if available).
+     Generates the html used in the dropdown list (and is implemented to
+     include the description html if available).
      */
     options.formatResult = function(item) {
       if (!item) {
@@ -120,9 +120,9 @@ var Select2Component = Ember.Component.extend({
       }
 
       var output,
-          id = get(item, optionIdPath),
-          text = get(item, optionLabelPath),
-          headline = get(item, optionHeadlinePath),
+          id          = get(item, optionIdPath),
+          text        = get(item, optionLabelPath),
+          headline    = get(item, optionHeadlinePath),
           description = get(item, optionDescriptionPath);
 
       if (item.children) {
@@ -141,9 +141,9 @@ var Select2Component = Ember.Component.extend({
     };
 
     /*
-      Generates the html used in the closed select input, displaying the
-      currently selected element(s). Works like "formatResult" but
-      produces shorter output by leaving out the description.
+     Generates the html used in the closed select input, displaying the
+     currently selected element(s). Works like "formatResult" but
+     produces shorter output by leaving out the description.
      */
     options.formatSelection = function(item) {
       if (!item) {
@@ -159,9 +159,9 @@ var Select2Component = Ember.Component.extend({
     };
 
     /*
-      Provides a list of items that should be displayed for the current query
-      term. Uses the default select2 matcher (which handles diacritics) with the
-      Ember compatible getter method for optionLabelPath.
+     Provides a list of items that should be displayed for the current query
+     term. Uses the default select2 matcher (which handles diacritics) with the
+     Ember compatible getter method for optionLabelPath.
      */
     options.query = function(query) {
       var select2 = this;
@@ -228,13 +228,24 @@ var Select2Component = Ember.Component.extend({
           }, []);
         }
 
-        if (self.get('tags') && !Ember.isEmpty(query.term) && select2.matcher(query.term, query.term)) {
-          var tag = {};
-          tag[self.get('optionIdPath')] = query.term.toLowerCase();
-          tag[optionLabelPath] = query.term;
+        if (self.get('tags') && !Ember.isEmpty(query.term)) {
+          // determine if we should create a new tag, based on the filtered content
+          var exists = false;
+          filteredContent.forEach(function(item) {
+            if (select2.matcher(get(item, optionLabelPath), query.term)) {
+              exists = true;
+            }
+          });
 
-          // add the
-          filteredContent.unshift(tag);
+          // only add a new tag if it does not exist yet
+          if (!exists) {
+            var tag = {};
+            tag[self.get('optionIdPath')] = query.term;
+            tag[optionLabelPath] = query.term;
+
+            // add tag on top of the array
+            filteredContent.unshift(tag);
+          }
         }
 
         query.callback({
@@ -244,8 +255,8 @@ var Select2Component = Ember.Component.extend({
     };
 
     /*
-      Supplies the string used when searching for options, can be set via
-      `typeaheadSearchingText`
+     Supplies the string used when searching for options, can be set via
+     `typeaheadSearchingText`
      */
     options.formatSearching = function() {
       var text = self.get('typeaheadSearchingText');
@@ -254,8 +265,8 @@ var Select2Component = Ember.Component.extend({
     };
 
     /*
-      Format the no matches message, substituting the %@ placeholder with the
-      html-escaped user input
+     Format the no matches message, substituting the %@ placeholder with the
+     html-escaped user input
      */
     options.formatNoMatches = function(term) {
       var text = self.get('typeaheadNoMatchesText');
@@ -269,8 +280,8 @@ var Select2Component = Ember.Component.extend({
     };
 
     /*
-      Format the error message, substituting the %@ placeholder with the promise
-      rejection reason
+     Format the error message, substituting the %@ placeholder with the promise
+     rejection reason
      */
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
       var text = self.get('typeaheadErrorText');
@@ -279,28 +290,28 @@ var Select2Component = Ember.Component.extend({
     };
 
     /*
-      Maps "value" -> "object" when using select2 with "optionValuePath" set,
-      and one time directly when setting up the select2 plugin even without "oVP".
-      (but with empty value, which will just skip the method)
+     Maps "value" -> "object" when using select2 with "optionValuePath" set,
+     and one time directly when setting up the select2 plugin even without "oVP".
+     (but with empty value, which will just skip the method)
 
-      Provides an object or an array of objects (depending on "multiple") that
-      are referenced by the current select2 "val".
+     Provides an object or an array of objects (depending on "multiple") that
+     are referenced by the current select2 "val".
 
-      When there are keys that can not be matched to objects, the select2 input
-      will be disabled and a warning will be printed on the console.
-      This is important in case the "content" has yet to be loaded but the
-      "value" is already set and must not be accidentally changed because the
-      inout cannot yet display all the options that are required.
+     When there are keys that can not be matched to objects, the select2 input
+     will be disabled and a warning will be printed on the console.
+     This is important in case the "content" has yet to be loaded but the
+     "value" is already set and must not be accidentally changed because the
+     inout cannot yet display all the options that are required.
 
-      To disable this behaviour, remove those keys from "value" that can't be
-      matched by objects from "content".
+     To disable this behaviour, remove those keys from "value" that can't be
+     matched by objects from "content".
      */
     options.initSelection = function(element, callback) {
-      var value = element.val(),
-          content = self.get("content"),
+      var value               = element.val(),
+          content             = self.get("content"),
           contentIsArrayProxy = Ember.ArrayProxy.detectInstance(content),
-          multiple = self.get("multiple"),
-          optionValuePath = self.get("optionValuePath");
+          multiple            = self.get("multiple"),
+          optionValuePath     = self.get("optionValuePath");
 
       if (!value || !value.length) {
         return callback([]);
@@ -329,7 +340,7 @@ var Select2Component = Ember.Component.extend({
 
       // for every object, check if its optionValuePath is in the selected
       // values array and save it to the right position in filteredContent
-      var contentLength = get(content, 'length'),
+      var contentLength   = get(content, 'length'),
           unmatchedValues = values.length,
           matchIndex;
 
@@ -352,7 +363,7 @@ var Select2Component = Ember.Component.extend({
               break;
             }
           }
-        } else {
+        } else {
           // ...or flat data structure: try to match simple item
           matchIndex = values.indexOf("" + get(item, optionValuePath));
           if (matchIndex !== -1) {
@@ -375,7 +386,7 @@ var Select2Component = Ember.Component.extend({
         self.set('_hasSelectedMissingItems', true);
 
         Ember.warn("select2#initSelection was not able to map each \"" +
-          optionValuePath +"\" to an object from \"content\". The remaining " +
+          optionValuePath + "\" to an object from \"content\". The remaining " +
           "keys are: " + values + ". The input will be disabled until a) the " +
           "desired objects is added to the \"content\" array or b) the " +
           "\"value\" is changed.", !values.length);
@@ -391,8 +402,8 @@ var Select2Component = Ember.Component.extend({
     };
 
     /*
-      Forward a custom css class to the components container and dropdown.
-      The value will be read from the `cssClass` binding
+     Forward a custom css class to the components container and dropdown.
+     The value will be read from the `cssClass` binding
      */
     options.containerCssClass = options.dropdownCssClass = function() {
       return self.get('cssClass') || '';
@@ -401,10 +412,10 @@ var Select2Component = Ember.Component.extend({
     this._select = this.$().select2(options);
 
     this._select.on("change", run.bind(this, function(e) {
-        // grab currently selected data from select plugin
-        var data = this._select.select2("data");
-        // call our callback for further processing
-        this.selectionChanged(data, e);
+      // grab currently selected data from select plugin
+      var data = this._select.select2("data");
+      // call our callback for further processing
+      this.selectionChanged(data, e);
     }));
 
     this.addObserver('content.[]', this.valueChanged);
@@ -413,6 +424,7 @@ var Select2Component = Ember.Component.extend({
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
+    this.addObserver('value.[]', this.valueChanged);
 
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
@@ -421,7 +433,7 @@ var Select2Component = Ember.Component.extend({
     if (Ember.PromiseProxyMixin.detect(content)) {
       // enabling/siabling is done via binding to _hasPendingContentPromise
       // provide error for rejected promise, though.
-      content.then(null, function (reason) {
+      content.then(null, function(reason) {
         Ember.warn("select2: content promise was reject with reason " + reason +
           ". Recovering from this is not (yet) implemented.");
       });
@@ -430,19 +442,27 @@ var Select2Component = Ember.Component.extend({
     this.watchDisabled();
   },
 
-  createRecordFromTag: function(tag) {
-    var type;
-    if (this.get('value') instanceof Ember.ArrayProxy) {
-      type = this.get('value.content.type');
-    } else {
-      type = this.get('value.type');
+  /**
+   * Create an ember data record from a select2 tag object.
+   *
+   * @param tag
+   * @returns {DS.Model}
+   */
+  transformTag: function(tag) {
+    var value = this.get('value'), object = tag;
+
+    if (value instanceof Ember.ArrayProxy) {
+      value = value.get('content');
     }
 
-    var record = this.get('container').lookup('store:main').createRecord(type.typeKey);
+    if (this.isRecordArray(value) && !(tag instanceof DS.Model)) {
+      object = value.get('store').createRecord(value.get('type'));
+      object.set(this.get('optionLabelPath'), tag[this.get('optionLabelPath')]);
+    } else if ((tag instanceof Ember.Object) === false) {
+      object = Ember.Object.create(tag);
+    }
 
-    record.set(this.get('optionLabelPath'), tag[this.get('optionLabelPath')]);
-
-    return record;
+    return object;
   },
 
   /**
@@ -450,7 +470,7 @@ var Select2Component = Ember.Component.extend({
    */
   willDestroyElement: function() {
     // If an assertion caused the component not to render, we can't remove it from the dom.
-    if(this._select) {
+    if (this._select) {
       this._select.off("change");
       this._select.select2("destroy");
     }
@@ -485,7 +505,7 @@ var Select2Component = Ember.Component.extend({
    */
   selectionChanged: function(data, e) {
     var value,
-        multiple = this.get("multiple"),
+        multiple        = this.get("multiple"),
         optionValuePath = this.get("optionValuePath");
 
     // if there is a optionValuePath, don't set value to the complete object,
@@ -500,20 +520,15 @@ var Select2Component = Ember.Component.extend({
       }
     } else if (this.get('tags') && e) {
       if (e.added) {
-        var record;
-        if (e.added instanceof DS.Model) {
-          record = e.added;
-        } else {
-          record = this.createRecordFromTag(e.added);
-        }
-        this.get('value').pushObject(record);
+        var object = this.transformTag(e.added);
+        this.get('value').pushObject(object);
       } else if (e.removed) {
-        // TODO: Is this always the preferred behaviour? Maybe make this configurable...
         this.get('value').removeObject(e.removed);
-        if (e.removed.get('isNew')) {
+        if (e.removed instanceof DS.Model && e.removed.get('isNew')) {
           e.removed.unloadRecord();
         }
       }
+      value = this.get('value');
     } else {
       value = data;
     }
@@ -525,13 +540,32 @@ var Select2Component = Ember.Component.extend({
   },
 
   /**
+   * Determine if given object is a valid ember data record array and contains a model type.
+   *
+   * @param object
+   * @returns {boolean}
+   */
+  isRecordArray: function(object) {
+    if (!object) {
+      return false;
+    }
+    if (object instanceof Ember.ArrayProxy) {
+      object = object.get('content');
+    }
+    if (!Ember.isEmpty(get(object, 'type')) && object instanceof DS.ManyArray) {
+      return true;
+    }
+    return false;
+  },
+
+  /**
    * Respond to external value changes. If select2 is working with full objects,
    * use the "data" API, otherwise just set the "val" property and let the
    * "initSelection" figure out which object was meant by that.
    */
   valueChanged: function() {
-    var self = this,
-        value = this.get("value"),
+    var self            = this,
+        value           = this.get("value"),
         optionValuePath = this.get("optionValuePath");
 
     if (Ember.PromiseProxyMixin.detect(value)) {
@@ -574,13 +608,12 @@ var Select2Component = Ember.Component.extend({
     '_hasFailedValuePromise',
     'enabled',
     function() {
-      var select = this._select,
+      var select   = this._select,
           disabled = this.get('_hasSelectedMissingItems') ||
             this.get('_hasPendingContentPromise') ||
             this.get('_hasFailedContentPromise') ||
             this.get('_hasPendingValuePromise') ||
-            this.get('_hasFailedValuePromise') ||
-            !this.get('enabled');
+            this.get('_hasFailedValuePromise') || !this.get('enabled');
 
       if (select) {
         Ember.run(function() {
