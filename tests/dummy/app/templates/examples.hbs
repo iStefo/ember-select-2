@@ -1,3 +1,30 @@
+<h3>Tagging</h3>
+<p>You can provide tags etc.</p>
+
+<div class="row">
+  <div class="col-sm-6">
+      <h4>Ember Data models</h4>
+      <p>Type as much tags as you like.</p>
+      <div class="example-box">
+          <p>Your Pizza:<br/><b>Id</b>: {{favouritePizza.id}}<br/><b>Name</b>: {{favouritePizza.text}}<br/><b>Description</b>: {{favouritePizza.description}}</p>
+        {{select-2
+          tags=true
+          value=model.post.tags
+          multiple=true
+          placeholder="Begin typing tags for this post"
+          optionLabelPath="name"
+          optionIdPath="name"
+        }}
+      </div>
+    {{#highlight-code lang=".hbs"}}\{{select-2
+        content=pizzas
+        value=favouritePizza
+        placeholder="Choose your pizza"
+        allowClear=true
+        }}{{/highlight-code}}
+  </div>
+</div>
+
 <h3>Single-Selection Dropdown</h3>
 <p>This mode works mostly like the default <code>\{{select}}</code> component which comes with ember.js right away. However, notice the nice styling and search field making it easy to find the right option.</p>
 

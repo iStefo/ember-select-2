@@ -1,4 +1,5 @@
 import Ember from "ember";
+import DS from "ember-data";
 
 var get = Ember.get;
 var run = Ember.run;
@@ -77,6 +78,7 @@ var Select2Component = Ember.Component.extend({
     // setup
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
+    options.tags = this.get('tags');
     options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
@@ -90,7 +92,11 @@ var Select2Component = Ember.Component.extend({
 
     // override select2's default id fetching behavior
     options.id = (function(e) {
-      return (e === undefined) ? null : get(e, optionIdPath);
+      var id = (e === undefined) ? null : get(e, optionIdPath);
+      if (self.get('tags')) {
+        return id.toLowerCase();
+      }
+      return id;
     });
 
     // allowClear is only allowed with placeholder
@@ -191,32 +197,45 @@ var Select2Component = Ember.Component.extend({
           });
         });
       } else {
-        Ember.assert("select2 has no content!", self.get('content'));
+        Ember.assert("select2 has no content!", self.get('content') || self.get('tags'));
 
-        var filteredContent = self.get("content").reduce(function(results, item) {
-          // items may contain children, so filter them, too
-          var filteredChildren = [];
+        var filteredContent = [];
 
-          if (item.children) {
-            filteredChildren = item.children.reduce(function(children, child) {
-              if (select2.matcher(query.term, get(child, optionLabelPath)) || select2.matcher(query.term, get(child, optionHeadlinePath))) {
-                children.push(child);
-              }
-              return children;
-            }, []);
-          }
+        if (!Ember.isEmpty(self.get('content'))) {
+          filteredContent = self.get("content").reduce(function(results, item) {
+            // items may contain children, so filter them, too
+            var filteredChildren = [];
 
-          // apply the regular matcher
-          if (select2.matcher(query.term, get(item, optionLabelPath)) || select2.matcher(query.term, get(item, optionHeadlinePath))) {
-            // keep this item either if itself matches
-            results.push(item);
-          } else if (filteredChildren.length) {
-            // or it has children that matched the term
-            var result = Ember.$.extend({}, item, { children: filteredChildren });
-            results.push(result);
-          }
-          return results;
-        }, []);
+            if (item.children) {
+              filteredChildren = item.children.reduce(function(children, child) {
+                if (select2.matcher(query.term, get(child, optionLabelPath)) || select2.matcher(query.term, get(child, optionHeadlinePath))) {
+                  children.push(child);
+                }
+                return children;
+              }, []);
+            }
+
+            // apply the regular matcher
+            if (select2.matcher(query.term, get(item, optionLabelPath)) || select2.matcher(query.term, get(item, optionHeadlinePath))) {
+              // keep this item either if itself matches
+              results.push(item);
+            } else if (filteredChildren.length) {
+              // or it has children that matched the term
+              var result = Ember.$.extend({}, item, {children: filteredChildren});
+              results.push(result);
+            }
+            return results;
+          }, []);
+        }
+
+        if (self.get('tags') && !Ember.isEmpty(query.term) && select2.matcher(query.term, query.term)) {
+          var tag = {};
+          tag[self.get('optionIdPath')] = query.term.toLowerCase();
+          tag[optionLabelPath] = query.term;
+
+          // add the
+          filteredContent.unshift(tag);
+        }
 
         query.callback({
           results: filteredContent
@@ -381,11 +400,11 @@ var Select2Component = Ember.Component.extend({
 
     this._select = this.$().select2(options);
 
-    this._select.on("change", run.bind(this, function() {
-      // grab currently selected data from select plugin
-      var data = this._select.select2("data");
-      // call our callback for further processing
-      this.selectionChanged(data);
+    this._select.on("change", run.bind(this, function(e) {
+        // grab currently selected data from select plugin
+        var data = this._select.select2("data");
+        // call our callback for further processing
+        this.selectionChanged(data, e);
     }));
 
     this.addObserver('content.[]', this.valueChanged);
@@ -409,6 +428,21 @@ var Select2Component = Ember.Component.extend({
     }
 
     this.watchDisabled();
+  },
+
+  createRecordFromTag: function(tag) {
+    var type;
+    if (this.get('value') instanceof Ember.ArrayProxy) {
+      type = this.get('value.content.type');
+    } else {
+      type = this.get('value.type');
+    }
+
+    var record = this.get('container').lookup('store:main').createRecord(type.typeKey);
+
+    record.set(this.get('optionLabelPath'), tag[this.get('optionLabelPath')]);
+
+    return record;
   },
 
   /**
@@ -447,8 +481,9 @@ var Select2Component = Ember.Component.extend({
    * use the optionValuePath otherwise.
    *
    * @param  {String|Object} data   Currently selected value
+   * @param  {Object} e             Optional select2 changed event
    */
-  selectionChanged: function(data) {
+  selectionChanged: function(data, e) {
     var value,
         multiple = this.get("multiple"),
         optionValuePath = this.get("optionValuePath");
@@ -462,6 +497,22 @@ var Select2Component = Ember.Component.extend({
       } else {
         // treat data as a single object
         value = get(data, optionValuePath);
+      }
+    } else if (this.get('tags') && e) {
+      if (e.added) {
+        var record;
+        if (e.added instanceof DS.Model) {
+          record = e.added;
+        } else {
+          record = this.createRecordFromTag(e.added);
+        }
+        this.get('value').pushObject(record);
+      } else if (e.removed) {
+        // TODO: Is this always the preferred behaviour? Maybe make this configurable...
+        this.get('value').removeObject(e.removed);
+        if (e.removed.get('isNew')) {
+          e.removed.unloadRecord();
+        }
       }
     } else {
       value = data;
@@ -505,6 +556,9 @@ var Select2Component = Ember.Component.extend({
       this._select.select2("val", value);
     } else {
       // otherwise set the full object via "data"
+      if (value instanceof Ember.ArrayProxy) {
+        value = value.toArray();
+      }
       this._select.select2("data", value);
     }
   },
