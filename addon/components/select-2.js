@@ -162,10 +162,9 @@ var Select2Component = Ember.Component.extend({
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
       var cssClass = get(item, optionCssClassPath) || '';
-      var output = '<span class="' + cssClass + '">' + text + '</span>';
+      var output = '<span class="' + cssClass + '">' + Ember.Handlebars.Utils.escapeExpression(text) + '</span>';
 
-      // escape output unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(output);
+      return output;
     };
 
     /*
