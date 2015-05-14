@@ -67,6 +67,7 @@ var Select2Component = Ember.Component.extend({
         options = {},
         optionIdPath = this.get('optionIdPath'),
         optionLabelPath = this.get('optionLabelPath'),
+        optionCssClassPath = this.get('optionCssClassPath'),
         optionLabelSelectedPath = this.get('optionLabelSelectedPath'),
         optionHeadlinePath = this.get('optionHeadlinePath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
