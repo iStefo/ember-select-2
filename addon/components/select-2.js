@@ -84,7 +84,11 @@ var Select2Component = Ember.Component.extend({
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
     options.maximumSelectionSize = this.get('maximumSelectionSize');
-    options.closeOnSelect = this.get('closeOnSelect');
+    options.closeOnSelect = !!this.get('closeOnSelect'); // !! ensures bool value.
+    
+    // ensures that max selection size is numeric or null.
+    var maximumSelectionSizeValueIsValid = (typeof this.get('maximumSelectionSize') === 'number' || typeof this.get('maximumSelectionSize') === null);
+    Ember.assert("select2 maximumSelectionSize value must be numeric", maximumSelectionSizeValueIsValid);    
     
     // ensure there is a value separator if needed (= when in multiple selection with value binding)
     var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
