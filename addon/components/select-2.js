@@ -32,13 +32,15 @@ var Select2Component = Ember.Component.extend({
 
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
-  cssClass: null,
+  containerCssClass: null,
+  dropdownCssClass: null,
   optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
   optionLabelSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
+  optionCssClassPath: 'cssClass',
   placeholder: null,
   multiple: false,
   allowClear: false,
@@ -78,6 +80,8 @@ var Select2Component = Ember.Component.extend({
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
+    options.containerCssClass = this.get('containerCssClass') || '';
+    options.dropdownCssClass = this.get('dropdownCssClass') || '';
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
@@ -134,6 +138,14 @@ var Select2Component = Ember.Component.extend({
       return output;
     };
 
+    options.formatResultCssClass = function(item) {
+      if (!item) {
+        return '';
+      }
+
+      return get(item, optionCssClassPath) || '';
+    };
+
     /*
       Generates the html used in the closed select input, displaying the
       currently selected element(s). Works like "formatResult" but
@@ -148,8 +160,11 @@ var Select2Component = Ember.Component.extend({
       // otherwise use the usual optionLabelPath
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+      var cssClass = get(item, optionCssClassPath) || '';
+      var output = '<span class="' + cssClass + '">' + text + '</span>';
+
+      // escape output unless it's passed as a Handlebars.SafeString
+      return Ember.Handlebars.Utils.escapeExpression(output);
     };
 
     /*
@@ -369,14 +384,6 @@ var Select2Component = Ember.Component.extend({
         // only care about the first match in single selection mode
         return callback(filteredContent[0]);
       }
-    };
-
-    /*
-      Forward a custom css class to the components container and dropdown.
-      The value will be read from the `cssClass` binding
-     */
-    options.containerCssClass = options.dropdownCssClass = function() {
-      return self.get('cssClass') || '';
     };
 
     this._select = this.$().select2(options);
