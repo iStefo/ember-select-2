@@ -33,6 +33,7 @@ var Select2Component = Ember.Component.extend({
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
   cssClass: null,
+  opened: false,
   optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
@@ -388,12 +389,18 @@ var Select2Component = Ember.Component.extend({
       this.selectionChanged(data);
     }));
 
+    this._select.on("select2-close", run.bind(this, function() {
+      this.set('opened', false);
+    }));
+
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
     this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
+
+    this.addObserver('opened', this.openedChanged);
 
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
@@ -439,6 +446,8 @@ var Select2Component = Ember.Component.extend({
       this.valueChanged
     );
     this.removeObserver('value', this.valueChanged);
+
+    this.removeObserver('opened', this.openedChanged);
   },
 
   /**
@@ -507,6 +516,11 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
+  },
+
+  openedChanged: function() {
+    var action = !!this.get('opened') ? 'open' : 'close';
+    this._select.select2(action);
   },
 
   /**
