@@ -122,7 +122,7 @@ var Select2Component = Ember.Component.extend({
           id = get(item, optionIdPath),
           text = get(item, optionLabelPath),
           headline = get(item, optionHeadlinePath),
-          description = get(item, optionDescriptionPath);
+          description = optionDescriptionPath && get(item, optionDescriptionPath);
 
       if (item.children) {
         output = Ember.Handlebars.Utils.escapeExpression(headline);
@@ -400,6 +400,9 @@ var Select2Component = Ember.Component.extend({
     this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
+    if (optionDescriptionPath) {
+      this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
+    }
     this.addObserver('value', this.valueChanged);
 
     // trigger initial data sync to set select2 to the external "value"
@@ -441,10 +444,12 @@ var Select2Component = Ember.Component.extend({
       'content.@each.' + this.get('optionHeadlinePath'),
       this.valueChanged
     );
-    this.removeObserver(
-      'content.@each.' + this.get('optionDescriptionPath'),
-      this.valueChanged
-    );
+    if (this.get('optionDescriptionPath')) {
+      this.removeObserver(
+        'content.@each.' + this.get('optionDescriptionPath'),
+        this.valueChanged
+      );
+    }
     this.removeObserver('value', this.valueChanged);
   },
 
