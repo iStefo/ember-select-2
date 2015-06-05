@@ -46,6 +46,8 @@ var Select2Component = Ember.Component.extend({
   allowClear: false,
   enabled: true,
   query: null,
+  tags: false,
+  tokenSeparators: null,
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
@@ -86,6 +88,14 @@ var Select2Component = Ember.Component.extend({
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
+    options.tags = this.get('tags');
+    if (this.get('tokenSeparators')) {
+      options.tokenSeparators = this.get('tokenSeparators');
+      options.createSearchChoice = function(term) {
+        return Ember.$.trim(term);
+      };
+      // TODO(ed): initSelection
+    }
 
     // ensure there is a value separator if needed (= when in multiple selection with value binding)
     var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
