@@ -88,7 +88,9 @@ var Select2Component = Ember.Component.extend({
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
-    options.tags = this.get('tags');
+    if (this.get('tags')) {
+      options.tags = this.get('tags');
+    }
     if (this.get('tokenSeparators')) {
       options.tokenSeparators = this.get('tokenSeparators');
       options.createSearchChoice = function(term) {
