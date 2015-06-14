@@ -10,7 +10,7 @@
 import Ember from "ember";
 import { test, moduleFor, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
-
+import sinon from "sinon";
 
 var simpleContent = Ember.A([
   {
@@ -378,7 +378,7 @@ test("it displays custom `typeaheadNoMatchesText` text", function(assert) {
 
   fillIn('.select2-input', 'body', 'bla');
 
-  andThen(function() {    
+  andThen(function() {
     assert.equal($('li.select2-no-results').text(), "No results for ", "display custom no results text");
   });
 });
