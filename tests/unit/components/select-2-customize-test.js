@@ -80,6 +80,7 @@ moduleForComponent('select-2', 'Select2Component (customize)', {
 });
 
 
+
 test("it uses optionLabelPath", function(assert) {
   assert.expect(2);
 
@@ -277,6 +278,51 @@ test("uses `valueSeparator`", function(assert) {
   });
 });
 
+test("it uses maximumSelectionValue", function(assert){
+
+  assert.expect(2);
+
+  component.setProperties({
+    content: [
+      {
+        id: "first",
+        text: "First",
+      }, {
+        id: "second",
+        text: "Second",
+      }, {
+        id: "third",
+        text: "Third"
+      }
+    ],
+    multiple: true,
+    optionValuePath: 'id',
+    maximumSelectionSize: '2'
+  });
+ 
+  this.render();
+
+   // open options by clicking on the element
+  click('.select2-choices');
+  // then select an option
+  click('.select2-results li:nth-child(1)', 'body');
+
+  // open options by clicking on the element
+  click('.select2-choices');
+
+  andThen(function(){
+    assert.strictEqual($('.select2-selection-limit').length, 0, "allows adding more before limit is reached");
+  });
+
+  // and select another option
+  click('.select2-results li:nth-child(2)', 'body');
+
+  click('.select2-choices');
+  
+  andThen(function(){
+    assert.strictEqual($('.select2-selection-limit').length, 1, "prevents adding more when limit is reached");
+  });
+});
 
 test("uses `optionLabelSelectedPath`", function(assert) {
   assert.expect(1);
