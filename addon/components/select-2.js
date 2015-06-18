@@ -333,7 +333,7 @@ var Select2Component = Ember.Component.extend({
               break;
             }
           }
-        } else {
+        } else {
           // ...or flat data structure: try to match simple item
           matchIndex = values.indexOf("" + get(item, optionValuePath));
           if (matchIndex !== -1) {
