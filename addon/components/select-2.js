@@ -290,7 +290,7 @@ var Select2Component = Ember.Component.extend({
       // this method should not be needed without the optionValuePath option
       // but make sure there is an appropriate error just in case.
       Ember.assert("select2#initSelection has been called without an \"" +
-        "optionValuePath\" set.", optionValuePath);
+        "optionValuePath\" set.", optionValuePath !== null && optionValuePath !== undefined);
 
       Ember.assert("select2#initSelection can not map string values to full objects " +
         "in typeahead mode. Please open a github issue if you have questions to this.",
