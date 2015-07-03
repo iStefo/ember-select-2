@@ -116,22 +116,27 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var output,
-          id = get(item, "id"),
-          text = get(item, optionLabelPath),
-          headline = get(item, optionHeadlinePath),
-          description = get(item, optionDescriptionPath);
-
-      if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(headline);
+      // Credit: https://github.com/qianthinking/ember-select-2/
+      var output;
+      if($.isFunction(self.formatResult)) {
+        output = self.formatResult(item);
       } else {
-        output = Ember.Handlebars.Utils.escapeExpression(text);
-      }
+        var id = get(item, optionIdPath),
+            text = get(item, optionLabelPath),
+            headline = get(item, optionHeadlinePath),
+            description = get(item, optionDescriptionPath);
 
-      // only for "real items" (no group headers) that have a description
-      if (id && description) {
-        output += " <span class=\"text-muted\">" +
-          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+        if (item.children) {
+          output = Ember.Handlebars.Utils.escapeExpression(headline);
+        } else {
+          output = Ember.Handlebars.Utils.escapeExpression(text);
+        }
+
+        // only for "real items" (no group headers) that have a description
+        if (id && description) {
+          output += " <span class=\"text-muted\">" +
+            Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+        }
       }
 
       return output;
@@ -147,7 +152,7 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      // Kudos to https://github.com/jniechcial
+      // Credit: https://github.com/jniechcial
       if($.isFunction(self.formatSelection)) {
         return self.formatSelection(item);
       } else {
