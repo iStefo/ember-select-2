@@ -52,6 +52,8 @@ var Select2Component = Ember.Component.extend({
   minimumInputLength: null,
   maximumInputLength: null,
   valueSeparator: ',',
+  maximumSelectionSize: null,
+  closeOnSelect: true,
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -82,6 +84,12 @@ var Select2Component = Ember.Component.extend({
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
+    options.maximumSelectionSize = this.get('maximumSelectionSize');
+    options.closeOnSelect = !!this.get('closeOnSelect');
+
+    // ensures that max selection size is numeric or null.
+    var maximumSelectionSizeValueIsValid = (!isNaN(this.get('maximumSelectionSize')) || this.get('maximumSelectionSize') === null);
+    Ember.assert("select2 maximumSelectionSize value must be numeric or null", maximumSelectionSizeValueIsValid);
 
     // ensure there is a value separator if needed (= when in multiple selection with value binding)
     var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
