@@ -415,14 +415,6 @@
                   sortableEnabled=true
                   value=sortedData}}
     </div>
-      {{#highlight-code lang=".js"}}
-// Example dataset
-sortedData: Ember.A([
-  {idx: 1, id: '1', name: 'Salami', locked: true},
-  {idx: 2, id: '2', name: 'Bacon'}
-])
-{{/highlight-code}}
-
       {{#highlight-code lang=".hbs"}}\{{select-2 updateSortOrder="updateSortOrder"
           cssClass="select2-hidden"
           content=sortableIngredients
@@ -434,5 +426,13 @@ sortedData: Ember.A([
           sortableEnabled=true
           value=sortedData
 }}{{/highlight-code}}
+
+{{#highlight-code lang=".js"}}
+  // Example dataset
+  sortedData: Ember.A([
+    {idx: 1, id: '1', name: 'Salami', locked: true},
+    {idx: 2, id: '2', name: 'Bacon'}
+  ])
+{{/highlight-code}}
   </div>
 </div>
