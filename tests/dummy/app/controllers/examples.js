@@ -96,6 +96,22 @@ var ExamplesController = Ember.Controller.extend({
     }
   ],
 
+  // for sortable
+  sortableIngredients: Ember.A([
+    {idx: 1, id: '1', name: 'Salami', locked: true},
+    {idx: 2, id: '2', name: 'Bacon'},
+    {idx: 3, id: '3', name: 'Ham'},
+    {idx: 4, id: '4', name: 'Sausage'}
+  ]),
+  formatSortableSelection: function(data) {
+    return "<span data-id=" + data.id + ">" + data.name + "</span>";
+  },
+  sortedData: Ember.A([
+    {idx: 1, id: '1', name: 'Salami', locked: true},
+    {idx: 2, id: '2', name: 'Bacon'}
+  ]),
+
+
   actions: {
     selectPizza: function(item) {
       this.set("favouritePizza", item);
@@ -144,8 +160,14 @@ var ExamplesController = Ember.Controller.extend({
 
     queryInfiniteScrollPizzas: function(query, deferred) {
       this.send('queryPizzas', query, deferred, true);
+    },
+
+    updateSortOrder: function(indexes) {
+      this.beginPropertyChanges();
+      // code to deal with what you want to do when sort is updated here
+      this.endPropertyChanges();
     }
-  },
+  }
 
 });
 
