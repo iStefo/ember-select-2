@@ -118,7 +118,7 @@ var Select2Component = Ember.Component.extend({
 
       // Credit: https://github.com/qianthinking/ember-select-2/
       var output;
-      if($.isFunction(self.formatResult)) {
+      if(Ember.$.isFunction(self.formatResult)) {
         output = self.formatResult(item);
       } else {
         var id = get(item, optionIdPath),
@@ -153,7 +153,7 @@ var Select2Component = Ember.Component.extend({
       }
 
       // Credit: https://github.com/jniechcial
-      if($.isFunction(self.formatSelection)) {
+      if(Ember.$.isFunction(self.formatSelection)) {
         return self.formatSelection(item);
       } else {
         var text = get(item, optionLabelPath);
@@ -254,7 +254,7 @@ var Select2Component = Ember.Component.extend({
       `typeaheadSearchingText`
      */
     options.formatSearching = function(item) {
-      if ($.isFunction(self.formatSearching)) {
+      if (Ember.$.isFunction(self.formatSearching)) {
         return self.formatSearching(item);
       } else {
         var text = self.get('typeaheadSearchingText');
@@ -286,7 +286,7 @@ var Select2Component = Ember.Component.extend({
       rejection reason
      */
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
-      if($.isFunction(self.formatAjaxError)) {
+      if(Ember.$.isFunction(self.formatAjaxError)) {
         return self.formatAjaxError(jqXHR, textStatus, errorThrown);
       } else {
         var text = self.get('typeaheadErrorText');
@@ -425,8 +425,8 @@ var Select2Component = Ember.Component.extend({
 
     if (this.get('searchPlaceholder')) {
       var mainId = this.$().attr('id');
-      var focusserId = $('#s2id_' + mainId + ' input.select2-focusser').attr('id')
-      $('#' + focusserId + '_search').attr('placeholder', this.get('searchPlaceholder'));
+      var focusserId = Ember.$('#s2id_' + mainId + ' input.select2-focusser').attr('id');
+      Ember.$('#' + focusserId + '_search').attr('placeholder', this.get('searchPlaceholder'));
     }
 
     this.addObserver('content.[]', this.valueChanged);
@@ -463,8 +463,8 @@ var Select2Component = Ember.Component.extend({
         update: function() {
           var indexes = {};
 
-          $(this).find('.select2-search-choice').each(function(index) {
-            indexes[$(this).find('span').data('id')] = index;
+          Ember.$(this).find('.select2-search-choice').each(function(index) {
+            indexes[Ember.$(this).find('span').data('id')] = index;
           });
 
           self.sendAction('updateSortOrder', indexes);
