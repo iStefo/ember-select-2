@@ -127,23 +127,13 @@ var Select2Component = Ember.Component.extend({
     options.separator = this.get('valueSeparator');
 
     /*
-      Can define an options hash on the controller implimenting this compoennet
-      then assign that hash to `optionsHash` property on the compoennet.
-      need to know
-    */
-    var useOptionsHash = !!this.get('optionsHash');
-
-    /*
       if user defined a valid option from the select2api, assign it in the options obj
     */
-    var value;
     this.get('select2api').forEach((option) => {
-      value = useOptionsHash ? this.get('optionsHash')[option] : this.get(option);
-      if (value !== undefined) {
-        options[option] = value;
+      if (this.get(option) !== undefined) {
+        options[option] = this.get(option);
       }
     });
-
 
     // override select2's default id fetching behavior
     options.id = (function(e) {
