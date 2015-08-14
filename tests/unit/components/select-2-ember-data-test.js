@@ -10,13 +10,13 @@ import startApp from "../../helpers/start-app";
 
 var simpleContent = Ember.A([
  {
-   id: true,
+   id: "true",
    text: "Margherita"
  }, {
    id: "pep",
    text: "Peperoni"
  }, {
-   id: 42,
+   id: "42",
    text: "Ham"
  }, {
    id: "haw",
@@ -25,12 +25,17 @@ var simpleContent = Ember.A([
 ]);
 
 
-var App, component;
+var App, component, store;
 moduleForComponent('select-2', 'Select2Component (ember-data)', {
+  needs: ['model:pizza'],
   setup: function() {
     App = startApp();
     // setup and append component to dom
     component = this.subject();
+    store = this.container.lookup('service:store');
+    simpleContent.forEach(function(pizza) {
+      server.create('pizza', pizza);
+    });
   },
   teardown: function() {
     Ember.run(App, 'destroy');
@@ -43,12 +48,12 @@ test("it displays items from DS.RecordArray", function(assert) {
 
   this.render();
 
-  // warp content in DS.RecordArray
-  var simpleContentRecordArray = DS.RecordArray.create({
-    content: simpleContent
+  let records;
+  Ember.run(this, function() {
+    records = store.findAll('pizza');
   });
 
-  component.set('content', simpleContentRecordArray);
+  component.set('content', records);
   component.set('optionValuePath', 'id');
 
   // open options by clicking on the element
