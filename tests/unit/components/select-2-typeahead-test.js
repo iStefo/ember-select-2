@@ -8,7 +8,7 @@
  */
 
 import Ember from "ember";
-import { test, moduleFor, moduleForComponent } from 'ember-qunit';
+import { test, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 import sinon from "sinon";
 
@@ -287,7 +287,7 @@ test("it displays default searching text when waiting for results for first time
   assert.expect(1);
 
   var controller = {
-    queryOptions: function(query, deferred) {}
+    queryOptions: function() {}
   };
 
   component.setProperties({
@@ -310,7 +310,7 @@ test("it displays custom `typeaheadSearchingText` when waiting for results for f
   assert.expect(1);
 
   var controller = {
-    queryOptions: function(query, deferred) {}
+    queryOptions: function() {}
   };
 
   component.setProperties({

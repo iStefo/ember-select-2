@@ -1,14 +1,14 @@
 /*
   Test "customization" options like:
    * `optionLabelPath`
-   * `optionHeadlinePath`   
+   * `optionHeadlinePath`
    * `optionDescriptionPath`
-   * `searchEnabled` 
+   * `searchEnabled`
    * custom styles (future...)
  */
 
 import Ember from "ember";
-import { test, moduleFor, moduleForComponent } from 'ember-qunit';
+import { test, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 
 var ingredients = Ember.A([
@@ -34,13 +34,13 @@ var ingredients = Ember.A([
     group: 'Seefruits',
     subtext: 'fifth',
     children: [
-      {    
+      {
         id: 6,
-        name: 'Salmon'    
+        name: 'Salmon'
       },
-      {    
+      {
         id: 7,
-        name: 'Shrimps'    
+        name: 'Shrimps'
       }
     ]
   }

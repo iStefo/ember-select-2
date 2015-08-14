@@ -4,7 +4,7 @@
 
 import Ember from "ember";
 import DS from "ember-data";
-import { test, moduleFor, moduleForComponent } from 'ember-qunit';
+import { test, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 
 
@@ -106,9 +106,9 @@ test("it is disabled until content promise is resolved", function(assert) {
   });
 
   component.set('content', simpleContentPromiseArray);
-  
+
   this.render();
-  
+
   assert.ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
 
   deferred.resolve(simpleContent);
@@ -131,9 +131,9 @@ test("it stays disabled after content promise is rejected", function(assert) {
   });
 
   component.set('content', simpleContentPromiseArray);
-  
+
   this.render();
-  
+
   assert.ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
 
   deferred.reject(new Error(errorText));
@@ -178,9 +178,9 @@ test("it stays disabled after value promise is rejected", function(assert) {
   });
 
   component.set('value', simpleValuePromiseProxy);
-  
+
   this.render();
-  
+
   assert.ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
 
   deferred.reject(new Error(errorText));

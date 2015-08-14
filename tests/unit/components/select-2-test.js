@@ -3,7 +3,7 @@
  */
 
 import Ember from "ember";
-import { test, moduleFor, moduleForComponent } from 'ember-qunit';
+import { test, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 import sinon from "sinon";
 
