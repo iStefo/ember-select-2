@@ -266,6 +266,9 @@ var Select2Component = Ember.Component.extend({
      */
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
       var text = self.get('typeaheadErrorText');
+      if (text instanceof Ember.Handlebars.SafeString) {
+        text = text.string;
+      }
 
       return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
     };
