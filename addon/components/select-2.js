@@ -48,6 +48,8 @@ var Select2Component = Ember.Component.extend({
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
+  typeaheadMinimumValueText: 'Type more characters…',
+  typeaheadMaximumValueText: 'Type less characters…',
   searchEnabled: true,
   minimumInputLength: null,
   maximumInputLength: null,
@@ -266,6 +268,32 @@ var Select2Component = Ember.Component.extend({
       var text = self.get('typeaheadErrorText');
 
       return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+    };
+
+    /*
+      Format the no input too short message, substituting the %@ placeholder with
+      the missing chars count left
+     */
+    options.formatInputTooShort = function(textInput, minCount) {
+      var text = self.get('typeaheadMinimumValueText');
+      if (text instanceof Ember.Handlebars.SafeString) {
+        text = text.string;
+      }
+
+      return Ember.String.htmlSafe(Ember.String.fmt(text, minCount));
+    };
+
+    /*
+      Format the input too long message, substituting the %@ placeholder with
+      the count of extra chars
+     */
+    options.formatInputTooLong = function(textInput, maxCount) {
+      var text = self.get('typeaheadMaximumValueText');
+      if (text instanceof Ember.Handlebars.SafeString) {
+        text = text.string;
+      }
+
+      return Ember.String.htmlSafe(Ember.String.fmt(text, maxCount));
     };
 
     /*
