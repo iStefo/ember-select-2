@@ -120,15 +120,15 @@ var Select2Component = Ember.Component.extend({
           description = get(item, optionDescriptionPath);
 
       if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(headline);
+        output = headline;
       } else {
-        output = Ember.Handlebars.Utils.escapeExpression(text);
+        output = text;
       }
 
       // only for "real items" (no group headers) that have a description
       if (id && description) {
         output += " <span class=\"text-muted\">" +
-          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+          description + "</span>";
       }
 
       return output;
