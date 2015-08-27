@@ -148,8 +148,7 @@ var Select2Component = Ember.Component.extend({
       // otherwise use the usual optionLabelPath
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+      return text;
     };
 
     /*
@@ -243,8 +242,6 @@ var Select2Component = Ember.Component.extend({
       if (text instanceof Ember.Handlebars.SafeString) {
         text = text.string;
       }
-
-      term = Ember.Handlebars.Utils.escapeExpression(term);
 
       return Ember.String.htmlSafe(Ember.String.fmt(text, term));
     };
