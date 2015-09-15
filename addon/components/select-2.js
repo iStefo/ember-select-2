@@ -466,6 +466,11 @@ var Select2Component = Ember.Component.extend({
     } else {
       value = data;
     }
+    
+    //Ensure value is set to null if its empty or undefined
+    if (Ember.isEmpty(value)) {
+      value = null;
+    }
 
     this.set("value", value);
     Ember.run.schedule('actions', this, function() {
