@@ -40,6 +40,9 @@ var Select2Component = Ember.Component.extend({
   optionLabelSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
+  unescapeLabel: false,
+  unescapeDescription: false,
+  unescapeSelection: false,
   placeholder: null,
   multiple: false,
   allowClear: false,
@@ -88,6 +91,9 @@ var Select2Component = Ember.Component.extend({
     options.maximumInputLength = this.get('maximumInputLength');
     options.maximumSelectionSize = this.get('maximumSelectionSize');
     options.closeOnSelect = !!this.get('closeOnSelect');
+    options.unescapeLabel = this.get('unescapeLabel');
+    options.unescapeDescription = this.get('unescapeDescription');
+    options.unescapeSelection = this.get('unescapeSelection');
 
     // ensures that max selection size is numeric or null.
     var maximumSelectionSizeValueIsValid = (!isNaN(this.get('maximumSelectionSize')) || this.get('maximumSelectionSize') === null);
@@ -131,15 +137,15 @@ var Select2Component = Ember.Component.extend({
           description = get(item, optionDescriptionPath);
 
       if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(headline);
+        output = options.unescapeLabel ? headline : Ember.Handlebars.Utils.escapeExpression(headline);
       } else {
-        output = Ember.Handlebars.Utils.escapeExpression(text);
+        output = options.unescapeLabel ? text : Ember.Handlebars.Utils.escapeExpression(text);
       }
 
       // only for "real items" (no group headers) that have a description
       if (id && description) {
-        output += " <span class=\"text-muted\">" +
-          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+        var outputDescription = options.unescapeDescription ? description : Ember.Handlebars.Utils.escapeExpression(description);
+        output += " <span class=\"text-muted\">" + outputDescription + "</span>";
       }
 
       return output;
@@ -160,7 +166,7 @@ var Select2Component = Ember.Component.extend({
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
       // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+      return options.unescapeSelection ? text : Ember.Handlebars.Utils.escapeExpression(text);
     };
 
     /*
