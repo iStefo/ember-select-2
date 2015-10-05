@@ -1,6 +1,7 @@
 import Ember from "ember";
 
 var get = Ember.get;
+var getWithDefault = Ember.getWithDefault;
 var run = Ember.run;
 
 /**
@@ -46,6 +47,7 @@ var Select2Component = Ember.Component.extend({
   placeholder: null,
   multiple: false,
   allowClear: false,
+  clearDefaultValue: undefined,
   enabled: true,
   query: null,
   typeaheadSearchingText: 'Searching…',
@@ -515,7 +517,7 @@ var Select2Component = Ember.Component.extend({
         value = Ember.A(data).getEach(optionValuePath);
       } else {
         // treat data as a single object
-        value = get(data, optionValuePath);
+        value = getWithDefault(data, optionValuePath, this.get("clearDefaultValue"));
       }
     } else {
       value = data;
