@@ -61,7 +61,7 @@ var Select2Component = Ember.Component.extend({
   _typeaheadMode: Ember.computed.bool('query'),
 
   didInsertElement: function(data) {
-    if ( typeof this.get('value').then === 'function' && data === void 0) {
+    if ( this.get('value') && typeof this.get('value').then === 'function' && data === void 0) {
       return this.get('value').then((data) => {
         this.didInsertElement(data);
       });
