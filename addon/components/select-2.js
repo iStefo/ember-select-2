@@ -167,6 +167,8 @@ var Select2Component = Ember.Component.extend({
         deferred.promise.then(function(result) {
           var data = result;
           var more = false;
+          self.set('content', result);
+          self.set('queryFromSelect'  , query)
 
           if (result instanceof Ember.ArrayProxy) {
             data = result.toArray();
@@ -280,7 +282,7 @@ var Select2Component = Ember.Component.extend({
           multiple = self.get("multiple"),
           optionValuePath = self.get("optionValuePath");
 
-      var contentIds = content.map(function (item) { return String(item.id) });
+      var contentIds = (content || []).map(function (item) { return String(item.id) });
       var valuePresentInIds = contentIds.indexOf(String(value)) != -1
 
       if (!value || !value.length || !valuePresentInIds) {
@@ -390,6 +392,7 @@ var Select2Component = Ember.Component.extend({
 
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
+    this.addObserver('content.@each.' + optionLabelPath, this.contentChanged);
     this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
@@ -425,6 +428,10 @@ var Select2Component = Ember.Component.extend({
     this.removeObserver(
       'content.@each.' + this.get('optionLabelPath'),
       this.valueChanged
+    );
+    this.removeObserver(
+      'content.@each.' + this.get('optionLabelPath'),
+      this.contentChanged
     );
     this.removeObserver(
       'content.@each.' + this.get('optionLabelSelectedPath'),
@@ -506,6 +513,33 @@ var Select2Component = Ember.Component.extend({
     } else {
       // otherwise set the full object via "data"
       this._select.select2("data", value);
+    }
+  },
+
+  contentChanged: function () {
+    var result  = this.get('content'),
+        query   = this.get('queryFromSelect'),
+        data    = result,
+        more    = false;
+
+    if (query && query.callback) {
+      if (result instanceof Ember.ArrayProxy) {
+        data = result.toArray();
+      } else if (!Array.isArray(result)) {
+        if (result.data instanceof Ember.ArrayProxy) {
+          data = result.data.toArray();
+        } else {
+          data = result.data;
+        }
+        more = result.more;
+      }
+
+      this.selectionChanged(data);
+
+      query.callback({
+        results: data,
+        more: more
+      });
     }
   },
 
