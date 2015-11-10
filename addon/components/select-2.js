@@ -60,7 +60,13 @@ var Select2Component = Ember.Component.extend({
   _hasFailedValuePromise: Ember.computed.alias('value.isRejected'),
   _typeaheadMode: Ember.computed.bool('query'),
 
-  didInsertElement: function() {
+  didInsertElement: function(data) {
+    if ( typeof this.get('value').then === 'function' && data === void 0) {
+      return this.get('value').then((data) => {
+        this.didInsertElement(data);
+      });
+    }
+
     var self = this,
         options = {},
         optionIdPath = this.get('optionIdPath'),
