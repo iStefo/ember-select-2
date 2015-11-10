@@ -404,6 +404,7 @@ var Select2Component = Ember.Component.extend({
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
     this.addObserver('value.text', this.valueChanged);
+    this.addObserver('value.@each.text', this.valueChanged);
 
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
@@ -454,6 +455,7 @@ var Select2Component = Ember.Component.extend({
     );
     this.removeObserver('value', this.valueChanged);
     this.removeObserver('value.text', this.valueChanged);
+    this.removeObserver('value.@each.text', this.valueChanged);
   },
 
   /**
