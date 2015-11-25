@@ -283,12 +283,18 @@ var Select2Component = Ember.Component.extend({
      */
     options.initSelection = function(element, callback) {
       var value = element.val(),
-          content = self.get("content"),
+          content = self.get("content") || [],
           contentIsArrayProxy = Ember.ArrayProxy.detectInstance(content),
           multiple = self.get("multiple"),
           optionValuePath = self.get("optionValuePath");
 
-      var contentIds = (content || []).map(function (item) { return String(item.id) });
+      var contentIds =
+        content
+        .mapBy('id')
+        .compact()
+        .concat(_.flattenDeep(content.mapBy('children').compact()).mapBy('id'))
+        .map(String);
+
       var valuePresentInIds = contentIds.indexOf(String(value)) != -1
 
       if (!value || !value.length || !valuePresentInIds) {
