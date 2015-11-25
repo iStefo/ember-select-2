@@ -280,7 +280,13 @@ var Select2Component = Ember.Component.extend({
           multiple = self.get("multiple"),
           optionValuePath = self.get("optionValuePath");
 
-      var contentIds = content.mapBy('id').compact().concat(_.flattenDeep(content.mapBy('children').compact()).mapBy('id'));
+      var contentIds =
+        content
+        .mapBy('id')
+        .compact()
+        .concat(_.flattenDeep(content.mapBy('children').compact()).mapBy('id'))
+        .map(String);
+        
       var valuePresentInIds = contentIds.indexOf(String(value)) != -1
 
       if (!value || !value.length || !valuePresentInIds) {
