@@ -171,27 +171,9 @@ var Select2Component = Ember.Component.extend({
         self.sendAction('query', query, deferred);
 
         deferred.promise.then(function(result) {
-          var data = result;
-          var more = false;
-
+          self.set('query_from_select', query)
+          // this cause contentChanged
           self.set('content', result);
-          self.set('queryFromSelect'  , query)
-
-          if (result instanceof Ember.ArrayProxy) {
-            data = result.toArray();
-          } else if (!Array.isArray(result)) {
-            if (result.data instanceof Ember.ArrayProxy) {
-              data = result.data.toArray();
-            } else {
-              data = result.data;
-            }
-            more = result.more;
-          }
-
-          query.callback({
-            results: data,
-            more: more
-          });
         }, function(reason) {
           query.callback({
             hasError: true,
@@ -403,12 +385,7 @@ var Select2Component = Ember.Component.extend({
       this.selectionChanged(data);
     }));
 
-    this.addObserver('content.[]', this.valueChanged);
-    this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.contentChanged);
-    this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
-    this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
-    this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
     this.addObserver('value.text', this.valueChanged);
     this.addObserver('value.@each.text', this.valueChanged);
@@ -439,26 +416,9 @@ var Select2Component = Ember.Component.extend({
       this._select.select2("destroy");
     }
 
-    this.removeObserver('content.[]', this.valueChanged);
-    this.removeObserver(
-      'content.@each.' + this.get('optionLabelPath'),
-      this.valueChanged
-    );
     this.removeObserver(
       'content.@each.' + this.get('optionLabelPath'),
       this.contentChanged
-    );
-    this.removeObserver(
-      'content.@each.' + this.get('optionLabelSelectedPath'),
-      this.valueChanged
-    );
-    this.removeObserver(
-      'content.@each.' + this.get('optionHeadlinePath'),
-      this.valueChanged
-    );
-    this.removeObserver(
-      'content.@each.' + this.get('optionDescriptionPath'),
-      this.valueChanged
     );
     this.removeObserver('value', this.valueChanged);
     this.removeObserver('value.text', this.valueChanged);
@@ -535,7 +495,7 @@ var Select2Component = Ember.Component.extend({
 
   contentChanged: function () {
     var result  = this.get('content'),
-        query   = this.get('queryFromSelect'),
+        query   = this.get('query_from_select'),
         data    = result,
         more    = false;
 
