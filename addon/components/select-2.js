@@ -252,7 +252,7 @@ var Select2Component = Ember.Component.extend({
         text = text.string;
       }
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      return Ember.String.htmlSafe(Ember.String.loc(text, term));
     };
 
     /*
@@ -262,7 +262,7 @@ var Select2Component = Ember.Component.extend({
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
       var text = self.get('typeaheadErrorText');
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      return Ember.String.htmlSafe(Ember.String.loc(text, errorThrown));
     };
 
     /*
