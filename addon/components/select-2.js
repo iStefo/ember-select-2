@@ -173,6 +173,7 @@ var Select2Component = Ember.Component.extend({
         deferred.promise.then(function(result) {
           var data = result;
           var more = false;
+
           self.set('content', result);
           self.set('queryFromSelect'  , query)
 
@@ -549,8 +550,6 @@ var Select2Component = Ember.Component.extend({
         }
         more = result.more;
       }
-
-      this.selectionChanged(data);
 
       query.callback({
         results: data,
