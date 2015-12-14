@@ -1,3 +1,4 @@
+// jscs: disable
 import Ember from "ember";
 
 var get = Ember.get;
@@ -445,7 +446,7 @@ var Select2Component = Ember.Component.extend({
         value = Ember.A(data).getEach(optionValuePath);
       } else {
         // treat data as a single object
-        value = get(data, optionValuePath);
+        value = data ? get(data, optionValuePath) : void 0;
       }
     } else {
       value = data;
