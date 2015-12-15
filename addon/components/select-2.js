@@ -4,6 +4,20 @@ import Ember from "ember";
 var get = Ember.get;
 var run = Ember.run;
 
+var flattenDeep = window._ && window._.flattenDeep || function flattenDeep(array) {
+  if (!Ember.isArray(array)) {
+    return array;
+  }
+
+  var result_array = [];
+
+  array.map(flattenDeep).forEach(function(el) {
+    result_array = result_array.concat(el);
+  });
+
+  return result_array;
+};
+
 /**
  * Ember select-2 component wrapping the jQuery select2 plugin while
  * respecting Ember data bindings and getter/setter methods on the content.
@@ -172,7 +186,7 @@ var Select2Component = Ember.Component.extend({
         self.sendAction('query', query, deferred);
 
         deferred.promise.then(function(result) {
-          self.set('query_from_select', query)
+          self.set('query_from_select', query);
           // this cause contentChanged
           self.set('content', result);
         }, function(reason) {
@@ -276,10 +290,10 @@ var Select2Component = Ember.Component.extend({
         content
         .mapBy('id')
         .compact()
-        .concat(_.flattenDeep(content.mapBy('children').compact()).mapBy('id'))
+        .concat(flattenDeep(content.mapBy('children').compact()).mapBy('id'))
         .map(String);
 
-      var valuePresentInIds = contentIds.indexOf(String(value)) != -1
+      var valuePresentInIds = contentIds.indexOf(String(value)) !== -1;
 
       if (!value || !value.length || !valuePresentInIds) {
         return callback([]);
