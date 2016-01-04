@@ -265,7 +265,7 @@ var Select2Component = Ember.Component.extend({
 
       term = Ember.Handlebars.Utils.escapeExpression(term);
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      return Ember.String.htmlSafe(text.replace('%@', term));
     };
 
     /*
@@ -278,7 +278,7 @@ var Select2Component = Ember.Component.extend({
         text = text.string;
       }
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      return Ember.String.htmlSafe(text.replace('%@', errorThrown));
     };
 
     /*
@@ -291,7 +291,7 @@ var Select2Component = Ember.Component.extend({
         text = text.string;
       }
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, minCount));
+      return Ember.String.htmlSafe(text.replace('%@', minCount));
     };
 
     /*
@@ -304,7 +304,7 @@ var Select2Component = Ember.Component.extend({
         text = text.string;
       }
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, maxCount));
+      return Ember.String.htmlSafe(text.replace('%@', maxCount));
     };
 
     /*
