@@ -59,6 +59,7 @@ var Select2Component = Ember.Component.extend({
   allowClear: false,
   enabled: true,
   query: null,
+  queryParam: null,
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
@@ -183,7 +184,7 @@ var Select2Component = Ember.Component.extend({
       if (self.get('_typeaheadMode')) {
         var deferred = Ember.RSVP.defer('select2#query: ' + query.term);
 
-        self.sendAction('query', query, deferred);
+        self.sendAction('query', query, deferred, self.get('queryParam'));
 
         deferred.promise.then(function(result) {
           self.set('query_from_select', query);
