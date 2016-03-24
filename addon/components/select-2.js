@@ -507,7 +507,7 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
-    if (!initial) this.sendAction('change', value);
+    if (!initial) this.sendAction('changeAction', value);
   },
 
   contentChanged: function () {
