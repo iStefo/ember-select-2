@@ -407,7 +407,7 @@ var Select2Component = Ember.Component.extend({
     this.addObserver('value.@each.text', this.valueChanged);
 
     // trigger initial data sync to set select2 to the external "value"
-    this.valueChanged(true);
+    this.valueChanged('initialRun');
 
     // eventually disable input when content is PromiseProxy
     if (Ember.PromiseProxyMixin.detect(content)) {
@@ -478,7 +478,7 @@ var Select2Component = Ember.Component.extend({
    * use the "data" API, otherwise just set the "val" property and let the
    * "initSelection" figure out which object was meant by that.
    */
-  valueChanged: function(initial) {
+  valueChanged: function(arg1) {
     var self = this,
         value = this.get("value"),
         optionValuePath = this.get("optionValuePath");
@@ -507,7 +507,9 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
-    if (!initial) this.sendAction('changeAction', value);
+    if (arg1 !== 'initialRun') {
+      this.sendAction('changeAction', value);
+    }
   },
 
   contentChanged: function () {
