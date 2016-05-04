@@ -164,6 +164,7 @@ var ExamplesController = Ember.Controller.extend({
 
     updateSortOrder: function(indexes) {
       this.beginPropertyChanges();
+      console.log(indexes);
       // code to deal with what you want to do when sort is updated here
       this.endPropertyChanges();
     }
