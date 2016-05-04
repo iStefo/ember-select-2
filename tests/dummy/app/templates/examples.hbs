@@ -567,3 +567,42 @@
           }}{{/highlight-code}}
     </div>
 </div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <h4>Sortable Items</h4>
+    <p><strong>Requirement:</strong> jQuery UI's <code>Sortable</code> plugin.</p>
+    <p>Delcare a <code>updateSortOrder</code> attribute with a callback so that the sort order can be acted upon if you wish. And obviously you'd need to have <code>multiple</code> attribute turned on to see more than one sortable <code>selection</code>. Lastly, be sure to set <code>sortableEnabled</code> attribute to be <code>true</code>.</p>
+    <div class="example-box">
+      {{select-2 updateSortOrder="updateSortOrder"
+                  cssClass="select2-hidden"
+                  content=sortableIngredients
+                  formatSelection=formatSortableSelection
+                  formatSelectionEnabled=true
+                  inputSize="input-sm"
+                  multiple=true
+                  optionLabelPath="name"
+                  sortableEnabled=true
+                  value=sortedData}}
+    </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2 updateSortOrder="updateSortOrder"
+          cssClass="select2-hidden"
+          content=sortableIngredients
+          formatSelection=formatSortableSelection
+          formatSelectionEnabled=true
+          inputSize="input-sm"
+          multiple=true
+          optionLabelPath="name"
+          sortableEnabled=true
+          value=sortedData
+}}{{/highlight-code}}
+
+{{#highlight-code lang=".js"}}
+  // Example dataset
+  sortedData: Ember.A([
+    {idx: 1, id: '1', name: 'Salami', locked: true},
+    {idx: 2, id: '2', name: 'Bacon'}
+  ])
+{{/highlight-code}}
+  </div>
+</div>

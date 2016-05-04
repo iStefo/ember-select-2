@@ -49,6 +49,7 @@ var Select2Component = Ember.Component.extend({
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
   searchEnabled: true,
+  sortableEnabled: false,
   minimumInputLength: null,
   maximumInputLength: null,
   valueSeparator: ',',
@@ -80,7 +81,9 @@ var Select2Component = Ember.Component.extend({
     options.multiple = this.get('multiple');
     options.tags = this.get('tags');
     options.allowClear = this.get('allowClear');
-    options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1;
+    options.searchEnabled = this.get('searchEnabled');
+    options.sortableEnabled = this.get('sortableEnabled');
+    options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
 
@@ -119,22 +122,27 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      var output,
-          id          = get(item, optionIdPath),
-          text        = get(item, optionLabelPath),
-          headline    = get(item, optionHeadlinePath),
-          description = get(item, optionDescriptionPath);
-
-      if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(headline);
+      // Credit: https://github.com/qianthinking/ember-select-2/
+      var output;
+      if(Ember.$.isFunction(self.formatResult)) {
+        output = self.formatResult(item);
       } else {
-        output = Ember.Handlebars.Utils.escapeExpression(text);
-      }
+        var id          = get(item, optionIdPath),
+            text        = get(item, optionLabelPath),
+            headline    = get(item, optionHeadlinePath),
+            description = get(item, optionDescriptionPath);
 
-      // only for "real items" (no group headers) that have a description
-      if (id && description) {
-        output += " <span class=\"text-muted\">" +
-          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+        if (item.children) {
+          output = Ember.Handlebars.Utils.escapeExpression(headline);
+        } else {
+          output = Ember.Handlebars.Utils.escapeExpression(text);
+        }
+
+        // only for "real items" (no group headers) that have a description
+        if (id && description) {
+          output += " <span class=\"text-muted\">" +
+            Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+        }
       }
 
       return output;
@@ -150,12 +158,15 @@ var Select2Component = Ember.Component.extend({
         return;
       }
 
-      // if set, use the optionLabelSelectedPath for formatting selected items,
-      // otherwise use the usual optionLabelPath
-      var text = get(item, optionLabelSelectedPath || optionLabelPath);
+      // Credit: https://github.com/jniechcial
+      if(Ember.$.isFunction(self.formatSelection)) {
+        return self.formatSelection(item);
+      } else {
+        var text = get(item, optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+        // escape text unless it's passed as a Handlebars.SafeString
+        return Ember.Handlebars.Utils.escapeExpression(text);
+      }
     };
 
     /*
@@ -224,6 +235,12 @@ var Select2Component = Ember.Component.extend({
               var result = Ember.$.extend({}, item, {children: filteredChildren});
               results.push(result);
             }
+            else if (self.get('tagsEnabled')) {
+              var val = { id: query.term, name: query.term, isNew: true };
+              if (!results.isAny('name', query.term)) {
+                results.push(val);
+              }
+            }
             return results;
           }, []);
         }
@@ -248,6 +265,14 @@ var Select2Component = Ember.Component.extend({
           }
         }
 
+        var tempFirstElem = filteredContent[0];
+        if (tempFirstElem) {
+          if (get(tempFirstElem, 'isNew')) {
+            filteredContent.shift();
+            filteredContent.push(tempFirstElem);
+          }
+        }
+
         query.callback({
           results: filteredContent
         });
@@ -258,35 +283,45 @@ var Select2Component = Ember.Component.extend({
      Supplies the string used when searching for options, can be set via
      `typeaheadSearchingText`
      */
-    options.formatSearching = function() {
-      var text = self.get('typeaheadSearchingText');
-
-      return Ember.String.htmlSafe(text);
+    options.formatSearching = function(item) {
+      if (Ember.$.isFunction(self.formatSearching)) {
+        return self.formatSearching(item);
+      } else {
+        var text = self.get('typeaheadSearchingText');
+        return Ember.String.htmlSafe(text);
+      }
     };
 
     /*
      Format the no matches message, substituting the %@ placeholder with the
      html-escaped user input
      */
-    options.formatNoMatches = function(term) {
-      var text = self.get('typeaheadNoMatchesText');
-      if (text instanceof Ember.Handlebars.SafeString) {
-        text = text.string;
-      }
+    if (this.get('formatNoMatches')) {
+      options.formatNoMatches = this.get('formatNoMatches');
+    } else {
+      options.formatNoMatches = function(term) {
+        var text = self.get('typeaheadNoMatchesText');
+        if (text instanceof Ember.Handlebars.SafeString) {
+          text = text.string;
+        }
 
-      term = Ember.Handlebars.Utils.escapeExpression(term);
+        term = Ember.Handlebars.Utils.escapeExpression(term);
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
-    };
+        return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      };
+    }
 
     /*
      Format the error message, substituting the %@ placeholder with the promise
      rejection reason
      */
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
-      var text = self.get('typeaheadErrorText');
-
-      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      if(Ember.$.isFunction(self.formatAjaxError)) {
+        return self.formatAjaxError(jqXHR, textStatus, errorThrown);
+      } else {
+        var text = self.get('typeaheadErrorText');
+        return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      }
     };
 
     /*
@@ -320,7 +355,7 @@ var Select2Component = Ember.Component.extend({
       // this method should not be needed without the optionValuePath option
       // but make sure there is an appropriate error just in case.
       Ember.assert("select2#initSelection has been called without an \"" +
-        "optionValuePath\" set.", optionValuePath);
+        "optionValuePath\" set.", optionValuePath !== null && optionValuePath !== undefined);
 
       Ember.assert("select2#initSelection can not map string values to full objects " +
         "in typeahead mode. Please open a github issue if you have questions to this.",
@@ -418,6 +453,12 @@ var Select2Component = Ember.Component.extend({
       this.selectionChanged(data, e);
     }));
 
+    if (this.get('searchPlaceholder')) {
+      var mainId = this.$().attr('id');
+      var focusserId = Ember.$('#s2id_' + mainId + ' input.select2-focusser').attr('id');
+      Ember.$('#' + focusserId + '_search').attr('placeholder', this.get('searchPlaceholder'));
+    }
+
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
     this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
@@ -436,6 +477,29 @@ var Select2Component = Ember.Component.extend({
       content.then(null, function(reason) {
         Ember.warn("select2: content promise was reject with reason " + reason +
           ". Recovering from this is not (yet) implemented.");
+      });
+    }
+
+    /*
+     Enable sortable
+     // Has jQuery-UI dependency
+    */
+
+    if (options.sortableEnabled) {
+      Ember.assert("Sortable has jQuery-UI dependency. Make sure it is installed and included.", typeof Ember.$.ui === "object");
+
+      this._select.select2('container').find('ul.select2-choices').sortable({
+        containment: 'parent',
+        start: function() { self._select.select2("onSortStart"); },
+        update: function() {
+          var indexes = {};
+
+          Ember.$(this).find('.select2-search-choice').each(function(index) {
+            indexes[Ember.$(this).find('span').data('id')] = index;
+          });
+
+          self.sendAction('updateSortOrder', indexes);
+        }
       });
     }
 
@@ -613,7 +677,8 @@ var Select2Component = Ember.Component.extend({
             this.get('_hasPendingContentPromise') ||
             this.get('_hasFailedContentPromise') ||
             this.get('_hasPendingValuePromise') ||
-            this.get('_hasFailedValuePromise') || !this.get('enabled');
+            this.get('_hasFailedValuePromise') || 
+            !this.get('enabled');
 
       if (select) {
         Ember.run(function() {
