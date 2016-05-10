@@ -97,7 +97,9 @@ var Select2Component = Ember.Component.extend({
     options.id = (function(e) {
       var id = (e === undefined) ? null : get(e, optionIdPath);
       if (self.get('tags') && id) {
-        return id.toLowerCase();
+        return (typeof id === 'string' || id instanceof String) ?
+          id.toLowerCase() :
+          id;
       }
       return id;
     });
