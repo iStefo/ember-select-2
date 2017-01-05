@@ -3,7 +3,7 @@
  */
 
 import Ember from "ember";
-import { test, moduleFor, moduleForComponent } from 'ember-qunit';
+import { test, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
 
 var App, component;
@@ -25,7 +25,7 @@ test("it is disabled when `enabled=false` on creation", function(assert) {
   component.set('enabled', false);
 
   this.render();
-  
+
   assert.ok($('.select2-container').hasClass('select2-container-disabled'), "is disabled");
 });
 

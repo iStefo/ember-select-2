@@ -8,9 +8,9 @@
  */
 
 import Ember from "ember";
-import { test, moduleFor, moduleForComponent } from 'ember-qunit';
+import { test, moduleForComponent } from 'ember-qunit';
 import startApp from "../../helpers/start-app";
-
+import sinon from "sinon";
 
 var simpleContent = Ember.A([
   {
@@ -287,7 +287,7 @@ test("it displays default searching text when waiting for results for first time
   assert.expect(1);
 
   var controller = {
-    queryOptions: function(query, deferred) {}
+    queryOptions: function() {}
   };
 
   component.setProperties({
@@ -310,7 +310,7 @@ test("it displays custom `typeaheadSearchingText` when waiting for results for f
   assert.expect(1);
 
   var controller = {
-    queryOptions: function(query, deferred) {}
+    queryOptions: function() {}
   };
 
   component.setProperties({
@@ -378,7 +378,7 @@ test("it displays custom `typeaheadNoMatchesText` text", function(assert) {
 
   fillIn('.select2-input', 'body', 'bla');
 
-  andThen(function() {    
+  andThen(function() {
     assert.equal($('li.select2-no-results').text(), "No results for ", "display custom no results text");
   });
 });
