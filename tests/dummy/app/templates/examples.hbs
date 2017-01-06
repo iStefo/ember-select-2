@@ -1,51 +1,146 @@
-<h3>Single-Selection Dropdown</h3>
-<p>This mode works mostly like the default <code>\{{select}}</code> component which comes with ember.js right away. However, notice the nice styling and search field making it easy to find the right option.</p>
+<h3>Tags</h3>
+<p>This mode makes it possible to create new options on the fly, we call them tags. It works like
+<code>multiple=true</code> but you can also create new ones.</p>
 
 <div class="row">
-  <div class="col-sm-6">
-    <h4>Selection with Full Object Binding</h4>
-    <p>You may choose your favourite pizza now! It will be remembered as <code>favouritePizza</code> on the controller.</p>
-    <div class="example-box">
-      <p>Your Pizza:<br/><b>Id</b>: {{favouritePizza.id}}<br/><b>Name</b>: {{favouritePizza.text}}<br/><b>Description</b>: {{favouritePizza.description}}</p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Ember Data hasMany collection</h4>
+        <p>This example shows you how you can use an ember data model (<code>post</code>) containing a <code>hasMany</code>
+            relation, in this case <code>tags</code>. It uses the type property of the hasMany relationship
+        to create new ones of it.</p>
+
+        <div class="example-box">
+            <p>
+                <span>Current selection:</span>
+              <span>
+                {{#each model.post.tags as |tag|}}
+                    <span class="label label-primary">{{tag.name}}</span>
+                {{/each}}
+              </span>
+            </p>
+          {{#highlight-code lang=".hbs"}}\{{#each tag in model.post.tags }}
+    &lt;span class="label label-primary"&gt;\{{tag.name}}&lt;/span&gt;
+\{{/each}}
+          {{/highlight-code}}
+          <br>
+          {{select-2
+          tags=true
+          content=model.tags
+          value=model.post.tags
+          placeholder="Begin typing tags for this post"
+          optionIdPath="name"
+          optionLabelPath="name"
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          tags=true
+          content=model.tags
+          value=model.post.tags
+          placeholder="Begin typing tags for this post"
+          optionLabelPath="name"
+          optionIdPath="name"
+          }}{{/highlight-code}}
+    </div>
+
+    <div class="col-sm-6">
+        <h4>Ember simple object array</h4>
+        <p>This example shows you tags provided by a simple Ember array containing Ember objects.
+            <code>model.tagsSimple</code> contains
+            an ember array filled with four different tags that are ember objects. <code>model.postSimple</code> is an
+            ember object containing
+            the <code>tags</code> property which contains "tag 1" as an ember object.</p>
+
+        <div class="example-box">
+            <p>
+              <span>Current selection:</span>
+              <span>
+                {{#each model.postSimple.tags as |tag|}}
+                    <span class="label label-primary">{{tag.name}}</span>
+                {{/each}}
+              </span>
+            </p>
+          {{#highlight-code lang=".hbs"}}\{{#each tag in model.post.tags }}
+    &lt;span class="label label-primary"&gt;\{{tag.name}}&lt;/span&gt;
+\{{/each}}
+          {{/highlight-code}}
+          <br>
+            {{select-2
+            tags=true
+            content=model.tagsSimple
+            value=model.postSimple.tags
+            placeholder="Begin typing tags for this post"
+            optionIdPath="name"
+            optionLabelPath="name"
+            }}
+        </div>
+        {{#highlight-code lang=".hbs"}}\{{select-2
+            tags=true
+            content=model.tagsSimple
+            value=model.postSimple.tags
+            placeholder="Begin typing tags for this post"
+            optionLabelPath="name"
+            optionIdPath="name"
+            }}
+        {{/highlight-code}}
+    </div>
+</div>
+
+<h3>Single-Selection Dropdown</h3>
+<p>This mode works mostly like the default <code>\{{select}}</code> component which comes with ember.js right away.
+    However, notice the nice styling and search field making it easy to find the right option.</p>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Selection with Full Object Binding</h4>
+        <p>You may choose your favourite pizza now! It will be remembered as <code>favouritePizza</code> on the
+            controller.</p>
+
+        <div class="example-box">
+            <p>Your Pizza:<br/><b>Id</b>: {{favouritePizza.id}}<br/><b>Name</b>: {{favouritePizza.text}}<br/><b>Description</b>: {{favouritePizza.description}}
+            </p>
+          {{select-2
           content=pizzas
           value=favouritePizza
           placeholder="Choose your Pizza"
           allowClear=true
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          value=favouritePizza
+          placeholder="Choose your pizza"
+          allowClear=true
+          }}{{/highlight-code}}
+        <p>Full Object Binding ensures strict equality between the selected object and the object from the
+            <code>content</code> array.</p>
+        <p>You can specify the <code>placeholder</code> option to display a placeholder. By specifying the <code>allowClear</code>
+            option, you determine whether or not a clear button is displayed when the select box has a selection.
+        </p>
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    value=favouritePizza
-    placeholder="Choose your pizza"
-    allowClear=true
-}}{{/highlight-code}}
-    <p>Full Object Binding ensures strict equality between the selected object and the object from the <code>content</code> array.</p>
-    <p>You can specify the <code>placeholder</code> option to display a placeholder.  By specifying the <code>allowClear</code>
-    option, you determine whether or not a clear button is displayed when the select box has a selection.</p>
-  </div>
 
-  <div class="col-sm-6">
-    <h4>Selection with Value Binding</h4>
-    <p>Again, choose your pizza. This time though, only the ID will be set to the value binding.</p>
-    <div class="example-box">
-      <p>Your Pizza Id: {{favouritePizzaId}}</p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Selection with Value Binding</h4>
+        <p>Again, choose your pizza. This time though, only the ID will be set to the value binding.</p>
+
+        <div class="example-box">
+            <p>Your Pizza Id: {{favouritePizzaId}}</p>
+          {{select-2
           content=pizzas
           value=favouritePizzaId
           optionValuePath="id"
           placeholder="Choose your Pizza"
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          value=favouritePizza
+          optionValuePath="id"
+          placeholder="Choose your Pizza"
+          }}{{/highlight-code}}
+        <p>Using the <code>optionValuePath</code> option, you can set the select-2 component into "value mode".</p>
+        <p>You can specify any path that can be resolved for the input object (<code>"id"</code> is just a simple
+            example) and its data type will be preserved.</p>
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    value=favouritePizza
-    optionValuePath="id"
-    placeholder="Choose your Pizza"
-}}{{/highlight-code}}
-    <p>Using the <code>optionValuePath</code> option, you can set the select-2 component into "value mode".</p>
-    <p>You can specify any path that can be resolved for the input object (<code>"id"</code> is just a simple example) and its data type will be preserved.</p>
-  </div>
 </div>
 <hr/>
 
@@ -53,173 +148,223 @@
 <p>Multiple Selections behave like tag inputs and provide a high level of comfort for selecting elements.</p>
 
 <div class="row">
-  <div class="col-sm-6">
-    <h4>Multiple Selection w/ Full Object Binding</h4>
-    <p>In case you are really hungry or order pizza for you and your friends (yeah, sure...), you can choose multiple objects which will be stored in the <code>favouritePizzas</code> Array.</p>
-    <div class="example-box">
-      <p>Your Pizzas are: {{favouritePizzas}}</p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Multiple Selection w/ Full Object Binding</h4>
+        <p>In case you are really hungry or order pizza for you and your friends (yeah, sure...), you can choose
+            multiple objects which will be stored in the <code>favouritePizzas</code> Array.</p>
+
+        <div class="example-box">
+            <p>Your Pizzas are: {{favouritePizzas}}</p>
+          {{select-2
           content=pizzas
           value=favouritePizzas
           multiple=true
           placeholder="Choose some Pizzas"
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          value=favouritePizza
+          multiple=true
+          placeholder="Choose some Pizzas"
+          }}{{/highlight-code}}
+        <p>As you can see, the full objects are stored on the controller.</p>
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    value=favouritePizza
-    multiple=true
-    placeholder="Choose some Pizzas"
-}}{{/highlight-code}}
-    <p>As you can see, the full objects are stored on the controller.</p>
-  </div>
 
-  <div class="col-sm-6">
-    <h4>Multiple Selection w/ Value Binding</h4>
-    <p>Maybe you only need the pizza Ids. Specify a path in <code>optionValuePath</code> and you're good to go.</p>
-    <div class="example-box">
-      <p>Your Pizza Ids: {{favouritePizzaIds}}</p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Multiple Selection w/ Value Binding</h4>
+        <p>Maybe you only need the pizza Ids. Specify a path in <code>optionValuePath</code> and you're good to go.
+        </p>
+
+        <div class="example-box">
+            <p>Your Pizza Ids: {{favouritePizzaIds}}</p>
+          {{select-2
           content=pizzas
           value=favouritePizzaIds
           multiple=true
           optionValuePath="id"
           placeholder="Choose some Pizzas"
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          value=favouritePizza
+          multiple=true
+          optionValuePath="id"
+          placeholder="Choose some Pizzas"
+          }}{{/highlight-code}}
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    value=favouritePizza
-    multiple=true
-    optionValuePath="id"
-    placeholder="Choose some Pizzas"
-}}{{/highlight-code}}
-  </div>
 </div>
 <hr/>
 
 <h3>Changing the Selection Value</h3>
-<p>Since Ember has nice two-way data bindings, you can of course change the selected element from outside the select-2 input and it will update accordingly. These examples work with single and multiple selection, but only single selection is shown here for siplicity.</p>
+<p>Since Ember has nice two-way data bindings, you can of course change the selected element from outside the
+    select-2
+    input and it will update accordingly. These examples work with single and multiple selection, but only single
+    selection is shown here for siplicity.</p>
 
 <div class="row">
-  <div class="col-sm-6">
-    <h4>Full Object Binding</h4>
-    <p>Same example as above, but now you can manually set the selected Element from outside the input.</p>
-    <div class="example-box example-box-full">
-      <p>Set Selection to: {{#each pizzas as |pizza|}}<a {{action "selectPizza" pizza}}>{{pizza.text}}</a> {{/each}}</p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Full Object Binding</h4>
+        <p>Same example as above, but now you can manually set the selected Element from outside the input.</p>
+
+        <div class="example-box example-box-full">
+            <p>Set Selection to: {{#each pizzas as |pizza|}}
+                <a {{action "selectPizza" pizza}}>{{pizza.text}}</a> {{/each}}</p>
+          {{select-2
           content=pizzas
           value=favouritePizza
           placeholder="Choose your Pizza"
-      }}
+          }}
+        </div>
     </div>
-  </div>
 
-  <div class="col-sm-6">
-    <h4>Value Binding</h4>
-    <p>Naturally, this works as well for the Value Binding method. Try values like "pep", "mar" or "haw"!</p>
-    <div class="example-box example-box-full">
-      {{input type="text" value=favouritePizzaId class="form-control"}}<br/>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Value Binding</h4>
+        <p>Naturally, this works as well for the Value Binding method. Try values like "pep", "mar" or "haw"!</p>
+
+        <div class="example-box example-box-full">
+          {{input type="text" value=favouritePizzaId class="form-control"}}<br/>
+          {{select-2
           content=pizzas
           value=favouritePizzaId
           optionValuePath="id"
           placeholder="Choose your Pizza"
-      }}
+          }}
+        </div>
+        <p>You will notice, that the dropdown gets locked when the entered ID does not match any of the objects
+            available. This is a feature intended to prevent the destruction of the currently selected value when
+            the
+            options are yet to be loaded. (See the next example)</p>
     </div>
-    <p>You will notice, that the dropdown gets locked when the entered ID does not match any of the objects available. This is a feature intended to prevent the destruction of the currently selected value when the options are yet to be loaded. (See the next example)</p>
-  </div>
 </div>
-<hr />
+<hr/>
 
 <h3>Changing the Dropdown Content</h3>
-<p>The way Ember handles data is often asynchronous and the select-2 component can respond to changes in its <code>content</code> Array.</p>
-<p>The following example will simulate lazy-loaded objects that were preselected using the <code>value</code> Binding but not available until the new data is loaded. Because the objects were selected but not available for display, the select-2 input is disabled so one can't change the selection without first knowing what data actually is selected!</p>
+<p>The way Ember handles data is often asynchronous and the select-2 component can respond to changes in its <code>content</code>
+    Array.</p>
+<p>The following example will simulate lazy-loaded objects that were preselected using the <code>value</code>
+    Binding
+    but not available until the new data is loaded. Because the objects were selected but not available for display,
+    the
+    select-2 input is disabled so one can't change the selection without first knowing what data actually is
+    selected!
+</p>
 
 <div class="row">
-  <div class="col-sm-6">
-    <h4>Full Object Binding</h4>
-    <p>Changing the dropdown's content simply works as expected.</p>
-    <div class="example-box example-box-full">
-      <p><button class="btn btn-default" {{action "loadPizzas"}}>Load more Pizzas</button></p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Full Object Binding</h4>
+        <p>Changing the dropdown's content simply works as expected.</p>
+
+        <div class="example-box example-box-full">
+            <p>
+                <button class="btn btn-default" {{action "loadPizzas"}}>Load more Pizzas</button>
+            </p>
+          {{select-2
           content=pizzas
           value=favouritePizzas
           multiple=true
           placeholder="Choose some Pizzas"
-      }}
+          }}
+        </div>
     </div>
-  </div>
-  <div class="col-sm-6">
-    <h4>Value Binding</h4>
-    <p>As you can see below, there is an Array of selected pizzas which contains keys that are not yet loaded into the main pizza Array. As soon as you load more pizzas, the input will become editable.</p>
-    <div class="example-box example-box-full">
-      <p>Available: {{#each pizzas as |pizza|}}{{pizza.id}} {{/each}}<br/>Selected: {{preselectedPizzaIds}}</p>
-      <p><button class="btn btn-default" {{action "loadMorePizzas"}}>Load even more Pizzas</button></p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Value Binding</h4>
+        <p>As you can see below, there is an Array of selected pizzas which contains keys that are not yet loaded
+            into
+            the main pizza Array. As soon as you load more pizzas, the input will become editable.</p>
+
+        <div class="example-box example-box-full">
+            <p>Available: {{#each pizzas as |pizza|}}{{pizza.id}} {{/each}}<br/>Selected: {{preselectedPizzaIds}}
+            </p>
+            <p>
+                <button class="btn btn-default" {{action "loadMorePizzas"}}>Load even more Pizzas</button>
+            </p>
+          {{select-2
           content=pizzas
           value=preselectedPizzaIds
           multiple=true
           optionValuePath="id"
           placeholder="Choose some Pizzas"
-      }}
+          }}
+        </div>
     </div>
-  </div>
 </div>
 <hr/>
 
 <h3>Customizing</h3>
+
 <div class="row">
-  <div class="col-sm-6">
-    <h4>Change Label Value Path</h4>
-    <p>While by default the items' <code>text</code> attribute is used for the text displayed, it can be customized by setting the components <code>optionLabelPath</code>. Additionally, if you want to use a different label path for selected elements (visible when the dropdown is not expanded), you can set <code>optionLabelSelectedPath</code>.</p>
-    <p>The <code>optionDescriptionPath</code> can be changed to something different from the default (<code>description</code>), and the <code>optionHeadlinePath</code> may be changed from <code>text</code> to a different path for displaying group headers.</p>
-    <div class="example-box">
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Change Label Value Path</h4>
+        <p>While by default the items' <code>text</code> attribute is used for the text displayed, it can be
+            customized
+            by setting the components <code>optionLabelPath</code>. Additionally, if you want to use a different
+            label
+            path for selected elements (visible when the dropdown is not expanded), you can set <code>optionLabelSelectedPath</code>.
+        </p>
+        <p>The <code>optionDescriptionPath</code> can be changed to something different from the default (<code>description</code>),
+            and the <code>optionHeadlinePath</code> may be changed from <code>text</code> to a different path for
+            displaying group headers.</p>
+
+        <div class="example-box">
+          {{select-2
           content=pizzas
           optionLabelPath="id"
           optionDescriptionPath="text"
           placeholder="Choose some Pizzas"
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          optionLabelPath="id"
+          optionDescriptionPath="text"
+          placeholder="Choose some Pizzas"
+          }}{{/highlight-code}}
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    optionLabelPath="id"
-    optionDescriptionPath="text"
-    placeholder="Choose some Pizzas"
-}}{{/highlight-code}}
-  </div>
-  <div class="col-sm-6">
-    <h4>Add Custom CSS Class</h4>
-    <p>When one select2 components needs special styles, set the <code>cssClass</code> binding to a string containing a single css class. It will be assigned to the <code>.select2-container</code>, which is the input in closed state, as well as to the <code>.select2-drop</code>, which is the dropdown menu.</p>
-    <p><b>Warning:</b> Don't get to fancy! These classes will not update when the binding updates, they have to be computable at the point of time the component is inserted.</p>
-    <div class="example-box">
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Add Custom CSS Class</h4>
+        <p>When one select2 components needs special styles, set the <code>cssClass</code> binding to a string
+            containing a single css class. It will be assigned to the <code>.select2-container</code>, which is the
+            input in closed state, as well as to the <code>.select2-drop</code>, which is the dropdown menu.</p>
+        <p><b>Warning:</b> Don't get to fancy! These classes will not update when the binding updates, they have to
+            be
+            computable at the point of time the component is inserted.</p>
+
+        <div class="example-box">
+          {{select-2
           content=pizzas
           placeholder="Choose some Pizzas"
           cssClass="custom-class"
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          placeholder="Choose some Pizzas"
+          cssClass="custom-class"
+          }}{{/highlight-code}}
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    placeholder="Choose some Pizzas"
-    cssClass="custom-class"
-}}{{/highlight-code}}
-  </div>
 </div>
 <hr/>
 
 <h3>Typeahead & Ajax Queries</h3>
-<p>Imagine you sell so many pizzas that you don't want to send all of them to the client. Instead, there is a protocol that lets the nearest controller figure out which options to show for a given search term, asynchronously.</p>
-<p>Typeahead is currently only possible for Full Object Binding, because when using an <code>optionValuePath</code>, there is no API to retrieve the full object from the controller.</p>
+<p>Imagine you sell so many pizzas that you don't want to send all of them to the client. Instead, there is a
+    protocol
+    that lets the nearest controller figure out which options to show for a given search term, asynchronously.</p>
+<p>Typeahead is currently only possible for Full Object Binding, because when using an <code>optionValuePath</code>,
+    there is no API to retrieve the full object from the controller.</p>
+
 <div class="row">
-  <div class="col-sm-6">
-    <h4>The Component</h4>
-    <div class="example-box">
-      <p>Specify the name of your controller's callback in the <code>query</code> option.</p>
-      <p>You can use single or multiple selection. Customizing the displayed messages (with placeholder for search term and error) as seen below is optional.</p>
-      <p>Type in "empty" to see the result for an empty query or "error" for a rejected query.</p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>The Component</h4>
+
+        <div class="example-box">
+            <p>Specify the name of your controller's callback in the <code>query</code> option.</p>
+            <p>You can use single or multiple selection. Customizing the displayed messages (with placeholder for
+                search
+                term and error) as seen below is optional.</p>
+            <p>Type in "empty" to see the result for an empty query or "error" for a rejected query.</p>
+          {{select-2
           placeholder="Choose from our many pizzas"
           value=chosenTypeaheadPizza
           typeaheadSearchingText="Searching pizzas"
@@ -228,44 +373,49 @@
           minimumInputLength=3
           maximumInputLength=10
           query="queryPizzas"
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          placeholder="Choose from our many pizzas"
+          value=chosenTypeaheadPizza
+          typeaheadSearchingText="Searching pizzas"
+          typeaheadNoMatchesText="No pizzas found for '%@'"
+          typeaheadErrorText="Loading failed: %@"
+          minimumInputLength=3
+          maximumInputLength=10
+          query="queryPizzas"
+          }}{{/highlight-code}}
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    placeholder="Choose from our many pizzas"
-    value=chosenTypeaheadPizza
-    typeaheadSearchingText="Searching pizzas"
-    typeaheadNoMatchesText="No pizzas found for '%@'"
-    typeaheadErrorText="Loading failed: %@"
-    minimumInputLength=3
-    maximumInputLength=10
-    query="queryPizzas"
-}}{{/highlight-code}}
-  </div>
-  <div class="col-sm-6">
-    <h4>The Controller</h4>
-    <div class="example-box">
-      <p>The action specified in the component will be called every time the query changes.</p>
-      <p>Make sure to not call <code>query.callback</code> directly but always use the provided deferred!</p>
+    <div class="col-sm-6">
+        <h4>The Controller</h4>
+
+        <div class="example-box">
+            <p>The action specified in the component will be called every time the query changes.</p>
+            <p>Make sure to not call <code>query.callback</code> directly but always use the provided deferred!</p>
+        </div>
+      {{#highlight-code lang=".js"}}Ember.Controller.extend({
+          actions: {
+          queryPizzas: function(query, deferred) {
+          this.store.find('myModel', { name: query.term })
+          .then(deferred.resolve, deferred.reject);
+          }
+          }
+          });{{/highlight-code}}
     </div>
-    {{#highlight-code lang=".js"}}Ember.Controller.extend({
-  actions: {
-    queryPizzas: function(query, deferred) {
-      this.store.find('myModel', { name: query.term })
-        .then(deferred.resolve, deferred.reject);
-    }
-  }
-});{{/highlight-code}}
-  </div>
 </div>
 
 <h3>Infinite Scroll with Typeahead & Ajax Queries</h3>
-<p>Imagine you sell so many pizzas that you don't want to send all of them to the client, and using Typeahead doesn't give you a large enough filter. You can implement infinite scroll using the <code>more</code> property</p>
+<p>Imagine you sell so many pizzas that you don't want to send all of them to the client, and using Typeahead
+    doesn't
+    give you a large enough filter. You can implement infinite scroll using the <code>more</code> property</p>
+
 <div class="row">
-  <div class="col-sm-6">
-    <h4>The Component</h4>
-    <div class="example-box">
-      <p>The component is exactly the same as the regular Typeahead and Ajax query from above</p>
-      {{select-2
+    <div class="col-sm-6">
+        <h4>The Component</h4>
+
+        <div class="example-box">
+            <p>The component is exactly the same as the regular Typeahead and Ajax query from above</p>
+          {{select-2
           placeholder="Choose from our many pizzas"
           value=chosenTypeaheadPizza
           typeaheadSearchingText="Searching pizzas"
@@ -274,126 +424,185 @@
           minimumInputLength=3
           maximumInputLength=10
           query="queryInfiniteScrollPizzas"
-      }}
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          placeholder="Choose from our many pizzas"
+          value=chosenTypeaheadPizza
+          typeaheadSearchingText="Searching pizzas"
+          typeaheadNoMatchesText="No pizzas found for '%@'"
+          typeaheadErrorText="Loading failed: %@"
+          minimumInputLength=3
+          maximumInputLength=10
+          query="queryPizzas"
+          }}{{/highlight-code}}
     </div>
-    {{#highlight-code lang=".hbs"}}\{{select-2
-    placeholder="Choose from our many pizzas"
-    value=chosenTypeaheadPizza
-    typeaheadSearchingText="Searching pizzas"
-    typeaheadNoMatchesText="No pizzas found for '%@'"
-    typeaheadErrorText="Loading failed: %@"
-    minimumInputLength=3
-    maximumInputLength=10
-    query="queryPizzas"
-}}{{/highlight-code}}
-  </div>
-  <div class="col-sm-6">
-    <h4>The Controller</h4>
-    <div class="example-box">
-      <p>There are a few minor changes from the regular Typeahead and Ajax query from above.</p>
-      <p>Instead of sending in deferred.resolve as the callback, you need to implement your own callback and call deferred.resolve with the data that was returned and more property</p>
-      <p>Implement <code>more: true</code> when there is still more data to load, and <code>more: false</code> when the server has responded with all the data and there is nothing to load.</p>
-    </div>
-    {{#highlight-code lang=".js"}}Ember.Controller.extend({
-  actions: {
-    queryPizzas: function(query, deferred) {
-      this.store.find('myModel', { name: query.term })
-        .then(function(data) {
+    <div class="col-sm-6">
+        <h4>The Controller</h4>
+
+        <div class="example-box">
+            <p>There are a few minor changes from the regular Typeahead and Ajax query from above.</p>
+            <p>Instead of sending in deferred.resolve as the callback, you need to implement your own callback and
+                call
+                deferred.resolve with the data that was returned and more property</p>
+            <p>Implement <code>more: true</code> when there is still more data to load, and <code>more: false</code>
+                when the server has responded with all the data and there is nothing to load.</p>
+        </div>
+      {{#highlight-code lang=".js"}}Ember.Controller.extend({
+          actions: {
+          queryPizzas: function(query, deferred) {
+          this.store.find('myModel', { name: query.term })
+          .then(function(data) {
           //'when everything has been loaded, specify more: false'
           deferred.resolve({data: data, more: true});
-        }, deferred.reject);
-    }
-  }
-});{{/highlight-code}}
-  </div>
+          }, deferred.reject);
+          }
+          }
+          });{{/highlight-code}}
+    </div>
 </div>
 
 <h3>Miscellaneous</h3>
+
 <div class="row">
-  <div class="col-sm-6">
-    <h4>Hierarchical JSON</h4>
-    <p>select-2 works out of the box when given hierarchical JSON as input. Notice the <code>children</code> attribute.</p>
-    <div class="example-box">
-      {{select-2
+    <div class="col-sm-6">
+        <h4>Hierarchical JSON</h4>
+        <p>select-2 works out of the box when given hierarchical JSON as input. Notice the <code>children</code>
+            attribute.</p>
+
+        <div class="example-box">
+          {{select-2
           content=ingredients
           value=selectedIngredients
           multiple=true
           placeholder="What would you like on your Pizza?"
-      }}
-    </div>
-    {{#highlight-code lang="json"}}[
-  {
-    text: "Vegetables",
-    children: [
-      {
-        id: "tom",
-        text: "Tomatoes"
-      }, {
-        id: "pin",
-        text: "Pineapples"
-      }
-    ]
-  }, { ... }
-]{{/highlight-code}}
-  </div>
-
-  <div class="col-sm-6">
-      <h4>Disabled Individual Options</h4>
-      <p>Setting an attribute of <code>disabled</code> to <code>true</code> will disable the option from being selected</p>
-      <div class="example-box">
-        {{select-2
-            content=disabledPizzas
-            placeholder="Choose some Pizzas"
-        }}
-      </div>
+          }}
+        </div>
       {{#highlight-code lang="json"}}[
-    {
-       id: "1",
-       text: "Margherita",
-       description: "The original italian one"
-     }, {
-       id: "2",
-       text: "Cheese",
-       disabled: true,
-       description: "Can you say Laaame?"
-     }
-  ]{{/highlight-code}}
-  </div>
+          {
+          text: "Vegetables",
+          children: [
+          {
+          id: "tom",
+          text: "Tomatoes"
+          }, {
+          id: "pin",
+          text: "Pineapples"
+          }
+          ]
+          }, { ... }
+          ]{{/highlight-code}}
+    </div>
+
+    <div class="col-sm-6">
+        <h4>Disabled Individual Options</h4>
+        <p>Setting an attribute of <code>disabled</code> to <code>true</code> will disable the option from being
+            selected</p>
+
+        <div class="example-box">
+          {{select-2
+          content=disabledPizzas
+          placeholder="Choose some Pizzas"
+          }}
+        </div>
+      {{#highlight-code lang="json"}}[
+          {
+          id: "1",
+          text: "Margherita",
+          description: "The original italian one"
+          }, {
+          id: "2",
+          text: "Cheese",
+          disabled: true,
+          description: "Can you say Laaame?"
+          }
+          ]{{/highlight-code}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Enabling/Disabling</h4>
+        <p>By binding the component's <code>enabled</code> value, supply a truthy value to enable or a falsy value
+            to
+            disable the input.</p>
+
+        <div class="example-box">
+            <p>
+                <button class="btn btn-default" {{action "toggleEnabled"}}>Toggle enabled</button>
+                Enabled: {{enabled}}</p>
+          {{select-2
+          content=pizzas
+          enabled=enabled
+          placeholder="Choose some Pizzas"
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          enabled=enabled
+          placeholder="Choose some Pizzas"
+          }}{{/highlight-code}}
+    </div>
+    <div class="col-sm-6">
+        <h4>Disabling the Search Field</h4>
+        <p>For small option lists, you may want to disable the search to save screen estate and make the component
+            easier to use on mobile devices. Set <code>searchEnabled</code> to <code>false</code> to disable search.
+            <b>This
+                works in single selection mode only!</b></p>
+        <p>You can, in fact, use any binding (e.g. the <code>Ember.computed.lt</code> computed property), but the
+            value
+            has to be computed on initial rendering.</p>
+
+        <div class="example-box">
+          {{select-2
+          content=pizzas
+          searchEnabled=false
+          placeholder="Choose some Pizzas"
+          }}
+        </div>
+      {{#highlight-code lang=".hbs"}}\{{select-2
+          content=pizzas
+          searchEnabled=false
+          placeholder="Choose some Pizzas"
+          }}{{/highlight-code}}
+    </div>
 </div>
 
 <div class="row">
   <div class="col-sm-6">
-    <h4>Enabling/Disabling</h4>
-    <p>By binding the component's <code>enabled</code> value, supply a truthy value to enable or a falsy value to disable the input.</p>
+    <h4>Sortable Items</h4>
+    <p><strong>Requirement:</strong> jQuery UI's <code>Sortable</code> plugin.</p>
+    <p>Delcare a <code>updateSortOrder</code> attribute with a callback so that the sort order can be acted upon if you wish. And obviously you'd need to have <code>multiple</code> attribute turned on to see more than one sortable <code>selection</code>. Lastly, be sure to set <code>sortableEnabled</code> attribute to be <code>true</code>.</p>
     <div class="example-box">
-      <p><button class="btn btn-default" {{action "toggleEnabled"}}>Toggle enabled</button> Enabled: {{enabled}}</p>
-      {{select-2
-          content=pizzas
-          enabled=enabled
-          placeholder="Choose some Pizzas"
-      }}
+      {{select-2 updateSortOrder="updateSortOrder"
+                  cssClass="select2-hidden"
+                  content=sortableIngredients
+                  formatSelection=formatSortableSelection
+                  formatSelectionEnabled=true
+                  inputSize="input-sm"
+                  multiple=true
+                  optionLabelPath="name"
+                  sortableEnabled=true
+                  value=sortedData}}
     </div>
-        {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    enabled=enabled
-    placeholder="Choose some Pizzas"
+      {{#highlight-code lang=".hbs"}}\{{select-2 updateSortOrder="updateSortOrder"
+          cssClass="select2-hidden"
+          content=sortableIngredients
+          formatSelection=formatSortableSelection
+          formatSelectionEnabled=true
+          inputSize="input-sm"
+          multiple=true
+          optionLabelPath="name"
+          sortableEnabled=true
+          value=sortedData
 }}{{/highlight-code}}
-  </div>
-  <div class="col-sm-6">
-    <h4>Disabling the Search Field</h4>
-    <p>For small option lists, you may want to disable the search to save screen estate and make the component easier to use on mobile devices. Set <code>searchEnabled</code> to <code>false</code> to disable search. <b>This works in single selection mode only!</b></p>
-    <p>You can, in fact, use any binding (e.g. the <code>Ember.computed.lt</code> computed property), but the value has to be computed on initial rendering.</p>
-    <div class="example-box">
-      {{select-2
-          content=pizzas
-          searchEnabled=false
-          placeholder="Choose some Pizzas"
-      }}
-    </div>
-        {{#highlight-code lang=".hbs"}}\{{select-2
-    content=pizzas
-    searchEnabled=false
-    placeholder="Choose some Pizzas"
-}}{{/highlight-code}}
+
+{{#highlight-code lang=".js"}}
+  // Example dataset
+  sortedData: Ember.A([
+    {idx: 1, id: '1', name: 'Salami', locked: true},
+    {idx: 2, id: '2', name: 'Bacon'}
+  ])
+{{/highlight-code}}
   </div>
 </div>
