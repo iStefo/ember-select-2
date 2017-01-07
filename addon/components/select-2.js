@@ -24,14 +24,11 @@ var run = Ember.run;
  */
 var Select2Component = Ember.Component.extend({
   tagName: "input",
-  classNames: ["form-control"],
-  classNameBindings: ["inputSize"],
   attributeBindings: ["style", "tabindex"],
   style: Ember.String.htmlSafe("display: hidden;"),
   tabindex: 0,
 
   // Bindings that may be overwritten in the template
-  inputSize: "input-md",
   cssClass: null,
   optionIdPath: "id",
   optionValuePath: null,
