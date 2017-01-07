@@ -1,7 +1,22 @@
+// jscs: disable
 import Ember from "ember";
 
 var get = Ember.get;
 var run = Ember.run;
+
+var flattenDeep = window._ && window._.flattenDeep || function flattenDeep(array) {
+  if (!Ember.isArray(array)) {
+    return array;
+  }
+
+  var result_array = [];
+
+  array.map(flattenDeep).forEach(function(el) {
+    result_array = result_array.concat(el);
+  });
+
+  return result_array;
+};
 
 /**
  * Ember select-2 component wrapping the jQuery select2 plugin while
@@ -44,6 +59,7 @@ var Select2Component = Ember.Component.extend({
   allowClear: false,
   enabled: true,
   query: null,
+  queryParam: null,
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
@@ -60,7 +76,13 @@ var Select2Component = Ember.Component.extend({
   _hasFailedValuePromise: Ember.computed.alias('value.isRejected'),
   _typeaheadMode: Ember.computed.bool('query'),
 
-  didInsertElement: function() {
+  didInsertElement: function(data) {
+    if ( this.get('value') && typeof this.get('value').then === 'function' && data === void 0) {
+      return this.get('value').then((data) => {
+        this.didInsertElement(data);
+      });
+    }
+
     var self = this,
         options = {},
         optionIdPath = this.get('optionIdPath'),
@@ -120,15 +142,15 @@ var Select2Component = Ember.Component.extend({
           description = get(item, optionDescriptionPath);
 
       if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(headline);
+        output = headline;
       } else {
-        output = Ember.Handlebars.Utils.escapeExpression(text);
+        output = text;
       }
 
       // only for "real items" (no group headers) that have a description
       if (id && description) {
         output += " <span class=\"text-muted\">" +
-          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+          description + "</span>";
       }
 
       return output;
@@ -148,8 +170,7 @@ var Select2Component = Ember.Component.extend({
       // otherwise use the usual optionLabelPath
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+      return text;
     };
 
     /*
@@ -163,27 +184,12 @@ var Select2Component = Ember.Component.extend({
       if (self.get('_typeaheadMode')) {
         var deferred = Ember.RSVP.defer('select2#query: ' + query.term);
 
-        self.sendAction('query', query, deferred);
+        self.sendAction('query', query, deferred, self.get('queryParam'));
 
         deferred.promise.then(function(result) {
-          var data = result;
-          var more = false;
-
-          if (result instanceof Ember.ArrayProxy) {
-            data = result.toArray();
-          } else if (!Array.isArray(result)) {
-            if (result.data instanceof Ember.ArrayProxy) {
-              data = result.data.toArray();
-            } else {
-              data = result.data;
-            }
-            more = result.more;
-          }
-
-          query.callback({
-            results: data,
-            more: more
-          });
+          self.set('query_from_select', query);
+          // this cause contentChanged
+          self.set('content', result);
         }, function(reason) {
           query.callback({
             hasError: true,
@@ -244,9 +250,7 @@ var Select2Component = Ember.Component.extend({
         text = text.string;
       }
 
-      term = Ember.Handlebars.Utils.escapeExpression(term);
-
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      return Ember.String.htmlSafe(Ember.String.loc(text, term));
     };
 
     /*
@@ -256,7 +260,7 @@ var Select2Component = Ember.Component.extend({
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
       var text = self.get('typeaheadErrorText');
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      return Ember.String.htmlSafe(Ember.String.loc(text, errorThrown));
     };
 
     /*
@@ -278,12 +282,21 @@ var Select2Component = Ember.Component.extend({
      */
     options.initSelection = function(element, callback) {
       var value = element.val(),
-          content = self.get("content"),
+          content = self.get("content") || [],
           contentIsArrayProxy = Ember.ArrayProxy.detectInstance(content),
           multiple = self.get("multiple"),
           optionValuePath = self.get("optionValuePath");
 
-      if (!value || !value.length) {
+      var contentIds =
+        content
+        .mapBy('id')
+        .compact()
+        .concat(flattenDeep(content.mapBy('children').compact()).mapBy('id'))
+        .map(String);
+
+      var valuePresentInIds = contentIds.indexOf(String(value)) !== -1;
+
+      if (!value || !value.length || !valuePresentInIds) {
         return callback([]);
       }
 
@@ -388,12 +401,10 @@ var Select2Component = Ember.Component.extend({
       this.selectionChanged(data);
     }));
 
-    this.addObserver('content.[]', this.valueChanged);
-    this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
-    this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
-    this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
-    this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
+    this.addObserver('content.@each.' + optionLabelPath, this.contentChanged);
     this.addObserver('value', this.valueChanged);
+    this.addObserver('value.text', this.valueChanged);
+    this.addObserver('value.@each.text', this.valueChanged);
 
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
@@ -421,24 +432,13 @@ var Select2Component = Ember.Component.extend({
       this._select.select2("destroy");
     }
 
-    this.removeObserver('content.[]', this.valueChanged);
     this.removeObserver(
       'content.@each.' + this.get('optionLabelPath'),
-      this.valueChanged
-    );
-    this.removeObserver(
-      'content.@each.' + this.get('optionLabelSelectedPath'),
-      this.valueChanged
-    );
-    this.removeObserver(
-      'content.@each.' + this.get('optionHeadlinePath'),
-      this.valueChanged
-    );
-    this.removeObserver(
-      'content.@each.' + this.get('optionDescriptionPath'),
-      this.valueChanged
+      this.contentChanged
     );
     this.removeObserver('value', this.valueChanged);
+    this.removeObserver('value.text', this.valueChanged);
+    this.removeObserver('value.@each.text', this.valueChanged);
   },
 
   /**
@@ -461,7 +461,7 @@ var Select2Component = Ember.Component.extend({
         value = Ember.A(data).getEach(optionValuePath);
       } else {
         // treat data as a single object
-        value = get(data, optionValuePath);
+        value = data ? get(data, optionValuePath) : void 0;
       }
     } else {
       value = data;
@@ -506,6 +506,31 @@ var Select2Component = Ember.Component.extend({
     } else {
       // otherwise set the full object via "data"
       this._select.select2("data", value);
+    }
+  },
+
+  contentChanged: function () {
+    var result  = this.get('content'),
+        query   = this.get('query_from_select'),
+        data    = result,
+        more    = false;
+
+    if (query && query.callback) {
+      if (result instanceof Ember.ArrayProxy) {
+        data = result.toArray();
+      } else if (!Array.isArray(result)) {
+        if (result.data instanceof Ember.ArrayProxy) {
+          data = result.data.toArray();
+        } else {
+          data = result.data;
+        }
+        more = result.more;
+      }
+
+      query.callback({
+        results: data,
+        more: more
+      });
     }
   },
 
