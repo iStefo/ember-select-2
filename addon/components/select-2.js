@@ -1,6 +1,7 @@
 import Ember from "ember";
 
 var get = Ember.get;
+var getWithDefault = Ember.getWithDefault;
 var run = Ember.run;
 
 /**
@@ -33,24 +34,33 @@ var Select2Component = Ember.Component.extend({
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
   cssClass: null,
+  opened: false,
   optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
   optionLabelSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
+  unescapeLabel: false,
+  unescapeDescription: false,
+  unescapeSelection: false,
   placeholder: null,
   multiple: false,
   allowClear: false,
+  clearDefaultValue: undefined,
   enabled: true,
   query: null,
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
+  typeaheadMinimumValueText: 'Type more characters…',
+  typeaheadMaximumValueText: 'Type less characters…',
   searchEnabled: true,
   minimumInputLength: null,
   maximumInputLength: null,
   valueSeparator: ',',
+  maximumSelectionSize: null,
+  closeOnSelect: true,
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -81,6 +91,15 @@ var Select2Component = Ember.Component.extend({
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
+    options.maximumSelectionSize = this.get('maximumSelectionSize');
+    options.closeOnSelect = !!this.get('closeOnSelect');
+    options.unescapeLabel = this.get('unescapeLabel');
+    options.unescapeDescription = this.get('unescapeDescription');
+    options.unescapeSelection = this.get('unescapeSelection');
+
+    // ensures that max selection size is numeric or null.
+    var maximumSelectionSizeValueIsValid = (!isNaN(this.get('maximumSelectionSize')) || this.get('maximumSelectionSize') === null);
+    Ember.assert("select2 maximumSelectionSize value must be numeric or null", maximumSelectionSizeValueIsValid);
 
     // ensure there is a value separator if needed (= when in multiple selection with value binding)
     var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
@@ -120,15 +139,15 @@ var Select2Component = Ember.Component.extend({
           description = get(item, optionDescriptionPath);
 
       if (item.children) {
-        output = Ember.Handlebars.Utils.escapeExpression(headline);
+        output = options.unescapeLabel ? headline : Ember.Handlebars.Utils.escapeExpression(headline);
       } else {
-        output = Ember.Handlebars.Utils.escapeExpression(text);
+        output = options.unescapeLabel ? text : Ember.Handlebars.Utils.escapeExpression(text);
       }
 
       // only for "real items" (no group headers) that have a description
       if (id && description) {
-        output += " <span class=\"text-muted\">" +
-          Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+        var outputDescription = options.unescapeDescription ? description : Ember.Handlebars.Utils.escapeExpression(description);
+        output += " <span class=\"text-muted\">" + outputDescription + "</span>";
       }
 
       return output;
@@ -149,7 +168,7 @@ var Select2Component = Ember.Component.extend({
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
       // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+      return options.unescapeSelection ? text : Ember.Handlebars.Utils.escapeExpression(text);
     };
 
     /*
@@ -246,7 +265,7 @@ var Select2Component = Ember.Component.extend({
 
       term = Ember.Handlebars.Utils.escapeExpression(term);
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, term));
+      return Ember.String.htmlSafe(text.replace('%@', term));
     };
 
     /*
@@ -255,8 +274,37 @@ var Select2Component = Ember.Component.extend({
      */
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
       var text = self.get('typeaheadErrorText');
+      if (text instanceof Ember.Handlebars.SafeString) {
+        text = text.string;
+      }
 
-      return Ember.String.htmlSafe(Ember.String.fmt(text, errorThrown));
+      return Ember.String.htmlSafe(text.replace('%@', errorThrown));
+    };
+
+    /*
+      Format the no input too short message, substituting the %@ placeholder with
+      the missing chars count left
+     */
+    options.formatInputTooShort = function(textInput, minCount) {
+      var text = self.get('typeaheadMinimumValueText');
+      if (text instanceof Ember.Handlebars.SafeString) {
+        text = text.string;
+      }
+
+      return Ember.String.htmlSafe(text.replace('%@', minCount));
+    };
+
+    /*
+      Format the input too long message, substituting the %@ placeholder with
+      the count of extra chars
+     */
+    options.formatInputTooLong = function(textInput, maxCount) {
+      var text = self.get('typeaheadMaximumValueText');
+      if (text instanceof Ember.Handlebars.SafeString) {
+        text = text.string;
+      }
+
+      return Ember.String.htmlSafe(text.replace('%@', maxCount));
     };
 
     /*
@@ -388,12 +436,18 @@ var Select2Component = Ember.Component.extend({
       this.selectionChanged(data);
     }));
 
+    this._select.on("select2-close", run.bind(this, function() {
+      this.set('opened', false);
+    }));
+
     this.addObserver('content.[]', this.valueChanged);
     this.addObserver('content.@each.' + optionLabelPath, this.valueChanged);
     this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
     this.addObserver('value', this.valueChanged);
+
+    this.addObserver('opened', this.openedChanged);
 
     // trigger initial data sync to set select2 to the external "value"
     this.valueChanged();
@@ -439,6 +493,8 @@ var Select2Component = Ember.Component.extend({
       this.valueChanged
     );
     this.removeObserver('value', this.valueChanged);
+
+    this.removeObserver('opened', this.openedChanged);
   },
 
   /**
@@ -461,7 +517,7 @@ var Select2Component = Ember.Component.extend({
         value = Ember.A(data).getEach(optionValuePath);
       } else {
         // treat data as a single object
-        value = get(data, optionValuePath);
+        value = getWithDefault(data, optionValuePath, this.get("clearDefaultValue"));
       }
     } else {
       value = data;
@@ -507,6 +563,11 @@ var Select2Component = Ember.Component.extend({
       // otherwise set the full object via "data"
       this._select.select2("data", value);
     }
+  },
+
+  openedChanged: function() {
+    var action = !!this.get('opened') ? 'open' : 'close';
+    this._select.select2(action);
   },
 
   /**

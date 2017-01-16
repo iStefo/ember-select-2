@@ -260,7 +260,7 @@ test("it displays default minimumInputLength text", function(assert) {
   click('.select2-choice');
 
   andThen(function() {
-    assert.equal($('li.select2-no-results').text(), "Please enter 3 or more characters", "displays minimumInputLength text info");
+    assert.equal($('li.select2-no-results').text(), "Type more characters…", "displays minimumInputLength text info");
   });
 });
 
@@ -378,7 +378,7 @@ test("it displays custom `typeaheadNoMatchesText` text", function(assert) {
 
   fillIn('.select2-input', 'body', 'bla');
 
-  andThen(function() {    
+  andThen(function() {
     assert.equal($('li.select2-no-results').text(), "No results for ", "display custom no results text");
   });
 });
