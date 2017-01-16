@@ -259,7 +259,7 @@ var Select2Component = Ember.Component.extend({
      */
     options.formatNoMatches = function(term) {
       var text = self.get('typeaheadNoMatchesText');
-      if (text instanceof Ember.Handlebars.SafeString) {
+      if (text instanceof Ember.String.htmlSafe) {
         text = text.string;
       }
 
@@ -274,7 +274,7 @@ var Select2Component = Ember.Component.extend({
      */
     options.formatAjaxError = function(jqXHR, textStatus, errorThrown) {
       var text = self.get('typeaheadErrorText');
-      if (text instanceof Ember.Handlebars.SafeString) {
+      if (text instanceof Ember.String.htmlSafe) {
         text = text.string;
       }
 
@@ -287,7 +287,7 @@ var Select2Component = Ember.Component.extend({
      */
     options.formatInputTooShort = function(textInput, minCount) {
       var text = self.get('typeaheadMinimumValueText');
-      if (text instanceof Ember.Handlebars.SafeString) {
+      if (text instanceof Ember.String.htmlSafe) {
         text = text.string;
       }
 
@@ -300,7 +300,7 @@ var Select2Component = Ember.Component.extend({
      */
     options.formatInputTooLong = function(textInput, maxCount) {
       var text = self.get('typeaheadMaximumValueText');
-      if (text instanceof Ember.Handlebars.SafeString) {
+      if (text instanceof Ember.String.htmlSafe) {
         text = text.string;
       }
 
