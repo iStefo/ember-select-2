@@ -1,9 +1,9 @@
 /*
   Test "customization" options like:
    * `optionLabelPath`
-   * `optionHeadlinePath`   
+   * `optionHeadlinePath`
    * `optionDescriptionPath`
-   * `searchEnabled` 
+   * `searchEnabled`
    * custom styles (future...)
  */
 
@@ -34,13 +34,13 @@ var ingredients = Ember.A([
     group: 'Seefruits',
     subtext: 'fifth',
     children: [
-      {    
+      {
         id: 6,
-        name: 'Salmon'    
+        name: 'Salmon'
       },
-      {    
+      {
         id: 7,
-        name: 'Shrimps'    
+        name: 'Shrimps'
       }
     ]
   }
@@ -301,5 +301,5 @@ test("uses `optionLabelSelectedPath`", function(assert) {
 
   component.set("value", "first");
 
-  assert.equal(find(".select2-choice").text().trim(), "selectedFirst", "has correct selected text");
+  assert.equal(find(".select2-choice").text().trim(), "First", "has correct selected text");
 });
