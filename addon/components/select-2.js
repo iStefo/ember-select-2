@@ -32,18 +32,22 @@ var Select2Component = Ember.Component.extend({
 
   // Bindings that may be overwritten in the template
   inputSize: "input-md",
-  cssClass: null,
+  containerCssClass: null,
+  dropdownCssClass: null,
   optionIdPath: "id",
   optionValuePath: null,
   optionLabelPath: 'text',
   optionLabelSelectedPath: null,
   optionHeadlinePath: 'text',
   optionDescriptionPath: 'description',
+  optionCssClassPath: 'cssClass',
   placeholder: null,
   multiple: false,
   allowClear: false,
   enabled: true,
   query: null,
+  tags: false,
+  tokenSeparators: null,
   typeaheadSearchingText: 'Searching…',
   typeaheadNoMatchesText: 'No matches found',
   typeaheadErrorText: 'Loading failed',
@@ -65,6 +69,7 @@ var Select2Component = Ember.Component.extend({
         options = {},
         optionIdPath = this.get('optionIdPath'),
         optionLabelPath = this.get('optionLabelPath'),
+        optionCssClassPath = this.get('optionCssClassPath'),
         optionLabelSelectedPath = this.get('optionLabelSelectedPath'),
         optionHeadlinePath = this.get('optionHeadlinePath'),
         optionDescriptionPath = this.get('optionDescriptionPath'),
@@ -78,9 +83,21 @@ var Select2Component = Ember.Component.extend({
     options.placeholder = this.get('placeholder');
     options.multiple = this.get('multiple');
     options.allowClear = this.get('allowClear');
+    options.containerCssClass = this.get('containerCssClass') || '';
+    options.dropdownCssClass = this.get('dropdownCssClass') || '';
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
     options.minimumInputLength = this.get('minimumInputLength');
     options.maximumInputLength = this.get('maximumInputLength');
+    if (this.get('tags')) {
+      options.tags = this.get('tags');
+    }
+    if (this.get('tokenSeparators')) {
+      options.tokenSeparators = this.get('tokenSeparators');
+      options.createSearchChoice = function(term) {
+        return Ember.$.trim(term);
+      };
+      // TODO(ed): initSelection
+    }
 
     // ensure there is a value separator if needed (= when in multiple selection with value binding)
     var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
@@ -117,7 +134,7 @@ var Select2Component = Ember.Component.extend({
           id = get(item, optionIdPath),
           text = get(item, optionLabelPath),
           headline = get(item, optionHeadlinePath),
-          description = get(item, optionDescriptionPath);
+          description = optionDescriptionPath && get(item, optionDescriptionPath);
 
       if (item.children) {
         output = Ember.Handlebars.Utils.escapeExpression(headline);
@@ -134,6 +151,14 @@ var Select2Component = Ember.Component.extend({
       return output;
     };
 
+    options.formatResultCssClass = function(item) {
+      if (!item) {
+        return '';
+      }
+
+      return get(item, optionCssClassPath) || '';
+    };
+
     /*
       Generates the html used in the closed select input, displaying the
       currently selected element(s). Works like "formatResult" but
@@ -148,8 +173,10 @@ var Select2Component = Ember.Component.extend({
       // otherwise use the usual optionLabelPath
       var text = get(item, optionLabelSelectedPath || optionLabelPath);
 
-      // escape text unless it's passed as a Handlebars.SafeString
-      return Ember.Handlebars.Utils.escapeExpression(text);
+      var cssClass = get(item, optionCssClassPath) || '';
+      var output = '<span class="' + cssClass + '">' + Ember.Handlebars.Utils.escapeExpression(text) + '</span>';
+
+      return output;
     };
 
     /*
@@ -371,14 +398,6 @@ var Select2Component = Ember.Component.extend({
       }
     };
 
-    /*
-      Forward a custom css class to the components container and dropdown.
-      The value will be read from the `cssClass` binding
-     */
-    options.containerCssClass = options.dropdownCssClass = function() {
-      return self.get('cssClass') || '';
-    };
-
     this._select = this.$().select2(options);
 
     this._select.on("change", run.bind(this, function() {
@@ -393,6 +412,9 @@ var Select2Component = Ember.Component.extend({
     this.addObserver('content.@each.' + optionLabelSelectedPath, this.valueChanged);
     this.addObserver('content.@each.' + optionHeadlinePath, this.valueChanged);
     this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
+    if (optionDescriptionPath) {
+      this.addObserver('content.@each.' + optionDescriptionPath, this.valueChanged);
+    }
     this.addObserver('value', this.valueChanged);
 
     // trigger initial data sync to set select2 to the external "value"
@@ -434,10 +456,12 @@ var Select2Component = Ember.Component.extend({
       'content.@each.' + this.get('optionHeadlinePath'),
       this.valueChanged
     );
-    this.removeObserver(
-      'content.@each.' + this.get('optionDescriptionPath'),
-      this.valueChanged
-    );
+    if (this.get('optionDescriptionPath')) {
+      this.removeObserver(
+        'content.@each.' + this.get('optionDescriptionPath'),
+        this.valueChanged
+      );
+    }
     this.removeObserver('value', this.valueChanged);
   },
 
