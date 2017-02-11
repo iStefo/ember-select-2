@@ -52,6 +52,55 @@ var Select2Component = Ember.Component.extend({
   maximumInputLength: null,
   valueSeparator: ',',
 
+  select2api: [
+    'width',
+    'minimumInputLength',
+    'maximumInputLength',
+    'minimumResultsForSearch',
+    'maximumSelectionSize',
+    'placeholder',
+    'placeholderOption',
+    'separator',
+    'allowClear',
+    'multiple',
+    'closeOnSelect',
+    'openOnEnter',
+    'id',
+    'matcher',
+    'sortResults',
+    'formatSelection',
+    'formatResult',
+    'formatResultCssClass',
+    'formatNoMatches',
+    'formatSearching',
+    'formatAjaxError',
+    'formatInputTooShort',
+    'formatInputTooLong',
+    'formatSelectionTooBig',
+    'formatLoadMore',
+    'createSearchChoice',
+    'createSearchChoicePosition',
+    'initSelection',
+    'tokenizer',
+    'tokenSeparators',
+    'query',
+    'ajax',
+    'data',
+    'tags',
+    'containerCss',
+    'containerCssClass',
+    'dropdownCss',
+    'dropdownCssClass',
+    'dropdownAutoWidth',
+    'adaptContainerCssClass',
+    'adaptDropdownCssClass',
+    'escapeMarkup',
+    'selectOnBlur',
+    'loadMorePadding',
+    'nextSearchTerm'
+  ],
+
+
   // internal state
   _hasSelectedMissingItems: false,
   _hasPendingContentPromise: Ember.computed.alias('content.isPending'),
@@ -74,24 +123,36 @@ var Select2Component = Ember.Component.extend({
     // ensure select2 is loaded
     Ember.assert("select2 has to exist on Ember.$.fn.select2", typeof Ember.$.fn.select2 === "function");
 
-    // setup
-    options.placeholder = this.get('placeholder');
-    options.multiple = this.get('multiple');
-    options.allowClear = this.get('allowClear');
     options.minimumResultsForSearch = this.get('searchEnabled') ? 0 : -1 ;
-    options.minimumInputLength = this.get('minimumInputLength');
-    options.maximumInputLength = this.get('maximumInputLength');
-
-    // ensure there is a value separator if needed (= when in multiple selection with value binding)
-    var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
-    Ember.assert("select2#didInsertElement: You must specify a valueSeparator when in multiple mode.", !missesValueSeperator);
-
     options.separator = this.get('valueSeparator');
+
+    /*
+      Can define an options hash on the controller implimenting this compoennet
+      then assign that hash to `optionsHash` property on the compoennet.
+      need to know
+    */
+    var useOptionsHash = !!this.get('optionsHash');
+
+    /*
+      if user defined a valid option from the select2api, assign it in the options obj
+    */
+    var value;
+    this.get('select2api').forEach((option) => {
+      value = useOptionsHash ? this.get('optionsHash')[option] : this.get(option);
+      if (value !== undefined) {
+        options[option] = value;
+      }
+    });
+
 
     // override select2's default id fetching behavior
     options.id = (function(e) {
       return (e === undefined) ? null : get(e, optionIdPath);
     });
+
+    // ensure there is a value separator if needed (= when in multiple selection with value binding)
+    var missesValueSeperator = this.get('multiple') && this.get('optionValuePath') && !this.get('valueSeparator');
+    Ember.assert("select2#didInsertElement: You must specify a valueSeparator when in multiple mode.", !missesValueSeperator);
 
     // allowClear is only allowed with placeholder
     Ember.assert("To use allowClear, you have to specify a placeholder", !options.allowClear || options.placeholder);
