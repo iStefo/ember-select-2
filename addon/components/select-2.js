@@ -51,6 +51,7 @@ var Select2Component = Ember.Component.extend({
   minimumInputLength: null,
   maximumInputLength: null,
   valueSeparator: ',',
+  index: null,
 
   // internal state
   _hasSelectedMissingItems: false,
@@ -129,6 +130,10 @@ var Select2Component = Ember.Component.extend({
       if (id && description) {
         output += " <span class=\"text-muted\">" +
           Ember.Handlebars.Utils.escapeExpression(description) + "</span>";
+      }
+
+      if (index) {
+        output += "<span class=" + Ember.Handlebars.Utils.escapeExpression(index) + "></span>";
       }
 
       return output;
