@@ -379,6 +379,9 @@ var Select2Component = Ember.Component.extend({
       return self.get('cssClass') || '';
     };
 
+    // override options
+    options = this.customizeOptions(options);
+
     this._select = this.$().select2(options);
 
     this._select.on("change", run.bind(this, function() {
@@ -440,6 +443,13 @@ var Select2Component = Ember.Component.extend({
     );
     this.removeObserver('value', this.valueChanged);
   },
+
+  /**
+   * override options
+   */
+  customizeOptions: function(options) {
+    return options;
+  }
 
   /**
    * Respond to selection changes originating from the select2 element. If
