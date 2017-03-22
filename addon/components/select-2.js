@@ -449,7 +449,7 @@ var Select2Component = Ember.Component.extend({
    */
   customizeOptions: function(options) {
     return options;
-  }
+  },
 
   /**
    * Respond to selection changes originating from the select2 element. If
